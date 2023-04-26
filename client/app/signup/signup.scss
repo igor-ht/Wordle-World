@@ -1,0 +1,153 @@
+.signup-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.signup-box {
+	background-color: rgb(245, 245, 99);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border: 0;
+	border-radius: 2%;
+	box-shadow: 0px 0px 8px 3px rgb(233, 231, 231);
+
+	img {
+		width: 15em;
+		height: auto;
+		object-fit: cover;
+		margin: 10px;
+		pointer-events: none;
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		user-select: none;
+	}
+	.signup-google {
+		margin: 10px;
+	}
+}
+
+form {
+	margin: 5px;
+	text-align: center;
+
+	.signup-form {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 5px;
+		margin: 5px;
+	}
+
+	.input-box {
+		display: flex;
+		flex-direction: column;
+		margin: 5px;
+
+		.error {
+			color: red;
+			font-size: smaller;
+			float: right;
+			margin: 0;
+			margin-top: 5px;
+		}
+
+		label {
+			float: left;
+			margin-top: 1px;
+			margin-bottom: 1px;
+			font-family: "Varela Round", sans-serif;
+			font-size: 1.2rem;
+			font-weight: 400;
+			font-style: normal;
+		}
+		input {
+			height: 25px;
+			width: 300px;
+			border-radius: 3%;
+			border: 1px solid white;
+			margin-top: 3px;
+			margin-bottom: 3px;
+			font-family: "Varela Round", sans-serif;
+			font-size: 1rem;
+			font-weight: 400;
+			font-style: normal;
+
+			&::placeholder {
+				font-size: small;
+				color: rgb(185, 185, 185);
+				font-family: "Varela Round", sans-serif;
+			}
+
+			&:focus-visible {
+				outline: none;
+				border: 1px solid rgb(255, 255, 255);
+				box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.96);
+				background-color: rgb(239, 244, 210);
+			}
+		}
+	}
+
+	button[type="submit"] {
+		background-color: rgb(103, 217, 68);
+		color: white;
+		height: 40px;
+		width: 300px;
+		border-radius: 4%;
+		margin: 5px;
+		font-family: "Varela Round", sans-serif;
+		font-size: 1rem;
+		font-weight: 400;
+		font-style: normal;
+		border: 0;
+		cursor: pointer;
+		&:hover {
+			opacity: 0.9;
+		}
+		&:active {
+			opacity: 1;
+			background-color: rgb(91, 200, 58);
+			box-shadow: 0px 0px 5px 0px gray;
+		}
+	}
+}
+.signup-google {
+	margin: 10px;
+	margin-bottom: 15px;
+	button {
+		height: 40px;
+		width: 300px;
+		background-color: rgb(207, 207, 207);
+		border: 0;
+		border: 3%;
+		display: flex;
+		align-items: center;
+		cursor: pointer;
+		font-family: "Varela Round", sans-serif;
+		font-size: 1rem;
+		font-weight: 400;
+		font-style: normal;
+
+		img {
+			margin: 0;
+			height: 30px;
+			width: 33px;
+		}
+		p {
+			color: white;
+			margin-left: 20%;
+			font-weight: 500;
+			font-family: "Varela Round", sans-serif;
+			font-weight: 400;
+			font-style: normal;
+		}
+		&:hover {
+			background-color: rgb(186, 186, 186);
+		}
+		&:active {
+			background-color: rgb(156, 156, 156);
+			box-shadow: 0px 0px 5px 0px black;
+		}
+	}
+}

@@ -1,0 +1,135 @@
+@keyframes InputPop {
+	from {
+		transform: scale(0.5);
+		opacity: 0;
+	}
+	to {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+@keyframes SpanPop {
+	from {
+		transform: scale(0.3);
+		opacity: 0;
+		box-shadow: 0px 0px 5px 1px white;
+	}
+	to {
+		transform: scale(1.1);
+		opacity: 1;
+		box-shadow: 0px 0px 10px 3px white;
+	}
+}
+@keyframes ShortGuess {
+	0% {
+		margin-left: 15px;
+		margin-right: 0;
+	}
+	50% {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	100% {
+		margin-left: 0;
+		margin-right: 15px;
+	}
+}
+@keyframes NotFoundGuess {
+	0% {
+		margin-left: 15px;
+		margin-right: 0;
+	}
+	50% {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	100% {
+		margin-left: 0;
+		margin-right: 15px;
+	}
+}
+@keyframes InputUpdate {
+	from {
+		opacity: 0.3;
+		transform: rotateY(0deg) scale(0.4);
+	}
+	to {
+		opacity: 1;
+		transform: rotateY(360deg) scale(1.1);
+	}
+}
+
+.input-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 5px;
+
+	.span-complete {
+		background-color: rgba(255, 255, 255, 0.626);
+		box-shadow: 0px 0px 10px 3px white;
+	}
+	.pop {
+		animation-name: SpanPop;
+		animation-duration: 400ms;
+	}
+	.short-guess {
+		animation: ShortGuess;
+		animation-duration: 50ms;
+		animation-iteration-count: 10;
+	}
+	.notfound-guess {
+		@extend .short-guess;
+		animation-name: NotFoundGuess;
+	}
+	input {
+		height: 40px;
+		width: 44px;
+		margin: 2px;
+		border-radius: 10%;
+		border: 1px solid white;
+		caret-color: transparent;
+		text-align: center;
+		font-size: x-large;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+			sans-serif;
+		font-weight: 600;
+		text-transform: uppercase;
+		pointer-events: none;
+
+		&.bull {
+			color: white;
+			background-color: rgb(36, 199, 36);
+			border: 1px solid rgb(36, 199, 36);
+			animation: InputUpdate 1s;
+		}
+		&.cow {
+			color: white;
+			background-color: rgb(238, 238, 16);
+			border: 1px solid rgb(238, 238, 16);
+			animation: InputUpdate 1s;
+		}
+		&.wrong {
+			color: white;
+			background-color: rgb(128, 128, 128);
+			border: 1px solid rgb(128, 128, 128);
+			animation: InputUpdate 1s;
+		}
+
+		&::selection {
+			color: none;
+			background: none;
+		}
+		&::-moz-selection {
+			color: none;
+			background: none;
+		}
+	}
+	.current-input {
+		background-color: white;
+		outline: none;
+		box-shadow: 0px 0px 10px 3px white;
+		animation-name: InputPop;
+		animation-duration: 300ms;
+	}
+}

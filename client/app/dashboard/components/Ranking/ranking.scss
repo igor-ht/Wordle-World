@@ -1,0 +1,80 @@
+.ranking-container {
+  width: 45vw;
+  height: 90%;
+  max-height: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid gold;
+  background-color: rgb(255, 233, 110);
+
+  h1 {
+    text-align: center;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    text-decoration: underline;
+    font-family: "Varela Round", sans-serif;
+  }
+
+  .user-rank {
+    height: auto;
+    margin-bottom: 0;
+    tr {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      text-align: center;
+      th {
+        width: 100%;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      td {
+        width: 33%;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+
+  table {
+    border-collapse: collapse;
+    box-shadow: 0px 0px 20px 0px white;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    height: -webkit-fill-available;
+    thead {
+      tr {
+        th {
+          height: 35px;
+          width: 100px;
+          text-align: center;
+          background-color: rgb(255, 172, 172);
+          font-family: "Varela Round", sans-serif;
+          font-size: 1.3rem;
+        }
+      }
+    }
+    tbody {
+      tr {
+        td {
+          text-align: center;
+          margin: 0;
+          font-family: "Varela Round", sans-serif;
+          font-size: 1.1rem;
+          max-height: 30px;
+        }
+        &:nth-child(odd) {
+          background-color: rgb(214, 214, 214);
+        }
+        &:nth-child(even) {
+          background-color: rgb(195, 195, 195);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+@keyframes ShortGuessTooltip {
+	0% {
+		transform: rotate(10deg);
+	}
+	20% {
+		transform: rotate(-10deg);
+	}
+	50% {
+		transform: rotate(-10deg);
+	}
+	100% {
+		transform: rotate(10deg);
+	}
+}
+
+@keyframes NotFoundGuessTooltip {
+	0% {
+		transform: rotate(10deg);
+	}
+	20% {
+		transform: rotate(-10deg);
+	}
+	50% {
+		transform: rotate(-10deg);
+	}
+	100% {
+		transform: rotate(10deg);
+	}
+}
+
+.short-guess-tooltip {
+	position: absolute;
+	bottom: 58%;
+	height: 50px;
+	width: 150px;
+	background-color: rgb(0 0 0 / 73%);
+	color: white;
+	border-radius: 4%;
+	animation-name: ShortGuessTooltip;
+	animation-duration: 100ms;
+	animation-iteration-count: 5;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: "Varela Round", sans-serif;
+}
+
+.notfound-guess-tooltip {
+	@extend .short-guess-tooltip;
+	animation-name: NotFoundGuessTooltip;
+}

@@ -1,0 +1,210 @@
+$particles: 50;
+$width: 500;
+$height: 500;
+
+$box-shadow: ();
+$box-shadow2: ();
+@for $i from 0 through $particles {
+	$box-shadow: $box-shadow, random($width)-$width / 2 + px random($height)-$height / 1.2 + px hsl(random(360), 100, 50);
+	$box-shadow2: $box-shadow2, 0 0 #fff;
+}
+@mixin keyframes($animationName) {
+	@-webkit-keyframes #{$animationName} {
+		@content;
+	}
+
+	@-moz-keyframes #{$animationName} {
+		@content;
+	}
+
+	@-o-keyframes #{$animationName} {
+		@content;
+	}
+
+	@-ms-keyframes #{$animationName} {
+		@content;
+	}
+
+	@keyframes #{$animationName} {
+		@content;
+	}
+}
+
+@mixin animation-delay($settings) {
+	-moz-animation-delay: $settings;
+	-webkit-animation-delay: $settings;
+	-o-animation-delay: $settings;
+	-ms-animation-delay: $settings;
+	animation-delay: $settings;
+}
+
+@mixin animation-duration($settings) {
+	-moz-animation-duration: $settings;
+	-webkit-animation-duration: $settings;
+	-o-animation-duration: $settings;
+	-ms-animation-duration: $settings;
+	animation-duration: $settings;
+}
+
+@mixin animation($settings) {
+	-moz-animation: $settings;
+	-webkit-animation: $settings;
+	-o-animation: $settings;
+	-ms-animation: $settings;
+	animation: $settings;
+}
+
+@mixin transform($settings) {
+	transform: $settings;
+	-moz-transform: $settings;
+	-webkit-transform: $settings;
+	-o-transform: $settings;
+	-ms-transform: $settings;
+}
+
+.victory-background {
+	position: absolute;
+	background-color: rgba(10, 6, 55, 0.76);
+	height: 108vh;
+	width: 100vw;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+
+	.victory-card {
+		position: absolute;
+		left: 20%;
+		top: 15%;
+		height: 76vh;
+		width: 60vw;
+		background-color: rgba(255, 255, 255, 0.849);
+		border: 0;
+		border-radius: 1%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+
+		img {
+			width: 300px;
+			height: auto;
+			margin: 0;
+			pointer-events: none;
+
+			user-select: none;
+		}
+		p {
+			font-family: "Varela Round", sans-serif;
+			font-size: 1.2rem;
+			margin: 20px;
+		}
+		div {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			button {
+				height: 40px;
+				width: 200px;
+				margin: 15px;
+				border-radius: 5%;
+				border: 0;
+				background-color: rgb(154, 254, 4);
+				box-shadow: 0px 0px 5px 1px green;
+				cursor: pointer;
+				font-family: "Varela Round", sans-serif;
+				font-size: 1.1rem;
+				color: white;
+				text-shadow: 0px 0px 8px black;
+				&:nth-child(2) {
+					background-color: rgb(234, 234, 0);
+					box-shadow: 0px 0px 6px 1px rgb(177, 177, 0);
+					&:hover {
+						background-color: rgb(224, 224, 7);
+						box-shadow: 0px 0px 6px 1px rgb(166, 166, 2);
+					}
+					&:active {
+						background-color: rgb(200, 200, 11);
+						box-shadow: 0px 0px 8px 2px rgb(140, 140, 6);
+					}
+				}
+				&:hover {
+					background-color: rgb(133, 222, 0);
+					box-shadow: 0px 0px 6px 1px green;
+				}
+				&:active {
+					background-color: rgb(114, 190, 0);
+					box-shadow: 0px 0px 8px 2px green;
+				}
+			}
+			p {
+				font-size: small;
+				justify-self: end;
+				font-family: "Varela Round", sans-serif;
+			}
+		}
+	}
+}
+
+.pyro > .before,
+.pyro > .after {
+	position: absolute;
+	width: 5px;
+	height: 5px;
+	border-radius: 50%;
+	box-shadow: $box-shadow2;
+	@include animation(
+		(1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards)
+	);
+}
+
+.pyro > .after {
+	@include animation-delay((0.75s, 0.75s, 0.75s));
+	@include animation-duration((1.25s, 1.25s, 6.25s));
+}
+
+@include keyframes(bang) {
+	to {
+		box-shadow: $box-shadow;
+	}
+}
+
+@include keyframes(gravity) {
+	to {
+		@include transform(translateY(200px));
+		opacity: 0;
+	}
+}
+
+@include keyframes(position) {
+	0%,
+	19.9% {
+		margin-top: 10%;
+		margin-left: 40%;
+		opacity: 1;
+	}
+	20%,
+	39.9% {
+		margin-top: 40%;
+		margin-left: 30%;
+		opacity: 0.8;
+	}
+	40%,
+	59.9% {
+		margin-top: 20%;
+		margin-left: 70%;
+		opacity: 0.6;
+	}
+	60%,
+	79.9% {
+		margin-top: 20%;
+		margin-left: 20%;
+		opacity: 1;
+	}
+	80%,
+	99.9% {
+		margin-top: 10%;
+		margin-left: 80%;
+		opacity: 0.6;
+	}
+}
