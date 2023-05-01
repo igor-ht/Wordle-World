@@ -27,11 +27,19 @@ export default function Home() {
 			<div className="info">
 				<section className="developers">
 					<p>Developers here:</p>
-					<Link href={'https://github.com/igor-ht/Wordle-World'}>Github repo</Link>
+					<Link
+						href={'https://github.com/igor-ht/Wordle-World'}
+						target="_blank">
+						Github repo
+					</Link>
 				</section>
 				<section className="users">
 					<p>Give a feedback:</p>
-					<Link href={'mailto:idht07@gmail.com'}>Email me</Link>
+					<Link
+						href={'mailto:idht07@gmail.com'}
+						target="_blank">
+						Email me
+					</Link>
 				</section>
 			</div>
 		</div>

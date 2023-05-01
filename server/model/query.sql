@@ -1,4 +1,3 @@
--- inserting words from a .txt file into words table (5750 words)
 COPY "Words" (word) FROM 'C:\Program Files\PostgreSQL\15\data\WordleGame\words.txt';
 
 SELECT * FROM "Words";

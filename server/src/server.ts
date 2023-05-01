@@ -18,8 +18,6 @@ appServer.use(express.json());
 
 appServer.use(express.urlencoded({ extended: false }));
 
-appServer.get('/', () => 'welcome to wordle world api');
-
 appServer.use('/word', wordRouter);
 
 appServer.use('/user', userRouter);
