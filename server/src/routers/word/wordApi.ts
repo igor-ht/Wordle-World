@@ -14,9 +14,9 @@ export async function getRandomWord(req: Request, res: Response) {
 	const { email } = req.body;
 	const randomWord = await WordController().getRandomWord(email);
 	console.log(randomWord);
-	if (!randomWord) return res.status(400).send('error');
-	const cypherWord = encryption(randomWord!, encryptionKey);
-	return res.status(200).send({ cypherWord });
+	if (!randomWord) return res.status(400).send('Server couldn`t get a random word');
+	const cypherWord = encryption(randomWord, encryptionKey);
+	return res.status(200).send(cypherWord );
 }
 
 export async function searchGuessInDB(req: Request, res: Response) {

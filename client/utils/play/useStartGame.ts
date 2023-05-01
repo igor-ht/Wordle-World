@@ -268,7 +268,7 @@ const useStartGame: () => IGameApi = () => {
 			await handleGuestUser();
 		} catch {
 			if (playState.play) playStateDispatch({ type: 'setPlay', payload: false });
-			return router.replace('http://localhost:3000/signup');
+			return router.replace('/signup');
 		}
 	};
 

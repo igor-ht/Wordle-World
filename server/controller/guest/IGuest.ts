@@ -1,4 +1,3 @@
-import { Guests } from '@prisma/client';
 import { ICrudDao } from '../ICrudDao';
 
 export interface IGuestDao extends ICrudDao<IGuestCreate, IGuestUpdate, IGuestDisplay> {}

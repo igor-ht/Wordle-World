@@ -46,7 +46,7 @@ async function registerNewGoogleUser({ name, email, password }: { name: string; 
 			accessToken: accessToken,
 			refreshToken: refreshToken,
 		};
-		const updatedUser = await UserDB().updateGeneralInfo(registeredUser?.id!, currentUser);
+		const updatedUser = await UserDB().updateGeneralInfo(registeredUser.id, currentUser);
 		if (!updatedUser) throw new Error();
 		return updatedUser;
 	} catch {

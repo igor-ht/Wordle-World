@@ -12,7 +12,7 @@ export default function VictoryCard({ gameState, handleResetGame }: { gameState:
 	const router = useRouter();
 
 	const handleNavigateToDashboard = async () => {
-		router.push('http://localhost:3000/dashboard');
+		router.push(`/dashboard`);
 	};
 
 	return (
@@ -31,7 +31,7 @@ export default function VictoryCard({ gameState, handleResetGame }: { gameState:
 				/>
 				<section>
 					<p>
-						Nice work! The word was '<u>{gameState.currentGuess.toLowerCase()}</u>' and you got it right!
+						Nice work! The word was &apos;<u>{gameState.currentGuess.toLowerCase()}</u>&apos; and you got it right!
 						<br />
 						<br />
 						Keep playing and improving yourself and your vocabulary!
@@ -43,7 +43,7 @@ export default function VictoryCard({ gameState, handleResetGame }: { gameState:
 						onClick={handleResetGame}>
 						Play Again
 					</button>
-					{status === 'authenticated' ? (
+					{!!session && status === 'authenticated' ? (
 						<button
 							type="button"
 							onClick={handleNavigateToDashboard}>
@@ -52,7 +52,7 @@ export default function VictoryCard({ gameState, handleResetGame }: { gameState:
 					) : (
 						<>
 							<p>
-								Doesn't have an account yet? <Link href="/signup">Sign up here</Link> and enjoy more!
+								Doesn&apos;t have an account yet? <Link href="/signup">Sign up here</Link> and enjoy more!
 							</p>
 						</>
 					)}

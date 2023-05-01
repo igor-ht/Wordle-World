@@ -20,8 +20,9 @@ export const localStorageReducer: genericReducer = (storedValue, action) => {
 };
 
 export default function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T) => void, () => void] {
-	const currentInitialValue = window.localStorage.getItem(key) ? JSON.parse(window.localStorage.getItem(key)!) : initialValue;
-	const [storedValue, dispatchStoredValue] = useReducer(localStorageReducer, currentInitialValue);
+	let currentInitialValue;
+	if (typeof window !== 'undefined') currentInitialValue = localStorage?.getItem(key) ? JSON.parse(localStorage.getItem(key)!) : initialValue;
+	const [storedValue, dispatchStoredValue] = useReducer(localStorageReducer, currentInitialValue ? currentInitialValue : initialValue);
 
 	const setValue = (value: T) => {
 		try {

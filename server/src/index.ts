@@ -1,4 +1,4 @@
-import { connectDataBase, prisma } from '../model/clientDB';
+import { connectDataBase } from '../model/clientDB';
 import { appServer } from './server';
 import { serverPort, serverHost } from './serverConfig';
 
@@ -10,6 +10,4 @@ async function StartServer() {
 	});
 }
 
-StartServer()
-	.catch((e) => console.log(e))
-	.finally(() => prisma.$disconnect());
+StartServer();

@@ -11,7 +11,7 @@ export default function DefeatCard({ handleResetGame }: { handleResetGame: () =>
 	const router = useRouter();
 
 	const handleNavigateToDashboard = async () => {
-		router.push('http://localhost:3000/dashboard');
+		router.push(`/dashboard`);
 	};
 
 	return (
@@ -53,7 +53,7 @@ export default function DefeatCard({ handleResetGame }: { handleResetGame: () =>
 						onClick={handleResetGame}>
 						Play again
 					</button>
-					{status === 'authenticated' ? (
+					{!!session && status === 'authenticated' ? (
 						<button
 							type="button"
 							onClick={handleNavigateToDashboard}>
@@ -62,7 +62,7 @@ export default function DefeatCard({ handleResetGame }: { handleResetGame: () =>
 					) : (
 						<>
 							<p>
-								Doesn't have an account yet? <Link href="/signup">Sign up here</Link> and enjoy more!
+								Doesn&apos;t have an account yet? <Link href="/signup">Sign up here</Link> and enjoy more!
 							</p>
 						</>
 					)}

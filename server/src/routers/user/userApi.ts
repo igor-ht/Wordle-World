@@ -28,7 +28,7 @@ export async function handleSignUp(req: Request, res: Response) {
 		};
 		const registeredUser = await UserDB().create(newUser);
 		if (!registeredUser) throw 'We had a problem with your registration. Try again later.';
-		const { id, name, email } = registeredUser!;
+		const { id, name, email } = registeredUser;
 		const accessToken = await generateAccessToken({ id, name, email }, accessTokenSecret);
 		const refreshToken = await generateRefreshToken({ id, name, email }, refreshTokenSecret);
 		const currentUser = {
@@ -49,8 +49,8 @@ export async function handleSignUp(req: Request, res: Response) {
 
 export async function handleSignIn(req: Request, res: Response) {
 	const user = await checkUserInDB(req.body.email);
-	const { id, name, email, password } = user!;
 	if (!user) return res.status(401).send('One or more information are invalid.');
+	const { id, name, email, password } = user;
 	const checkPassword = await comparePassword(req.body.password, password);
 	if (!checkPassword) return res.status(401).send('One or more information are invalid.');
 	const accessToken = await generateAccessToken({ id, name, email }, accessTokenSecret);
@@ -68,7 +68,7 @@ export async function handleSignIn(req: Request, res: Response) {
 
 export async function updateUserAccessToken(req: Request, res: Response) {
 	const { userEmail } = req.body;
-	let currentUser = await UserDB().read(userEmail);
+	const currentUser = await UserDB().read(userEmail);
 	if (!currentUser) return res.status(400).send('Server had a problem with user authentication');
 	try {
 		const { id, name, email } = jwt.verify(currentUser.refreshToken, refreshTokenSecret) as { id: string; name: string; email: string };
@@ -89,7 +89,7 @@ export async function updateUserAccessToken(req: Request, res: Response) {
 
 async function updateUserRefreshToken(req: Request, res: Response) {
 	const { userEmail } = req.body;
-	let currentUser = await UserDB().read(userEmail);
+	const currentUser = await UserDB().read(userEmail);
 	if (!currentUser) return res.status(400).send('Server had a problem with user authentication');
 	const { id, name, email } = currentUser;
 	const newRefreshToken = await generateRefreshToken({ id, name, email }, refreshTokenSecret);
@@ -109,7 +109,7 @@ export async function updateUserGeneralInfo(req: Request, res: Response) {
 	const { email, updatedUser } = req.body;
 	const user = await checkUserInDB(email);
 	if (!user) return res.status(400).send('We had a problem.');
-	const updatedUserFromDB = await UserDB().updateGeneralInfo(user!.id, {
+	const updatedUserFromDB = await UserDB().updateGeneralInfo(user.id, {
 		name: updatedUser.name,
 		email: updatedUser.email,
 		password: updatedUser.password,
@@ -124,8 +124,9 @@ export async function updateUserRanking(req: Request, res: Response) {
 	const { email, gameStats } = req.body;
 	const { state, chances, word } = gameStats;
 	const currentUser = await UserDB().read(email);
+	if (!currentUser) return res.status(400).send('We had a problem in the proccess.');
 	if (!state) {
-		const updatedUser = await UserDB().updateUserRanking(email, Math.round((currentUser?.points ? currentUser.points : 20_000) - 20_000));
+		const updatedUser = await UserDB().updateUserRanking(email, Math.round((currentUser.points ? currentUser.points : 20_000) - 20_000));
 		if (!updatedUser) return res.status(400).send('We had a problem in the proccess.');
 		return res.status(200).send(updatedUser);
 	}
@@ -133,7 +134,7 @@ export async function updateUserRanking(req: Request, res: Response) {
 	const finalScore = 250_000 * Math.pow(0.8, chances);
 	const updatedUser = await UserDB().updateUserRanking(
 		email,
-		Math.round((currentUser!.points ? currentUser!.points : 0) + finalScore),
+		Math.round((currentUser.points ? currentUser.points : 0) + finalScore),
 		plainWord
 	);
 	if (!updatedUser) return res.status(400).send('We had a problem in the proccess.');
@@ -159,6 +160,10 @@ export async function getUserRank(req: Request, res: Response) {
 	return res.status(200).send(userRank);
 }
 
-export async function addFriend(req: Request, res: Response) {}
+export async function addFriend(req: Request, res: Response) {
+	res.status(200)
+}
 
-export async function removeFriend(req: Request, res: Response) {}
+export async function removeFriend(req: Request, res: Response) {
+	res.status(200)
+}

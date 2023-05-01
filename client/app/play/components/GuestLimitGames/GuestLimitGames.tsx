@@ -13,7 +13,7 @@ export default function GuestLimitGames() {
 					Unfortunetly as a guest you can play only three times a day, but if you registrate you will be able to play as much as you want
 					and enjoy more features.
 					<br />
-					And of course it's everything free! What are you waiting for?
+					And of course it&apos;s everything free! What are you waiting for?
 				</p>
 				<Link href={'/signup'}>
 					<button type="button">Registrate now</button>

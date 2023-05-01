@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import axios from '@/utils/axios/axios';
 import { handleHashing } from '../../../utils/forms/hashing';
 import { userSignUp } from '@/app/signup/SignUpForms';
-import { AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios';
+import { ENDPOINT } from '@/appConfig';
 
 export async function POST(request: NextRequest) {
 	try {
@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
 			email: user.email,
 			password: hashedPassword,
 		};
-		const res = await axios.post('http://localhost:5000/user/signup', newUser);
+		const res = await axios.post(`${ENDPOINT}/user/signup`, newUser);
 		const userData = await res.data;
 		return NextResponse.json(userData);
 	} catch (error) {

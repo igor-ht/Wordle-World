@@ -6,7 +6,7 @@ const wordMiddleware = (req: Request, res: Response, next: NextFunction) => {
 	try {
 		const token = req.headers.authorization?.split(' ')[1];
 		if (token) {
-			const user = jwt.verify(token!, accessTokenSecret) as { name: string; email: string; iat: number; exp: number };
+			const user = jwt.verify(token, accessTokenSecret) as { name: string; email: string; iat: number; exp: number };
 			if (user) req.body.email = user.email;
 		}
 

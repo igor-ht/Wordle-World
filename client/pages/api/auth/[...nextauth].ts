@@ -1,11 +1,12 @@
 import NextAuth, { NextAuthOptions, Session } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import axios from '@/utils/axios/axios';
 import { JWT } from 'next-auth/jwt';
+import { BASE_URL, ENDPOINT, GoogleClientID, GoogleClientSecret } from '@/appConfig';
+import axios from 'axios';
 
 export const updateAcessToken = async (token: JWT): Promise<JWT> => {
-	const updatedUser = (await axios.post('http://localhost:5000/user/updateUserAccessToken', { userEmail: token?.email })).data;
+	const updatedUser = (await axios.post(`${ENDPOINT}/user/updateUserAccessToken`, { userEmail: token?.email })).data;
 	return {
 		id: updatedUser.id,
 		name: updatedUser.name,
@@ -25,9 +26,9 @@ export const authOptions: NextAuthOptions = {
 				email: { label: 'Email', type: 'email' },
 				password: { label: 'Password', type: 'password' },
 			},
-			async authorize(credentials, req) {
+			async authorize(credentials) {
 				if (!credentials?.email || !credentials?.password) return null;
-				const res = await axios.post('/api/signin', { email: credentials?.email, password: credentials?.password });
+				const res = await axios.post(`${BASE_URL}/api/signin`, { email: credentials.email, password: credentials.password });
 				const userLogged = await res.data;
 				return {
 					id: userLogged.id,
@@ -41,15 +42,15 @@ export const authOptions: NextAuthOptions = {
 			},
 		}),
 		GoogleProvider({
-			clientId: process.env.GOOGLE_CLIENT_ID!,
-			clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+			clientId: GoogleClientID,
+			clientSecret: GoogleClientSecret,
 			async profile(profile, tokens) {
 				const credentials = {
 					name: profile.name,
 					email: profile.email,
 					password: tokens.id_token,
 				};
-				const res = await axios.post('api/oauth', credentials);
+				const res = await axios.post(`${BASE_URL}/api/oauth`, credentials);
 				const userLogged = res.data;
 				tokens = {
 					id: userLogged.id,
@@ -87,19 +88,19 @@ export const authOptions: NextAuthOptions = {
 					email: token.email,
 				},
 			};
-
 			return newSession;
 		},
 	},
 	session: {
 		strategy: 'jwt',
-		maxAge: 30 * 24 * 60 * 60, // 30 days
+		maxAge: 60 * 60 * 24 * 30,
 	},
 	jwt: {
 		maxAge: 60 * 14,
 	},
 	pages: {
-		signIn: 'http://localhost:3000/signin',
+		signIn: '/signin',
+		newUser: '/signup',
 	},
 };
 

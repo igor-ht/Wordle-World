@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { userLogin } from '../../signin/page';
 import axios, { AxiosError } from 'axios';
+import { userLogin } from '@/app/signin/SignInForms';
+import { ENDPOINT } from '@/appConfig';
 
 const axiosUser = axios.create({
-	baseURL: 'http://localhost:5000/user',
+	baseURL: `${ENDPOINT}/user`,
 });
 
 axiosUser.interceptors.response.use(undefined, (error: AxiosError) => {

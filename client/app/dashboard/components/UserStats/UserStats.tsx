@@ -1,7 +1,7 @@
 'use client';
 
-import { ChangeEvent, useRef } from 'react';
 import './userStats.scss';
+import { ChangeEvent, useRef } from 'react';
 import useUserStats from '@/utils/dashboard/useUserStats';
 
 export default function UserStats() {

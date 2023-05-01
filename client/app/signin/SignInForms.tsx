@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import Image from 'next/image';
 import { signIn, useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
-import axios from '@/utils/axios/axios';
+import axios from 'axios';
 
 export interface userLogin {
 	email: string;
@@ -13,7 +13,6 @@ export interface userLogin {
 
 export default function SignInForms() {
 	const { data: session, status } = useSession();
-	if (status === 'authenticated') return redirect('/dashboard');
 	const formik = useFormik<userLogin>({
 		initialValues: {
 			email: '',
@@ -21,6 +20,8 @@ export default function SignInForms() {
 		},
 		onSubmit: async (data) => await handleLogin(data),
 	});
+
+	if (session && status === 'authenticated') return redirect('/dashboard');
 
 	const handleLogin = async (user: userLogin) => {
 		try {
@@ -70,6 +71,7 @@ export default function SignInForms() {
 					placeholder="your_email@example.com"
 					required
 					onChange={formik.handleChange}
+					autoComplete=""
 					value={formik.values.email}
 				/>
 				<span>
@@ -83,6 +85,7 @@ export default function SignInForms() {
 					placeholder="your password"
 					required
 					onChange={formik.handleChange}
+					autoComplete=""
 					value={formik.values.password}
 				/>
 				<button type="submit">Sign in</button>

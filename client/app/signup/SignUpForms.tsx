@@ -5,8 +5,7 @@ import { useFormik } from 'formik';
 import { SignupSchema } from '../../utils/forms/validating';
 import { signIn, useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
-import axios from '@/utils/axios/axios';
-import { AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios';
 
 export interface userSignUp {
 	name: string;
@@ -17,7 +16,6 @@ export interface userSignUp {
 
 export default function SignUpForms() {
 	const { data: session, status } = useSession();
-	if (status === 'authenticated') return redirect('/');
 
 	const formik = useFormik<userSignUp>({
 		initialValues: {
@@ -29,6 +27,8 @@ export default function SignUpForms() {
 		validationSchema: SignupSchema,
 		onSubmit: async (data) => await handleSignUp(data),
 	});
+
+	if (session && status === 'authenticated') return redirect('/dashboard');
 
 	const handleSignUp = async (user: userSignUp) => {
 		try {
@@ -85,6 +85,7 @@ export default function SignUpForms() {
 							placeholder="your name"
 							required
 							onChange={formik.handleChange}
+							autoComplete=""
 							value={formik.values.name}
 						/>
 						<span>
@@ -98,6 +99,7 @@ export default function SignUpForms() {
 							placeholder="your_email@example.com"
 							required
 							onChange={formik.handleChange}
+							autoComplete=""
 							value={formik.values.email}
 						/>
 					</div>
@@ -113,6 +115,7 @@ export default function SignUpForms() {
 							placeholder="your password"
 							required
 							onChange={formik.handleChange}
+							autoComplete=""
 							value={formik.values.password}
 						/>
 						<span>
@@ -128,6 +131,7 @@ export default function SignUpForms() {
 							placeholder="confirm password"
 							required
 							onChange={formik.handleChange}
+							autoComplete=""
 							value={formik.values.confirmPassword}
 						/>
 					</div>

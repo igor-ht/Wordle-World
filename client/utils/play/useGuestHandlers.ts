@@ -1,7 +1,7 @@
 import useLocalStorage from '../hooks/useLocalStorage';
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
-import axios from '../axios/axios';
+import axios from 'axios';
 
 interface IGuest {
 	ip: string;
@@ -59,7 +59,8 @@ export default function useGuestHandlers() {
 	};
 
 	const handleGuestUser = async () => {
-		let guest = window.localStorage.getItem('guest') ? JSON.parse(window.localStorage.getItem('guest')!) : null;
+		let guest;
+		if (typeof window !== 'undefined') guest = localStorage?.getItem('guest') ? JSON.parse(localStorage.getItem('guest')!) : null;
 		if (!guest) guest = await searchGuestInDB();
 		if (!guest) guest = await createNewGuest();
 		if (guest.gamesCount >= 3) {

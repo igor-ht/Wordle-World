@@ -13,7 +13,11 @@ export default function useUserStats() {
 	}, [session]);
 
 	const getUserStats = async () => {
-		const res = await axiosAuth.post('http://localhost:5000/user/getUserStats', { id: session?.user?.id, email: session?.user?.email });
+		const res = await axiosAuth.post(
+			'/api/dashboard',
+			{ id: session?.user?.id, email: session?.user?.email },
+			{ params: { getUserStats: true } }
+		);
 		const user = res.data;
 		if (!user) return null;
 		const currentUser = {

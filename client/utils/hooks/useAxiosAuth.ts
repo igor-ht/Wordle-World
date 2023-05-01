@@ -7,7 +7,7 @@ const useAxiosAuth = () => {
 
 	const updateAcessToken = async () => {
 		try {
-			const session = await update();
+			await update();
 		} catch {
 			return Promise.reject('Sign in again to iniate a new session');
 		}
