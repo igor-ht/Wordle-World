@@ -6,3 +6,10 @@
   align-items: center;
   justify-content: space-evenly;
 }
+
+@media (max-width: 700px) {
+  .dashboard-container {
+    flex-direction: column;
+    overflow-y: scroll;
+  }
+}

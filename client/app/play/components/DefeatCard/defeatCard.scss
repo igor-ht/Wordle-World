@@ -194,3 +194,12 @@
 		border-radius: 50%;
 	}
 }
+
+@media (max-width: 700px) {
+	.defeat-background {
+		.defeat-card {
+			width: 96vw;
+			left: 2%;
+		}
+	}
+}

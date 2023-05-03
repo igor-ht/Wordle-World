@@ -23,7 +23,7 @@
 				margin: 5px;
 			}
 
-			span {
+			.guess {
 				input {
 					height: 40px;
 					width: 40px;
@@ -52,10 +52,11 @@
 				}
 			}
 
-			ul {
+			.explain {
 				list-style: none;
 				margin: 5px;
-				li {
+				margin-bottom: 3px;
+				span {
 					display: flex;
 					align-items: center;
 					margin: 0px;
@@ -119,6 +120,17 @@
 				padding: 0;
 				font-family: "Varela Round", sans-serif;
 				margin: 0px;
+
+				a {
+					color: blue;
+
+					&:hover {
+						color: rgb(25, 25, 130);
+					}
+					&:visited {
+						color: blue;
+					}
+				}
 			}
 		}
 	}
@@ -134,17 +146,28 @@
 
 				p {
 					margin: 2px;
+					margin-bottom: 4px;
+					font-size: 1.1rem;
 				}
-				span {
+				.guess {
+					margin-bottom: 4px;
 					input {
 						margin: 2px;
 					}
 				}
-				ul {
+				.explain {
 					margin: 2px;
-					li {
-						align-items: start;
+					span {
 						width: 100%;
+						margin-bottom: 4px;
+						input {
+							width: 20px;
+							height: 20px;
+						}
+
+						p {
+							font-size: 1rem;
+						}
 					}
 				}
 			}

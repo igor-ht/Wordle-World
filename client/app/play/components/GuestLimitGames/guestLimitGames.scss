@@ -24,6 +24,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: 'Varela Round', sans-serif;
   p {
     color: white;
     margin: 10px;
@@ -59,5 +60,11 @@
         transition-duration: 100ms;
       }
     }
+  }
+}
+
+@media (max-width: 700px) {
+  .guess-limit-games {
+    width: 95vw;
   }
 }

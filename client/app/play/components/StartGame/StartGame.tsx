@@ -12,8 +12,10 @@ export default function StartGame({ startNewGame }: IStartGame) {
 		<div className="start-game">
 			<div className="start-game-card">
 				<div className="help">
-					<p>You have to guess a random word in 6 tries. The color of the letters changes to help you discover the word.</p>
-					<span>
+					<p>
+						Try to guess a random secret word in 6 tries. After every try, the color of the letters changes to help you discover the word.
+					</p>
+					<section className="guess">
 						<input
 							type="text"
 							value="W"
@@ -39,9 +41,9 @@ export default function StartGame({ startNewGame }: IStartGame) {
 							value="R"
 							disabled
 						/>
-					</span>
-					<ul>
-						<li>
+					</section>
+					<section className="explain">
+						<span>
 							<input
 								type="text"
 								value="W"
@@ -52,9 +54,9 @@ export default function StartGame({ startNewGame }: IStartGame) {
 								value="E"
 								disabled
 							/>
-							<p> - The letters are not valid</p>
-						</li>
-						<li>
+							<p> - The letter is not valid</p>
+						</span>
+						<span>
 							<input
 								type="text"
 								value="T"
@@ -65,17 +67,22 @@ export default function StartGame({ startNewGame }: IStartGame) {
 								value="R"
 								disabled
 							/>
-							<p> - The letters are valid but at the wrong place</p>
-						</li>
-						<li>
+							<p> - The letter is valid but at the wrong place</p>
+						</span>
+						<span>
+							<input
+								type="text"
+								disabled
+								style={{ backgroundColor: 'rgba(255, 255, 255, 0)', border: '0' }}
+							/>
 							<input
 								type="text"
 								value="A"
 								disabled
 							/>
-							<p> - The letter is valid and at the exact place</p>
-						</li>
-					</ul>
+							<p> - The letter is valid and at the right place</p>
+						</span>
+					</section>
 				</div>
 
 				<button

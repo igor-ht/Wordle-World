@@ -208,3 +208,12 @@ $box-shadow2: ();
 		opacity: 0.6;
 	}
 }
+
+@media (max-width: 700px) {
+	.victory-background {
+		.victory-card {
+			width: 96vw;
+			left: 2%;
+		}
+	}
+}

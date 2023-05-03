@@ -1,8 +1,8 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState } from 'react';
 import Menu from './Menu';
 import UserLogged from './UserLogged';
 import MenuButton from './MenuButton';
