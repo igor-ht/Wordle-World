@@ -1,10 +1,12 @@
 html {
 	all: unset;
 	font-family: "Varela Round", sans-serif;
+	overflow: hidden;
 }
 body {
 	all: unset;
 	font-family: "Varela Round", sans-serif;
+	overflow: hidden;
 }
 
 .app {
@@ -14,46 +16,25 @@ body {
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
-	container-type: inline-size;
 }
 
 .navbar {
 	background-color: rgb(255, 255, 138);
 	width: 100vw;
-	height: 12cqh;
-	flex-basis: 10%;
+	height: 12vh;
+	max-height: 13vh;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	container-type: inline-size;
 
 	.wordle-icon {
+		width: 130px;
+		max-height: 100%;
 		img {
-			width: 7cqi;
+			width: 70%;
 			height: auto;
 			object-fit: cover;
-		}
-	}
-	@container (max-width: 750px) {
-		.wordle-icon {
-			img {
-				width: 9.5cqi;
-			}
-		}
-	}
-	@container (max-width: 600px) {
-		.wordle-icon {
-			img {
-				width: 12cqi;
-			}
-		}
-	}
-	@container (max-width: 450px) {
-		.wordle-icon {
-			img {
-				width: 16cqi;
-			}
 		}
 	}
 
@@ -148,7 +129,6 @@ body {
 	overflow: hidden;
 	transition: 0.7s;
 	font-family: "Varela Round", sans-serif;
-	container-type: inline-size;
 
 	.menu-title {
 		margin: 1rem;
@@ -194,36 +174,7 @@ body {
 		}
 	}
 }
-@container (max-width: 850px) {
-	.menu-container {
-		top: 7cqi;
-		height: calc(100vh - 11.5cqi);
-	}
-}
-@container (max-width: 750px) {
-	.menu-container {
-		top: 8cqi;
-		height: calc(100vh - 12.5cqi);
-	}
-}
-@container (max-width: 650px) {
-	.menu-container {
-		top: 9cqi;
-		height: calc(100vh - 15cqi);
-	}
-}
-@container (max-width: 550px) {
-	.menu-container {
-		top: 10cqi;
-		height: calc(100vh - 16.5cqi);
-	}
-}
-@container (max-width: 450px) {
-	.menu-container {
-		top: 9cqh;
-		height: calc(100vh - 13.5cqh);
-	}
-}
+
 .main-container {
 	width: 100vw;
 	height: -webkit-fill-available;
@@ -247,10 +198,12 @@ body {
 	}
 	.intro {
 		background-color: rgba(255, 255, 255, 0.303);
-		border-radius: 1%;
-		width: 750px;
+		border-radius: 10px;
+		align-self: center;
+		width: 60%;
+
 		.beta-message {
-			max-width: 80vw;
+			text-align: justify;
 			font-family: "Varela Round", sans-serif;
 			font-size: 1.3rem;
 			margin: 10px;
@@ -258,7 +211,6 @@ body {
 		}
 	}
 	.info {
-		width: 750px;
 		display: flex;
 		justify-content: space-around;
 		margin: 10px;
@@ -277,6 +229,7 @@ body {
 			display: flex;
 			flex-direction: column;
 			border: 1px solid black;
+			border-radius: 10px;
 			background-color: rgba(255, 255, 255, 0.483);
 			p {
 				margin: 5px;
@@ -288,6 +241,7 @@ body {
 			display: flex;
 			flex-direction: column;
 			border: 1px solid black;
+			border-radius: 10px;
 			background-color: rgba(255, 255, 255, 0.483);
 			p {
 				margin: 5px;
@@ -313,18 +267,63 @@ body {
 		font-size: medium;
 	}
 }
-@container (max-width: 700px) {
-	.footer {
-		height: 7cqi;
+
+@media (max-width: 700px) {
+	.navbar {
+		.wordle-icon {
+			img {
+				width: 65%;
+			}
+		}
+		section {
+			.user-logged {
+				margin: 1px;
+				.user-greet {
+					margin: 1px;
+				}
+				.signout-button {
+					margin: 2px;
+				}
+			}
+		}
 	}
-}
-@container (max-width: 600px) {
-	.footer {
-		height: 9cqi;
+
+	.main-container {
+		max-height: -webkit-fill-available;
+		height: 82%;
 	}
-}
-@container (max-width: 450px) {
+
+	.home-page {
+		overflow-x: auto;
+
+		&::-webkit-scrollbar {
+			width: 2px;
+		}
+
+		&::-webkit-scrollbar-track {
+			background: #f1f1f1;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background: #926666;
+		}
+
+		&::-webkit-scrollbar-thumb:hover {
+			background: #633737;
+		}
+
+		img {
+			width: 85%;
+			margin: 5px;
+		}
+		.intro {
+			width: 90%;
+			margin: 5px;
+		}
+	}
+
 	.footer {
-		height: 10cqi;
+		height: 10%;
+		position: sticky;
 	}
 }

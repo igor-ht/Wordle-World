@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"build": "npm run prisma-generate && npm run prisma-deploy && tsc",
+		"build": "npm run prisma-deploy && npm run prisma-generate && tsc",
 		"start": "node ./src/index.js",
 		"dev": "nodemon ./src/index.ts",
 		"prisma-generate": "npx prisma generate --schema=./model/prisma/schema.prisma",

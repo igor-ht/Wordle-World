@@ -13,17 +13,17 @@ export default function Navbar() {
 	return (
 		<>
 			<nav className="navbar">
-				<Link href={'/'}>
-					<div className="wordle-icon">
+				<div className="wordle-icon">
+					<Link href={'/'}>
 						<Image
 							src="/wordle.logo.svg"
 							alt="WordleGame"
-							width={500}
-							height={500}
+							width={300}
+							height={300}
 							priority
 						/>
-					</div>
-				</Link>
+					</Link>
+				</div>
 				<section>
 					<UserLogged />
 					<MenuButton {...{ displayMenu, setDisplayMenu }} />

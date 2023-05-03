@@ -1,5 +1,5 @@
 .start-game {
-	width: 600px;
+	width: 60%;
 	background-color: rgb(193, 126, 255);
 	display: flex;
 	flex-direction: column;
@@ -119,6 +119,34 @@
 				padding: 0;
 				font-family: "Varela Round", sans-serif;
 				margin: 0px;
+			}
+		}
+	}
+}
+@media (max-width: 700px) {
+	.start-game {
+		margin: 5px;
+		width: 90%;
+
+		.start-game-card {
+			.help {
+				margin: 10px;
+
+				p {
+					margin: 2px;
+				}
+				span {
+					input {
+						margin: 2px;
+					}
+				}
+				ul {
+					margin: 2px;
+					li {
+						align-items: start;
+						width: 100%;
+					}
+				}
 			}
 		}
 	}

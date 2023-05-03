@@ -161,9 +161,9 @@ export async function getUserRank(req: Request, res: Response) {
 }
 
 export async function addFriend(req: Request, res: Response) {
-	res.status(200)
+	res.status(200);
 }
 
 export async function removeFriend(req: Request, res: Response) {
-	res.status(200)
+	res.status(200);
 }
