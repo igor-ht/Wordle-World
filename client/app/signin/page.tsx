@@ -7,11 +7,11 @@ export default function SignIn() {
 		<div className="signin-container">
 			<div className="signin-box">
 				<Image
-					src="/log-in.png"
+					src="/log-in.svg"
 					alt="Log In"
 					unselectable="on"
-					width={500}
-					height={500}
+					width={300}
+					height={300}
 				/>
 				<SignInForm />
 			</div>

@@ -6,11 +6,11 @@ export default function SignUp() {
 	return (
 		<div className="signup-box">
 			<Image
-				src="/sign-up.png"
+				src="/sign-up.svg"
 				alt="Sign Up"
 				unselectable="on"
-				width={500}
-				height={500}
+				width={300}
+				height={300}
 			/>
 			<SignUpForms />
 		</div>
