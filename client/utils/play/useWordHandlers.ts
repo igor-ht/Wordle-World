@@ -1,13 +1,19 @@
+import { useSession } from 'next-auth/react';
 import useAxiosAuth from '../hooks/useAxiosAuth';
 import { gameStateType } from './reducers';
 
 export default function useWordHandlers() {
 	const axiosAuth = useAxiosAuth();
+	const { update } = useSession();
 
 	const getRandomWord = async () => {
-		const res = await axiosAuth.get(`/api/word`);
-		const cypherWord = await res.data;
-		return cypherWord;
+		try {
+			const res = await axiosAuth.get(`/api/word`);
+			const cypherWord = await res.data;
+			return cypherWord;
+		} catch {
+			await update();
+		}
 	};
 
 	const handleWordExists = async (gameState: gameStateType) => {

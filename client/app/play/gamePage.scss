@@ -6,29 +6,8 @@
 	justify-content: center;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 700px) {
 	.game-container {
 		justify-content: space-evenly;
-	}
-	.input-container {
-		margin-top: 10px;
-
-		input {
-			height: 3rem;
-			width: 3.1rem;
-		}
-	}
-
-	.keyboard-container {
-		width: 95vw;
-		margin: 10px;
-		height: 30%;
-		.container-row {
-			gap: 2px;
-			button {
-				font-size: x-small;
-				font-weight: 700;
-			}
-		}
 	}
 }

@@ -212,12 +212,12 @@ $box-shadow2: ();
 
 @media (max-width: 700px) {
 	.victory-background {
-		img {
-			width: 20rem;
-		}
 		.victory-card {
 			width: 96vw;
 			left: 2%;
+			img {
+				width: 20rem;
+			}
 		}
 	}
 }

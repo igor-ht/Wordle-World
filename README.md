@@ -6,11 +6,17 @@
 
 # To do
 
-- Implement next-auth session redirect to Sign In when session is expired.
-- Implement tests both client and server.
+#####Client:
+
+- Implement tests.
 - Create a bad-ass Home Page.
-- Improve responsible design.
-- Improve general design.
+- Improve digital Keyboard Component styling for Mobile and Safari browser.
+- Improve dashboard page styling for Mobile and Safari browser.
+- Improve general styling.
+
+#####Server:
+
+- Implement tests.
 
 # Development Goals:
 

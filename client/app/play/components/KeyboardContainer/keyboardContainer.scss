@@ -80,7 +80,19 @@
 
 @media (max-width: 700px) {
 	.keyboard-container {
-		width: 98dvw;
-		height: 35%;
+		width: 98vw;
+		margin: 10px;
+		height: 33%;
+		.container-row {
+			gap: 2px;
+			button {
+				font-size: x-small;
+				font-weight: 700;
+				appearance: inherit;
+				-webkit-appearance: none;
+				-webkit-border-radius: 0;
+				border-radius: inherit;
+			}
+		}
 	}
 }

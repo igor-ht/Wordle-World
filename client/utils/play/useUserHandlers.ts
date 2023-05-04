@@ -1,16 +1,19 @@
 import { useSession } from 'next-auth/react';
 import useAxiosAuth from '../hooks/useAxiosAuth';
-import { ENDPOINT } from '@/appConfig';
 
 const useUserHandlers = () => {
 	const axiosAuth = useAxiosAuth();
-	const { data: session } = useSession();
+	const { data: session, update } = useSession();
 
 	const handleUserNewGame = async (gameStats: { state: boolean; chances: number; word: string }) => {
-		await axiosAuth.post(`api/user`, {
-			email: session?.user?.email,
-			gameStats: gameStats,
-		});
+		try {
+			await axiosAuth.post(`api/user`, {
+				email: session?.user?.email,
+				gameStats: gameStats,
+			});
+		} catch {
+			await update();
+		}
 	};
 
 	return { handleUserNewGame };

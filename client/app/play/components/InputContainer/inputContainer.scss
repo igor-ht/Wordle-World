@@ -133,3 +133,14 @@
 		animation-duration: 300ms;
 	}
 }
+
+@media (max-width: 700px) {
+	.input-container {
+		input {
+			appearance: inherit;
+			-webkit-appearance: none;
+			-webkit-border-radius: 0;
+			border-radius: inherit;
+		}
+	}
+}
