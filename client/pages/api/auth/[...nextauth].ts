@@ -4,18 +4,23 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { JWT } from 'next-auth/jwt';
 import { BASE_URL, ENDPOINT, GoogleClientID, GoogleClientSecret } from '@/appConfig';
 import axios from 'axios';
+import { redirect } from 'next/navigation';
 
 export const updateAcessToken = async (token: JWT): Promise<JWT> => {
-	const updatedUser = (await axios.post(`${ENDPOINT}/user/updateUserAccessToken`, { userEmail: token?.email })).data;
-	return {
-		id: updatedUser.id,
-		name: updatedUser.name,
-		email: updatedUser.email,
-		accessToken: updatedUser.accessToken,
-		accessTokenExpires: Date.now() / 1000 + 60 * 15,
-		refreshToken: updatedUser.refreshToken,
-		refreshTokenExpires: Date.now() / 1000 + 60 * 30,
-	};
+	try {
+		const updatedUser = (await axios.post(`${ENDPOINT}/user/updateUserAccessToken`, { userEmail: token?.email })).data;
+		return {
+			id: updatedUser.id,
+			name: updatedUser.name,
+			email: updatedUser.email,
+			accessToken: updatedUser.accessToken,
+			accessTokenExpires: Date.now() / 1000 + 60 * 15,
+			refreshToken: updatedUser.refreshToken,
+			refreshTokenExpires: Date.now() / 1000 + 60 * 30,
+		};
+	} catch {
+		redirect('/signin');
+	}
 };
 
 export const authOptions: NextAuthOptions = {
@@ -101,6 +106,7 @@ export const authOptions: NextAuthOptions = {
 	pages: {
 		signIn: '/signin',
 		newUser: '/signup',
+		error: '/signin',
 	},
 };
 

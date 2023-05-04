@@ -72,8 +72,8 @@ export default function SignUpForms() {
 	return (
 		<>
 			<form onSubmit={formik.handleSubmit}>
-				<div className={'signup-form'}>
-					<div className={'input-box'}>
+				<div className="signup-form">
+					<div className="input-box">
 						<span>
 							<label htmlFor="email">Name</label>
 							<span className="error">{formik.touched.name && formik.errors.name ? formik.errors.name : null}</span>

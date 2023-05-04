@@ -7,7 +7,7 @@ import useAxiosAuth from '../hooks/useAxiosAuth';
 
 export default function useRanking() {
 	const axiosAuth = useAxiosAuth();
-	const { data: session } = useSession();
+	const { data: session, update } = useSession();
 	const [ranking, rankingDispatch] = useReducer(rankingReducer, {
 		ranking: [],
 		user: {
@@ -25,21 +25,29 @@ export default function useRanking() {
 	}, [session]);
 
 	const getRanking = async () => {
-		const res = await axiosAuth.post('/api/dashboard', { email: session?.user?.email }, { params: { getRanking: true } });
-		const ranking = res.data;
-		if (!ranking) return null;
-		rankingDispatch({ type: 'setRanking', payload: ranking });
+		try {
+			const res = await axiosAuth.post('/api/dashboard', { email: session?.user?.email }, { params: { getRanking: true } });
+			const ranking = res.data;
+			if (!ranking) return null;
+			rankingDispatch({ type: 'setRanking', payload: ranking });
+		} catch {
+			await update();
+		}
 	};
 
 	const getUserRank = async () => {
-		const res = await axiosAuth.post(
-			'/api/dashboard',
-			{ id: session?.user?.id, email: session?.user?.email },
-			{ params: { getUserRank: true } }
-		);
-		const userRank = res.data;
-		if (!userRank) return null;
-		rankingDispatch({ type: 'setUserRanking', payload: userRank });
+		try {
+			const res = await axiosAuth.post(
+				'/api/dashboard',
+				{ id: session?.user?.id, email: session?.user?.email },
+				{ params: { getUserRank: true } }
+			);
+			const userRank = res.data;
+			if (!userRank) return null;
+			rankingDispatch({ type: 'setUserRanking', payload: userRank });
+		} catch {
+			await update();
+		}
 	};
 
 	return { ranking };

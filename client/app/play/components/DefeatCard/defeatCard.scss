@@ -1,8 +1,9 @@
 .defeat-background {
 	position: absolute;
 	background-color: rgba(10, 6, 55, 0.76);
-	height: 108vh;
-	width: 100vw;
+	top: 0;
+	height: 100dvh;
+	width: 100dvw;
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
@@ -11,9 +12,9 @@
 .defeat-card {
 	position: absolute;
 	left: 20%;
-	top: 15%;
-	height: 76vh;
-	width: 60vw;
+	top: 12dvh;
+	height: 80dvh;
+	width: 60dvw;
 	background-color: rgba(255, 255, 255, 0.849);
 	border: 0;
 	border-radius: 1%;
@@ -24,7 +25,7 @@
 	text-align: center;
 
 	img {
-		width: 300px;
+		width: 25em;
 		height: auto;
 		margin: 0;
 		pointer-events: none;
@@ -197,6 +198,9 @@
 
 @media (max-width: 700px) {
 	.defeat-background {
+		img {
+			width: 20rem;
+		}
 		.defeat-card {
 			width: 96vw;
 			left: 2%;

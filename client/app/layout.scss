@@ -10,8 +10,8 @@ body {
 }
 
 .app {
-	height: 100vh;
-	width: 100vw;
+	height: 100dvh;
+	width: 100dvw;
 	background-color: black;
 	display: flex;
 	flex-direction: column;
@@ -20,21 +20,20 @@ body {
 
 .navbar {
 	background-color: rgb(255, 255, 138);
-	width: 100vw;
-	height: 12vh;
-	max-height: 13vh;
+	width: 100dvw;
+	height: 12dvh;
+	max-height: 13dvh;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
 
 	.wordle-icon {
-		width: 100px;
+		width: 6.5em;
 		max-height: 100%;
 		img {
 			width: 90%;
 			height: auto;
-			max-height: 100%;
 			object-fit: cover;
 		}
 	}
@@ -120,8 +119,8 @@ body {
 .menu-container {
 	position: absolute;
 	width: 0;
-	height: calc(100vh - 20cqh);
-	top: 12cqh;
+	height: 80dvh;
+	top: 12dvh;
 	display: flex;
 	flex-direction: column;
 	background-color: rgb(156, 233, 156);
@@ -177,16 +176,32 @@ body {
 }
 
 .main-container {
-	width: 100vw;
-	height: 100%;
+	width: 100dvw;
+	height: 80dvh;
 	background-color: rgb(255, 194, 194);
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
+.footer {
+	width: 100dvw;
+	height: 8dvh;
+	background-color: rgb(255, 255, 138);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	p {
+		margin: 0;
+		font-family: "Varela Round", sans-serif;
+		font-size: medium;
+	}
+}
+
 .home-page {
-	width: 100vw;
+	width: 100dvw;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
@@ -253,29 +268,10 @@ body {
 	}
 }
 
-.footer {
-	width: 100vw;
-	height: 8vh;
-	background-color: rgb(255, 255, 138);
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-
-	p {
-		margin: 0;
-		font-family: "Varela Round", sans-serif;
-		font-size: medium;
-	}
-}
-
 @media (max-width: 700px) {
 	.navbar {
 		.wordle-icon {
-			width: 120px;
-			img {
-				width: 70%;
-			}
+			width: 6em;
 		}
 		section {
 			.user-logged {
@@ -288,11 +284,6 @@ body {
 				}
 			}
 		}
-	}
-
-	.main-container {
-		max-height: 100%;
-		height: 82%;
 	}
 
 	.home-page {
@@ -322,9 +313,5 @@ body {
 			width: 90%;
 			margin: 5px;
 		}
-	}
-
-	.footer {
-		height: 10%;
 	}
 }
