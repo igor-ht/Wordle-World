@@ -33,9 +33,6 @@
 					font-weight: 600;
 					border: 0;
 					border-radius: 10%;
-					&:disabled {
-						-webkit-text-fill-color: currentColor;
-					}
 
 					&:nth-child(1) {
 						background-color: rgb(128, 128, 128);
@@ -72,9 +69,6 @@
 						font-weight: 600;
 						border: 0;
 						border-radius: 10%;
-						&:disabled {
-							-webkit-text-fill-color: currentColor;
-						}
 					}
 
 					&:nth-child(1) {
@@ -159,6 +153,12 @@
 					margin-bottom: 4px;
 					input {
 						margin: 2px;
+						-webkit-text-fill-color: #000000;
+						opacity: 1;
+						&:disabled {
+							position: inherit;
+							appearance: inherit;
+						}
 					}
 				}
 				.explain {
@@ -169,6 +169,12 @@
 						input {
 							width: 20px;
 							height: 20px;
+							-webkit-text-fill-color: #000000;
+							opacity: 1;
+							&:disabled {
+								position: inherit;
+								appearance: inherit;
+							}
 						}
 
 						p {

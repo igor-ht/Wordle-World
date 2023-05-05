@@ -11,7 +11,6 @@ export const metadata = {
 	icons: {
 		icon: '/wordle.icon.svg',
 	},
-	
 };
 
 export default function RootLayout({ children, session }: { children: React.ReactNode; session: Session }) {

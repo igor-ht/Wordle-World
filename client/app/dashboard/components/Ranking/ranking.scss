@@ -79,13 +79,10 @@
 }
 
 @media (max-width: 700px) {
-  .main-container {
-    overflow: auto;
-    .ranking-container {
-      width: 90vw;
-      height: 77dvh;
-      margin-top: 10px;
-      margin-bottom: 7px;
-    }
+  .ranking-container {
+    width: 90vw;
+    height: 77dvh;
+    margin-top: 10px;
+    margin-bottom: 7px;
   }
 }

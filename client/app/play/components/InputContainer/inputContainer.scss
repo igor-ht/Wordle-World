@@ -97,10 +97,6 @@
 		text-transform: uppercase;
 		pointer-events: none;
 
-		&:disabled {
-			-webkit-text-fill-color: currentColor;
-		}
-
 		&.bull {
 			color: white;
 			background-color: rgb(36, 199, 36);
@@ -138,11 +134,11 @@
 	}
 }
 
-// @media (max-width: 700px) {
-// 	.input-container {
-// 		input {
-// 			appearance: inherit;
-// 			-webkit-appearance: none;
-// 		}
-// 	}
-// }
+@media (max-width: 700px) {
+	.input-container {
+		input {
+			-webkit-text-fill-color: #000000;
+			opacity: 1; /* required on iOS */
+		}
+	}
+}

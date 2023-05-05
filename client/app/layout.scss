@@ -336,6 +336,11 @@ body {
 		}
 	}
 
+	.main-container {
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
+
 	.home-page {
 		overflow-x: auto;
 

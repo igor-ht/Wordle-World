@@ -1,3 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
 @import url('https://fonts.googleapis.com/css2family=Varela+Round:wght@300&display=swap');
+
+input:disabled,
+textarea:disabled,
+input:disabled::placeholder,
+textarea:disabled::placeholder {
+	-webkit-text-fill-color: currentcolor;
+	opacity: 1;
+}
