@@ -213,22 +213,75 @@ body {
 		margin: 10px;
 	}
 	.intro {
-		background-color: rgba(255, 255, 255, 0.303);
+		background-color: rgba(255, 255, 255, 0);
 		border-radius: 10px;
 		align-self: center;
 		width: 60%;
 
-		.beta-message {
-			text-align: justify;
-			font-family: "Varela Round", sans-serif;
-			font-size: 1.3rem;
-			margin: 10px;
-			line-height: 1.2;
+		dialog {
+			background-color: #01010188;
+			height: 100dvh;
+			width: 100dvw;
+			border: 0;
+			top: 0;
+			bottom: 0;
+			margin: 0;
+			padding: 0;
+
+			.span-container {
+				width: 100dvw;
+				height: 100dvh;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			form {
+				float: right;
+				margin: 0.5%;
+				button {
+					background-color: black;
+					color: white;
+					border: 1px solid black;
+					border-radius: 3px;
+					text-align: center;
+					font-weight: 700;
+					cursor: pointer;
+					&:hover {
+						background-color: rgb(28, 28, 28);
+						box-shadow: 0px 0px 5px black;
+						transition: 0.4s;
+					}
+				}
+			}
+
+			.dialog-box {
+				width: 65dvw;
+				border-color: red;
+				background-color: rgb(255, 57, 57);
+				border-radius: 10px;
+
+				span {
+					display: flex;
+					width: 95%;
+					margin: 3%;
+					.beta-message {
+						text-align: justify;
+						font-family: "Varela Round", sans-serif;
+						font-weight: 400;
+						font-size: 1.3rem;
+						margin: 10px;
+						line-height: 1.2;
+						color: white;
+					}
+				}
+			}
 		}
 	}
+
 	.info {
 		display: flex;
-		justify-content: space-around;
+		justify-content: space-evenly;
 		margin: 10px;
 
 		a {
@@ -309,6 +362,17 @@ body {
 		.intro {
 			width: 90%;
 			margin: 5px;
+
+			dialog {
+				.span-container {
+					.dialog-box {
+						width: 95dvw;
+						form {
+							margin: 1%;
+						}
+					}
+				}
+			}
 		}
 	}
 }

@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import './startGame.scss';
+import Link from 'next/link';
 
 interface IStartGame {
 	startNewGame: () => Promise<void>;
