@@ -69,7 +69,7 @@ export default function Home() {
 							<Link href={'/signin'}>Sign in here.</Link>
 						</span>
 						<span>
-							<p>Doens't have an account yet?</p>
+							<p>Doens&apos;t have an account yet?</p>
 							<Link href={'/signup'}>Sign up here.</Link>
 						</span>
 						<p>

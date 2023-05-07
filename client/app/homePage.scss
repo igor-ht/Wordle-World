@@ -161,7 +161,7 @@
   }
   .top {
     transform: translateY(-130px) rotateX(90deg);
-    background-color: yellow;
+    background-color: white;
     border: 0;
   }
   .bottom {
@@ -169,128 +169,26 @@
     background-color: white;
     border: 0;
   }
-
-  // .intro-container {
-  //   background-color: rgba(255, 255, 255, 0);
-  //   border-radius: 10px;
-  //   align-self: center;
-  //   width: 100dvw;
-  //   height: 100%;
-  //   display: flex;
-  //   flex-direction: row;
-  //   justify-content: center;
-
-  //   .welcome {
-  //     background-color: rgb(255, 3, 3);
-  //     width: 30%;
-  //     margin: 5px;
-  //     border-radius: 10px;
-
-  //     p {
-  //       text-align: justify;
-  //       font-family: "Varela Round", sans-serif;
-  //       font-weight: 400;
-  //       font-size: 1.2rem;
-  //       margin: 10px;
-  //       line-height: 1.2;
-  //       color: white;
-  //     }
-  //   }
-
-  //   .how-to-play {
-  //     background-color: green;
-  //     width: 30%;
-  //     margin: 5px;
-  //     border-radius: 10px;
-  //   }
-  //   .account {
-  //     background-color: yellow;
-  //     width: 30%;
-  //     margin: 5px;
-  //     border-radius: 10px;
-  //   }
-  // }
-
-  // .info {
-  //   display: flex;
-  //   justify-content: space-evenly;
-  //   margin: 10px;
-
-  //   a {
-  //     text-decoration: underline;
-  //     margin: 5px;
-  //     align-self: center;
-  //     color: #0800ff;
-  //     font-weight: 600;
-  //     font-size: large;
-  //     font-family: "Varela Round", sans-serif;
-  //   }
-
-  //   .developers {
-  //     display: flex;
-  //     flex-direction: column;
-  //     border: 1px solid black;
-  //     border-radius: 10px;
-  //     background-color: rgba(255, 255, 255, 0.483);
-  //     p {
-  //       margin: 5px;
-  //       font-family: "Varela Round", sans-serif;
-  //       font-size: large;
-  //     }
-  //   }
-  //   .users {
-  //     display: flex;
-  //     flex-direction: column;
-  //     border: 1px solid black;
-  //     border-radius: 10px;
-  //     background-color: rgba(255, 255, 255, 0.483);
-  //     p {
-  //       margin: 5px;
-  //       font-family: "Varela Round", sans-serif;
-  //       font-size: large;
-  //     }
-  //   }
-  // }
 }
 
 @media (max-width: 700px) {
   .home-page {
-    overflow-x: auto;
-
-    &::-webkit-scrollbar {
-      width: 2px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: #f1f1f1;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background: #926666;
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-      background: #633737;
-    }
+    overflow: hidden;
 
     img {
       width: 85%;
       margin: 5px;
     }
-    .intro {
-      width: 90%;
-      margin: 5px;
 
-      dialog {
-        .span-container {
-          .dialog-box {
-            width: 95dvw;
-            form {
-              margin: 1%;
-            }
-          }
-        }
-      }
+    .cube-container {
+      width: 250px;
+      height: 250px;
+      margin-top: 10%;
+      margin-left: 10%;
+    }
+    .cube {
+      width: 200px;
+      height: 200px;
     }
   }
 }
