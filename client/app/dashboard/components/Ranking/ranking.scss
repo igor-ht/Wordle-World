@@ -5,6 +5,7 @@
   flex-direction: column;
   border: 2px solid gold;
   background-color: rgb(255, 233, 110);
+  overflow: hidden;
 
   h1 {
     text-align: center;
@@ -65,7 +66,6 @@
           margin: 0;
           font-family: "Varela Round", sans-serif;
           font-size: 1.1rem;
-          max-height: 30px;
         }
         &:nth-child(odd) {
           background-color: rgb(214, 214, 214);
@@ -84,5 +84,10 @@
     height: 77dvh;
     margin-top: 10px;
     margin-bottom: 7px;
+    overflow: hidden;
+  }
+
+  .ranking {
+    max-height: -webkit-fill-available;
   }
 }

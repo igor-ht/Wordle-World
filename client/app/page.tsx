@@ -1,4 +1,4 @@
-import './layout.scss';
+import './homePage.scss';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -12,43 +12,92 @@ export default function Home() {
 				width={300}
 				priority
 			/>
-
-			<div className="intro">
-				<dialog open>
-					<span className="span-container">
-						<div className="dialog-box">
-							<form method="dialog">
-								<button formMethod="dialog">X</button>
-							</form>
+			<div className="cube-container">
+				<div className="cube">
+					<div className="face welcome">
+						<p>
+							Welcome to Wordle World!
+							<br />
+							I am excited to have you here and hope you enjoy playing around.
+							<br />
+							Here you can play Wordle in english for free and keep track of the words you discovered and points you made!
+							<br />
+							Enjoy and good luck!
+						</p>
+					</div>
+					<div className="face how-to-play">
+						<h6>How to play:</h6>
+						<p>
+							- You have 6 chances to guess a secret random word.
+							<br />
+							- After every guess, you can get three possible answers:
+							<br />
+						</p>
+						<section>
 							<span>
-								<p className="beta-message">
-									Hi there! I am excited to have you here and hope you enjoy playing around.
-									<br />I just want to let you know that the website&apos;s platform is currently in beta version, which means it&apos;s
-									still being developed and can be instable, therefore some small technical problem might happen. However, the beta version
-									of the game allows you to register and play for free. You can also invite your friends to join in on the fun and collect
-									points as you play. Have fun!
-								</p>
+								<input
+									type="text"
+									className="wrong"
+									disabled
+									value={'S'}
+								/>
+								<p> - When the letter is not part of the secret word.</p>
 							</span>
+							<span>
+								<input
+									type="text"
+									className="cow"
+									disabled
+									value={'A'}
+								/>
+								<p> - When the letter is part of the secret word but at the wrong place.</p>
+							</span>
+							<span>
+								<input
+									type="text"
+									className="bull"
+									disabled
+									value={'R'}
+								/>
+								<p> - When the letter is part of the secret word and is at the right place.</p>
+							</span>
+						</section>
+					</div>
+					<div className="face account">
+						<span>
+							<p>Have an account already? </p>
+							<Link href={'/signin'}>Sign in here.</Link>
+						</span>
+						<span>
+							<p>Doens't have an account yet?</p>
+							<Link href={'/signup'}>Sign up here.</Link>
+						</span>
+						<p>
+							Not into commitment?
+							<br />
+							You are still able to play three times a day!
+						</p>
+					</div>
+					<div className="face info">
+						<div className="users">
+							<p>Give a feedback:</p>
+							<Link
+								href={'mailto:idht07@gmail.com'}
+								target="_blank">
+								Email me
+							</Link>
 						</div>
-					</span>
-				</dialog>
-				<div className="info">
-					<section className="developers">
-						<p>Developers here:</p>
-						<Link
-							href={'https://github.com/igor-ht/Wordle-World'}
-							target="_blank">
-							Github repo
-						</Link>
-					</section>
-					<section className="users">
-						<p>Give a feedback:</p>
-						<Link
-							href={'mailto:idht07@gmail.com'}
-							target="_blank">
-							Email me
-						</Link>
-					</section>
+						<div className="developers">
+							<p>Developers here:</p>
+							<Link
+								href={'https://github.com/igor-ht/Wordle-World'}
+								target="_blank">
+								Github repo
+							</Link>
+						</div>
+					</div>
+					<div className="face top"></div>
+					<div className="face bottom"></div>
 				</div>
 			</div>
 		</div>

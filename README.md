@@ -6,7 +6,7 @@
 
 # To do
 
-#####Client:
+####Client:
 
 - Implement tests.
 - Create a bad-ass Home Page.
@@ -14,7 +14,7 @@
 - Improve dashboard page styling for Mobile and Safari browser.
 - Improve general styling.
 
-#####Server:
+####Server:
 
 - Implement tests.
 

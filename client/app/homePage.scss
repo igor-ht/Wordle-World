@@ -1,0 +1,296 @@
+@keyframes turn {
+  from {
+    transform: rotate3d(0, 0, 0, 0);
+  }
+  to {
+    transform: rotate3d(0, 1, 0, 360deg);
+  }
+}
+
+.home-page {
+  width: 100dvw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    width: 350px;
+    height: auto;
+    margin: 10px;
+  }
+
+  .cube-container {
+    width: 400px;
+    height: 400px;
+    perspective: 650px;
+    margin-top: 5%;
+    margin-left: 15%;
+  }
+
+  .cube {
+    position: relative;
+    width: 260px;
+    height: 260px;
+    transform-style: preserve-3d;
+    // transform: rotate3d(0, 1, 0, 0deg);
+    animation: turn 20s linear infinite;
+    &:hover {
+      animation-play-state: paused;
+      cursor: grab;
+    }
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  .face {
+    width: 260px;
+    height: 260px;
+    position: absolute;
+    opacity: 0.95;
+    display: flex;
+    border-radius: 2px;
+    p {
+      margin: 5px;
+    }
+    &:hover {
+      opacity: 1;
+    }
+  }
+  .welcome {
+    transform: translateZ(130px);
+    background-color: green;
+    border: 0;
+    align-items: center;
+    p {
+      text-align: justify;
+      color: white;
+      font-size: 1.02rem;
+      margin: 20px;
+    }
+  }
+  .info {
+    transform: translateZ(-130px) rotateY(180deg);
+    background-color: green;
+    border: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    color: white;
+    div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      a {
+        color: yellow;
+        align-self: center;
+      }
+    }
+  }
+  .account {
+    transform: translateX(-130px) rotateY(-90deg);
+    background-color: yellow;
+    border: 0;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    span {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    p {
+      text-shadow: 0px 0px 10px black;
+      text-align: center;
+      margin-top: 30px;
+    }
+    a {
+      align-self: center;
+      color: blue;
+      font-weight: 400;
+      &:visited {
+        color: blue;
+      }
+    }
+  }
+  .how-to-play {
+    transform: translateX(130px) rotateY(90deg);
+    background-color: red;
+    border: 0;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    line-height: 18px;
+    color: white;
+    h6 {
+      margin: 5px;
+    }
+    section {
+      display: flex;
+      flex-direction: column;
+      span {
+        display: flex;
+        flex-direction: row;
+        font-size: 0.8rem;
+        margin: 2px;
+        p {
+          text-align: initial;
+        }
+        input {
+          width: 20px;
+          height: 20px;
+          margin: 2px;
+          text-align: center;
+          color: white;
+          font-weight: 400;
+          text-shadow: 0px 0px 1px black;
+        }
+        .wrong {
+          background-color: gray;
+        }
+        .bull {
+          background-color: green;
+        }
+        .cow {
+          background-color: rgb(226, 226, 23);
+        }
+      }
+    }
+  }
+  .top {
+    transform: translateY(-130px) rotateX(90deg);
+    background-color: yellow;
+    border: 0;
+  }
+  .bottom {
+    transform: translateY(130px) rotateX(-90deg);
+    background-color: white;
+    border: 0;
+  }
+
+  // .intro-container {
+  //   background-color: rgba(255, 255, 255, 0);
+  //   border-radius: 10px;
+  //   align-self: center;
+  //   width: 100dvw;
+  //   height: 100%;
+  //   display: flex;
+  //   flex-direction: row;
+  //   justify-content: center;
+
+  //   .welcome {
+  //     background-color: rgb(255, 3, 3);
+  //     width: 30%;
+  //     margin: 5px;
+  //     border-radius: 10px;
+
+  //     p {
+  //       text-align: justify;
+  //       font-family: "Varela Round", sans-serif;
+  //       font-weight: 400;
+  //       font-size: 1.2rem;
+  //       margin: 10px;
+  //       line-height: 1.2;
+  //       color: white;
+  //     }
+  //   }
+
+  //   .how-to-play {
+  //     background-color: green;
+  //     width: 30%;
+  //     margin: 5px;
+  //     border-radius: 10px;
+  //   }
+  //   .account {
+  //     background-color: yellow;
+  //     width: 30%;
+  //     margin: 5px;
+  //     border-radius: 10px;
+  //   }
+  // }
+
+  // .info {
+  //   display: flex;
+  //   justify-content: space-evenly;
+  //   margin: 10px;
+
+  //   a {
+  //     text-decoration: underline;
+  //     margin: 5px;
+  //     align-self: center;
+  //     color: #0800ff;
+  //     font-weight: 600;
+  //     font-size: large;
+  //     font-family: "Varela Round", sans-serif;
+  //   }
+
+  //   .developers {
+  //     display: flex;
+  //     flex-direction: column;
+  //     border: 1px solid black;
+  //     border-radius: 10px;
+  //     background-color: rgba(255, 255, 255, 0.483);
+  //     p {
+  //       margin: 5px;
+  //       font-family: "Varela Round", sans-serif;
+  //       font-size: large;
+  //     }
+  //   }
+  //   .users {
+  //     display: flex;
+  //     flex-direction: column;
+  //     border: 1px solid black;
+  //     border-radius: 10px;
+  //     background-color: rgba(255, 255, 255, 0.483);
+  //     p {
+  //       margin: 5px;
+  //       font-family: "Varela Round", sans-serif;
+  //       font-size: large;
+  //     }
+  //   }
+  // }
+}
+
+@media (max-width: 700px) {
+  .home-page {
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+      width: 2px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #926666;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: #633737;
+    }
+
+    img {
+      width: 85%;
+      margin: 5px;
+    }
+    .intro {
+      width: 90%;
+      margin: 5px;
+
+      dialog {
+        .span-container {
+          .dialog-box {
+            width: 95dvw;
+            form {
+              margin: 1%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
