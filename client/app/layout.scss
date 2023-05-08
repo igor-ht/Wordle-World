@@ -118,7 +118,8 @@ body {
 
 .menu-container {
 	position: absolute;
-	width: 0;
+	z-index: 1;
+	width: 0dvw;
 	height: 80dvh;
 	top: 12dvh;
 	display: flex;
@@ -218,45 +219,5 @@ body {
 	.main-container {
 		overflow-y: auto;
 		overflow-x: hidden;
-	}
-
-	.home-page {
-		overflow-x: auto;
-
-		&::-webkit-scrollbar {
-			width: 2px;
-		}
-
-		&::-webkit-scrollbar-track {
-			background: #f1f1f1;
-		}
-
-		&::-webkit-scrollbar-thumb {
-			background: #926666;
-		}
-
-		&::-webkit-scrollbar-thumb:hover {
-			background: #633737;
-		}
-
-		img {
-			width: 85%;
-			margin: 5px;
-		}
-		.intro {
-			width: 90%;
-			margin: 5px;
-
-			dialog {
-				.span-container {
-					.dialog-box {
-						width: 95dvw;
-						form {
-							margin: 1%;
-						}
-					}
-				}
-			}
-		}
 	}
 }

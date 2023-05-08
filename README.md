@@ -9,9 +9,6 @@
 ####Client:
 
 - Implement tests.
-- Create a bad-ass Home Page.
-- Improve digital Keyboard Component styling for Mobile and Safari browser.
-- Improve dashboard page styling for Mobile and Safari browser.
 - Improve general styling.
 
 ####Server:

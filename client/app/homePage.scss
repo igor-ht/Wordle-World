@@ -1,9 +1,9 @@
 @keyframes turn {
   from {
-    transform: rotate3d(0, 0, 0, 0);
+    transform: rotateY(0deg);
   }
   to {
-    transform: rotate3d(0, 1, 0, 360deg);
+    transform: rotateY(360deg);
   }
 }
 
@@ -21,11 +21,9 @@
   }
 
   .cube-container {
-    width: 400px;
-    height: 400px;
-    perspective: 650px;
-    margin-top: 5%;
-    margin-left: 15%;
+    position: relative;
+    perspective: 550px;
+    margin-top: 2.5%;
   }
 
   .cube {
@@ -33,7 +31,6 @@
     width: 260px;
     height: 260px;
     transform-style: preserve-3d;
-    // transform: rotate3d(0, 1, 0, 0deg);
     animation: turn 20s linear infinite;
     &:hover {
       animation-play-state: paused;
@@ -51,6 +48,7 @@
     opacity: 0.95;
     display: flex;
     border-radius: 2px;
+    user-select: none;
     p {
       margin: 5px;
     }
@@ -183,12 +181,14 @@
     .cube-container {
       width: 250px;
       height: 250px;
+      perspective: 2500px;
       margin-top: 10%;
-      margin-left: 10%;
+      margin-right: 2.2%;
     }
-    .cube {
-      width: 200px;
-      height: 200px;
+
+    input {
+      -webkit-text-fill-color: white;
+      opacity: 1;
     }
   }
 }
