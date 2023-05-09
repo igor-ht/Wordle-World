@@ -4,17 +4,6 @@
 
 #### <u>Server:</u> Node.js, TypeScript, Express, JWT, Prisma
 
-# To do
-
-##### Client:
-
-- Implement tests.
-- Improve general styling.
-
-##### Server:
-
-- Implement tests.
-
 # Development Goals:
 
 As I embarked on this full stack project, my main goal was to create a robust and scalable full-stack app with both client and server-side components and deploy it successfully, work with a React-based framework (few weeks later React deprecate create-react-app) and create an API using Express and Prisma.
