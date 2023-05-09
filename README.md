@@ -21,7 +21,7 @@ In terms of my development goals, my primary objective was to implement as many 
 
 ## Live App
 
-You can try the app live [here](https://wordle-world.vercel.app/).
+You can try the app live <a href="https://wordle-world.vercel.app/" target="_blank">***here***</a>.
 
 You can signup registering a new account or using your Google account.
 
