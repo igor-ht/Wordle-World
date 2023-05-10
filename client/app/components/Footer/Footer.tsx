@@ -1,7 +1,7 @@
 export default function Footer() {
 	return (
 		<footer className="footer">
-			<p>©2023 Wordle World</p>
+			<p>Wordle World™ 2023</p>
 		</footer>
 	);
 }

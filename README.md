@@ -12,16 +12,15 @@ In terms of my development goals, my primary objective was to implement as many 
 
 ## App Commands
 
-|             | Client            | Server          |
-| ----------- | ----------------- | --------------- |
-| Development | `npm run dev`     | `npm run dev`   |
-| Build       | `npm run build`   | `npm run build` |
-| Production  | `npm run start`   | `npm run start` |
-| Tests       | `npm run cypress` | `npm run test`  |
+|             | Client          | Server          |
+| ----------- | --------------- | --------------- |
+| Development | `npm run dev`   | `npm run dev`   |
+| Build       | `npm run build` | `npm run build` |
+| Production  | `npm run start` | `npm run start` |
 
 ## Live App
 
-You can try the app live <a href="https://wordle-world.vercel.app/" target="_blank">***here***</a>.
+You can try the app live <a href="https://wordle-world.vercel.app/" target="_blank">**_here_**</a>.
 
 You can signup registering a new account or using your Google account.
 
