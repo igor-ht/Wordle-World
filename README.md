@@ -1,8 +1,10 @@
 # Wordle Game
 
-#### <u>Client:</u> Next.js 13 Beta, TypeScript, Next-Auth, SCSS, Cypress
+#### <u>Client</u>
+  ![alt text](https://user-images.githubusercontent.com/117295025/237769152-bb2b68df-c753-43d5-a1ed-91a511ec411d.png)
 
-#### <u>Server:</u> Node.js, TypeScript, Express, JWT, Prisma
+#### <u>Server</u>
+  ![alt text](https://user-images.githubusercontent.com/117295025/237769180-ec6526d6-54ad-42b3-9572-45c80cce449a.png)
 
 # Development Goals:
 
