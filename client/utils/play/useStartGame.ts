@@ -1,4 +1,4 @@
-import { MouseEventHandler, MutableRefObject, useEffect, useReducer, useRef } from 'react';
+import { MouseEventHandler, MutableRefObject, useEffect, useReducer, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import useWordHandlers from './useWordHandlers';
@@ -29,6 +29,7 @@ export interface IGameApi {
 }
 
 const useStartGame: () => IGameApi = () => {
+	const [asyncRun, setAsyncRun] = useState(false);
 	const [playState, playStateDispatch] = useReducer(playStateReducer, playStateInitialState);
 	const [gameSettings, gameSettingsDispatch] = useReducer(gameSettingsReducer, gameSettingsInitialState);
 	const [gameState, gameStateDispatch] = useReducer(gameStateReducer, gameStateInitialState);
@@ -56,12 +57,15 @@ const useStartGame: () => IGameApi = () => {
 
 	const handleKeyPressed = (event: KeyboardEvent) => {
 		if (playState.defeat || playState.victory) return;
+		if (asyncRun) return;
+		setAsyncRun(true);
 		if (event.key === 'Enter') return handleEnter();
 		if (event.key === 'Backspace') return handleBackSpace();
-		if (!/^[a-zA-Z]$/.test(event.key)) return;
-		if (currentInputElement.current!.value.length > 0) return;
+		if (!/^[a-zA-Z]$/.test(event.key)) return setAsyncRun(false);
+		if (currentInputElement.current!.value.length > 0) return setAsyncRun(false);
 		handleGameStateUpdate(event.key.toUpperCase());
 		handleInputCellChange();
+		setAsyncRun(false);
 	};
 
 	const handleKeyPressedFromDigitalKeyboard = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -87,14 +91,16 @@ const useStartGame: () => IGameApi = () => {
 	};
 
 	const handleInputRowChange = async () => {
+		gameStateDispatch({ type: 'setGuessNumber', payload: gameState.guessNumber + 1 });
+		gameStateDispatch({ type: 'setCurrentGuess', payload: '' });
+		gameStateDispatch({ type: 'setCurrentLetter', payload: '' });
 		currentInputElement.current?.parentElement?.classList.remove('span-complete');
 		const nextRow = currentInputElement.current?.parentElement?.nextElementSibling as HTMLSpanElement;
 		const firstInput = nextRow.firstElementChild as HTMLInputElement;
 		currentInputElement.current?.classList.remove('current-input');
 		currentInputElement.current = firstInput;
 		currentInputElement.current.classList.add('current-input');
-		gameStateDispatch({ type: 'setGuessNumber', payload: gameState.guessNumber + 1 });
-		gameStateDispatch({ type: 'setCurrentGuess', payload: '' });
+		setAsyncRun(false);
 	};
 
 	const handleBackSpace = () => {
@@ -115,19 +121,23 @@ const useStartGame: () => IGameApi = () => {
 			gameStateDispatch({ type: 'setCurrentGuess', payload: gameState.currentGuess.slice(0, -1) });
 			gameStateDispatch({ type: 'setCurrentLetter', payload: '' });
 		}
+		setAsyncRun(false);
 	};
 
 	const handleEnter = async () => {
 		gameState.currentLetter = '';
 		if (gameState.currentGuess.length === gameSettings.wordLength) {
-			if (!(await handleWordExists(gameState))) return currentInputElement.current!.parentElement!.classList.add('notfound-guess');
+			if (!(await handleWordExists(gameState)))
+				return currentInputElement.current!.parentElement!.classList.add('notfound-guess'), setAsyncRun(false);
 			const ans = await sendUserGuessToServer(gameState);
 			await handleInputCellsUpdate(ans);
 			await handleKeyboardUpdate(ans);
 			if (!(await handleUserGuessResponse(ans))) return await handleInputRowChange();
+			setAsyncRun(false);
 		} else {
 			const currentRow = currentInputElement.current!.parentElement as HTMLSpanElement;
 			currentRow.classList.add('short-guess');
+			setAsyncRun(false);
 		}
 	};
 

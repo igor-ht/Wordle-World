@@ -31,13 +31,9 @@
     width: 260px;
     height: 260px;
     transform-style: preserve-3d;
-    animation: turn 20s linear infinite;
+    animation: turn 20s linear 1s infinite;
     &:hover {
       animation-play-state: paused;
-      cursor: grab;
-    }
-    &:active {
-      cursor: grabbing;
     }
   }
 
@@ -49,6 +45,7 @@
     display: flex;
     border-radius: 2px;
     user-select: none;
+    text-shadow: 0px 0px 10px black;
     p {
       margin: 5px;
     }
@@ -58,7 +55,7 @@
   }
   .welcome {
     transform: translateZ(130px);
-    background-color: green;
+    background-color: #02d502;
     border: 0;
     align-items: center;
     p {
@@ -70,7 +67,7 @@
   }
   .info {
     transform: translateZ(-130px) rotateY(180deg);
-    background-color: green;
+    background-color: #02d502;
     border: 0;
     flex-direction: column;
     align-items: center;
@@ -81,14 +78,14 @@
       flex-direction: column;
       align-items: center;
       a {
-        color: yellow;
+        color: blue;
         align-self: center;
       }
     }
   }
   .account {
     transform: translateX(-130px) rotateY(-90deg);
-    background-color: yellow;
+    background-color: #ffff30;
     border: 0;
     flex-direction: column;
     align-items: center;
@@ -100,7 +97,6 @@
       justify-content: center;
     }
     p {
-      text-shadow: 0px 0px 10px black;
       text-align: center;
       margin-top: 30px;
     }
@@ -115,7 +111,7 @@
   }
   .how-to-play {
     transform: translateX(130px) rotateY(90deg);
-    background-color: red;
+    background-color: #d02020;
     border: 0;
     flex-direction: column;
     align-items: center;
