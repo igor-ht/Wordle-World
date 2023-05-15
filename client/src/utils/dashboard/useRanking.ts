@@ -22,7 +22,7 @@ export default function useRanking() {
 			getRanking();
 			getUserRank();
 		}
-	}, [session]);
+	});
 
 	const getRanking = async () => {
 		try {

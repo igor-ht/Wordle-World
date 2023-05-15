@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import axios, { AxiosError } from 'axios';
-import { userLogin } from '@/app/signin/SignInForms';
+import { userLogin } from '../../signin/SignInForms';
 import { ENDPOINT } from '@/src/appConfig';
 
 const axiosUser = axios.create({

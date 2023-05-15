@@ -20,7 +20,7 @@ export default function useGuestHandlers() {
 
 	useEffect(() => {
 		if (session) removeValue();
-	}, [session]);
+	});
 
 	const searchGuestInDB = async () => {
 		const res = await axios.get('/api/guest');

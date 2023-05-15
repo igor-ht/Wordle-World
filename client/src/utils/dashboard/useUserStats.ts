@@ -10,7 +10,7 @@ export default function useUserStats() {
 
 	useEffect(() => {
 		if (session) getUserStats();
-	}, [session]);
+	});
 
 	const getUserStats = async () => {
 		try {

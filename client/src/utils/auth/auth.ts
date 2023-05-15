@@ -1,4 +1,4 @@
-import NextAuth, { NextAuthOptions, Session } from 'next-auth';
+import { NextAuthOptions, Session } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { JWT } from 'next-auth/jwt';
@@ -109,6 +109,3 @@ export const authOptions: NextAuthOptions = {
 		error: '/signin',
 	},
 };
-
-const handler = NextAuth(authOptions);
-export { handler as GET, handler as POST };
