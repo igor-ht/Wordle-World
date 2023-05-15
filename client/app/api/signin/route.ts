@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import axios, { AxiosError } from 'axios';
 import { userLogin } from '@/app/signin/SignInForms';
-import { ENDPOINT } from '@/appConfig';
+import { ENDPOINT } from '@/src/appConfig';
 
 const axiosUser = axios.create({
 	baseURL: `${ENDPOINT}/user`,

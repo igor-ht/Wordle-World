@@ -1,4 +1,4 @@
-import { ENDPOINT } from '@/appConfig';
+import { ENDPOINT } from '@/src/appConfig';
 import axios from 'axios';
 import { NextRequest, NextResponse } from 'next/server';
 

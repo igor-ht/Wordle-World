@@ -4,7 +4,7 @@ import './victoryCard.scss';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { gameStateType } from '../../../../utils/play/reducers';
+import { gameStateType } from '@/src/utils/play/reducers';
 import { useRouter } from 'next/navigation';
 
 export default function VictoryCard({ gameState, handleResetGame }: { gameState: gameStateType; handleResetGame: () => Promise<void> }) {

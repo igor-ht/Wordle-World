@@ -2,7 +2,7 @@
 
 import './userStats.scss';
 import { ChangeEvent, useRef } from 'react';
-import useUserStats from '@/utils/dashboard/useUserStats';
+import useUserStats from '@/src/utils/dashboard/useUserStats';
 
 export default function UserStats() {
 	const { userStats } = useUserStats();

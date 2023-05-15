@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useFormik } from 'formik';
-import { SignupSchema } from '../../utils/forms/validating';
+import { SignupSchema } from '@/src/utils/forms/validating';
 import { signIn, useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import axios, { AxiosError } from 'axios';

@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { handleHashing } from '../../../utils/forms/hashing';
+import { handleHashing } from '@/src/utils/forms/hashing';
 import { userSignUp } from '@/app/signup/SignUpForms';
 import axios, { AxiosError } from 'axios';
-import { ENDPOINT } from '@/appConfig';
+import { ENDPOINT } from '@/src/appConfig';
 
 export async function POST(request: NextRequest) {
 	try {

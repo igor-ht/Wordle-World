@@ -1,7 +1,7 @@
 'use client';
 
 import './ranking.scss';
-import useRanking from '@/utils/dashboard/useRanking';
+import useRanking from '@/src/utils/dashboard/useRanking';
 
 export default function Ranking() {
 	const { ranking } = useRanking();

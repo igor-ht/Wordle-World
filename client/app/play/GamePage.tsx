@@ -6,7 +6,7 @@ import InputContainer from './components/InputContainer/InputContainer';
 import KeyboardContainer from './components/KeyboardContainer/KeyboardContainer';
 import VictoryCard from './components/VictoryCard/VictoryCard';
 import DefeatCard from './components/DefeatCard/DefeatCard';
-import useStartGame from '../../utils/play/useStartGame';
+import useStartGame from '@/src/utils/play/useStartGame';
 import GuestLimitGames from './components/GuestLimitGames/GuestLimitGames';
 
 export default function GamePage() {

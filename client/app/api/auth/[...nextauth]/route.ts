@@ -2,7 +2,7 @@ import NextAuth, { NextAuthOptions, Session } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { JWT } from 'next-auth/jwt';
-import { BASE_URL, ENDPOINT, GoogleClientID, GoogleClientSecret } from '@/appConfig';
+import { BASE_URL, ENDPOINT, GoogleClientID, GoogleClientSecret } from '@/src/appConfig';
 import axios from 'axios';
 import { redirect } from 'next/navigation';
 
@@ -110,4 +110,5 @@ export const authOptions: NextAuthOptions = {
 	},
 };
 
-export default NextAuth(authOptions);
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };

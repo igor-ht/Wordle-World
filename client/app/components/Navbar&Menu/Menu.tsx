@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useClickOutsideMenu } from '../../../utils/hooks/useClickOutsideMenu';
+import { useClickOutsideMenu } from '@/src/utils/hooks/useClickOutsideMenu';
 import { useRef } from 'react';
 import { useSession } from 'next-auth/react';
 
