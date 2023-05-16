@@ -1,10 +1,11 @@
 'use client';
 
-import { useFormik } from 'formik';
 import Image from 'next/image';
+import axios from 'axios';
+import { useFormik } from 'formik';
 import { signIn, useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
-import axios from 'axios';
+import { NEXTAUTH_URL } from '@/src/appConfig';
 
 export interface userLogin {
 	email: string;

@@ -95,6 +95,9 @@ export const authOptions: NextAuthOptions = {
 			};
 			return newSession;
 		},
+		redirect: async ({ url, baseUrl }) => {
+			return url.startsWith(baseUrl) ? Promise.resolve(url) : Promise.resolve(baseUrl);
+		},
 	},
 	session: {
 		strategy: 'jwt',
