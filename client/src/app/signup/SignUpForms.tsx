@@ -6,7 +6,7 @@ import { useFormik } from 'formik';
 import { SignupSchema } from '@/src/utils/forms/validating';
 import { signIn, useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
-import { NEXTAUTH_URL } from '@/src/appConfig';
+import { BASE_URL } from '@/src/appConfig';
 
 export interface userSignUp {
 	name: string;
@@ -43,7 +43,7 @@ export default function SignUpForms() {
 				accessToken: userLogged.accessToken,
 				refreshToken: userLogged.refreshToken,
 				redirect: true,
-				callbackUrl: '/dashboard',
+				callbackUrl: BASE_URL + '/dashboard',
 			});
 		} catch (error) {
 			if (error instanceof AxiosError) {
@@ -58,7 +58,7 @@ export default function SignUpForms() {
 		try {
 			return await signIn('google', {
 				redirect: true,
-				callbackUrl: '/dashboard',
+				callbackUrl: BASE_URL + '/dashboard',
 			});
 		} catch {
 			formik.setErrors({

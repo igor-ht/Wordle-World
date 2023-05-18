@@ -17,13 +17,6 @@ export default function useRanking() {
 		},
 	});
 
-	useEffect(() => {
-		if (session) {
-			getRanking();
-			getUserRank();
-		}
-	});
-
 	const getRanking = async () => {
 		try {
 			const res = await axiosAuth.post('/api/dashboard', { email: session?.user?.email }, { params: { getRanking: true } });
@@ -49,6 +42,11 @@ export default function useRanking() {
 			await update();
 		}
 	};
+
+	useEffect(() => {
+		getRanking();
+		getUserRank();
+	}, []);
 
 	return { ranking };
 }

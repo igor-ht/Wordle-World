@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useReducer } from 'react';
 import { useSession } from 'next-auth/react';
 import { userStatsInitialState, userStatsReducer } from './reducer';
@@ -7,10 +9,6 @@ export default function useUserStats() {
 	const axiosAuth = useAxiosAuth();
 	const { data: session, update } = useSession();
 	const [userStats, userStatsDispatch] = useReducer(userStatsReducer, userStatsInitialState);
-
-	useEffect(() => {
-		if (session) getUserStats();
-	});
 
 	const getUserStats = async () => {
 		try {
@@ -34,6 +32,10 @@ export default function useUserStats() {
 			await update();
 		}
 	};
+
+	useEffect(() => {
+		getUserStats();
+	}, []);
 
 	return { userStats };
 }

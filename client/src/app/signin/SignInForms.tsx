@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import { signIn, useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
-import { NEXTAUTH_URL } from '@/src/appConfig';
+import { BASE_URL } from '@/src/appConfig';
 
 export interface userLogin {
 	email: string;
@@ -36,7 +36,7 @@ export default function SignInForms() {
 				accessToken: userLogged.accessToken,
 				refreshToken: userLogged.refreshToken,
 				redirect: true,
-				callbackUrl: '/dashboard',
+				callbackUrl: `${BASE_URL}/dashboard`,
 			});
 		} catch {
 			formik.setErrors({ email: `One or more fields are not valid.`, password: 'One or more fields are not valid.' });
@@ -47,7 +47,7 @@ export default function SignInForms() {
 		try {
 			return await signIn('google', {
 				redirect: true,
-				callbackUrl: '/dashboard',
+				callbackUrl: `${BASE_URL}/dashboard`,
 			});
 		} catch {
 			formik.setErrors({ email: `We had a problem with the login proccess.`, password: 'We had a problem with the login proccess.' });
