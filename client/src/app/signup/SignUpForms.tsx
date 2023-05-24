@@ -6,7 +6,6 @@ import { useFormik } from 'formik';
 import { SignupSchema } from '@/src/utils/forms/validating';
 import { signIn, useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
-import { BASE_URL } from '@/src/appConfig';
 
 export interface userSignUp {
 	name: string;
@@ -17,7 +16,6 @@ export interface userSignUp {
 
 export default function SignUpForms() {
 	const { data: session, status } = useSession();
-
 	const formik = useFormik<userSignUp>({
 		initialValues: {
 			name: '',
@@ -42,9 +40,9 @@ export default function SignUpForms() {
 				password: user.password,
 				accessToken: userLogged.accessToken,
 				refreshToken: userLogged.refreshToken,
-				redirect: true,
-				callbackUrl: BASE_URL + '/dashboard',
+				redirect: false,
 			});
+			redirect('/dashboard');
 		} catch (error) {
 			if (error instanceof AxiosError) {
 				if (error.response?.data === 'Email already registered.') formik.setFieldError('email', 'Email already registered');
@@ -56,9 +54,9 @@ export default function SignUpForms() {
 
 	const handleGoogleSignUp = async () => {
 		try {
-			return await signIn('google', {
+			await signIn('google', {
 				redirect: true,
-				callbackUrl: BASE_URL + '/dashboard',
+				callbackUrl: '/dashboard',
 			});
 		} catch {
 			formik.setErrors({

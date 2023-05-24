@@ -28,6 +28,7 @@ export default function VictoryCard({ gameState, handleResetGame }: { gameState:
 					alt="Well Done!"
 					width={200}
 					height={200}
+					priority
 				/>
 				<section>
 					<p>

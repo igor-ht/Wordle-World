@@ -1,12 +1,13 @@
-import { NextAuthOptions, Session } from 'next-auth';
+import NextAuth, { Session } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import axios from 'axios';
 import { JWT } from 'next-auth/jwt';
 import { BASE_URL, ENDPOINT, GoogleClientID, GoogleClientSecret } from '@/src/appConfig';
-import axios from 'axios';
+import { signOut } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 
-export const updateAcessToken = async (token: JWT): Promise<JWT> => {
+const updateAcessToken = async (token: JWT): Promise<JWT> => {
 	try {
 		const updatedUser = (await axios.post(`${ENDPOINT}/user/updateUserAccessToken`, { userEmail: token?.email })).data;
 		return {
@@ -19,11 +20,12 @@ export const updateAcessToken = async (token: JWT): Promise<JWT> => {
 			refreshTokenExpires: Date.now() / 1000 + 60 * 30,
 		};
 	} catch {
-		redirect('/signin');
+		await signOut();
+		return redirect('/signin');
 	}
 };
 
-export const authOptions: NextAuthOptions = {
+export default NextAuth({
 	providers: [
 		CredentialsProvider({
 			name: 'Sign in',
@@ -75,7 +77,7 @@ export const authOptions: NextAuthOptions = {
 		jwt: async ({ token, user, trigger }) => {
 			if (trigger === 'update') {
 				const newToken = await updateAcessToken(token);
-				return newToken;
+				if (newToken) return newToken;
 			}
 			if (!user) return token;
 			return { ...token, ...user };
@@ -95,9 +97,6 @@ export const authOptions: NextAuthOptions = {
 			};
 			return newSession;
 		},
-		redirect: async ({ url, baseUrl }) => {
-			return url.startsWith(baseUrl) ? Promise.resolve(url) : Promise.resolve(baseUrl);
-		},
 	},
 	session: {
 		strategy: 'jwt',
@@ -108,7 +107,6 @@ export const authOptions: NextAuthOptions = {
 	},
 	pages: {
 		signIn: '/signin',
-		newUser: '/signup',
 		error: '/signin',
 	},
-};
+});

@@ -39,6 +39,7 @@ export default function DefeatCard({ handleResetGame }: { handleResetGame: () =>
 					alt="Try Again!"
 					width={200}
 					height={200}
+					priority
 				/>
 				<section>
 					<p>

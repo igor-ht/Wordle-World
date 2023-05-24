@@ -1,6 +1,5 @@
 'use client';
 
-import { BASE_URL } from '@/src/appConfig';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 
@@ -24,7 +23,7 @@ export default function UserLogged() {
 						onClick={() =>
 							signOut({
 								redirect: true,
-								callbackUrl: BASE_URL,
+								callbackUrl: '/',
 							})
 						}>
 						Sign out

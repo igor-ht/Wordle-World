@@ -58,7 +58,7 @@ export async function handleSignIn(req: Request, res: Response) {
 	const updatedUser = await UserDB().updateGeneralInfo(user.id, {
 		name: name,
 		email: email,
-		password: password as string,
+		password: password,
 		accessToken: accessToken,
 		refreshToken: refreshToken,
 	});

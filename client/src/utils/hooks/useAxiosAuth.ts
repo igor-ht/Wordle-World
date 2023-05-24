@@ -1,6 +1,12 @@
+import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
-import { axiosAuth } from '../axios/axios';
+
+const axiosAuth = axios.create({
+	headers: {
+		'Content-Type': 'application/json',
+	},
+});
 
 const useAxiosAuth = () => {
 	const { data: session, status, update } = useSession();
@@ -14,10 +20,10 @@ const useAxiosAuth = () => {
 	};
 
 	useEffect(() => {
-		if (status && status === 'authenticated') {
-			const requestIntercept = axiosAuth.interceptors.request.use(
+		if (status && status === 'authenticated' && session) {
+			const requestInterceptor = axiosAuth.interceptors.request.use(
 				(config) => {
-					if (!config.headers.Authorization) config.headers.Authorization = `Bearer ${session?.accessToken}`;
+					if (!config.headers.Authorization) config.headers.Authorization = `Bearer ${session.accessToken}`;
 					return config;
 				},
 				(error) => Promise.reject(error)
@@ -29,19 +35,20 @@ const useAxiosAuth = () => {
 					if (error?.response?.status && error.response.status === 401 && !prevRequest.sent) {
 						prevRequest.sent = true;
 						await updateAcessToken();
-						prevRequest.headers.Authorization = `Bearer ${session?.accessToken}`;
+						prevRequest.headers.Authorization = `Bearer ${session.accessToken}`;
 						if (!prevRequest?.body?.email)
 							prevRequest.body = {
 								...prevRequest.body,
-								email: session.user?.email,
+								email: session.user ? session.user.email : '',
 							};
 						return axiosAuth(prevRequest);
 					}
 					return Promise.reject(error);
 				}
 			);
+
 			return () => {
-				axiosAuth.interceptors.request.eject(requestIntercept);
+				axiosAuth.interceptors.request.eject(requestInterceptor);
 				axiosAuth.interceptors.response.eject(responseInterceptor);
 			};
 		}

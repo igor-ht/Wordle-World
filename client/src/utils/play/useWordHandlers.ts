@@ -1,5 +1,5 @@
-import { useSession } from 'next-auth/react';
 import useAxiosAuth from '../hooks/useAxiosAuth';
+import { useSession } from 'next-auth/react';
 import { gameStateType } from './reducers';
 
 export default function useWordHandlers() {

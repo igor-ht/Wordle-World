@@ -1,5 +1,5 @@
-import { ENDPOINT } from '@/src/appConfig';
 import axios from 'axios';
+import { ENDPOINT } from '@/src/appConfig';
 import { NextRequest, NextResponse } from 'next/server';
 
 const axiosGuest = axios.create({
