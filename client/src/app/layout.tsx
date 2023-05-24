@@ -7,7 +7,7 @@ import { Session } from 'next-auth';
 
 export const metadata = {
 	title: 'Wordle World',
-	description: 'Play Wordle in english for free',
+	description: 'Play Wordle game in english for free',
 	icons: {
 		icon: '/wordle.icon.svg',
 	},
