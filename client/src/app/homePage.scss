@@ -17,6 +17,7 @@
   img {
     width: 350px;
     height: auto;
+    object-fit: cover;
     margin: 10px;
   }
 
@@ -127,7 +128,7 @@
       span {
         display: flex;
         flex-direction: row;
-        font-size: 0.8rem;
+        font-size: 0.7rem;
         margin: 2px;
         p {
           text-align: initial;

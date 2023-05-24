@@ -17,7 +17,9 @@ export default function RootLayout({ children, session }: { children: React.Reac
 	return (
 		<>
 			<html lang="en">
-				<body className="app">
+				<body
+					className="app"
+					data-theme="light">
 					<AuthProvider session={session}>
 						<Navbar />
 						<MainContainer>{children}</MainContainer>

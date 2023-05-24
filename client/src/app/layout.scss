@@ -1,3 +1,5 @@
+@import "../style/global.css";
+
 html {
 	all: unset;
 	font-family: "Varela Round", sans-serif;
@@ -19,7 +21,9 @@ body {
 }
 
 .navbar {
-	background-color: rgb(255, 255, 138);
+	background-color: var(--navbar-background);
+	color: var(--color);
+	transition: 1s;
 	width: 100dvw;
 	height: 12dvh;
 	max-height: 13dvh;
@@ -59,7 +63,7 @@ body {
 				a {
 					text-decoration: underline;
 					font-weight: 600;
-					color: rgb(53, 49, 49);
+					color: var(--color);
 				}
 			}
 			.signout-button {
@@ -124,7 +128,7 @@ body {
 	top: 12dvh;
 	display: flex;
 	flex-direction: column;
-	background-color: rgb(156, 233, 156);
+	background-color: var(--menu-background);
 	box-shadow: 1px 0px 20px 0px black;
 	border-radius: 0% 1% 1% 0%;
 	overflow: hidden;
@@ -179,7 +183,8 @@ body {
 .main-container {
 	width: 100dvw;
 	height: 80dvh;
-	background-color: rgb(255, 194, 194);
+	background-color: var(--main-background);
+	transition: 1s;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -188,11 +193,32 @@ body {
 .footer {
 	width: 100dvw;
 	height: 8dvh;
-	background-color: rgb(255, 255, 138);
-	display: flex;
-	flex-direction: column;
+	background-color: var(--footer-background);
+	color: var(--color);
+	transition: 1s;
+	display: grid;
+	grid-template-columns: repeat(2, auto);
+	grid-template-rows: 1fr;
 	align-items: center;
-	justify-content: center;
+
+	button {
+		height: 40px;
+		width: 40px;
+		border: 0;
+		border-radius: 50%;
+		margin: 5px;
+		background-color: transparent;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		img {
+			height: 40px;
+			width: 40px;
+			object-fit: contain;
+			cursor: pointer;
+		}
+	}
 
 	p {
 		margin: 0;
