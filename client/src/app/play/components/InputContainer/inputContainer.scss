@@ -138,7 +138,7 @@
 @media (max-width: 700px) {
 	.input-container {
 		input {
-			-webkit-text-fill-color: #000000;
+			-webkit-text-fill-color: var(--color);
 			opacity: 1;
 		}
 	}
