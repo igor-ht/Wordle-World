@@ -2,6 +2,7 @@
   width: 45vw;
   height: 90%;
   display: flex;
+  align-items: center;
   flex-direction: column;
   border: 2px solid gold;
   background-color: rgb(255, 233, 110);
@@ -15,44 +16,21 @@
     font-family: "Varela Round", sans-serif;
   }
 
-  .user-rank {
-    height: auto;
-    margin-bottom: 0;
-    tr {
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
-      text-align: center;
-      th {
-        width: 100%;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      td {
-        width: 33%;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-    }
-  }
-
   table {
     border-collapse: collapse;
     box-shadow: 0px 0px 20px 0px white;
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-bottom: 5px;
     height: 100%;
+    width: 98%;
+    margin: 0.5rem;
     thead {
       tr {
+        display: flex;
+        height: 2.8rem;
         th {
-          height: 35px;
-          width: 100px;
-          text-align: center;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           background-color: rgb(255, 172, 172);
           font-family: "Varela Round", sans-serif;
           font-size: 1.3rem;
@@ -61,9 +39,14 @@
     }
     tbody {
       tr {
+        height: 2.5rem;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        text-align: center;
+
         td {
-          text-align: center;
-          margin: 0;
+          width: 33%;
           font-family: "Varela Round", sans-serif;
           font-size: 1.1rem;
         }
@@ -76,21 +59,43 @@
       }
     }
   }
+
+  .user-rank {
+    height: auto;
+    margin-bottom: 0;
+  }
+  .ranking {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    margin-top: 0;
+    tbody {
+      overflow-y: scroll;
+
+      &::-webkit-scrollbar {
+        width: 0.4rem;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #888;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+    }
+  }
 }
 
 @media (max-width: 700px) {
   .ranking-container {
     width: 90vw;
-    height: 77dvh;
-    margin-top: 10px;
-    margin-bottom: 7px;
-    overflow-y: scroll;
-    .ranking {
-      overflow-y: scroll;
-
-      tbody {
-        overflow-y: scroll;
-      }
-    }
+    height: 95%;
+    margin: 1rem;
+    margin-top: 0;
   }
 }

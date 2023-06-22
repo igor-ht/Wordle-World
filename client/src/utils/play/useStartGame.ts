@@ -69,6 +69,7 @@ const useStartGame: () => IGameApi = () => {
 	};
 
 	const handleKeyPressedFromDigitalKeyboard = (event: React.MouseEvent<HTMLButtonElement>) => {
+		if (asyncRun) return;
 		setAsyncRun(true);
 		event.currentTarget.blur();
 		if (event.currentTarget.name === 'Enter') return handleEnter();
