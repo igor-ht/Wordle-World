@@ -1,18 +1,26 @@
 'use client';
 
 import Image from 'next/image';
+import { useEffect } from 'react';
 
 export default function Footer() {
-	const handleTheme = (event: React.MouseEvent<HTMLButtonElement>) => {
+	useEffect(() => {
+		const currentTheme = window?.localStorage.getItem('theme');
+		if (!currentTheme) return;
 		const appElement = document.querySelector('.app');
-		const currentTheme = event.currentTarget.getAttribute('data-theme-confirmation');
-		if (currentTheme !== 'light') {
-			event.currentTarget.setAttribute('data-theme-confirmation', 'light');
+		appElement?.setAttribute('data-theme', currentTheme);
+	}, []);
+
+	const handleTheme = () => {
+		const appElement = document.querySelector('.app');
+		const currentTheme = appElement?.getAttribute('data-theme');
+		if (currentTheme && currentTheme !== 'light') {
 			appElement?.setAttribute('data-theme', 'light');
+			window?.localStorage?.setItem('theme', 'light');
 			return;
 		}
-		event.currentTarget.setAttribute('data-theme-confirmation', 'dark');
 		appElement?.setAttribute('data-theme', 'dark');
+		window?.localStorage?.setItem('theme', 'dark');
 	};
 
 	return (

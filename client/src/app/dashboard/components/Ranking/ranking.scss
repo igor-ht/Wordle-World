@@ -84,10 +84,13 @@
     height: 77dvh;
     margin-top: 10px;
     margin-bottom: 7px;
-    overflow: hidden;
-  }
+    overflow-y: scroll;
+    .ranking {
+      overflow-y: scroll;
 
-  .ranking {
-    max-height: -webkit-fill-available;
+      tbody {
+        overflow-y: scroll;
+      }
+    }
   }
 }

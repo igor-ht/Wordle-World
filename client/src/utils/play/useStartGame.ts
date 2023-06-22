@@ -69,12 +69,14 @@ const useStartGame: () => IGameApi = () => {
 	};
 
 	const handleKeyPressedFromDigitalKeyboard = (event: React.MouseEvent<HTMLButtonElement>) => {
+		setAsyncRun(true);
 		event.currentTarget.blur();
 		if (event.currentTarget.name === 'Enter') return handleEnter();
 		if (event.currentTarget.name === '⌫') return handleBackSpace();
-		if (currentInputElement.current!.value.length > 0) return;
+		if (currentInputElement.current!.value.length > 0) return setAsyncRun(false);
 		handleGameStateUpdate(event.currentTarget.name);
 		handleInputCellChange();
+		setAsyncRun(false);
 	};
 
 	const handleInputCellChange = () => {
