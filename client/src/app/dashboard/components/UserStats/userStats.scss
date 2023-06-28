@@ -12,14 +12,19 @@
     width: 100%;
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: space-evenly;
-    margin-top: 20px;
-    margin-bottom: 15px;
+    margin: 0;
     font-family: "Varela Round", sans-serif;
+
+    h2 {
+      margin: 0.5rem;
+      text-align: center;
+    }
 
     .points {
       font-family: "Roboto", sans-serif;
-      margin: 0;
+      margin: 0.5rem;
       font-size: 3rem;
       letter-spacing: 2px;
       text-shadow: -2px 2px 0 green;

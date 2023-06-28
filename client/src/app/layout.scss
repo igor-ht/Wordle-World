@@ -43,22 +43,24 @@ body {
 	}
 
 	section {
-		height: auto;
+		height: 100%;
 		display: flex;
 		flex-direction: row;
 		align-items: center;
 		gap: 15px;
 
 		.user-logged {
+			height: 100%;
 			display: flex;
 			flex-direction: column;
+			justify-content: space-evenly;
 			.user-greet {
 				max-width: 150px;
 				font-size: 1.4rem;
 				text-overflow: clip;
 				overflow: hidden;
 				white-space: nowrap;
-				margin: 10px;
+				margin: 0;
 				font-family: "Varela Round", sans-serif;
 				a {
 					text-decoration: underline;
