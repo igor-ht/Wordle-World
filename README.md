@@ -1,4 +1,6 @@
-# Wordle Game
+# Wordle World
+
+Wordle World is an end-to-end interactive word-guessing game built with a three-tier architecture. This project aims to create a robust and scalable full-stack app with client and server-side components.
 
 ![screenshot](https://img.icons8.com/?size=48&id=nCj4PvnCO0tZ&format=png)
 ![screenshot](https://img.icons8.com/?size=48&id=123603&format=png)
@@ -12,26 +14,52 @@
 ![screenshot](https://img.icons8.com/?size=48&id=38561&format=png)
 ![screenshot](https://img.icons8.com/?size=48&id=rHpveptSuwDz&format=png)
 
-# Development Goals:
+## Development Goals
 
-As I embarked on this full stack project, my main goal was to create a robust and scalable full-stack app with both client and server-side components and deploy it successfully. At the client side work with a React-based framework (React deprecated create-react-app a few weeks later) and an API server with Express and Prisma to manage a SQL database.
-At the time I chose Next.js because it had just launched the 13 version with the App Router in the Beta version, something that was changing the game even for developers that worked with Next.js before, so it felt it was a challenge and a good idea to learn a new technology that had just been released.
-In terms of my development goals, my primary objective was to implement as many essential features as possible. This included ensuring the application had authentication and security, a user-friendly UI/UX, and clean, maintainable code. I also wanted to stay up-to-date with the latest technologies and use them where appropriate to enhance the performance and functionality of the application.
+The main objectives of this project were:
+
+- Create a full-stack app with client and server-side components.
+- Utilize a React-based framework for the client-side development.
+- Implement an API server using Express and Prisma to manage a SQL database.
+- Utilize the latest technologies and stay up-to-date with the industry standards.
+- Ensure authentication and security features.
+- Develop a user-friendly UI/UX.
+- Write clean and maintainable code.
 
 ## App Commands
 
-|             | Client          | Server          |
+To run the application locally, you can use the following commands:
+
+|             | `/client`       | `/server`       |
 | ----------- | --------------- | --------------- |
 | Development | `npm run dev`   | `npm run dev`   |
 | Build       | `npm run build` | `npm run build` |
 | Production  | `npm run start` | `npm run start` |
 
+
 ## Live App
 
 You can try the app live <a href="https://wordle-world.vercel.app/">**_here_**</a>.
 
-You can signup registering a new account or using your Google account.
+You have the option to sign up by registering a new account or using your Google account. 
 
-Or you can use the test account:
+Alternatively, you can use the following test account:
 
 > email: `test@wordleworld.com` password: `test123`
+
+Enjoy playing Wordle World!
+
+## Architecture
+
+Wordle World follows a three-tier architecture. The key components of the architecture are as follows:
+
+**Client-side:** The front-end leverages Next.js, a server-side rendering framework, to provide optimal performance and seamless gameplay experiences. Next.js enables server-side rendering and static website generation, enhancing the overall user experience.
+
+**Server-side:** The back-end development utilizes Node.js and Express.js to create a scalable and robust API infrastructure. This combination ensures smooth and secure communication between the client and server, facilitating real-time data exchanges and enhancing the overall gameplay experience.
+
+**Database:** Wordle World uses Prisma, a modern database toolkit, along with PostgreSQL, to efficiently interact with the database. This ensures the integrity and security of player information.
+
+## Authentication
+
+Authentication is a crucial aspect of Wordle World. The project implements a robust authentication system using next-auth and JWT. These technologies ensure secure user account management, allowing players to register, log in, and maintain their profiles.
+
