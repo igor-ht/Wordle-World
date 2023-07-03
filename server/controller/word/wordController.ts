@@ -16,10 +16,13 @@ export class WordDB implements IWordDB {
 	}
 
 	private async getGuestRandomWord(): Promise<string | null> {
-		const randomNum = Math.floor(Math.random() * 5757) + 1;
+		const randomNum = Math.floor(Math.random() * 5757);
 		const res = await this.prisma.words.findFirst({
 			where: {
-				id: randomNum,
+				id: {
+					gt: randomNum,
+					lt: 5758,
+				},
 			},
 		});
 		const word = res?.word;
@@ -28,10 +31,9 @@ export class WordDB implements IWordDB {
 	}
 
 	private async getUserRandomWord(email: string): Promise<string | null> {
-		const randomNum = Math.floor(Math.random() * 100) + 1;
+		const randomNum = Math.floor(Math.random() * 5756) + 1;
 		const res = await this.prisma.words.findMany({
-			skip: randomNum,
-			take: randomNum,
+			take: Math.floor(Math.random() * (5757 - randomNum)) + 1,
 			where: {
 				discoveredBy: {
 					none: {
@@ -40,7 +42,7 @@ export class WordDB implements IWordDB {
 				},
 			},
 		});
-		const word = res[Math.floor(randomNum / 2)].word;
+		const word = res[Math.floor(Math.random() * res.length)].word;
 		if (!word) return null;
 		return word;
 	}
