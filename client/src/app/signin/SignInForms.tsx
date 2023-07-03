@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import { signIn, useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
+import { MouseEvent } from 'react';
 
 export interface userLogin {
 	email: string;
@@ -87,7 +88,7 @@ export default function SignInForms() {
 					autoComplete=""
 					value={formik.values.password}
 				/>
-				<button type="submit">Sign in</button>
+				<button type="submit">Sign In</button>
 			</form>
 			<div className="signin-google">
 				<button
@@ -99,7 +100,7 @@ export default function SignInForms() {
 						width={33}
 						height={30}
 					/>
-					<p>Sign in with Google</p>
+					<p>Sign In with Google</p>
 				</button>
 			</div>
 		</>
