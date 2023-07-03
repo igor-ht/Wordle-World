@@ -1,4 +1,4 @@
-import NextAuth, { Session } from 'next-auth';
+import { AuthOptions, Session } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import axios from 'axios';
@@ -25,7 +25,7 @@ const updateAcessToken = async (token: JWT): Promise<JWT> => {
 	}
 };
 
-export default NextAuth({
+export const NextAuthOptions: AuthOptions = {
 	providers: [
 		CredentialsProvider({
 			name: 'Sign in',
@@ -109,4 +109,4 @@ export default NextAuth({
 		signIn: '/signin',
 		error: '/signin',
 	},
-});
+};
