@@ -4,6 +4,7 @@ import Footer from './components/Footer/Footer';
 import MainContainer from './components/MainContainer/MainContainer';
 import Navbar from './components/Navbar&Menu/Navbar';
 import { Session } from 'next-auth';
+import { Analytics } from '@vercel/analytics/react';
 
 export const metadata = {
 	title: 'Wordle World',
@@ -25,6 +26,7 @@ export default function RootLayout({ children, session }: { children: React.Reac
 						<MainContainer>{children}</MainContainer>
 						<Footer />
 					</AuthProvider>
+					<Analytics />
 				</body>
 			</html>
 		</>

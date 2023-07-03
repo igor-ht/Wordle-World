@@ -10,6 +10,7 @@
 		"cypress": "cypress open"
 	},
 	"dependencies": {
+		"@vercel/analytics": "^1.0.1",
 		"axios": "^1.3.4",
 		"bcrypt": "^5.1.0",
 		"formik": "^2.2.9",
