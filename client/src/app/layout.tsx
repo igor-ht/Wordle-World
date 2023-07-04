@@ -23,14 +23,14 @@ export default function RootLayout({ children, session }: { children: React.Reac
 				<body
 					className="app"
 					data-theme="light">
-					<Suspense fallback={<LoadingSkeleton />}>
-						<AuthProvider session={session}>
-							<Navbar />
-							<MainContainer>{children}</MainContainer>
-							<Footer />
-						</AuthProvider>
-					</Suspense>
-					<Analytics />
+					<AuthProvider session={session}>
+						<Navbar />
+						<MainContainer>
+							<Suspense fallback={<LoadingSkeleton />}>{children}</Suspense>
+						</MainContainer>
+						<Footer />
+					</AuthProvider>
+					{/* <Analytics /> */}
 				</body>
 			</html>
 		</>

@@ -1,5 +1,3 @@
-'use client';
-
 import { useCallback, useEffect, useReducer } from 'react';
 import { useSession } from 'next-auth/react';
 import { userStatsInitialState, userStatsReducer } from './reducer';

@@ -1,20 +1,20 @@
-'use client';
-
 import { useSession } from 'next-auth/react';
 import { useCallback, useEffect, useReducer } from 'react';
 import { rankingReducer } from './reducer';
 import useAxiosAuth from '../hooks/useAxiosAuth';
 
+const initialRanking = {
+	ranking: [],
+	user: {
+		place: 0,
+		name: '',
+		points: 0,
+	},
+};
+
 export default function useRanking() {
 	const { data: session, update } = useSession();
-	const [ranking, rankingDispatch] = useReducer(rankingReducer, {
-		ranking: [],
-		user: {
-			place: 0,
-			name: '',
-			points: 0,
-		},
-	});
+	const [ranking, rankingDispatch] = useReducer(rankingReducer, initialRanking);
 	const axiosAuth = useAxiosAuth();
 
 	const handleRanking = useCallback(async () => {

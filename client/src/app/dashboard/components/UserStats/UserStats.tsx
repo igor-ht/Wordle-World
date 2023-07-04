@@ -25,11 +25,11 @@ export default function UserStats() {
 	return (
 		<div className="user-stats-container">
 			<div className="user-points-container">
-				<h2>{`Total Points:`}</h2>
+				<h2>Total Points:</h2>
 				<h1 className="points">{userStats ? userStats.points.toLocaleString() : 0}</h1>
 			</div>
 			<div className="title-search-section">
-				<h3>Discovered Words:</h3>{' '}
+				<h3>Discovered Words:</h3>
 				<input
 					type="text"
 					name="search"

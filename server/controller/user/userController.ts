@@ -153,7 +153,7 @@ export class UserDao implements IUserDao {
 			orderBy: {
 				points: 'desc',
 			},
-			take: 10,
+			take: 20,
 		});
 		if (!ranking) return null;
 		return ranking;
