@@ -5,7 +5,8 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import { signIn, useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
-import { MouseEvent } from 'react';
+import { useState } from 'react';
+import LoadingSkeleton from '../components/LoadingSkeleton/LoadingSkeleton';
 
 export interface userLogin {
 	email: string;
@@ -13,6 +14,7 @@ export interface userLogin {
 }
 
 export default function SignInForms() {
+	const [userLogged, setUserLogged] = useState(false);
 	const { data: session, status } = useSession();
 	const formik = useFormik<userLogin>({
 		initialValues: {
@@ -26,6 +28,7 @@ export default function SignInForms() {
 
 	const handleLogin = async (user: userLogin) => {
 		try {
+			setUserLogged(true);
 			const res = await axios.post('/api/signin', user);
 			const userLogged = await res.data;
 			await signIn('credentials', {
@@ -39,23 +42,27 @@ export default function SignInForms() {
 			});
 			redirect('/dashboard');
 		} catch {
+			setUserLogged(false);
 			formik.setErrors({ email: `One or more fields are not valid.`, password: 'One or more fields are not valid.' });
 		}
 	};
 
 	const handleGoogleLogin = async () => {
 		try {
+			setUserLogged(true);
 			await signIn('google', {
 				redirect: true,
 				callbackUrl: '/dashboard',
 			});
 		} catch {
+			setUserLogged(false);
 			formik.setErrors({ email: `We had a problem with the login proccess.`, password: 'We had a problem with the login proccess.' });
 		}
 	};
 
 	return (
 		<>
+			{userLogged ? <LoadingSkeleton /> : <></>}
 			<form
 				method="POST"
 				className={'signin-form'}
@@ -88,11 +95,16 @@ export default function SignInForms() {
 					autoComplete=""
 					value={formik.values.password}
 				/>
-				<button type="submit">Sign In</button>
+				<button
+					type="submit"
+					disabled={userLogged ? true : false}>
+					Sign In
+				</button>
 			</form>
 			<div className="signin-google">
 				<button
 					type="button"
+					disabled={userLogged ? true : false}
 					onClick={handleGoogleLogin}>
 					<Image
 						src="/google.icon.svg"

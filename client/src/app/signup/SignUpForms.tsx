@@ -6,6 +6,8 @@ import { useFormik } from 'formik';
 import { SignupSchema } from '@/src/utils/forms/validating';
 import { signIn, useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
+import { useState } from 'react';
+import LoadingSkeleton from '../components/LoadingSkeleton/LoadingSkeleton';
 
 export interface userSignUp {
 	name: string;
@@ -15,6 +17,7 @@ export interface userSignUp {
 }
 
 export default function SignUpForms() {
+	const [userLogged, setUserLogged] = useState(false);
 	const { data: session, status } = useSession();
 	const formik = useFormik<userSignUp>({
 		initialValues: {
@@ -31,6 +34,7 @@ export default function SignUpForms() {
 
 	const handleSignUp = async (user: userSignUp) => {
 		try {
+			setUserLogged(true);
 			const res = await axios.post('/api/signup', user);
 			const userLogged = await res.data;
 			await signIn('credentials', {
@@ -44,6 +48,7 @@ export default function SignUpForms() {
 			});
 			redirect('/dashboard');
 		} catch (error) {
+			setUserLogged(false);
 			if (error instanceof AxiosError) {
 				if (error.response?.data === 'Email already registered.') formik.setFieldError('email', 'Email already registered');
 				if (error.response?.data === 'Name already registered.') formik.setFieldError('name', 'Name already registered');
@@ -54,11 +59,13 @@ export default function SignUpForms() {
 
 	const handleGoogleSignUp = async () => {
 		try {
+			setUserLogged(true);
 			await signIn('google', {
 				redirect: true,
 				callbackUrl: '/dashboard',
 			});
 		} catch {
+			setUserLogged(false);
 			formik.setErrors({
 				name: 'We had a problem with the signup proccess',
 				email: 'We had a problem with the signup proccess',
@@ -70,6 +77,7 @@ export default function SignUpForms() {
 
 	return (
 		<>
+			{userLogged ? <LoadingSkeleton /> : <></>}
 			<form onSubmit={formik.handleSubmit}>
 				<div className="signup-form">
 					<div className="input-box">
@@ -135,11 +143,16 @@ export default function SignUpForms() {
 						/>
 					</div>
 				</div>
-				<button type="submit">Sign up</button>
+				<button
+					type="submit"
+					disabled={userLogged ? true : false}>
+					Sign up
+				</button>
 			</form>
 			<div className="signup-google">
 				<button
 					type="button"
+					disabled={userLogged ? true : false}
 					onClick={handleGoogleSignUp}>
 					<Image
 						src="/google.icon.svg"

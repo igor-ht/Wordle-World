@@ -104,6 +104,9 @@ form {
 			background-color: rgb(61, 149, 34);
 			box-shadow: 0px 0px 15px 0px gray;
 		}
+		&:disabled {
+			opacity: 0.8;
+		}
 	}
 }
 .signup-google {
@@ -122,6 +125,9 @@ form {
 		font-size: 1rem;
 		font-weight: 400;
 		font-style: normal;
+		&:disabled {
+			opacity: 0.8;
+		}
 
 		img {
 			margin: 0;

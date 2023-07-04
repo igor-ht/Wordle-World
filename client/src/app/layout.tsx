@@ -5,6 +5,8 @@ import MainContainer from './components/MainContainer/MainContainer';
 import Navbar from './components/Navbar&Menu/Navbar';
 import { Session } from 'next-auth';
 import { Analytics } from '@vercel/analytics/react';
+import { Suspense } from 'react';
+import LoadingSkeleton from './components/LoadingSkeleton/LoadingSkeleton';
 
 export const metadata = {
 	title: 'Wordle World',
@@ -21,11 +23,13 @@ export default function RootLayout({ children, session }: { children: React.Reac
 				<body
 					className="app"
 					data-theme="light">
-					<AuthProvider session={session}>
-						<Navbar />
-						<MainContainer>{children}</MainContainer>
-						<Footer />
-					</AuthProvider>
+					<Suspense fallback={<LoadingSkeleton />}>
+						<AuthProvider session={session}>
+							<Navbar />
+							<MainContainer>{children}</MainContainer>
+							<Footer />
+						</AuthProvider>
+					</Suspense>
 					<Analytics />
 				</body>
 			</html>

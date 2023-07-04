@@ -2,14 +2,14 @@ import Image from 'next/image';
 
 export default function LoadingSkeleton() {
 	return (
-		<div>
+		<div style={{ position: 'absolute', bottom: '35%' }}>
 			<Image
 				src="/loading.svg"
 				alt="loading"
-				width={55}
-				height={55}
-				style={{ pointerEvents: 'none', userSelect: 'none', objectFit: 'contain' }}
-				quality={5}
+				width={100}
+				height={100}
+				style={{ pointerEvents: 'none', userSelect: 'none', objectFit: 'contain', width: '100px', height: '100px' }}
+				quality={1}
 				priority
 				loading="eager"
 			/>
