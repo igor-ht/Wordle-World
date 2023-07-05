@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 import { useSession } from 'next-auth/react';
 import { userStatsInitialState, userStatsReducer } from './reducer';
 import useAxiosAuth from '../hooks/useAxiosAuth';
@@ -8,7 +8,7 @@ export default function useUserStats() {
 	const [userStats, userStatsDispatch] = useReducer(userStatsReducer, userStatsInitialState);
 	const axiosAuth = useAxiosAuth();
 
-	const handleUserStats = useCallback(async () => {
+	useEffect(() => {
 		const getUserStats = async () => {
 			const res = await axiosAuth.post(
 				'/api/dashboard',
@@ -24,15 +24,11 @@ export default function useUserStats() {
 
 		try {
 			if (!session) throw 'Session expired.';
-			await getUserStats();
+			Promise.resolve(getUserStats());
 		} catch {
-			await update();
+			Promise.resolve(update());
 		}
 	}, [axiosAuth, session, update]);
-
-	useEffect(() => {
-		handleUserStats();
-	}, [handleUserStats]);
 
 	return { userStats };
 }

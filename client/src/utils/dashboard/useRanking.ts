@@ -1,23 +1,14 @@
 import { useSession } from 'next-auth/react';
-import { useCallback, useEffect, useReducer } from 'react';
-import { rankingReducer } from './reducer';
+import { useEffect, useReducer } from 'react';
+import { initialRanking, rankingReducer } from './reducer';
 import useAxiosAuth from '../hooks/useAxiosAuth';
 
-const initialRanking = {
-	ranking: [],
-	user: {
-		place: 0,
-		name: '',
-		points: 0,
-	},
-};
-
 export default function useRanking() {
-	const { data: session, update } = useSession();
 	const [ranking, rankingDispatch] = useReducer(rankingReducer, initialRanking);
+	const { data: session, update } = useSession();
 	const axiosAuth = useAxiosAuth();
 
-	const handleRanking = useCallback(async () => {
+	useEffect(() => {
 		const getRanking = async () => {
 			const res = await axiosAuth.post('/api/dashboard', { email: session?.user?.email }, { params: { getRanking: true } });
 			const ranking = res.data;
@@ -38,16 +29,11 @@ export default function useRanking() {
 
 		try {
 			if (!session) throw 'Session expired.';
-			await getRanking();
-			await getUserRank();
+			Promise.all([getRanking(), getUserRank()]);
 		} catch {
-			await update();
+			Promise.resolve(update());
 		}
 	}, [axiosAuth, session, update]);
-
-	useEffect(() => {
-		handleRanking();
-	}, [handleRanking]);
 
 	return { ranking };
 }
