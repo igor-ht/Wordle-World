@@ -7,14 +7,14 @@ export default function UserLogged() {
 	const { data: session } = useSession();
 	return (
 		<>
-			{session?.user?.name ? (
+			{session?.name ? (
 				<div className={'user-logged'}>
 					<p className="user-greet">
 						Hello,{' '}
 						<Link
 							href={'/dashboard'}
 							title="go to your dashboard">
-							{session.user.name}
+							{session.name}
 						</Link>
 					</p>
 					<button

@@ -17,9 +17,9 @@ export default function Ranking() {
 				</thead>
 				<tbody>
 					<tr>
-						<td>{ranking?.user.place.toLocaleString()}</td>
-						<td>{ranking?.user.name}</td>
-						<td>{ranking?.user.points.toLocaleString()}</td>
+						<td>{ranking.user.place.toLocaleString()}</td>
+						<td>{ranking.user.name}</td>
+						<td>{ranking.user.points.toLocaleString()}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -32,12 +32,12 @@ export default function Ranking() {
 					</tr>
 				</thead>
 				<tbody>
-					{ranking?.ranking.map((user, i) => {
+					{ranking.ranking.map((user, i) => {
 						return (
 							<tr key={i + 1}>
 								<td key={i + 1 * Math.random()}>{(i + 1).toLocaleString()}</td>
-								<td key={i + 1 * Math.random()}>{user?.name}</td>
-								<td key={i + 1 * Math.random()}>{user?.points.toLocaleString()}</td>
+								<td key={i + 1 * Math.random()}>{user.name}</td>
+								<td key={i + 1 * Math.random()}>{user.points.toLocaleString()}</td>
 							</tr>
 						);
 					})}

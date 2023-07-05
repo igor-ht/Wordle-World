@@ -1,11 +1,20 @@
 import { useSession } from 'next-auth/react';
 import { useEffect, useReducer } from 'react';
-import { initialRanking, rankingReducer } from './reducer';
+import { rankingReducer } from './reducer';
 import useAxiosAuth from '../hooks/useAxiosAuth';
 
+const initialRanking = {
+	ranking: [],
+	user: {
+		place: 0,
+		name: '',
+		points: 0,
+	},
+};
+
 export default function useRanking() {
-	const [ranking, rankingDispatch] = useReducer(rankingReducer, initialRanking);
 	const { data: session, update } = useSession();
+	const [ranking, rankingDispatch] = useReducer(rankingReducer, initialRanking);
 	const axiosAuth = useAxiosAuth();
 
 	useEffect(() => {
@@ -29,9 +38,10 @@ export default function useRanking() {
 
 		try {
 			if (!session) throw 'Session expired.';
-			Promise.all([getRanking(), getUserRank()]);
+			getRanking();
+			getUserRank();
 		} catch {
-			Promise.resolve(update());
+			update();
 		}
 	}, [axiosAuth, session, update]);
 

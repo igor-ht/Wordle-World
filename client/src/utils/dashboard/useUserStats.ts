@@ -24,9 +24,9 @@ export default function useUserStats() {
 
 		try {
 			if (!session) throw 'Session expired.';
-			Promise.resolve(getUserStats());
+			getUserStats();
 		} catch {
-			Promise.resolve(update());
+			update();
 		}
 	}, [axiosAuth, session, update]);
 

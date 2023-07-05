@@ -38,7 +38,7 @@ export default function Menu({ ...menu }) {
 				<Link href={'/play'}>
 					<li>Play</li>
 				</Link>
-				{!session?.user?.name ? (
+				{!session ? (
 					<>
 						<Link href={'/signin'}>
 							<li>Sign In</li>

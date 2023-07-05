@@ -51,14 +51,6 @@ export type setUserRankActionType = {
 	type: 'setUserRanking';
 	payload: userRankType;
 };
-export const initialRanking = {
-	ranking: [],
-	user: {
-		place: 0,
-		name: '',
-		points: 0,
-	},
-};
 export const rankingReducer = (state: rankingType, action: setRankingActionType | setUserRankActionType) => {
 	switch (action.type) {
 		case 'setRanking':

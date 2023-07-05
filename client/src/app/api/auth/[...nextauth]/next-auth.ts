@@ -1,4 +1,4 @@
-import { AuthOptions, Session } from 'next-auth';
+import { AuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import axios from 'axios';
@@ -9,7 +9,8 @@ import { redirect } from 'next/navigation';
 
 const updateAcessToken = async (token: JWT): Promise<JWT> => {
 	try {
-		const updatedUser = (await axios.post(`${ENDPOINT}/user/updateUserAccessToken`, { userEmail: token?.email })).data;
+		const updatedUser = await (await axios.post(`${ENDPOINT}/user/updateUserAccessToken`, { userEmail: token?.email })).data;
+		if (!updatedUser) throw '';
 		return {
 			id: updatedUser.id,
 			name: updatedUser.name,
@@ -37,6 +38,7 @@ export const NextAuthOptions: AuthOptions = {
 				if (!credentials?.email || !credentials?.password) return null;
 				const res = await axios.post(`${BASE_URL}/api/signin`, { email: credentials.email, password: credentials.password });
 				const userLogged = await res.data;
+				if (!userLogged) return null;
 				return {
 					id: userLogged.id,
 					name: userLogged.name,
@@ -80,22 +82,19 @@ export const NextAuthOptions: AuthOptions = {
 				if (newToken) return newToken;
 			}
 			if (!user) return token;
-			return { ...token, ...user };
+			return { ...user };
 		},
-		session: async ({ session, token }): Promise<Session> => {
-			const newSession = {
-				...session,
+		session: async ({ session, token }) => {
+			return {
+				id: token.id,
+				name: token.name,
+				email: token.email,
 				accessToken: token.accessToken,
 				accessTokenExpires: token.accessTokenExpires,
 				refreshToken: token.refreshToken,
 				refreshTokenExpires: token.refreshTokenExpires,
-				user: {
-					id: token.id,
-					name: token.name,
-					email: token.email,
-				},
+				expires: session.expires,
 			};
-			return newSession;
 		},
 	},
 	session: {
