@@ -45,7 +45,7 @@ const useStartGame: () => IGameApi = () => {
 	const { handleUserNewGame } = useUserHandlers();
 
 	const startNewGame = async () => {
-		if (!session?.user && status === 'unauthenticated') await handleGuestFinishGame();
+		if (!session && status === 'unauthenticated') await handleGuestFinishGame();
 		await setRandomWord();
 		if (!playState.play) playStateDispatch({ type: 'setPlay', payload: true });
 	};
@@ -211,16 +211,16 @@ const useStartGame: () => IGameApi = () => {
 	const handleVictory = () => {
 		setTimeout(async () => {
 			playStateDispatch({ type: 'setVictory', payload: true });
-			if (session?.user && status === 'authenticated') return await handleUserFinishGame(true);
-			if (!session?.user && status === 'unauthenticated') return await handleGuestFinishGame();
+			if (session && status === 'authenticated') return await handleUserFinishGame(true);
+			if (!session && status === 'unauthenticated') return await handleGuestFinishGame();
 		}, 200);
 	};
 
 	const handleDefeat = () => {
 		setTimeout(async () => {
 			playStateDispatch({ type: 'setDefeat', payload: true });
-			if (session?.user && status === 'authenticated') return await handleUserFinishGame(false);
-			if (!session?.user && status === 'unauthenticated') return await handleGuestFinishGame();
+			if (session && status === 'authenticated') return await handleUserFinishGame(false);
+			if (!session && status === 'unauthenticated') return await handleGuestFinishGame();
 		}, 200);
 	};
 

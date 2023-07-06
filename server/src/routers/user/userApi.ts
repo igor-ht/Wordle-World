@@ -141,29 +141,26 @@ export async function updateUserRanking(req: Request, res: Response) {
 	return res.status(200).send(updatedUser);
 }
 
-export async function getUserStats(req: Request, res: Response) {
+export async function getDashboardData(req: Request, res: Response) {
 	const { id } = req.body;
 	const user = await UserDB().getUserStats(id);
-	if (!user) return res.status(400).send('We had a problem in the proccess.');
-	return res.status(200).send(user);
-}
-
-export async function getRanking(req: Request, res: Response) {
 	const ranking = await UserDB().getRanking();
-	if (!ranking) res.status(400).send('The server had a problem');
-	return res.status(200).send(ranking);
-}
-export async function getUserRank(req: Request, res: Response) {
-	const { id } = req.body;
 	const userRank = await UserDB().getUserRank(id);
-	if (!userRank) return res.status(400).send('The server had a problem');
-	return res.status(200).send(userRank);
+	if (!user || !ranking || !userRank) return res.status(400).send('We had a problem in the proccess.');
+	const dashboardData = {
+		rank: {
+			ranking: ranking,
+			user: userRank,
+		},
+		userStats: user,
+	};
+	res.status(200).send(dashboardData);
 }
 
-export async function addFriend(req: Request, res: Response) {
-	res.status(200);
-}
+// export async function addFriend(req: Request, res: Response) {
+// 	res.status(200);
+// }
 
-export async function removeFriend(req: Request, res: Response) {
-	res.status(200);
-}
+// export async function removeFriend(req: Request, res: Response) {
+// 	res.status(200);
+// }

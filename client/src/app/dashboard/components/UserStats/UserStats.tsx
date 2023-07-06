@@ -2,10 +2,9 @@
 
 import './userStats.scss';
 import { ChangeEvent, useRef } from 'react';
-import useUserStats from '@/src/utils/dashboard/useUserStats';
+import { userStatsType } from '@/src/utils/dashboard/reducer';
 
-export default function UserStats() {
-	const { userStats } = useUserStats();
+export default function UserStats(userStats: userStatsType) {
 	const tableRef = useRef<HTMLTableRowElement | null>(null);
 
 	const filterDiscoveredWords = (event: ChangeEvent<HTMLInputElement>) => {

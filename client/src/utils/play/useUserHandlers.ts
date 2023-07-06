@@ -8,7 +8,7 @@ const useUserHandlers = () => {
 	const handleUserNewGame = async (gameStats: { state: boolean; chances: number; word: string }) => {
 		try {
 			await axiosAuth.post(`api/user`, {
-				email: session?.user?.email,
+				email: session?.email,
 				gameStats: gameStats,
 			});
 		} catch {

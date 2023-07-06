@@ -39,7 +39,7 @@ const useAxiosAuth = () => {
 						if (!prevRequest?.body?.email)
 							prevRequest.body = {
 								...prevRequest.body,
-								email: session.user ? session.user.email : '',
+								email: session ? session.email : '',
 							};
 						return axiosAuth(prevRequest);
 					}

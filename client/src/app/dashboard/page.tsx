@@ -1,12 +1,10 @@
 import './dashboard.scss';
-import UserStats from './components/UserStats/UserStats';
-import Ranking from './components/Ranking/Ranking';
+import Dashboard from './components/Dashboard';
 
 export default async function Page() {
 	return (
 		<div className={`dashboard-container`}>
-			<UserStats />
-			<Ranking />
+			<Dashboard />
 		</div>
 	);
 }

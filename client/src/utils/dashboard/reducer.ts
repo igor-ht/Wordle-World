@@ -15,49 +15,67 @@ type setFollowingType = {
 	type: 'setFollowing';
 	payload: userStatsType[];
 };
-export type userStateActionType = setPointsType | setDiscoveredWordsType | setFollowingType;
-export const userStatsInitialState: userStatsType = {
-	points: 0,
-	discoveredWords: [],
-	following: [],
-};
-export const userStatsReducer = (state: userStatsType, action: userStateActionType) => {
-	switch (action.type) {
-		case 'setPoints':
-			return { ...state, points: action.payload };
-		case 'setDiscoveredWords':
-			return { ...state, discoveredWords: action.payload };
-		case 'setFollowing':
-			return { ...state, following: action.payload };
-		default:
-			throw new Error();
-	}
-};
+type userStateActionType = setPointsType | setDiscoveredWordsType | setFollowingType;
 
-export type rankingType = {
+export type rankType = {
 	ranking: userRankType[];
 	user: userRankType;
 };
-export type userRankType = {
+type userRankType = {
 	place: number;
 	name: string;
 	points: number;
 };
-export type setRankingActionType = {
+type setRankingActionType = {
 	type: 'setRanking';
 	payload: userRankType[];
 };
-export type setUserRankActionType = {
+type setUserRankActionType = {
 	type: 'setUserRanking';
 	payload: userRankType;
 };
-export const rankingReducer = (state: rankingType, action: setRankingActionType | setUserRankActionType) => {
+type rankActionType = setRankingActionType | setUserRankActionType;
+
+export type dashboardDataType = {
+	rank: rankType;
+	userStats: userStatsType;
+};
+export type dashboardDataActionType = rankActionType | userStateActionType;
+
+export const dashboardDataInitialState: dashboardDataType = {
+	rank: {
+		ranking: [],
+		user: {
+			name: '',
+			place: 0,
+			points: 0,
+		},
+	},
+	userStats: {
+		points: 0,
+		discoveredWords: [],
+		following: [],
+	},
+};
+
+export const dashboardDataReducer = (state: dashboardDataType, action: dashboardDataActionType) => {
 	switch (action.type) {
+		case 'setPoints':
+			state.userStats.points = action.payload;
+			return { ...state };
+		case 'setDiscoveredWords':
+			state.userStats.discoveredWords = action.payload;
+			return { ...state };
+		case 'setFollowing':
+			state.userStats.following = action.payload;
+			return { ...state };
 		case 'setRanking':
-			return { ...state, ranking: action.payload };
+			state.rank.ranking = action.payload;
+			return { ...state };
 		case 'setUserRanking':
-			return { ...state, user: action.payload };
+			state.rank.user = action.payload;
+			return { ...state };
 		default:
-			throw new Error();
+			return { ...state };
 	}
 };
