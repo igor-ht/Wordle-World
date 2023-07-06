@@ -1,4 +1,3 @@
-// PLAY STATE REDUCER
 export type playStateType = {
 	play: boolean;
 	victory: boolean;
@@ -26,7 +25,6 @@ export const playStateReducer = (state: playStateType, action: stateActionType) 
 	}
 };
 
-// GAME SETTINGS REDUCER
 export type gameSettingsType = {
 	language: string;
 	wordLength: number;
@@ -57,7 +55,6 @@ export const gameSettingsReducer = (state: gameSettingsType, action: gameSetting
 	}
 };
 
-// GAMSE STATE REDUCER
 export type gameStateType = {
 	word: string;
 	currentLetter: string;

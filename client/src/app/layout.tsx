@@ -4,7 +4,6 @@ import Footer from './components/Footer/Footer';
 import MainContainer from './components/MainContainer/MainContainer';
 import Navbar from './components/Navbar&Menu/Navbar';
 import { Session } from 'next-auth';
-import { Analytics } from '@vercel/analytics/react';
 import { Suspense } from 'react';
 import LoadingSkeleton from './components/LoadingSkeleton/LoadingSkeleton';
 
@@ -30,7 +29,6 @@ export default function RootLayout({ children, session }: { children: React.Reac
 						</MainContainer>
 						<Footer />
 					</AuthProvider>
-					{/* <Analytics /> */}
 				</body>
 			</html>
 		</>

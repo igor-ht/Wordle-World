@@ -1,5 +1,3 @@
-'use client';
-
 import './userStats.scss';
 import { ChangeEvent, useRef } from 'react';
 import { userStatsType } from '@/src/utils/dashboard/reducer';

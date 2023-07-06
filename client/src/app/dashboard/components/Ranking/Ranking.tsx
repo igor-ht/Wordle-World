@@ -1,10 +1,7 @@
-'use client';
-
 import { rankType } from '@/src/utils/dashboard/reducer';
 import './ranking.scss';
 
 export default function Ranking(rank: rankType) {
-
 	return (
 		<div className="ranking-container">
 			<h1>Wordle World Ranking</h1>

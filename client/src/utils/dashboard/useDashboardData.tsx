@@ -10,25 +10,25 @@ export default function useDashboardData() {
 
 	useEffect(() => {
 		const getDashboardData = async () => {
-			const res = await axiosAuth.post('api/dashboard', { id: session?.id, email: session?.email });
-			const dashboardData = await res.data;
-			if (!dashboardData) throw 'Data could not be fetched';
-			dashboardDispatch({ type: 'setPoints', payload: dashboardData.userStats.points });
-			dashboardDispatch({
-				type: 'setDiscoveredWords',
-				payload: dashboardData.userStats.discoveredWords.map((obj: { word: string }) => obj.word),
-			});
-			dashboardDispatch({ type: 'setFollowing', payload: dashboardData.userStats.following });
-			dashboardDispatch({ type: 'setRanking', payload: dashboardData.rank.ranking });
-			dashboardDispatch({ type: 'setUserRanking', payload: dashboardData.rank.user });
+			try {
+				const res = await axiosAuth.post('api/dashboard', { id: session?.id, email: session?.email });
+				const dashboardData = await res.data;
+				if (!dashboardData) throw 'Data could not be fetched';
+				dashboardDispatch({ type: 'setPoints', payload: dashboardData.userStats.points });
+				dashboardDispatch({
+					type: 'setDiscoveredWords',
+					payload: dashboardData.userStats.discoveredWords.map((obj: { word: string }) => obj.word),
+				});
+				dashboardDispatch({ type: 'setFollowing', payload: dashboardData.userStats.following });
+				dashboardDispatch({ type: 'setRanking', payload: dashboardData.rank.ranking });
+				dashboardDispatch({ type: 'setUserRanking', payload: dashboardData.rank.user });
+			} catch (error) {
+				await Promise.resolve(error);
+				return await update();
+			}
 		};
 
-		try {
-			if (!session) throw 'Session expired.';
-			getDashboardData();
-		} catch {
-			update();
-		}
+		if (session) getDashboardData();
 	}, [axiosAuth, session, update]);
 
 	return dashboard;

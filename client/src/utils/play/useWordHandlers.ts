@@ -11,8 +11,10 @@ export default function useWordHandlers() {
 			const res = await axiosAuth.get(`/api/word`);
 			const cypherWord = await res.data;
 			return cypherWord;
-		} catch {
+		} catch (error) {
+			await Promise.resolve(error);
 			await update();
+			throw '';
 		}
 	};
 

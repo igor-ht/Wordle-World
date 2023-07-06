@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import { ENDPOINT } from '@/src/appConfig';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -7,12 +7,23 @@ const axiosWord = axios.create({
 });
 
 export async function GET(request: NextRequest) {
-	const Authorization = request.headers.get('Authorization');
-	if (Authorization) {
-		axiosWord.defaults.headers.Authorization = Authorization;
+	try {
+		const Authorization = request.headers.get('Authorization');
+		if (Authorization) {
+			axiosWord.defaults.headers.Authorization = Authorization;
+		}
+		const res = await axiosWord.get(`/randWord`);
+		return NextResponse.json(await res.data);
+	} catch (error) {
+		if (axios.isAxiosError(error) && error.response) {
+			const errorResponse: AxiosResponse = error.response;
+			if (errorResponse.status === 401) {
+				await Promise.resolve(error);
+				return new AxiosError(error.message, '401');
+			}
+		}
+		throw new Error('An unexpected error occurred. Please try again later.');
 	}
-	const res = await axiosWord.get(`/randWord`);
-	return NextResponse.json(await res.data);
 }
 
 export async function POST(request: NextRequest) {

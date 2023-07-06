@@ -80,7 +80,7 @@ export async function updateUserAccessToken(req: Request, res: Response) {
 			refreshToken: currentUser.refreshToken,
 			password: currentUser.password,
 		});
-		if (!updatedUser) return res.status(400).send('Server had a problem with user authentication.');
+		if (!updatedUser) return res.status(400).send('Server had an unexpected internal problem.');
 		return res.status(200).send(updatedUser);
 	} catch {
 		return await updateUserRefreshToken(req, res);
@@ -90,7 +90,7 @@ export async function updateUserAccessToken(req: Request, res: Response) {
 async function updateUserRefreshToken(req: Request, res: Response) {
 	const { userEmail } = req.body;
 	const currentUser = await UserDB().read(userEmail);
-	if (!currentUser) return res.status(400).send('Server had a problem with user authentication');
+	if (!currentUser) return res.status(400).send('Server had an unexpected internal problem.');
 	const { id, name, email } = currentUser;
 	const newRefreshToken = await generateRefreshToken({ id, name, email }, refreshTokenSecret);
 	const newAccessToken = await generateAccessToken({ id, name, email }, accessTokenSecret);
@@ -101,7 +101,7 @@ async function updateUserRefreshToken(req: Request, res: Response) {
 		accessToken: newAccessToken,
 		refreshToken: newRefreshToken,
 	});
-	if (!updatedUser) return res.status(400).send('Server had a problem with user authentication.');
+	if (!updatedUser) return res.status(400).send('Server had an unexpected internal problem.');
 	return res.status(200).send(updatedUser);
 }
 
@@ -116,7 +116,7 @@ export async function updateUserGeneralInfo(req: Request, res: Response) {
 		accessToken: updatedUser.accessToken,
 		refreshToken: updatedUser.refreshToken,
 	});
-	if (!updatedUserFromDB) return res.status(400).send('We had a problem.');
+	if (!updatedUserFromDB) return res.status(400).send('Server had an unexpected internal problem.');
 	return res.status(200).send(updatedUserFromDB);
 }
 
@@ -124,10 +124,10 @@ export async function updateUserRanking(req: Request, res: Response) {
 	const { email, gameStats } = req.body;
 	const { state, chances, word } = gameStats;
 	const currentUser = await UserDB().read(email);
-	if (!currentUser) return res.status(400).send('We had a problem in the proccess.');
+	if (!currentUser) return res.status(400).send('Server had an unexpected internal problem.');
 	if (!state) {
 		const updatedUser = await UserDB().updateUserRanking(email, Math.round((currentUser.points ? currentUser.points : 20_000) - 20_000));
-		if (!updatedUser) return res.status(400).send('We had a problem in the proccess.');
+		if (!updatedUser) return res.status(400).send('Server had an unexpected internal problem.');
 		return res.status(200).send(updatedUser);
 	}
 	const plainWord = decryption(word, encryptionKey);
@@ -137,7 +137,7 @@ export async function updateUserRanking(req: Request, res: Response) {
 		Math.round((currentUser.points ? currentUser.points : 0) + finalScore),
 		plainWord
 	);
-	if (!updatedUser) return res.status(400).send('We had a problem in the proccess.');
+	if (!updatedUser) return res.status(400).send('Server had an unexpected internal problem.');
 	return res.status(200).send(updatedUser);
 }
 
@@ -146,7 +146,7 @@ export async function getDashboardData(req: Request, res: Response) {
 	const user = await UserDB().getUserStats(id);
 	const ranking = await UserDB().getRanking();
 	const userRank = await UserDB().getUserRank(id);
-	if (!user || !ranking || !userRank) return res.status(400).send('We had a problem in the proccess.');
+	if (!user || !ranking || !userRank) return res.status(400).send('Server had an unexpected internal problem.');
 	const dashboardData = {
 		rank: {
 			ranking: ranking,

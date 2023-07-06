@@ -13,7 +13,7 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
 	} catch {
 		console.log('User not authorized.');
 		return res.status(401).json({
-			error: new Error('Invalid request!'),
+			error: new Error('User not authorized'),
 		});
 	}
 };

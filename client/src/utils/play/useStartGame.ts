@@ -45,14 +45,23 @@ const useStartGame: () => IGameApi = () => {
 	const { handleUserNewGame } = useUserHandlers();
 
 	const startNewGame = async () => {
-		if (!session && status === 'unauthenticated') await handleGuestFinishGame();
-		await setRandomWord();
-		if (!playState.play) playStateDispatch({ type: 'setPlay', payload: true });
+		try {
+			if (!session && status === 'unauthenticated') await handleGuestFinishGame();
+			await setRandomWord();
+			if (!playState.play) playStateDispatch({ type: 'setPlay', payload: true });
+		} catch {
+			playStateDispatch({ type: 'setPlay', payload: false });
+		}
 	};
 
 	const setRandomWord = async () => {
-		const randomWord = await getRandomWord();
-		gameStateDispatch({ type: 'setRandomWord', payload: randomWord });
+		try {
+			const randomWord = await getRandomWord();
+			gameStateDispatch({ type: 'setRandomWord', payload: randomWord });
+		} catch {
+			playStateDispatch({ type: 'setPlay', payload: false });
+			throw '';
+		}
 	};
 
 	const handleKeyPressed = (event: KeyboardEvent) => {
