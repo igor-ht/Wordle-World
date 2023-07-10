@@ -13,3 +13,21 @@
     overflow-y: scroll;
   }
 }
+
+@keyframes points-skeleton-loading {
+  0% {
+    background-color: hsla(120, 71%, 73%, 0.878);
+  }
+  100% {
+    background-color: hsla(120, 56%, 65%, 0.898);
+  }
+}
+
+@keyframes ranking-skeleton-loading {
+  0% {
+    filter: brightness(1);
+  }
+  100% {
+    filter: brightness(0.9);
+  }
+}

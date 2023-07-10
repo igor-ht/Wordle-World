@@ -15,7 +15,7 @@ type setFollowingType = {
 	type: 'setFollowing';
 	payload: userStatsType[];
 };
-type userStateActionType = setPointsType | setDiscoveredWordsType | setFollowingType;
+type userStatsActionType = setPointsType | setDiscoveredWordsType | setFollowingType;
 
 export type rankType = {
 	ranking: userRankType[];
@@ -40,7 +40,7 @@ export type dashboardDataType = {
 	rank: rankType;
 	userStats: userStatsType;
 };
-export type dashboardDataActionType = rankActionType | userStateActionType;
+export type dashboardDataActionType = rankActionType | userStatsActionType;
 
 export const dashboardDataInitialState: dashboardDataType = {
 	rank: {

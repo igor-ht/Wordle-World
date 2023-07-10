@@ -23,7 +23,7 @@ export default function UserStats(userStats: userStatsType) {
 		<div className="user-stats-container">
 			<div className="user-points-container">
 				<h2>Total Points:</h2>
-				<h1 className="points">{userStats ? userStats.points.toLocaleString() : 0}</h1>
+				<h1 className="points">{userStats ? userStats?.points?.toLocaleString() : 0}</h1>
 			</div>
 			<div className="title-search-section">
 				<h3>Discovered Words:</h3>
@@ -41,7 +41,7 @@ export default function UserStats(userStats: userStatsType) {
 						<tr
 							ref={tableRef}
 							className="tr-grid">
-							{userStats.discoveredWords.map((word) => {
+							{userStats?.discoveredWords?.map((word) => {
 								return (
 									<td key={word}>
 										<p>{word}</p>

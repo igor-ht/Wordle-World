@@ -9,8 +9,8 @@ export default function Dashboard() {
 
 	return (
 		<>
-			<UserStats {...dashboard.userStats} />
-			<Ranking {...dashboard.rank} />
+			<UserStats {...dashboard?.userStats} />
+			<Ranking {...dashboard?.rank} />
 		</>
 	);
 }

@@ -1,5 +1,5 @@
-import { rankType } from '@/src/utils/dashboard/reducer';
 import './ranking.scss';
+import { rankType } from '@/src/utils/dashboard/reducer';
 
 export default function Ranking(rank: rankType) {
 	return (
@@ -13,9 +13,9 @@ export default function Ranking(rank: rankType) {
 				</thead>
 				<tbody>
 					<tr>
-						<td>{rank.user.place.toLocaleString()}</td>
-						<td>{rank.user.name}</td>
-						<td>{rank.user.points.toLocaleString()}</td>
+						<td>{rank?.user?.place.toLocaleString()}</td>
+						<td>{rank?.user?.name}</td>
+						<td>{rank?.user?.points.toLocaleString()}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -28,7 +28,7 @@ export default function Ranking(rank: rankType) {
 					</tr>
 				</thead>
 				<tbody>
-					{rank.ranking.map((user, i) => {
+					{rank?.ranking?.map((user, i) => {
 						return (
 							<tr key={i + 1}>
 								<td key={i + 1 * Math.random()}>{(i + 1).toLocaleString()}</td>

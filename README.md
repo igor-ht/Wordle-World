@@ -36,12 +36,11 @@ To run the application locally, you can use the following commands:
 | Build       | `npm run build` | `npm run build` |
 | Production  | `npm run start` | `npm run start` |
 
-
 ## Live App
 
 You can try the app live <a href="https://wordle-world.vercel.app/">**_here_**</a>.
 
-You have the option to sign up by registering a new account or using your Google account. 
+You have the option to sign up by registering a new account or using your Google account.
 
 Alternatively, you can use the following test account:
 
@@ -62,4 +61,3 @@ Wordle World follows a three-tier architecture. The key components of the archit
 ## Authentication
 
 Authentication is a crucial aspect of Wordle World. The project implements a robust authentication system using next-auth and JWT. These technologies ensure secure user account management, allowing players to register, log in, and maintain their profiles.
-
