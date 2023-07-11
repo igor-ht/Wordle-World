@@ -1,47 +1,30 @@
 import { useSession } from 'next-auth/react';
-import { useReducer } from 'react';
 import useAxiosAuth from '../hooks/useAxiosAuth';
-import { dashboardDataInitialState, dashboardDataReducer } from './reducer';
+import { rankType, userStatsType } from './reducer';
+import { useQuery } from '@tanstack/react-query';
 
-export default async function useDashboardData() {
-	const [dashboard, dashboardDispatch] = useReducer(dashboardDataReducer, dashboardDataInitialState);
+export default function useDashboardData() {
 	const { data: session, update } = useSession();
 	const axiosAuth = useAxiosAuth();
 
-	const res = await axiosAuth.post('api/dashboard', { id: session?.id, email: session?.email });
-	const dashboardData = await res.data;
-	if (!dashboardData) throw 'Data could not be fetched';
-	dashboardDispatch({ type: 'setPoints', payload: dashboardData?.userStats?.points });
-	dashboardDispatch({
-		type: 'setDiscoveredWords',
-		payload: dashboardData?.userStats?.discoveredWords.map((obj: { word: string }) => obj.word),
+	const getDashboardData = async () => {
+		const res = await axiosAuth.post('api/dashboard', { id: session?.id, email: session?.email });
+		const dashboardData = await res.data;
+		if (!dashboardData) throw 'Data could not be fetched';
+		dashboardData.userStats.discoveredWords = dashboardData.userStats.discoveredWords.map((obj: { word: string }) => obj.word);
+		return dashboardData;
+	};
+
+	const { isLoading, isError, data, refetch } = useQuery({
+		queryKey: ['dashboardData'],
+		queryFn: getDashboardData,
 	});
-	dashboardDispatch({ type: 'setFollowing', payload: dashboardData?.userStats?.following });
-	dashboardDispatch({ type: 'setRanking', payload: dashboardData?.rank?.ranking });
-	dashboardDispatch({ type: 'setUserRanking', payload: dashboardData?.rank?.user });
 
-	// useEffect(() => {
-	// 	const getDashboardData = async () => {
-	// 		try {
-	// 			const res = await axiosAuth.post('api/dashboard', { id: session?.id, email: session?.email });
-	// 			const dashboardData = await res.data;
-	// 			if (!dashboardData) throw 'Data could not be fetched';
-	// 			dashboardDispatch({ type: 'setPoints', payload: dashboardData?.userStats?.points });
-	// 			dashboardDispatch({
-	// 				type: 'setDiscoveredWords',
-	// 				payload: dashboardData?.userStats?.discoveredWords.map((obj: { word: string }) => obj.word),
-	// 			});
-	// 			dashboardDispatch({ type: 'setFollowing', payload: dashboardData?.userStats?.following });
-	// 			dashboardDispatch({ type: 'setRanking', payload: dashboardData?.rank?.ranking });
-	// 			dashboardDispatch({ type: 'setUserRanking', payload: dashboardData?.rank?.user });
-	// 		} catch (error) {
-	// 			await Promise.resolve(error);
-	// 			return await update();
-	// 		}
-	// 	};
+	if (isError) {
+		update().then(() => {
+			refetch();
+		});
+	}
 
-	// 	if (session) getDashboardData();
-	// }, [axiosAuth, session, update]);
-
-	return dashboard;
+	return { isLoading, isError, data } as { isLoading: boolean; isError: boolean; data: { rank: rankType; userStats: userStatsType } };
 }

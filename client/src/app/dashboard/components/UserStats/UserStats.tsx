@@ -19,8 +19,6 @@ export default function UserStats(userStats: userStatsType) {
 			.join('');
 	};
 
-	console.log(userStats)
-
 	return (
 		<div className="user-stats-container">
 			<div className="user-points-container">
