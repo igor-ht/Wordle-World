@@ -1,24 +1,17 @@
 import useAxiosAuth from '../hooks/useAxiosAuth';
-import { useSession } from 'next-auth/react';
 import { gameStateType } from './reducers';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
-export default function useWordHandlers() {
+export default function useWordHandlers(gameState: gameStateType) {
 	const axiosAuth = useAxiosAuth();
-	const { update } = useSession();
 
 	const getRandomWord = async () => {
-		try {
-			const res = await axiosAuth.get(`/api/word`);
-			const cypherWord = await res.data;
-			return cypherWord;
-		} catch (error) {
-			await Promise.resolve(error);
-			await update();
-			throw '';
-		}
+		const res = await axiosAuth.get(`/api/word`);
+		const cypherWord = await res.data;
+		return cypherWord;
 	};
 
-	const handleWordExists = async (gameState: gameStateType) => {
+	const handleWordExists = async () => {
 		const reqBody = { word: gameState.currentGuess.toLowerCase() };
 		const res = await axiosAuth.post(`/api/word`, reqBody, {
 			params: {
@@ -28,7 +21,7 @@ export default function useWordHandlers() {
 		return await res.data;
 	};
 
-	const sendUserGuessToServer = async (gameState: gameStateType) => {
+	const sendUserGuessToServer = async () => {
 		const reqBody = {
 			cyphertext: gameState.word,
 			guess: gameState.currentGuess,
@@ -38,8 +31,31 @@ export default function useWordHandlers() {
 				checkGuess: true,
 			},
 		});
-		return res.data;
+		return await res.data;
 	};
 
-	return { getRandomWord, handleWordExists, sendUserGuessToServer };
+	const getRandomWordQuery = useQuery({
+		queryKey: ['getRandomWord'],
+		queryFn: getRandomWord,
+		staleTime: Infinity,
+		enabled: false,
+	});
+
+	const handleWordExistsMutation = useMutation({
+		mutationKey: ['handleWordExists'],
+		mutationFn: handleWordExists,
+		cacheTime: Infinity,
+	});
+
+	const sendUserGuessToServerMutation = useMutation({
+		mutationKey: ['sendUserGuessToServer'],
+		mutationFn: sendUserGuessToServer,
+		cacheTime: Infinity,
+	});
+
+	return {
+		getRandomWord: getRandomWordQuery,
+		handleWordExists: handleWordExistsMutation,
+		sendUserGuessToServer: sendUserGuessToServerMutation,
+	};
 }

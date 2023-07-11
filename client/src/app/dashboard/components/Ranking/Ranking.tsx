@@ -1,5 +1,5 @@
 import './ranking.scss';
-import { rankType } from '@/src/utils/dashboard/reducer';
+import { rankType } from '@/src/utils/dashboard/type';
 
 export default function Ranking(rank: rankType) {
 	return (

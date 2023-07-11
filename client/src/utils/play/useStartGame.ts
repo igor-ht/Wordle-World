@@ -40,7 +40,7 @@ const useStartGame: () => IGameApi = () => {
 	const { data: session, status } = useSession();
 	const router = useRouter();
 
-	const { getRandomWord, handleWordExists, sendUserGuessToServer } = useWordHandlers();
+	const { getRandomWord, handleWordExists, sendUserGuessToServer } = useWordHandlers(gameState);
 	const { handleGuestUser, guestLimitGames } = useGuestHandlers();
 	const { handleUserNewGame } = useUserHandlers();
 
@@ -56,7 +56,7 @@ const useStartGame: () => IGameApi = () => {
 
 	const setRandomWord = async () => {
 		try {
-			const randomWord = await getRandomWord();
+			const randomWord = await (await getRandomWord.refetch()).data;
 			gameStateDispatch({ type: 'setRandomWord', payload: randomWord });
 		} catch {
 			playStateDispatch({ type: 'setPlay', payload: false });
@@ -139,9 +139,9 @@ const useStartGame: () => IGameApi = () => {
 	const handleEnter = async () => {
 		gameState.currentLetter = '';
 		if (gameState.currentGuess.length === gameSettings.wordLength) {
-			if (!(await handleWordExists(gameState)))
-				return currentInputElement.current!.parentElement!.classList.add('notfound-guess'), setAsyncRun(false);
-			const ans = await sendUserGuessToServer(gameState);
+			const wordExists = await handleWordExists.mutateAsync();
+			if (!wordExists) return currentInputElement.current!.parentElement!.classList.add('notfound-guess'), setAsyncRun(false);
+			const ans = await sendUserGuessToServer.mutateAsync();
 			await handleInputCellsUpdate(ans);
 			await handleKeyboardUpdate(ans);
 			if (!(await handleUserGuessResponse(ans))) return await handleInputRowChange();
@@ -273,16 +273,12 @@ const useStartGame: () => IGameApi = () => {
 	};
 
 	const handleUserFinishGame = async (state: boolean) => {
-		try {
-			const gameStats = {
-				state: state,
-				chances: gameState.guessNumber,
-				word: gameState.word,
-			};
-			await handleUserNewGame(gameStats);
-		} catch (error) {
-			console.log(error);
-		}
+		const gameStats = {
+			state: state,
+			chances: gameState.guessNumber,
+			word: gameState.word,
+		};
+		handleUserNewGame(gameStats);
 	};
 
 	const handleGuestFinishGame = async () => {

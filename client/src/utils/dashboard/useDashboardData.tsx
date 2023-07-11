@@ -1,6 +1,6 @@
 import { useSession } from 'next-auth/react';
 import useAxiosAuth from '../hooks/useAxiosAuth';
-import { rankType, userStatsType } from './reducer';
+import { dashboardDataType } from './type';
 import { useQuery } from '@tanstack/react-query';
 
 export default function useDashboardData() {
@@ -26,5 +26,5 @@ export default function useDashboardData() {
 		});
 	}
 
-	return { isLoading, isError, data } as { isLoading: boolean; isError: boolean; data: { rank: rankType; userStats: userStatsType } };
+	return { isLoading, isError, data } as { isLoading: boolean; isError: boolean; data: dashboardDataType };
 }
