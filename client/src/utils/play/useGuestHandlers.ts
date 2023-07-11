@@ -1,7 +1,7 @@
 import useLocalStorage from '../hooks/useLocalStorage';
-import { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
+import { useState } from 'react';
 import axios from 'axios';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 interface IGuest {
 	ip: string;
@@ -10,45 +10,45 @@ interface IGuest {
 }
 
 export default function useGuestHandlers() {
-	const { data: session } = useSession();
 	const [guestLimitGames, setGuestLimitGames] = useState(false);
-	const [storedValue, setValue, removeValue] = useLocalStorage<IGuest>('guest', {
-		ip: '',
-		lastPlayed: Math.floor(Date.now() / 1000),
-		gamesCount: 0,
-	});
-
-	useEffect(() => {
-		if (session) removeValue();
-	});
+	const [storedValue, setValue, removeValue] = useLocalStorage<IGuest>(
+		'guest',
+		window?.localStorage?.getItem('guest')
+			? JSON.parse(localStorage.getItem('guest')!)
+			: {
+					ip: '',
+					lastPlayed: Math.floor(Date.now() / 1000),
+					gamesCount: 0,
+			  }
+	);
 
 	const searchGuestInDB = async () => {
 		const res = await axios.get('/api/guest');
 		const guest = res.data;
-		if (!guest) return await createNewGuest();
-		setValue(guest);
+		if (!guest) return null;
 		return guest;
 	};
 
 	const createNewGuest = async () => {
 		const res = await axios.get('/api/guest', { params: { create: true } });
 		const guestSigned = res.data;
-		setValue(guestSigned);
 		return guestSigned;
 	};
 
-	const checkGuestTimeSession = (guest: IGuest) => {
-		if (guest.lastPlayed + 86_400 > Math.floor(Date.now() / 1000)) return false;
+	const checkGuestTimeSession = () => {
+		if (storedValue.lastPlayed + 86_400 > Math.floor(Date.now() / 1000)) return false;
 		return true;
 	};
 
-	const handleGuestNewGame = async (guest: IGuest) => {
+	const handleGuestNewGame = async () => {
+		const guest = await (await searchGuestInDBQuery.refetch()).data;
 		const res = await axios.post('/api/guest', guest);
 		const guestUpdated = await res.data;
 		setValue(guestUpdated);
 	};
 
-	const handleGuestNewSession = async (guest: IGuest) => {
+	const handleGuestNewSession = async () => {
+		const guest = await (await searchGuestInDBQuery.refetch()).data;
 		const res = await axios.get('/api/guest', {
 			params: {
 				newSession: guest.ip,
@@ -58,16 +58,41 @@ export default function useGuestHandlers() {
 		setValue(guestSigned);
 	};
 
+	const searchGuestInDBQuery = useQuery({
+		queryKey: ['searchGuestInDB'],
+		queryFn: searchGuestInDB,
+		staleTime: Infinity,
+		enabled: false,
+	});
+	const createNewGuestQuery = useQuery({
+		queryKey: ['createNewGuest'],
+		queryFn: createNewGuest,
+		staleTime: Infinity,
+		enabled: false,
+	});
+	const handleGuestNewGameMutation = useMutation({
+		mutationKey: ['huestNewGame'],
+		mutationFn: handleGuestNewGame,
+		cacheTime: Infinity,
+	});
+	const handleGuestNewSessionQuery = useQuery({
+		queryKey: ['guestNewSession'],
+		queryFn: handleGuestNewSession,
+		staleTime: Infinity,
+		enabled: false,
+	});
+
 	const handleGuestUser = async () => {
 		let guest;
 		if (typeof window !== 'undefined') guest = localStorage?.getItem('guest') ? JSON.parse(localStorage.getItem('guest')!) : null;
-		if (!guest) guest = await searchGuestInDB();
-		if (!guest) guest = await createNewGuest();
+		if (!guest) guest = await (await searchGuestInDBQuery.refetch()).data;
+		if (!guest) guest = await (await createNewGuestQuery.refetch()).data;
+		setValue(guest);
 		if (guest.gamesCount >= 3) {
-			if (checkGuestTimeSession(guest)) return handleGuestNewSession(guest);
+			if (checkGuestTimeSession()) return await handleGuestNewSessionQuery.refetch();
 			return setGuestLimitGames(true);
 		}
-		return await handleGuestNewGame(guest);
+		return await handleGuestNewGameMutation.mutateAsync();
 	};
 
 	return { handleGuestUser, guestLimitGames };

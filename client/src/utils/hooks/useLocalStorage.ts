@@ -11,11 +11,11 @@ type genericReducer = {
 export const localStorageReducer: genericReducer = (storedValue, action) => {
 	switch (action.type) {
 		case 'setValue':
-			return action.payload;
+			return { ...action.payload };
 		case 'resetValue':
-			return '';
+			return {};
 		default:
-			throw new Error();
+			return { ...storedValue };
 	}
 };
 
@@ -26,12 +26,8 @@ export default function useLocalStorage<T>(key: string, initialValue: T): [T, (v
 	const [storedValue, dispatchStoredValue] = useReducer(localStorageReducer, currentInitialValue ? currentInitialValue : initialValue);
 
 	const setValue = (value: T) => {
-		try {
-			dispatchStoredValue({ type: 'setValue', payload: value });
-			if (typeof window !== 'undefined') window.localStorage.setItem(key, JSON.stringify(value));
-		} catch (error) {
-			console.log(error);
-		}
+		dispatchStoredValue({ type: 'setValue', payload: value });
+		if (typeof window !== 'undefined') window.localStorage.setItem(key, JSON.stringify(value));
 	};
 
 	const removeValue = () => {
