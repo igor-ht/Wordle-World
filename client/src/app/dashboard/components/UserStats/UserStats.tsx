@@ -19,6 +19,8 @@ export default function UserStats(userStats: userStatsType) {
 			.join('');
 	};
 
+	console.log(userStats)
+
 	return (
 		<div className="user-stats-container">
 			<div className="user-points-container">
@@ -43,7 +45,7 @@ export default function UserStats(userStats: userStatsType) {
 							className="tr-grid">
 							{userStats?.discoveredWords?.map((word) => {
 								return (
-									<td key={word}>
+									<td key={Math.random() * Date.now()}>
 										<p>{word}</p>
 									</td>
 								);
