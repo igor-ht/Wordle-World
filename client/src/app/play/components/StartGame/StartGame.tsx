@@ -18,26 +18,36 @@ export default function StartGame({ startNewGame }: IStartGame) {
 					<section className="guess">
 						<input
 							type="text"
+							id="1"
+							name="1"
 							value="W"
 							disabled
 						/>
 						<input
 							type="text"
+							id="2"
+							name="2"
 							value="A"
 							disabled
 						/>
 						<input
 							type="text"
+							id="3"
+							name="3"
 							value="T"
 							disabled
 						/>
 						<input
 							type="text"
+							id="4"
+							name="4"
 							value="E"
 							disabled
 						/>
 						<input
 							type="text"
+							id="5"
+							name="5"
 							value="R"
 							disabled
 						/>
@@ -46,11 +56,15 @@ export default function StartGame({ startNewGame }: IStartGame) {
 						<span>
 							<input
 								type="text"
+								id="6"
+								name="6"
 								value="W"
 								disabled
 							/>
 							<input
 								type="text"
+								id="7"
+								name="7"
 								value="E"
 								disabled
 							/>
@@ -59,11 +73,15 @@ export default function StartGame({ startNewGame }: IStartGame) {
 						<span>
 							<input
 								type="text"
+								id="8"
+								name="8"
 								value="T"
 								disabled
 							/>
 							<input
 								type="text"
+								id="9"
+								name="9"
 								value="R"
 								disabled
 							/>
@@ -72,11 +90,15 @@ export default function StartGame({ startNewGame }: IStartGame) {
 						<span>
 							<input
 								type="text"
+								id="10"
+								name="10"
 								disabled
 								style={{ backgroundColor: 'rgba(255, 255, 255, 0)', border: '0' }}
 							/>
 							<input
 								type="text"
+								id="11"
+								name="11"
 								value="A"
 								disabled
 							/>

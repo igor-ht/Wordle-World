@@ -91,7 +91,7 @@ const useStartGame: () => IGameApi = () => {
 
 	const handleInputCellChange = () => {
 		gameStateDispatch({ type: 'setCurrentLetter', payload: '' });
-		if (currentInputElement.current?.id === gameSettings.wordLength + '')
+		if (+currentInputElement.current!.id % 5 === 0)
 			return (
 				currentInputElement.current?.classList.remove('current-input'),
 				currentInputElement.current?.parentElement?.classList.add('span-complete'),
@@ -117,7 +117,8 @@ const useStartGame: () => IGameApi = () => {
 
 	const handleBackSpace = () => {
 		const currentInput = currentInputElement.current! as HTMLInputElement;
-		if (currentInput.id === '1' || (currentInput.id === gameSettings.wordLength + '' && currentInput.value.length > 0)) {
+		// check if input is the first or the last in the its own row
+		if ((+currentInput.id - 1) % 5 === 0 || (+currentInput.id % 5 === 0 && currentInput.value.length > 0)) {
 			currentInput.value = '';
 			gameStateDispatch({ type: 'setCurrentGuess', payload: gameState.currentGuess.slice(0, -1) });
 			gameStateDispatch({ type: 'setCurrentLetter', payload: '' });

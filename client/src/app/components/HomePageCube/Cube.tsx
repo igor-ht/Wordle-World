@@ -27,6 +27,8 @@ export default function Cube() {
 						<span>
 							<input
 								type="text"
+								id="1"
+								name="1"
 								className="wrong"
 								disabled
 								value={'S'}
@@ -36,6 +38,8 @@ export default function Cube() {
 						<span>
 							<input
 								type="text"
+								id="2"
+								name="2"
 								className="cow"
 								disabled
 								value={'A'}
@@ -45,6 +49,8 @@ export default function Cube() {
 						<span>
 							<input
 								type="text"
+								id="3"
+								name="3"
 								className="bull"
 								disabled
 								value={'R'}
