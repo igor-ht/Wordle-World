@@ -1,14 +1,23 @@
 import useAxiosAuth from '../hooks/useAxiosAuth';
+import { signOut, useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 import { gameStateType } from './reducers';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export default function useWordHandlers(gameState: gameStateType) {
 	const axiosAuth = useAxiosAuth();
+	const { update } = useSession();
+	const queryClient = useQueryClient();
 
 	const getRandomWord = async () => {
-		const res = await axiosAuth.get(`/api/word`);
-		const cypherWord = await res.data;
-		return cypherWord;
+		try {
+			const res = await axiosAuth.get(`/api/word`);
+			const cypherWord = await res.data;
+			return cypherWord;
+		} catch {
+			await update();
+			throw new Error();
+		}
 	};
 
 	const handleWordExists = async () => {
@@ -39,18 +48,40 @@ export default function useWordHandlers(gameState: gameStateType) {
 		queryFn: getRandomWord,
 		staleTime: Infinity,
 		enabled: false,
+		retry: 2,
+		onSuccess: async () => {
+			await queryClient.invalidateQueries({ queryKey: ['getRandomWord'] });
+		},
+		onError: async () => {
+			await signOut();
+			redirect('signin');
+		},
 	});
 
 	const handleWordExistsMutation = useMutation({
 		mutationKey: ['handleWordExists'],
 		mutationFn: handleWordExists,
 		cacheTime: Infinity,
+		retry: 2,
+		onSuccess: async () => {
+			await queryClient.invalidateQueries({ queryKey: ['handleWordExists'] });
+		},
+		onError: async () => {
+			redirect('signin');
+		},
 	});
 
 	const sendUserGuessToServerMutation = useMutation({
 		mutationKey: ['sendUserGuessToServer'],
 		mutationFn: sendUserGuessToServer,
 		cacheTime: Infinity,
+		retry: 2,
+		onSuccess: async () => {
+			await queryClient.invalidateQueries({ queryKey: ['sendUserGuessToServer'] });
+		},
+		onError: async () => {
+			redirect('signin');
+		},
 	});
 
 	return {

@@ -10,7 +10,7 @@ import { redirect } from 'next/navigation';
 const updateAcessToken = async (token: JWT): Promise<JWT> => {
 	try {
 		const updatedUser = await (await axios.post(`${ENDPOINT}/user/updateUserAccessToken`, { userEmail: token?.email })).data;
-		if (!updatedUser) throw '';
+		if (!updatedUser) throw new Error();
 		return {
 			id: updatedUser.id,
 			name: updatedUser.name,
@@ -22,7 +22,7 @@ const updateAcessToken = async (token: JWT): Promise<JWT> => {
 		};
 	} catch {
 		await signOut();
-		return redirect('/signin');
+		redirect('/signin');
 	}
 };
 

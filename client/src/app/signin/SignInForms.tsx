@@ -54,7 +54,6 @@ export default function SignInForms() {
 		} catch (error) {
 			setUserLogged(false);
 			formik.setErrors({ email: `One or more fields are not valid.`, password: 'One or more fields are not valid.' });
-			return Promise.reject(error);
 		}
 	};
 
@@ -68,7 +67,6 @@ export default function SignInForms() {
 		} catch (error) {
 			setUserLogged(false);
 			formik.setErrors({ email: `We had a problem with the login proccess.`, password: 'We had a problem with the login proccess.' });
-			return Promise.reject(error);
 		}
 	};
 

@@ -11,16 +11,11 @@ interface IGuest {
 
 export default function useGuestHandlers() {
 	const [guestLimitGames, setGuestLimitGames] = useState(false);
-	const [storedValue, setValue, removeValue] = useLocalStorage<IGuest>(
-		'guest',
-		window?.localStorage?.getItem('guest')
-			? JSON.parse(localStorage.getItem('guest')!)
-			: {
-					ip: '',
-					lastPlayed: Math.floor(Date.now() / 1000),
-					gamesCount: 0,
-			  }
-	);
+	const [storedValue, setValue, removeValue] = useLocalStorage<IGuest>('guest', {
+		ip: '',
+		lastPlayed: Math.floor(Date.now() / 1000),
+		gamesCount: 0,
+	});
 
 	const searchGuestInDB = async () => {
 		const res = await axios.get('/api/guest');
@@ -84,7 +79,7 @@ export default function useGuestHandlers() {
 
 	const handleGuestUser = async () => {
 		let guest;
-		if (typeof window !== 'undefined') guest = localStorage?.getItem('guest') ? JSON.parse(localStorage.getItem('guest')!) : null;
+		if (typeof window !== 'undefined') guest = window?.localStorage?.getItem('guest') ? JSON.parse(localStorage.getItem('guest')!) : null;
 		if (!guest) guest = await (await searchGuestInDBQuery.refetch()).data;
 		if (!guest) guest = await (await createNewGuestQuery.refetch()).data;
 		setValue(guest);

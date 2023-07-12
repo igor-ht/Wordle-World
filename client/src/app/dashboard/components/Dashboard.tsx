@@ -6,18 +6,14 @@ import LoadingDashboardData from './LoadingDashboardData';
 import useDashboardData from '@/src/utils/dashboard/useDashboardData';
 
 export default function Dashboard() {
-	const { isLoading, isError, data } = useDashboardData();
-
-	if (isLoading) return <LoadingDashboardData />;
-
-	if (isError) {
-		// update();
-	}
+	const dashboardDataQuery = useDashboardData();
+	
+	if (dashboardDataQuery?.isLoading || !dashboardDataQuery?.data || dashboardDataQuery.isError) return <LoadingDashboardData />;
 
 	return (
 		<>
-			<UserStats {...data.userStats} />
-			<Ranking {...data.rank} />
+			<UserStats {...dashboardDataQuery?.data?.userStats} />
+			<Ranking {...dashboardDataQuery?.data?.rank} />
 		</>
 	);
 }

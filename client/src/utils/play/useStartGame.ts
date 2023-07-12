@@ -1,5 +1,5 @@
 import { MouseEventHandler, MutableRefObject, useEffect, useReducer, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import useWordHandlers from './useWordHandlers';
 import useGuestHandlers from './useGuestHandlers';
@@ -42,7 +42,7 @@ const useStartGame: () => IGameApi = () => {
 
 	const { getRandomWord, handleWordExists, sendUserGuessToServer } = useWordHandlers(gameState);
 	const { handleGuestUser, guestLimitGames } = useGuestHandlers();
-	const { handleUserNewGame } = useUserHandlers();
+	const handleUserNewGameMutation = useUserHandlers();
 
 	const startNewGame = async () => {
 		try {
@@ -60,7 +60,6 @@ const useStartGame: () => IGameApi = () => {
 			gameStateDispatch({ type: 'setRandomWord', payload: randomWord });
 		} catch {
 			playStateDispatch({ type: 'setPlay', payload: false });
-			throw '';
 		}
 	};
 
@@ -274,12 +273,17 @@ const useStartGame: () => IGameApi = () => {
 	};
 
 	const handleUserFinishGame = async (state: boolean) => {
-		const gameStats = {
-			state: state,
-			chances: gameState.guessNumber,
-			word: gameState.word,
-		};
-		handleUserNewGame(gameStats);
+		try {
+			const gameStats = {
+				state: state,
+				chances: gameState.guessNumber,
+				word: gameState.word,
+			};
+			handleUserNewGameMutation.mutate(gameStats);
+		} catch {
+			console.log('should be here?');
+			redirect('/signin');
+		}
 	};
 
 	const handleGuestFinishGame = async () => {
