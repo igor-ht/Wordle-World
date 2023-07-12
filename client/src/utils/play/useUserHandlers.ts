@@ -16,6 +16,7 @@ const useUserHandlers = () => {
 	const { isError, mutate, reset } = useMutation({
 		mutationKey: ['userNewGame'],
 		mutationFn: handleUserNewGame,
+		cacheTime: Infinity,
 	});
 
 	if (isError) update().then(() => reset());
