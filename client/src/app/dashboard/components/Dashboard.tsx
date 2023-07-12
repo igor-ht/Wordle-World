@@ -4,16 +4,19 @@ import Ranking from './Ranking/Ranking';
 import UserStats from './UserStats/UserStats';
 import LoadingDashboardData from './LoadingDashboardData';
 import useDashboardData from '@/src/utils/dashboard/useDashboardData';
+import { useSession } from 'next-auth/react';
 
 export default function Dashboard() {
-	const dashboardDataQuery = useDashboardData();
-	
-	if (dashboardDataQuery?.isLoading || !dashboardDataQuery?.data || dashboardDataQuery.isError) return <LoadingDashboardData />;
+	const dashboardDataMutation = useDashboardData();
+	const { data: session } = useSession();
+
+	if (dashboardDataMutation?.isLoading || dashboardDataMutation?.isError || !dashboardDataMutation?.data || !session)
+		return <LoadingDashboardData />;
 
 	return (
 		<>
-			<UserStats {...dashboardDataQuery?.data?.userStats} />
-			<Ranking {...dashboardDataQuery?.data?.rank} />
+			<UserStats {...dashboardDataMutation?.data?.userStats} />
+			<Ranking {...dashboardDataMutation?.data?.rank} />
 		</>
 	);
 }

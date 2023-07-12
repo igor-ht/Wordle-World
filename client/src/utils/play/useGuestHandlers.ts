@@ -66,7 +66,7 @@ export default function useGuestHandlers() {
 		enabled: false,
 	});
 	const handleGuestNewGameMutation = useMutation({
-		mutationKey: ['huestNewGame'],
+		mutationKey: ['guestNewGame'],
 		mutationFn: handleGuestNewGame,
 		cacheTime: Infinity,
 	});

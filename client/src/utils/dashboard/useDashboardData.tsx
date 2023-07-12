@@ -1,7 +1,6 @@
 import { signOut, useSession } from 'next-auth/react';
 import useAxiosAuth from '../hooks/useAxiosAuth';
 import { useQuery } from '@tanstack/react-query';
-import { redirect } from 'next/navigation';
 
 export default function useDashboardData() {
 	const { data: session, update } = useSession();
@@ -9,7 +8,6 @@ export default function useDashboardData() {
 
 	const getDashboardData = async () => {
 		try {
-			if (!session) return null;
 			const res = await axiosAuth.post('api/dashboard', { id: session?.id, email: session?.email });
 			const dashboardData = await res.data;
 			if (!dashboardData) throw 'Data could not be fetched';
@@ -21,15 +19,16 @@ export default function useDashboardData() {
 		}
 	};
 
-	const dashboardDataQuery = useQuery({
+	const dashboardDataMutation = useQuery({
 		queryKey: ['dashboardData'],
 		queryFn: getDashboardData,
-		retry: 2,
+		retry: 3,
+		staleTime: Infinity,
 		onError: async () => {
 			if (session) return await signOut();
 			await update();
 		},
 	});
 
-	return dashboardDataQuery;
+	return dashboardDataMutation;
 }
