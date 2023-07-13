@@ -36,7 +36,7 @@ export default function SignInForms() {
 		try {
 			setUserLogged(true);
 			const userSignIn = await handleLoginMutation.mutateAsync();
-			if (handleLoginMutation.isError) throw new Error();
+			if (handleLoginMutation.status === 'error') throw new Error();
 			await signIn('credentials', {
 				id: userSignIn.id,
 				name: userSignIn.name,
@@ -47,7 +47,7 @@ export default function SignInForms() {
 				redirect: true,
 				callbackUrl: '/dashboard',
 			});
-		} catch (error) {
+		} catch {
 			setUserLogged(false);
 			formik.setErrors({ email: `One or more fields are not valid.`, password: 'One or more fields are not valid.' });
 		}
@@ -60,7 +60,7 @@ export default function SignInForms() {
 				redirect: true,
 				callbackUrl: '/dashboard',
 			});
-		} catch (error) {
+		} catch {
 			setUserLogged(false);
 			formik.setErrors({ email: `We had a problem with the login proccess.`, password: 'We had a problem with the login proccess.' });
 		}

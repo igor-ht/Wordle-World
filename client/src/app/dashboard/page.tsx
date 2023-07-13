@@ -1,10 +1,10 @@
 import './dashboard.scss';
-import Dashboard from './components/Dashboard';
+import DashboardData from './components/DashboardData';
 
 export default async function Page() {
 	return (
 		<div className={`dashboard-container`}>
-			<Dashboard />
+			<DashboardData />
 		</div>
 	);
 }

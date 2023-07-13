@@ -5,15 +5,10 @@ import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { gameStateType } from '@/src/utils/play/reducers';
-import { useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
 export default function VictoryCard({ gameState, handleResetGame }: { gameState: gameStateType; handleResetGame: () => Promise<void> }) {
 	const { data: session, status } = useSession();
-	const router = useRouter();
-
-	const handleNavigateToDashboard = async () => {
-		router.push(`/dashboard`);
-	};
 
 	return (
 		<div className="victory-background">
@@ -47,7 +42,7 @@ export default function VictoryCard({ gameState, handleResetGame }: { gameState:
 					{!!session && status === 'authenticated' ? (
 						<button
 							type="button"
-							onClick={handleNavigateToDashboard}>
+							onClick={() => redirect('/dashboard')}>
 							Dashboard
 						</button>
 					) : (

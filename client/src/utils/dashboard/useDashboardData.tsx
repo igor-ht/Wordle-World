@@ -20,7 +20,7 @@ export default function useDashboardData() {
 		}
 	};
 
-	const dashboardDataMutation = useQuery({
+	const dashboardDataQuery = useQuery({
 		queryKey: ['dashboardData'],
 		queryFn: getDashboardData,
 		retry: 3,
@@ -32,5 +32,5 @@ export default function useDashboardData() {
 		},
 	});
 
-	return dashboardDataMutation;
+	return dashboardDataQuery;
 }
