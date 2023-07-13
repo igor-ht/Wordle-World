@@ -3,8 +3,7 @@
 import Image from 'next/image';
 import axios from 'axios';
 import { useFormik } from 'formik';
-import { signIn, useSession } from 'next-auth/react';
-import { redirect } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import LoadingSkeleton from '../components/LoadingSkeleton/LoadingSkeleton';
 import { useMutation } from '@tanstack/react-query';
@@ -16,7 +15,6 @@ export interface userLogin {
 
 export default function SignInForms() {
 	const [userLogged, setUserLogged] = useState(false);
-	const { data: session, status } = useSession();
 	const formik = useFormik<userLogin>({
 		initialValues: {
 			email: '',
@@ -24,8 +22,6 @@ export default function SignInForms() {
 		},
 		onSubmit: async () => await handleLogin(),
 	});
-
-	if (session && status === 'authenticated') return redirect('/dashboard');
 
 	const handleLoginMutation = useMutation({
 		mutationKey: ['login'],
@@ -48,9 +44,9 @@ export default function SignInForms() {
 				password: formik.values.password,
 				accessToken: userSignIn.accessToken,
 				refreshToken: userSignIn.refreshToken,
-				redirect: false,
+				redirect: true,
+				callbackUrl: '/dashboard',
 			});
-			redirect('/dashboard');
 		} catch (error) {
 			setUserLogged(false);
 			formik.setErrors({ email: `One or more fields are not valid.`, password: 'One or more fields are not valid.' });

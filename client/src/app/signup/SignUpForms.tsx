@@ -4,8 +4,7 @@ import Image from 'next/image';
 import axios, { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import { SignupSchema } from '@/src/utils/forms/validating';
-import { signIn, useSession } from 'next-auth/react';
-import { redirect } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import LoadingSkeleton from '../components/LoadingSkeleton/LoadingSkeleton';
 import { useMutation } from '@tanstack/react-query';
@@ -19,7 +18,6 @@ export interface userSignUp {
 
 export default function SignUpForms() {
 	const [userLogged, setUserLogged] = useState(false);
-	const { data: session, status } = useSession();
 	const formik = useFormik<userSignUp>({
 		initialValues: {
 			name: '',
@@ -30,8 +28,6 @@ export default function SignUpForms() {
 		validationSchema: SignupSchema,
 		onSubmit: async () => await handleSignUp(),
 	});
-
-	if (session && status === 'authenticated') return redirect('/dashboard');
 
 	const handleSignUpMutation = useMutation({
 		mutationKey: ['SignUp'],
@@ -54,9 +50,9 @@ export default function SignUpForms() {
 				password: formik.values.password,
 				accessToken: userLogged.accessToken,
 				refreshToken: userLogged.refreshToken,
-				redirect: false,
+				redirect: true,
+				callbackUrl: '/dashboard',
 			});
-			redirect('/dashboard');
 		} catch (error) {
 			setUserLogged(false);
 			if (error instanceof AxiosError) {

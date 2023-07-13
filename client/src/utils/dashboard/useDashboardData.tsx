@@ -1,6 +1,7 @@
 import { signOut, useSession } from 'next-auth/react';
 import useAxiosAuth from '../hooks/useAxiosAuth';
 import { useQuery } from '@tanstack/react-query';
+import { redirect } from 'next/navigation';
 
 export default function useDashboardData() {
 	const { data: session, update } = useSession();
@@ -18,7 +19,7 @@ export default function useDashboardData() {
 			throw new Error();
 		}
 	};
-	
+
 	const dashboardDataMutation = useQuery({
 		queryKey: ['dashboardData'],
 		queryFn: getDashboardData,
@@ -27,7 +28,7 @@ export default function useDashboardData() {
 		enabled: session ? true : false,
 		onError: async () => {
 			if (session) return await signOut();
-			await update();
+			else return redirect('/signin');
 		},
 	});
 
