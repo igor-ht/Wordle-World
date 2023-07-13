@@ -18,12 +18,13 @@ export default function useDashboardData() {
 			throw new Error();
 		}
 	};
-
+	
 	const dashboardDataMutation = useQuery({
 		queryKey: ['dashboardData'],
 		queryFn: getDashboardData,
 		retry: 3,
 		staleTime: Infinity,
+		enabled: session ? true : false,
 		onError: async () => {
 			if (session) return await signOut();
 			await update();
