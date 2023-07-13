@@ -1,5 +1,3 @@
-'use client';
-
 import './guestLimitGames.scss';
 import Link from 'next/link';
 

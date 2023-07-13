@@ -50,8 +50,8 @@ export default function InputContainer({ gameSettings, currentInputElement }: In
 								<input
 									type="text"
 									ref={indexA === 0 && indexB === 0 ? currentInputElement : null}
-									key={num}
-									id={'' + num}
+									key={num + 5 * indexA + ''}
+									id={num + 5 * indexA + ''}
 									className={indexA === 0 && indexB === 0 ? 'current-input' : ''}
 									minLength={1}
 									maxLength={1}

@@ -1,5 +1,5 @@
 import { MouseEventHandler, MutableRefObject, useEffect, useReducer, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import useWordHandlers from './useWordHandlers';
 import useGuestHandlers from './useGuestHandlers';
@@ -40,9 +40,9 @@ const useStartGame: () => IGameApi = () => {
 	const { data: session, status } = useSession();
 	const router = useRouter();
 
-	const { getRandomWord, handleWordExists, sendUserGuessToServer } = useWordHandlers();
+	const { getRandomWord, handleWordExists, sendUserGuessToServer } = useWordHandlers(gameState);
 	const { handleGuestUser, guestLimitGames } = useGuestHandlers();
-	const { handleUserNewGame } = useUserHandlers();
+	const handleUserNewGameMutation = useUserHandlers();
 
 	const startNewGame = async () => {
 		try {
@@ -56,11 +56,10 @@ const useStartGame: () => IGameApi = () => {
 
 	const setRandomWord = async () => {
 		try {
-			const randomWord = await getRandomWord();
+			const randomWord = await (await getRandomWord.refetch()).data;
 			gameStateDispatch({ type: 'setRandomWord', payload: randomWord });
 		} catch {
 			playStateDispatch({ type: 'setPlay', payload: false });
-			throw '';
 		}
 	};
 
@@ -91,7 +90,7 @@ const useStartGame: () => IGameApi = () => {
 
 	const handleInputCellChange = () => {
 		gameStateDispatch({ type: 'setCurrentLetter', payload: '' });
-		if (currentInputElement.current?.id === gameSettings.wordLength + '')
+		if (+currentInputElement.current!.id % 5 === 0)
 			return (
 				currentInputElement.current?.classList.remove('current-input'),
 				currentInputElement.current?.parentElement?.classList.add('span-complete'),
@@ -117,7 +116,8 @@ const useStartGame: () => IGameApi = () => {
 
 	const handleBackSpace = () => {
 		const currentInput = currentInputElement.current! as HTMLInputElement;
-		if (currentInput.id === '1' || (currentInput.id === gameSettings.wordLength + '' && currentInput.value.length > 0)) {
+		// check if input is the first or the last in the its own row
+		if ((+currentInput.id - 1) % 5 === 0 || (+currentInput.id % 5 === 0 && currentInput.value.length > 0)) {
 			currentInput.value = '';
 			gameStateDispatch({ type: 'setCurrentGuess', payload: gameState.currentGuess.slice(0, -1) });
 			gameStateDispatch({ type: 'setCurrentLetter', payload: '' });
@@ -139,9 +139,9 @@ const useStartGame: () => IGameApi = () => {
 	const handleEnter = async () => {
 		gameState.currentLetter = '';
 		if (gameState.currentGuess.length === gameSettings.wordLength) {
-			if (!(await handleWordExists(gameState)))
-				return currentInputElement.current!.parentElement!.classList.add('notfound-guess'), setAsyncRun(false);
-			const ans = await sendUserGuessToServer(gameState);
+			const wordExists = await handleWordExists.mutateAsync();
+			if (!wordExists) return currentInputElement.current!.parentElement!.classList.add('notfound-guess'), setAsyncRun(false);
+			const ans = await sendUserGuessToServer.mutateAsync();
 			await handleInputCellsUpdate(ans);
 			await handleKeyboardUpdate(ans);
 			if (!(await handleUserGuessResponse(ans))) return await handleInputRowChange();
@@ -279,9 +279,10 @@ const useStartGame: () => IGameApi = () => {
 				chances: gameState.guessNumber,
 				word: gameState.word,
 			};
-			await handleUserNewGame(gameStats);
-		} catch (error) {
-			console.log(error);
+			handleUserNewGameMutation.mutate(gameStats);
+		} catch {
+			console.log('should be here?');
+			redirect('/signin');
 		}
 	};
 

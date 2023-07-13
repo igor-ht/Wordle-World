@@ -10,19 +10,17 @@ import { redirect } from 'next/navigation';
 const updateAcessToken = async (token: JWT): Promise<JWT> => {
 	try {
 		const updatedUser = await (await axios.post(`${ENDPOINT}/user/updateUserAccessToken`, { userEmail: token?.email })).data;
-		if (!updatedUser) throw '';
+		if (!updatedUser) throw new Error();
 		return {
 			id: updatedUser.id,
 			name: updatedUser.name,
 			email: updatedUser.email,
 			accessToken: updatedUser.accessToken,
-			accessTokenExpires: Date.now() / 1000 + 60 * 15,
 			refreshToken: updatedUser.refreshToken,
-			refreshTokenExpires: Date.now() / 1000 + 60 * 30,
 		};
 	} catch {
 		await signOut();
-		return redirect('/signin');
+		redirect('/signin');
 	}
 };
 
@@ -44,9 +42,7 @@ export const NextAuthOptions: AuthOptions = {
 					name: userLogged.name,
 					email: userLogged.email,
 					accessToken: userLogged.accessToken,
-					accessTokenExpires: Date.now() / 1000 + 60 * 15,
 					refreshToken: userLogged.refreshToken,
-					refreshTokenExpires: Date.now() / 1000 + 60 * 30,
 				};
 			},
 		}),
@@ -66,9 +62,7 @@ export const NextAuthOptions: AuthOptions = {
 					name: userLogged.name,
 					email: userLogged.email,
 					accessToken: userLogged.accessToken,
-					accessTokenExpires: Date.now() / 1000 + 60 * 15,
 					refreshToken: userLogged.refreshToken,
-					refreshTokenExpires: Date.now() / 1000 + 60 * 30,
 				};
 				profile = tokens;
 				return { ...profile, tokens };
@@ -90,9 +84,7 @@ export const NextAuthOptions: AuthOptions = {
 				name: token.name,
 				email: token.email,
 				accessToken: token.accessToken,
-				accessTokenExpires: token.accessTokenExpires,
 				refreshToken: token.refreshToken,
-				refreshTokenExpires: token.refreshTokenExpires,
 				expires: session.expires,
 			};
 		},
@@ -102,10 +94,10 @@ export const NextAuthOptions: AuthOptions = {
 		maxAge: 60 * 60 * 24 * 30,
 	},
 	jwt: {
-		maxAge: 60 * 15,
+		maxAge: 60 * 30,
 	},
 	pages: {
 		signIn: '/signin',
-		error: '/signin',
+		newUser: '/signup',
 	},
 };

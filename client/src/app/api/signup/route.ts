@@ -4,6 +4,10 @@ import { userSignUp } from '../../signup/SignUpForms';
 import axios, { AxiosError } from 'axios';
 import { ENDPOINT } from '@/src/appConfig';
 
+const axiosUser = axios.create({
+	baseURL: `${ENDPOINT}/user`,
+});
+
 export async function POST(request: NextRequest) {
 	try {
 		const user: userSignUp = await request.json();
@@ -13,7 +17,7 @@ export async function POST(request: NextRequest) {
 			email: user.email,
 			password: hashedPassword,
 		};
-		const res = await axios.post(`${ENDPOINT}/user/signup`, newUser);
+		const res = await axiosUser.post(`/signup`, newUser);
 		const userData = await res.data;
 		return NextResponse.json(userData);
 	} catch (error) {

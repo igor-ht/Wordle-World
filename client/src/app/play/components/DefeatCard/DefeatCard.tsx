@@ -2,17 +2,12 @@
 
 import './defeatCard.scss';
 import Image from 'next/image';
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 
 export default function DefeatCard({ handleResetGame }: { handleResetGame: () => Promise<void> }) {
 	const { data: session, status } = useSession();
-	const router = useRouter();
-
-	const handleNavigateToDashboard = async () => {
-		router.push(`/dashboard`);
-	};
 
 	return (
 		<div className="defeat-background">
@@ -57,7 +52,7 @@ export default function DefeatCard({ handleResetGame }: { handleResetGame: () =>
 					{!!session && status === 'authenticated' ? (
 						<button
 							type="button"
-							onClick={handleNavigateToDashboard}>
+							onClick={() => redirect('/dashboard')}>
 							Dashboard
 						</button>
 					) : (

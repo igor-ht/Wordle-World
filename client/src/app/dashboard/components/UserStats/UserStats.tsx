@@ -1,6 +1,6 @@
 import './userStats.scss';
 import { ChangeEvent, useRef } from 'react';
-import { userStatsType } from '@/src/utils/dashboard/reducer';
+import { userStatsType } from '@/src/utils/dashboard/type';
 
 export default function UserStats(userStats: userStatsType) {
 	const tableRef = useRef<HTMLTableRowElement | null>(null);
@@ -28,7 +28,7 @@ export default function UserStats(userStats: userStatsType) {
 			<div className="title-search-section">
 				<h3>Discovered Words:</h3>
 				<input
-					type="text"
+					type="search"
 					name="search"
 					id="search-discovered-word"
 					placeholder="search for a discovered word"
@@ -43,7 +43,7 @@ export default function UserStats(userStats: userStatsType) {
 							className="tr-grid">
 							{userStats?.discoveredWords?.map((word) => {
 								return (
-									<td key={word}>
+									<td key={Math.random() * Date.now()}>
 										<p>{word}</p>
 									</td>
 								);

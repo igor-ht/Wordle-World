@@ -3,10 +3,10 @@
 import Image from 'next/image';
 import axios from 'axios';
 import { useFormik } from 'formik';
-import { signIn, useSession } from 'next-auth/react';
-import { redirect } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import LoadingSkeleton from '../components/LoadingSkeleton/LoadingSkeleton';
+import { useMutation } from '@tanstack/react-query';
 
 export interface userLogin {
 	email: string;
@@ -15,32 +15,38 @@ export interface userLogin {
 
 export default function SignInForms() {
 	const [userLogged, setUserLogged] = useState(false);
-	const { data: session, status } = useSession();
 	const formik = useFormik<userLogin>({
 		initialValues: {
 			email: '',
 			password: '',
 		},
-		onSubmit: async (data) => await handleLogin(data),
+		onSubmit: async () => await handleLogin(),
 	});
 
-	if (session && status === 'authenticated') return redirect('/dashboard');
+	const handleLoginMutation = useMutation({
+		mutationKey: ['login'],
+		mutationFn: async () => {
+			const res = await axios.post('/api/signin', formik.values);
+			return await res.data;
+		},
+		cacheTime: Infinity,
+	});
 
-	const handleLogin = async (user: userLogin) => {
+	const handleLogin = async () => {
 		try {
 			setUserLogged(true);
-			const res = await axios.post('/api/signin', user);
-			const userLogged = await res.data;
+			const userSignIn = await handleLoginMutation.mutateAsync();
+			if (handleLoginMutation.status === 'error') throw new Error();
 			await signIn('credentials', {
-				id: userLogged.id,
-				name: userLogged.name,
-				email: userLogged.email,
-				password: user.password,
-				accessToken: userLogged.accessToken,
-				refreshToken: userLogged.refreshToken,
-				redirect: false,
+				id: userSignIn.id,
+				name: userSignIn.name,
+				email: userSignIn.email,
+				password: formik.values.password,
+				accessToken: userSignIn.accessToken,
+				refreshToken: userSignIn.refreshToken,
+				redirect: true,
+				callbackUrl: '/dashboard',
 			});
-			redirect('/dashboard');
 		} catch {
 			setUserLogged(false);
 			formik.setErrors({ email: `One or more fields are not valid.`, password: 'One or more fields are not valid.' });
@@ -62,14 +68,14 @@ export default function SignInForms() {
 
 	return (
 		<>
-			{userLogged ? <LoadingSkeleton /> : <></>}
+			{userLogged && <LoadingSkeleton />}
 			<form
 				method="POST"
 				className={'signin-form'}
 				onSubmit={formik.handleSubmit}>
 				<span>
 					<label htmlFor="email">Email</label>
-					<span className="error">{formik.touched.email && formik.errors.email ? formik.errors.email : null}</span>
+					<span className="error">{formik.touched.email && formik.errors.email}</span>
 				</span>
 				<input
 					type="email"
@@ -78,12 +84,12 @@ export default function SignInForms() {
 					placeholder="your_email@example.com"
 					required
 					onChange={formik.handleChange}
-					autoComplete=""
+					autoComplete="email"
 					value={formik.values.email}
 				/>
 				<span>
 					<label htmlFor="password">Password</label>
-					<span className="error">{formik.touched.password && formik.errors.password ? formik.errors.password : null}</span>
+					<span className="error">{formik.touched.password && formik.errors.password}</span>
 				</span>
 				<input
 					type="password"
@@ -92,19 +98,18 @@ export default function SignInForms() {
 					placeholder="your password"
 					required
 					onChange={formik.handleChange}
-					autoComplete=""
 					value={formik.values.password}
 				/>
 				<button
 					type="submit"
-					disabled={userLogged ? true : false}>
+					disabled={userLogged}>
 					Sign In
 				</button>
 			</form>
 			<div className="signin-google">
 				<button
 					type="button"
-					disabled={userLogged ? true : false}
+					disabled={userLogged}
 					onClick={handleGoogleLogin}>
 					<Image
 						src="/google.icon.svg"

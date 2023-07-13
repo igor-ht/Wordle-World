@@ -1,35 +1,36 @@
-import { useSession } from 'next-auth/react';
-import { useEffect, useReducer } from 'react';
+import { signOut, useSession } from 'next-auth/react';
 import useAxiosAuth from '../hooks/useAxiosAuth';
-import { dashboardDataInitialState, dashboardDataReducer } from './reducer';
+import { useQuery } from '@tanstack/react-query';
+import { redirect } from 'next/navigation';
 
 export default function useDashboardData() {
-	const [dashboard, dashboardDispatch] = useReducer(dashboardDataReducer, dashboardDataInitialState);
 	const { data: session, update } = useSession();
 	const axiosAuth = useAxiosAuth();
 
-	useEffect(() => {
-		const getDashboardData = async () => {
-			try {
-				const res = await axiosAuth.post('api/dashboard', { id: session?.id, email: session?.email });
-				const dashboardData = await res.data;
-				if (!dashboardData) throw 'Data could not be fetched';
-				dashboardDispatch({ type: 'setPoints', payload: dashboardData?.userStats?.points });
-				dashboardDispatch({
-					type: 'setDiscoveredWords',
-					payload: dashboardData?.userStats?.discoveredWords.map((obj: { word: string }) => obj.word),
-				});
-				dashboardDispatch({ type: 'setFollowing', payload: dashboardData?.userStats?.following });
-				dashboardDispatch({ type: 'setRanking', payload: dashboardData?.rank?.ranking });
-				dashboardDispatch({ type: 'setUserRanking', payload: dashboardData?.rank?.user });
-			} catch (error) {
-				await Promise.resolve(error);
-				return await update();
-			}
-		};
+	const getDashboardData = async () => {
+		try {
+			const res = await axiosAuth.post('api/dashboard', { id: session?.id, email: session?.email });
+			const dashboardData = await res.data;
+			if (!dashboardData) throw 'Data could not be fetched';
+			dashboardData.userStats.discoveredWords = dashboardData.userStats.discoveredWords.map((obj: { word: string }) => obj.word);
+			return dashboardData;
+		} catch {
+			await update();
+			throw new Error();
+		}
+	};
 
-		if (session) getDashboardData();
-	}, [axiosAuth, session, update]);
+	const dashboardDataQuery = useQuery({
+		queryKey: ['dashboardData'],
+		queryFn: getDashboardData,
+		retry: 3,
+		staleTime: Infinity,
+		enabled: session ? true : false,
+		onError: async () => {
+			if (session) return await signOut();
+			else return redirect('/signin');
+		},
+	});
 
-	return dashboard;
+	return dashboardDataQuery;
 }

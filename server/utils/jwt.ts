@@ -6,6 +6,6 @@ export async function generateAccessToken(user: object, secretKey: string) {
 }
 
 export async function generateRefreshToken(user: object, secretKey: string) {
-	const refreshToken = jwt.sign(user, secretKey, { expiresIn: '24h' });
+	const refreshToken = jwt.sign(user, secretKey, { expiresIn: '3h' });
 	return refreshToken;
 }

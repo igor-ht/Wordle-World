@@ -21,13 +21,11 @@ export default function GamePage() {
 		handleResetGame,
 		guestLimitGames,
 	} = useStartGame();
+
 	return (
 		<div className="game-container">
-			{guestLimitGames ? (
-				<GuestLimitGames />
-			) : !playState?.play ? (
-				<StartGame startNewGame={startNewGame} />
-			) : (
+			{!guestLimitGames && !playState.play && <StartGame startNewGame={startNewGame} />}
+			{!guestLimitGames && playState.play && (
 				<>
 					<InputContainer
 						gameSettings={gameSettings}
@@ -46,6 +44,7 @@ export default function GamePage() {
 				/>
 			)}
 			{playState?.defeat && !playState?.victory && <DefeatCard handleResetGame={handleResetGame} />}
+			{guestLimitGames && <GuestLimitGames />}
 		</div>
 	);
 }

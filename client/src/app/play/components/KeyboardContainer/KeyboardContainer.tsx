@@ -1,7 +1,7 @@
 'use client';
 
-import { MouseEventHandler, MutableRefObject } from 'react';
 import './keyboardContainer.scss';
+import { MouseEventHandler, MutableRefObject } from 'react';
 
 const KEYBOARD = [
 	['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],

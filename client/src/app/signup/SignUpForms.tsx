@@ -4,10 +4,10 @@ import Image from 'next/image';
 import axios, { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import { SignupSchema } from '@/src/utils/forms/validating';
-import { signIn, useSession } from 'next-auth/react';
-import { redirect } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import LoadingSkeleton from '../components/LoadingSkeleton/LoadingSkeleton';
+import { useMutation } from '@tanstack/react-query';
 
 export interface userSignUp {
 	name: string;
@@ -18,7 +18,6 @@ export interface userSignUp {
 
 export default function SignUpForms() {
 	const [userLogged, setUserLogged] = useState(false);
-	const { data: session, status } = useSession();
 	const formik = useFormik<userSignUp>({
 		initialValues: {
 			name: '',
@@ -27,26 +26,33 @@ export default function SignUpForms() {
 			confirmPassword: '',
 		},
 		validationSchema: SignupSchema,
-		onSubmit: async (data) => await handleSignUp(data),
+		onSubmit: async () => await handleSignUp(),
 	});
 
-	if (session && status === 'authenticated') return redirect('/dashboard');
+	const handleSignUpMutation = useMutation({
+		mutationKey: ['SignUp'],
+		mutationFn: async () => {
+			const res = await axios.post('/api/signup', formik.values);
+			return await res.data;
+		},
+	});
 
-	const handleSignUp = async (user: userSignUp) => {
+	const handleSignUp = async () => {
 		try {
 			setUserLogged(true);
-			const res = await axios.post('/api/signup', user);
-			const userLogged = await res.data;
+			const userLogged = await handleSignUpMutation.mutateAsync();
+			if (handleSignUpMutation.isError) throw new Error();
+			console.log(userLogged);
 			await signIn('credentials', {
 				id: userLogged.id,
 				name: userLogged.name,
-				email: user.email,
-				password: user.password,
+				email: formik.values.email,
+				password: formik.values.password,
 				accessToken: userLogged.accessToken,
 				refreshToken: userLogged.refreshToken,
-				redirect: false,
+				redirect: true,
+				callbackUrl: '/dashboard',
 			});
-			redirect('/dashboard');
 		} catch (error) {
 			setUserLogged(false);
 			if (error instanceof AxiosError) {
@@ -77,13 +83,13 @@ export default function SignUpForms() {
 
 	return (
 		<>
-			{userLogged ? <LoadingSkeleton /> : <></>}
+			{userLogged && <LoadingSkeleton />}
 			<form onSubmit={formik.handleSubmit}>
 				<div className="signup-form">
 					<div className="input-box">
 						<span>
 							<label htmlFor="email">Name</label>
-							<span className="error">{formik.touched.name && formik.errors.name ? formik.errors.name : null}</span>
+							<span className="error">{formik.touched.name && formik.errors.name}</span>
 						</span>
 						<input
 							type="text"
@@ -92,12 +98,12 @@ export default function SignUpForms() {
 							placeholder="your name"
 							required
 							onChange={formik.handleChange}
-							autoComplete=""
+							autoComplete="given-name"
 							value={formik.values.name}
 						/>
 						<span>
 							<label htmlFor="email">Email</label>
-							<span className="error">{formik.touched.email && formik.errors.email ? formik.errors.email : null}</span>
+							<span className="error">{formik.touched.email && formik.errors.email}</span>
 						</span>
 						<input
 							type="email"
@@ -106,14 +112,14 @@ export default function SignUpForms() {
 							placeholder="your_email@example.com"
 							required
 							onChange={formik.handleChange}
-							autoComplete=""
+							autoComplete="email"
 							value={formik.values.email}
 						/>
 					</div>
 					<div className="input-box">
 						<span>
 							<label htmlFor="password">Password</label>
-							<span className="error">{formik.touched.password && formik.errors.password ? formik.errors.password : null}</span>
+							<span className="error">{formik.touched.password && formik.errors.password}</span>
 						</span>
 						<input
 							type="password"
@@ -122,14 +128,11 @@ export default function SignUpForms() {
 							placeholder="your password"
 							required
 							onChange={formik.handleChange}
-							autoComplete=""
 							value={formik.values.password}
 						/>
 						<span>
 							<label htmlFor="email">Confirm Password</label>
-							<span className="error">
-								{formik.touched.confirmPassword && formik.errors.confirmPassword ? formik.errors.confirmPassword : null}
-							</span>
+							<span className="error">{formik.touched.confirmPassword && formik.errors.confirmPassword}</span>
 						</span>
 						<input
 							type="password"
@@ -138,21 +141,20 @@ export default function SignUpForms() {
 							placeholder="confirm password"
 							required
 							onChange={formik.handleChange}
-							autoComplete=""
 							value={formik.values.confirmPassword}
 						/>
 					</div>
 				</div>
 				<button
 					type="submit"
-					disabled={userLogged ? true : false}>
+					disabled={userLogged}>
 					Sign up
 				</button>
 			</form>
 			<div className="signup-google">
 				<button
 					type="button"
-					disabled={userLogged ? true : false}
+					disabled={userLogged}
 					onClick={handleGoogleSignUp}>
 					<Image
 						src="/google.icon.svg"
