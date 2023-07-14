@@ -29,15 +29,16 @@ The main objectives of this project were:
 ## Milestones
 
 ### Development:
+
 - [x] Milestone 1: Project initialization
 - [x] Milestone 2: Backend development completed
 - [x] Milestone 3: Frontend development completed
 - [x] Milestone 4: Testing and bug fixes
 - [x] Milestone 5: Deployment and release
+
 ### Production:
+
 - [x] Milestone 1: Refactor Client Side to react-query for API communication
-- [ ] Milestone 2: Refactor Server Side to Nest.js
-- [ ] Milestone 3: Implement GraphQL
 
 ## App Commands
 
