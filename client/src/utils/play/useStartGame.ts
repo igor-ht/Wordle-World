@@ -15,6 +15,7 @@ import {
 	playStateReducer,
 	playStateType,
 } from './reducers';
+import GameSounds from './useSound';
 
 export interface IGameApi {
 	playState: playStateType;
@@ -71,6 +72,7 @@ const useStartGame: () => IGameApi = () => {
 		if (event.key === 'Backspace') return handleBackSpace();
 		if (!/^[a-zA-Z]$/.test(event.key)) return setAsyncRun(false);
 		if (currentInputElement.current!.value.length > 0) return setAsyncRun(false);
+		GameSounds.insertLetter.play();
 		handleGameStateUpdate(event.key.toUpperCase());
 		handleInputCellChange();
 		setAsyncRun(false);
@@ -83,6 +85,7 @@ const useStartGame: () => IGameApi = () => {
 		if (event.currentTarget.name === 'Enter') return handleEnter();
 		if (event.currentTarget.name === '⌫') return handleBackSpace();
 		if (currentInputElement.current!.value.length > 0) return setAsyncRun(false);
+		GameSounds.insertLetter.play();
 		handleGameStateUpdate(event.currentTarget.name);
 		handleInputCellChange();
 		setAsyncRun(false);
@@ -116,6 +119,7 @@ const useStartGame: () => IGameApi = () => {
 
 	const handleBackSpace = () => {
 		const currentInput = currentInputElement.current! as HTMLInputElement;
+		if ((+currentInput.id - 1) % 5 !== 0) GameSounds.insertLetter.play();
 		// check if input is the first or the last in the its own row
 		if ((+currentInput.id - 1) % 5 === 0 || (+currentInput.id % 5 === 0 && currentInput.value.length > 0)) {
 			currentInput.value = '';
@@ -140,21 +144,24 @@ const useStartGame: () => IGameApi = () => {
 		gameState.currentLetter = '';
 		if (gameState.currentGuess.length === gameSettings.wordLength) {
 			const wordExists = await handleWordExists.mutateAsync();
-			if (!wordExists) return currentInputElement.current!.parentElement!.classList.add('notfound-guess'), setAsyncRun(false);
+			if (!wordExists)
+				return currentInputElement.current?.parentElement?.classList.add('notfound-guess'), GameSounds.badGuess.play(), setAsyncRun(false);
 			const ans = await sendUserGuessToServer.mutateAsync();
 			await handleInputCellsUpdate(ans);
 			await handleKeyboardUpdate(ans);
+			GameSounds.guessSent.play();
 			if (!(await handleUserGuessResponse(ans))) return await handleInputRowChange();
 			setAsyncRun(false);
 		} else {
-			const currentRow = currentInputElement.current!.parentElement as HTMLSpanElement;
-			currentRow.classList.add('short-guess');
+			const currentRow = currentInputElement.current?.parentElement as HTMLSpanElement;
+			currentRow?.classList.add('short-guess');
+			GameSounds.badGuess.play();
 			setAsyncRun(false);
 		}
 	};
 
 	const handleGameStateUpdate = (char: string) => {
-		currentInputElement.current!.value = char;
+		currentInputElement.current ? (currentInputElement.current.value = char) : null;
 		gameStateDispatch({ type: 'setCurrentLetter', payload: char });
 		gameStateDispatch({ type: 'setCurrentGuess', payload: gameState.currentGuess + char });
 	};
@@ -219,6 +226,7 @@ const useStartGame: () => IGameApi = () => {
 
 	const handleVictory = () => {
 		setTimeout(async () => {
+			GameSounds.victory.play();
 			playStateDispatch({ type: 'setVictory', payload: true });
 			if (session && status === 'authenticated') return await handleUserFinishGame(true);
 			if (!session && status === 'unauthenticated') return await handleGuestFinishGame();
@@ -227,6 +235,7 @@ const useStartGame: () => IGameApi = () => {
 
 	const handleDefeat = () => {
 		setTimeout(async () => {
+			GameSounds.defeat.play();
 			playStateDispatch({ type: 'setDefeat', payload: true });
 			if (session && status === 'authenticated') return await handleUserFinishGame(false);
 			if (!session && status === 'unauthenticated') return await handleGuestFinishGame();

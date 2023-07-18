@@ -15,7 +15,7 @@
   align-items: center;
 
   img {
-    width: 350px;
+    width: 20rem;
     height: auto;
     object-fit: cover;
     margin: 10px;
@@ -29,8 +29,8 @@
 
   .cube {
     position: relative;
-    width: 260px;
-    height: 260px;
+    width: 15rem;
+    height: 15rem;
     transform-style: preserve-3d;
     animation: turn 20s linear 1s infinite;
     &:hover {
@@ -39,8 +39,8 @@
   }
 
   .face {
-    width: 260px;
-    height: 260px;
+    width: 15rem;
+    height: 15rem;
     position: absolute;
     opacity: 0.95;
     display: flex;
@@ -55,19 +55,24 @@
     }
   }
   .welcome {
-    transform: translateZ(130px);
+    transform: translateZ(7.5rem);
     background-color: #02d502;
     border: 0;
     align-items: center;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    h6 {
+      font-size: 1.1rem;
+      margin: 0.5rem;
+    }
     p {
       text-align: justify;
-      color: white;
-      font-size: 1.02rem;
-      margin: 20px;
+      font-size: 1rem;
     }
   }
   .info {
-    transform: translateZ(-130px) rotateY(180deg);
+    transform: translateZ(-7.5rem) rotateY(180deg);
     background-color: #02d502;
     border: 0;
     flex-direction: column;
@@ -85,7 +90,7 @@
     }
   }
   .account {
-    transform: translateX(-130px) rotateY(-90deg);
+    transform: translateX(-7.5rem) rotateY(-90deg);
     background-color: #ffff30;
     border: 0;
     flex-direction: column;
@@ -96,10 +101,10 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      height: 100%;
     }
     p {
       text-align: center;
-      margin-top: 30px;
     }
     a {
       align-self: center;
@@ -111,27 +116,32 @@
     }
   }
   .how-to-play {
-    transform: translateX(130px) rotateY(90deg);
+    transform: translateX(7.5rem) rotateY(90deg);
     background-color: #d02020;
     border: 0;
     flex-direction: column;
     align-items: center;
-    text-align: center;
-    line-height: 18px;
+    text-align: justify;
+    line-height: 1rem;
     color: white;
     h6 {
-      margin: 5px;
+      font-size: 1rem;
+      margin: 0.5rem;
     }
     section {
       display: flex;
       flex-direction: column;
+      height: 100%;
       span {
         display: flex;
         flex-direction: row;
         font-size: 0.7rem;
-        margin: 2px;
+        height: 100%;
+        margin: 0.3rem;
         p {
-          text-align: initial;
+          text-align: justify;
+          margin: 0;
+          align-self: flex-end;
         }
         input {
           width: 20px;
@@ -155,12 +165,12 @@
     }
   }
   .top {
-    transform: translateY(-130px) rotateX(90deg);
+    transform: translateY(-7.5rem) rotateX(90deg);
     background-color: white;
     border: 0;
   }
   .bottom {
-    transform: translateY(130px) rotateX(-90deg);
+    transform: translateY(7.5rem) rotateX(-90deg);
     background-color: white;
     border: 0;
   }
@@ -169,19 +179,12 @@
 @media (max-width: 700px) {
   .home-page {
     overflow: hidden;
-
     img {
-      width: 85%;
       margin: 5px;
     }
 
-    .cube-container {
-      width: 250px;
-      height: 250px;
-      perspective: 2500px;
-      margin-top: 10%;
-      margin-right: 2.2%;
-    }
+    // .cube-container {
+    // }
 
     input {
       -webkit-text-fill-color: white;
