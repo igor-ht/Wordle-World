@@ -5,24 +5,15 @@ export default function Cube() {
 		<div className="cube-container">
 			<div className="cube">
 				<div className="face welcome">
-					<p>
-						Welcome to Wordle World!
-						<br />
-						I am excited to have you here and hope you enjoy playing around.
-						<br />
-						Here you can play Wordle in english for free and keep track of the words you discovered and points you made!
-						<br />
-						Enjoy and good luck!
-					</p>
+					<h6>Welcome to Wordle World!</h6>
+					<p>I am excited to have you here and hope you enjoy playing around.</p>
+					<p>Here you can play Wordle in english for free and keep track of the words you discovered and points you made!</p>
+					<p>Enjoy and good luck!</p>
 				</div>
 				<div className="face how-to-play">
 					<h6>How to play:</h6>
-					<p>
-						- You have 6 chances to guess a secret random word.
-						<br />
-						- After every guess, you can get three possible answers:
-						<br />
-					</p>
+					<p>- You have 6 chances to guess a secret random word.</p>
+					<p>- After every guess, you can get three possible answers:</p>
 					<section>
 						<span>
 							<input
@@ -68,11 +59,13 @@ export default function Cube() {
 						<p>Doens&apos;t have an account yet?</p>
 						<Link href={'/signup'}>Sign up here.</Link>
 					</span>
-					<p>
-						Not into commitment?
-						<br />
-						You are still able to play three times a day!
-					</p>
+					<span>
+						<p>
+							Not into commitment?
+							<br />
+							You are still able to play three times a day!
+						</p>
+					</span>
 				</div>
 				<div className="face info">
 					<div className="users">

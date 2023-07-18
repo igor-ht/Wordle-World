@@ -8,8 +8,8 @@ export default function Home() {
 			<Image
 				src={'/wordle-world.svg'}
 				alt="wordle world"
-				height={300}
-				width={300}
+				height={280}
+				width={280}
 				priority
 			/>
 			<Cube />
