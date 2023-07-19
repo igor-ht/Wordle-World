@@ -32,8 +32,16 @@ export default function SignUpForms() {
 	const handleSignUpMutation = useMutation({
 		mutationKey: ['SignUp'],
 		mutationFn: async () => {
-			const res = await axios.post('/api/signup', formik.values);
-			return await res.data;
+			try {
+				const res = await axios.post('/api/signup', formik.values);
+				return await res.data;
+			} catch (error) {
+				if (error instanceof AxiosError) {
+					if (error.response?.data === 'Email already registered.') formik.setFieldError('email', 'Email already registered');
+					if (error.response?.data === 'Name already registered.') formik.setFieldError('name', 'Name already registered');
+				}
+				return Promise.reject(error);
+			}
 		},
 	});
 
@@ -41,8 +49,6 @@ export default function SignUpForms() {
 		try {
 			setUserLogged(true);
 			const userLogged = await handleSignUpMutation.mutateAsync();
-			if (handleSignUpMutation.isError) throw new Error();
-			console.log(userLogged);
 			await signIn('credentials', {
 				id: userLogged.id,
 				name: userLogged.name,
@@ -53,13 +59,8 @@ export default function SignUpForms() {
 				redirect: true,
 				callbackUrl: '/dashboard',
 			});
-		} catch (error) {
+		} catch {
 			setUserLogged(false);
-			if (error instanceof AxiosError) {
-				if (error.response?.data === 'Email already registered.') formik.setFieldError('email', 'Email already registered');
-				if (error.response?.data === 'Name already registered.') formik.setFieldError('name', 'Name already registered');
-			}
-			return Promise.resolve(error);
 		}
 	};
 

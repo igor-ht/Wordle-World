@@ -1,7 +1,7 @@
 import useLocalStorage from '../hooks/useLocalStorage';
 import { useState } from 'react';
 import axios from 'axios';
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 interface IGuest {
 	ip: string;
@@ -29,9 +29,9 @@ export default function useGuestHandlers() {
 		const guestSigned = res.data;
 		return guestSigned;
 	};
-	//86_400
 	const checkGuestTimeSession = () => {
-		if (storedValue.lastPlayed > Math.floor(Date.now() / 1000)) return false;
+		// if guest played last time less than 24h, return false
+		if (storedValue.lastPlayed + 86_400 > Math.floor(Date.now() / 1000)) return false;
 		return true;
 	};
 
@@ -40,6 +40,7 @@ export default function useGuestHandlers() {
 		const res = await axios.post('/api/guest', guest);
 		const guestUpdated = await res.data;
 		setValue(guestUpdated);
+		return guestUpdated;
 	};
 
 	const handleGuestNewSession = async () => {

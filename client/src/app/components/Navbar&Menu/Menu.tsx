@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { useClickOutsideMenu } from '@/src/utils/hooks/useClickOutsideMenu';
 import { useRef } from 'react';
 import { useSession } from 'next-auth/react';
+import { useClickOutsideMenu } from '@/src/utils/hooks/useClickOutsideMenu';
+import { AppSounds } from '@/src/utils/sounds/appSounds';
 
 export default function Menu({ ...menu }) {
 	const { displayMenu, setDisplayMenu } = menu;
@@ -13,7 +14,7 @@ export default function Menu({ ...menu }) {
 	const { data: session } = useSession();
 
 	useClickOutsideMenu(menuRef, () => {
-		setDisplayMenu(false);
+		if (displayMenu) AppSounds?.toggleMenu?.play(), setDisplayMenu(false);
 	});
 
 	const handleDivWidth = () => {

@@ -36,7 +36,6 @@ export default function SignInForms() {
 		try {
 			setUserLogged(true);
 			const userSignIn = await handleLoginMutation.mutateAsync();
-			if (handleLoginMutation.status === 'error') throw new Error();
 			await signIn('credentials', {
 				id: userSignIn.id,
 				name: userSignIn.name,
