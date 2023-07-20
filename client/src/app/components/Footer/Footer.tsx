@@ -4,9 +4,25 @@ import { AppSounds, GameSounds, setAudioHowls } from '@/src/utils/sounds/appSoun
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
-type SoundType = '🔊' | '🔈';
-
 export default function Footer() {
+	const [sound, setSound] = useState(false);
+
+	useEffect(() => {
+		const handleClickEvent = () => {
+			if (sound) {
+				Howler.mute(true);
+				return setSound(false);
+			} else {
+				Howler.ctx = Howler.ctx ? Howler.ctx : new AudioContext();
+				AppSounds.clickItem && GameSounds.badGuess ? Howler?.mute(false) : setAudioHowls();
+				return setSound(true);
+			}
+		};
+		const soundButton = document.getElementById('sound');
+		soundButton?.addEventListener('click', handleClickEvent);
+		return () => soundButton?.removeEventListener('click', handleClickEvent);
+	});
+
 	useEffect(() => {
 		const currentTheme = window?.localStorage.getItem('theme');
 		if (!currentTheme) return;
@@ -26,30 +42,13 @@ export default function Footer() {
 		window?.localStorage?.setItem('theme', 'dark');
 	};
 
-	const [sound, setSound] = useState<SoundType>('🔈');
-
-	useEffect(() => {
-		const handleClickEvent = () => {
-			if (sound === '🔊') {
-				Howler.mute(true);
-				return setSound('🔈');
-			} else {
-				Howler.ctx = Howler.ctx ? Howler.ctx : new AudioContext();
-				AppSounds.clickItem && GameSounds.badGuess ? Howler?.mute(false) : setAudioHowls();
-				return setSound('🔊');
-			}
-		};
-		const soundButton = document.getElementById('sound');
-		soundButton?.addEventListener('click', handleClickEvent);
-		return () => soundButton?.removeEventListener('click', handleClickEvent);
-	});
-
 	return (
 		<footer className="footer">
 			<section>
 				<button
 					type="button"
 					data-theme-confirmation="light"
+					onFocus={(event) => event.target.blur()}
 					onClick={handleTheme}>
 					<Image
 						src={'./dark-theme.svg'}
@@ -57,6 +56,7 @@ export default function Footer() {
 						height={50}
 						width={50}
 						priority
+						quality={1}
 					/>
 				</button>
 			</section>
@@ -66,7 +66,25 @@ export default function Footer() {
 					type="button"
 					id="sound"
 					onFocus={(event) => event.target.blur()}>
-					{sound}
+					{sound ? (
+						<Image
+							src={'/sound.svg'}
+							alt="sound"
+							height={50}
+							width={50}
+							priority
+							quality={1}
+						/>
+					) : (
+						<Image
+							src={'/mute.svg'}
+							alt="mute"
+							height={50}
+							width={50}
+							priority
+							quality={1}
+						/>
+					)}
 				</button>
 			</section>
 		</footer>

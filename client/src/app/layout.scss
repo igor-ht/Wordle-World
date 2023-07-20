@@ -73,7 +73,7 @@ body {
 			}
 			.signout-button {
 				height: 1.8rem;
-				width: 6rem;
+				width: 7rem;
 				font-family: "Varela Round", sans-serif;
 				font-size: 1rem;
 				background-color: #f87a7a;
@@ -251,20 +251,6 @@ body {
 }
 
 @media (max-width: 700px) {
-	.navbar {
-		section {
-			.user-logged {
-				margin: 1px;
-				.user-greet {
-					margin: 1px;
-				}
-				.signout-button {
-					margin: 2px;
-				}
-			}
-		}
-	}
-
 	.main-container {
 		overflow-y: auto;
 		overflow-x: hidden;

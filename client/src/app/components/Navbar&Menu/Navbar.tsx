@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Menu from './Menu';
@@ -14,13 +14,16 @@ export default function Navbar() {
 		<>
 			<nav className="navbar">
 				<div className="wordle-icon">
-					<Link href={'/'}>
+					<Link
+						href={'/'}
+						onFocus={(event) => event.target.blur()}>
 						<Image
 							src="/wordle.logo.svg"
 							alt="WordleGame"
 							width={300}
 							height={300}
 							priority
+							quality={1}
 						/>
 					</Link>
 				</div>
