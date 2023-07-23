@@ -221,8 +221,6 @@ body {
 		align-items: center;
 		justify-content: center;
 		button {
-			height: 30px;
-			width: 30px;
 			border: 0;
 			border-radius: 50%;
 			margin-left: 1rem;
@@ -231,12 +229,12 @@ body {
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			font-size: 1.8rem;
 			cursor: pointer;
-
+			user-select: none;
 			img {
 				height: 30px;
 				width: 30px;
+				border-radius: 50%;
 				object-fit: contain;
 				cursor: pointer;
 			}

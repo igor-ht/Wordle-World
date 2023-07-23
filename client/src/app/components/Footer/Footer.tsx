@@ -47,12 +47,12 @@ export default function Footer() {
 			<section>
 				<button
 					type="button"
-					data-theme-confirmation="light"
 					onFocus={(event) => event.target.blur()}
 					onClick={handleTheme}>
 					<Image
 						src={'./dark-theme.svg'}
 						alt="Light/Dark Mode"
+						data-theme-confirmation
 						height={50}
 						width={50}
 						priority
