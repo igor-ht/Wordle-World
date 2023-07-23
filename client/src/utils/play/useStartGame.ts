@@ -93,14 +93,14 @@ const useStartGame: () => IGameApi = () => {
 
 	const handleInputCellChange = () => {
 		gameStateDispatch({ type: 'setCurrentLetter', payload: '' });
-		if (+currentInputElement.current!.id % 5 === 0)
-			return (
-				currentInputElement.current?.classList.remove('current-input'),
-				currentInputElement.current?.parentElement?.classList.add('span-complete'),
-				currentInputElement.current?.parentElement?.classList.add('pop')
-			);
+		if (currentInputElement.current && +currentInputElement.current.id % gameSettings.wordLength === 0) {
+			currentInputElement.current?.classList.remove('current-input');
+			currentInputElement.current?.parentElement?.classList.add('span-complete');
+			currentInputElement.current?.parentElement?.classList.add('pop');
+			return;
+		}
 		currentInputElement.current?.classList.remove('current-input');
-		currentInputElement.current = currentInputElement.current!.nextElementSibling as HTMLInputElement;
+		currentInputElement.current = currentInputElement.current?.nextElementSibling as HTMLInputElement;
 		currentInputElement.current.classList.add('current-input');
 	};
 
@@ -141,13 +141,15 @@ const useStartGame: () => IGameApi = () => {
 	};
 
 	const handleEnter = async () => {
-		gameState.currentLetter = '';
+		gameStateDispatch({ type: 'setCurrentLetter', payload: '' });
+		// gameState.currentLetter = '';
 		if (gameState.currentGuess.length === gameSettings.wordLength) {
 			const wordExists = await handleWordExists.mutateAsync();
-			if (!wordExists)
-				return (
-					currentInputElement.current?.parentElement?.classList.add('notfound-guess'), GameSounds?.badGuess?.play(), setAsyncRun(false)
-				);
+			if (!wordExists) {
+				currentInputElement.current?.parentElement?.classList.add('notfound-guess');
+				GameSounds?.badGuess?.play(), setAsyncRun(false);
+				return;
+			}
 			const ans = await sendUserGuessToServer.mutateAsync();
 			await handleInputCellsUpdate(ans);
 			await handleKeyboardUpdate(ans);
@@ -169,29 +171,29 @@ const useStartGame: () => IGameApi = () => {
 	};
 
 	const handleInputCellsUpdate = async (ans: [string]) => {
-		const currentRow = currentInputElement.current!.parentElement! as HTMLSpanElement;
-		const inputCells = currentRow.childNodes! as NodeListOf<HTMLInputElement>;
+		const currentRow = currentInputElement.current?.parentElement as HTMLSpanElement;
+		const inputCells = currentRow?.childNodes as NodeListOf<HTMLInputElement>;
 		ans.map((guess: string, i: number) => {
 			switch (guess) {
 				case 'bull':
-					inputCells[i].classList.add('bull');
+					inputCells[i]?.classList.add('bull');
 					break;
 				case 'cow':
-					inputCells[i].classList.add('cow');
+					inputCells[i]?.classList.add('cow');
 					break;
 				case 'wrong':
-					inputCells[i].classList.add('wrong');
+					inputCells[i]?.classList.add('wrong');
 					break;
 			}
 		});
 	};
 
 	const handleKeyboardUpdate = async (ans: [string]) => {
-		const keyboardContainer = keyboardContainerElement.current!;
-		const keyboardRows = keyboardContainer.childNodes! as NodeListOf<HTMLDivElement>;
+		const keyboardContainer = keyboardContainerElement.current;
+		const keyboardRows = keyboardContainer?.childNodes as NodeListOf<HTMLDivElement>;
 		ans.map((guess: string, i: number) => {
 			keyboardRows.forEach((row) => {
-				const currentRowKeys = row.childNodes! as NodeListOf<HTMLButtonElement>;
+				const currentRowKeys = row.childNodes as NodeListOf<HTMLButtonElement>;
 				currentRowKeys.forEach((key) => {
 					if (key.name === gameState.currentGuess[i]) {
 						switch (guess) {
@@ -292,7 +294,6 @@ const useStartGame: () => IGameApi = () => {
 			};
 			handleUserNewGameMutation.mutate(gameStats);
 		} catch {
-			console.log('should be here?');
 			redirect('/signin');
 		}
 	};

@@ -49,13 +49,6 @@ export default function useWordHandlers(gameState: gameStateType) {
 		staleTime: Infinity,
 		enabled: false,
 		retry: 2,
-		onSuccess: async () => {
-			await queryClient.invalidateQueries({ queryKey: ['getRandomWord'] });
-		},
-		onError: async () => {
-			await signOut();
-			redirect('signin');
-		},
 	});
 
 	const handleWordExistsMutation = useMutation({
@@ -67,6 +60,7 @@ export default function useWordHandlers(gameState: gameStateType) {
 			await queryClient.invalidateQueries({ queryKey: ['handleWordExists'] });
 		},
 		onError: async () => {
+			await signOut();
 			redirect('signin');
 		},
 	});
@@ -80,6 +74,7 @@ export default function useWordHandlers(gameState: gameStateType) {
 			await queryClient.invalidateQueries({ queryKey: ['sendUserGuessToServer'] });
 		},
 		onError: async () => {
+			await signOut();
 			redirect('signin');
 		},
 	});
