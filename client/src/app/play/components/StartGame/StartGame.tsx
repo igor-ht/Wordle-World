@@ -68,7 +68,7 @@ export default function StartGame({ startNewGame }: IStartGame) {
 								value="E"
 								disabled
 							/>
-							<p> - The letter is not valid</p>
+							<p> - Not valid.</p>
 						</span>
 						<span>
 							<input
@@ -85,7 +85,7 @@ export default function StartGame({ startNewGame }: IStartGame) {
 								value="R"
 								disabled
 							/>
-							<p> - The letter is valid but at the wrong place</p>
+							<p> - Valid but at the wrong place.</p>
 						</span>
 						<span>
 							<input
@@ -102,7 +102,7 @@ export default function StartGame({ startNewGame }: IStartGame) {
 								value="A"
 								disabled
 							/>
-							<p> - The letter is valid and at the right place</p>
+							<p> - Valid and at the right place.</p>
 						</span>
 					</section>
 				</div>
