@@ -7,7 +7,6 @@ const useAxiosAuth = () => {
 	const { data: session, status } = useSession();
 	const axiosAuth = axios;
 	useEffect(() => {
-		console.count('useAxiosAuth useEffect triggered');
 		axiosAuth.defaults.baseURL = ENDPOINT;
 		if (status === 'authenticated' && session) {
 			axiosAuth.defaults.headers.common['Authorization'] = `Bearer ${session.accessToken}`;
