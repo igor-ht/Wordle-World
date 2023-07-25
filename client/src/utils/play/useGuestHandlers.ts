@@ -18,14 +18,14 @@ export default function useGuestHandlers() {
 	});
 
 	const searchGuestInDB = async () => {
-		const res = await axios.get('/api/guest');
+		const res = await axios.get('/guest/handleSearchGuest');
 		const guest = res.data;
 		if (!guest) return null;
 		return guest;
 	};
 
 	const createNewGuest = async () => {
-		const res = await axios.get('/api/guest', { params: { create: true } });
+		const res = await axios.get('/guest/handleCreateNewGuest');
 		const guestSigned = res.data;
 		return guestSigned;
 	};
@@ -37,7 +37,7 @@ export default function useGuestHandlers() {
 
 	const handleGuestNewGame = async () => {
 		const guest = await (await searchGuestInDBQuery.refetch()).data;
-		const res = await axios.post('/api/guest', guest);
+		const res = await axios.post('/guest/handleGuestNewGame', guest);
 		const guestUpdated = await res.data;
 		setValue(guestUpdated);
 		return guestUpdated;
@@ -45,11 +45,7 @@ export default function useGuestHandlers() {
 
 	const handleGuestNewSession = async () => {
 		const guest = await (await searchGuestInDBQuery.refetch()).data;
-		const res = await axios.get('/api/guest', {
-			params: {
-				newSession: guest.ip,
-			},
-		});
+		const res = await axios.get('/guest/handleGuestNewSession', guest);
 		const guestSigned = await res.data;
 		setValue(guestSigned);
 		return guestSigned;

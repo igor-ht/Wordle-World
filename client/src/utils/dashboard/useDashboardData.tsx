@@ -9,7 +9,7 @@ export default function useDashboardData() {
 
 	const getDashboardData = async () => {
 		try {
-			const res = await axiosAuth.post('api/dashboard', { id: session?.id, email: session?.email });
+			const res = await axiosAuth.post('user/getDashboardData', { id: session?.id, email: session?.email });
 			const dashboardData = await res.data;
 			if (!dashboardData) throw 'Data could not be fetched';
 			dashboardData.userStats.discoveredWords = dashboardData.userStats.discoveredWords.map((obj: { word: string }) => obj.word);

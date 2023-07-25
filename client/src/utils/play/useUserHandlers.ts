@@ -10,7 +10,7 @@ const useUserHandlers = () => {
 
 	const handleUserNewGame = async (gameStats: { state: boolean; chances: number; word: string }) => {
 		try {
-			const res = await axiosAuth.post(`api/user`, {
+			const res = await axiosAuth.post(`/user/updateUserRanking`, {
 				email: session?.email,
 				gameStats: gameStats,
 			});

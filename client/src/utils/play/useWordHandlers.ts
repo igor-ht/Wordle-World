@@ -11,7 +11,7 @@ export default function useWordHandlers(gameState: gameStateType) {
 
 	const getRandomWord = async () => {
 		try {
-			const res = await axiosAuth.get(`/api/word`);
+			const res = await axiosAuth.get(`/word/randWord`);
 			const cypherWord = await res.data;
 			return cypherWord;
 		} catch {
@@ -22,11 +22,7 @@ export default function useWordHandlers(gameState: gameStateType) {
 
 	const handleWordExists = async () => {
 		const reqBody = { word: gameState.currentGuess.toLowerCase() };
-		const res = await axiosAuth.post(`/api/word`, reqBody, {
-			params: {
-				wordExists: true,
-			},
-		});
+		const res = await axiosAuth.post(`/word/searchGuess`, reqBody);
 		return await res.data;
 	};
 
@@ -35,11 +31,7 @@ export default function useWordHandlers(gameState: gameStateType) {
 			cyphertext: gameState.word,
 			guess: gameState.currentGuess,
 		};
-		const res = await axiosAuth.post(`/api/word`, reqBody, {
-			params: {
-				checkGuess: true,
-			},
-		});
+		const res = await axiosAuth.post(`/word/checkGuess`, reqBody);
 		return await res.data;
 	};
 
