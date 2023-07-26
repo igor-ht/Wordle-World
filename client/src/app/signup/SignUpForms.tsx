@@ -1,3 +1,5 @@
+// The Sign Up method depends on handleing the password hashing at route level ('api/signup')
+
 'use client';
 
 import Image from 'next/image';
@@ -8,6 +10,7 @@ import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import LoadingSkeleton from '../components/LoadingSkeleton/LoadingSkeleton';
 import { useMutation } from '@tanstack/react-query';
+import { BASE_URL } from '@/src/appConfig';
 
 export interface userSignUp {
 	name: string;
@@ -33,14 +36,13 @@ export default function SignUpForms() {
 		mutationKey: ['SignUp'],
 		mutationFn: async () => {
 			try {
-				const res = await axios.post('/api/signup', formik.values);
+				const res = await axios.post('/api/signup', formik.values, { baseURL: BASE_URL });
 				return await res.data;
 			} catch (error) {
 				if (error instanceof AxiosError) {
 					if (error.response?.data === 'Email already registered.') formik.setFieldError('email', 'Email already registered');
 					if (error.response?.data === 'Name already registered.') formik.setFieldError('name', 'Name already registered');
 				}
-				return Promise.reject(error);
 			}
 		},
 	});
@@ -52,8 +54,7 @@ export default function SignUpForms() {
 			await signIn('credentials', {
 				id: userLogged.id,
 				name: userLogged.name,
-				email: formik.values.email,
-				password: formik.values.password,
+				email: userLogged.email,
 				accessToken: userLogged.accessToken,
 				refreshToken: userLogged.refreshToken,
 				redirect: true,

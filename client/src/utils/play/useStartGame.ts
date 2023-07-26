@@ -233,7 +233,6 @@ const useStartGame: () => IGameApi = () => {
 			GameSounds?.victory?.play();
 			playStateDispatch({ type: 'setVictory', payload: true });
 			if (session && status === 'authenticated') return await handleUserFinishGame(true);
-			if (!session && status === 'unauthenticated') return await handleGuestFinishGame();
 		}, 200);
 	};
 
@@ -242,7 +241,6 @@ const useStartGame: () => IGameApi = () => {
 			GameSounds?.defeat?.play();
 			playStateDispatch({ type: 'setDefeat', payload: true });
 			if (session && status === 'authenticated') return await handleUserFinishGame(false);
-			if (!session && status === 'unauthenticated') return await handleGuestFinishGame();
 		}, 200);
 	};
 
@@ -252,6 +250,7 @@ const useStartGame: () => IGameApi = () => {
 		gameStateDispatch({ type: 'resetState' });
 		await resetGameComponents();
 		await setRandomWord();
+		if (!session && status === 'unauthenticated') return await handleGuestFinishGame();
 	};
 
 	const resetGameComponents = async () => {

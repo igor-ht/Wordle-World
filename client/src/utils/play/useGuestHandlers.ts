@@ -1,7 +1,7 @@
 import useLocalStorage from '../hooks/useLocalStorage';
 import { useState } from 'react';
-import axios from 'axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import useAxiosAuth from '../hooks/useAxiosAuth';
 
 interface IGuest {
 	ip: string;
@@ -11,21 +11,24 @@ interface IGuest {
 
 export default function useGuestHandlers() {
 	const [guestLimitGames, setGuestLimitGames] = useState(false);
+	const axiosAuth = useAxiosAuth();
 	const [storedValue, setValue, removeValue] = useLocalStorage<IGuest>('guest', {
 		ip: '',
 		lastPlayed: Math.floor(Date.now() / 1000),
 		gamesCount: 0,
 	});
+	let currentGuest: IGuest | null =
+		typeof window !== 'undefined' && window?.localStorage?.getItem('guest') ? JSON.parse(localStorage?.getItem('guest') || '') : null;
 
 	const searchGuestInDB = async () => {
-		const res = await axios.get('/guest/handleSearchGuest');
+		const res = await axiosAuth.get('/guest/handleSearchGuest');
 		const guest = res.data;
 		if (!guest) return null;
 		return guest;
 	};
 
 	const createNewGuest = async () => {
-		const res = await axios.get('/guest/handleCreateNewGuest');
+		const res = await axiosAuth.get('/guest/handleCreateNewGuest');
 		const guestSigned = res.data;
 		return guestSigned;
 	};
@@ -36,18 +39,15 @@ export default function useGuestHandlers() {
 	};
 
 	const handleGuestNewGame = async () => {
-		const guest = await (await searchGuestInDBQuery.refetch()).data;
-		const res = await axios.post('/guest/handleGuestNewGame', guest);
+		const res = await axiosAuth.post('/guest/handleGuestNewGame', currentGuest);
 		const guestUpdated = await res.data;
-		setValue(guestUpdated);
 		return guestUpdated;
 	};
 
 	const handleGuestNewSession = async () => {
 		const guest = await (await searchGuestInDBQuery.refetch()).data;
-		const res = await axios.get('/guest/handleGuestNewSession', guest);
+		const res = await axiosAuth.post('/guest/handleGuestNewSession', guest);
 		const guestSigned = await res.data;
-		setValue(guestSigned);
 		return guestSigned;
 	};
 
@@ -76,16 +76,20 @@ export default function useGuestHandlers() {
 	});
 
 	const handleGuestUser = async () => {
-		let guest;
-		if (typeof window !== 'undefined') guest = window?.localStorage?.getItem('guest') ? JSON.parse(localStorage.getItem('guest')!) : null;
-		if (!guest) guest = await (await searchGuestInDBQuery.refetch()).data;
-		if (!guest) guest = await (await createNewGuestQuery.refetch()).data;
-		setValue(guest);
-		if (guest.gamesCount >= 3) {
-			if (checkGuestTimeSession()) return await handleGuestNewSessionQuery.refetch();
-			return setGuestLimitGames(true);
+		if (typeof window !== 'undefined')
+			currentGuest = window?.localStorage?.getItem('guest') ? JSON.parse(localStorage.getItem('guest')!) : null;
+		if (!currentGuest) currentGuest = await (await searchGuestInDBQuery.refetch()).data;
+		if (!currentGuest) currentGuest = await (await createNewGuestQuery.refetch()).data;
+		if (currentGuest) {
+			if (currentGuest.gamesCount >= 3) {
+				if (!checkGuestTimeSession()) return setGuestLimitGames(true), setValue(currentGuest);
+				currentGuest = await (await handleGuestNewSessionQuery.refetch()).data;
+				currentGuest && setValue(currentGuest);
+				return setGuestLimitGames(false);
+			}
+			currentGuest = await handleGuestNewGameMutation.mutateAsync();
+			currentGuest && setValue(currentGuest);
 		}
-		return await handleGuestNewGameMutation.mutateAsync();
 	};
 
 	return { handleGuestUser, guestLimitGames };

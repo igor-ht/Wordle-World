@@ -1,12 +1,12 @@
 'use client';
 
 import Image from 'next/image';
-import axios from 'axios';
 import { useFormik } from 'formik';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import LoadingSkeleton from '../components/LoadingSkeleton/LoadingSkeleton';
 import { useMutation } from '@tanstack/react-query';
+import useAxiosAuth from '@/src/utils/hooks/useAxiosAuth';
 
 export interface userLogin {
 	email: string;
@@ -14,6 +14,7 @@ export interface userLogin {
 }
 
 export default function SignInForms() {
+	const axiosAuth = useAxiosAuth();
 	const [userLogged, setUserLogged] = useState(false);
 	const formik = useFormik<userLogin>({
 		initialValues: {
@@ -26,7 +27,7 @@ export default function SignInForms() {
 	const handleLoginMutation = useMutation({
 		mutationKey: ['login'],
 		mutationFn: async () => {
-			const res = await axios.post('/api/signin', formik.values);
+			const res = await axiosAuth.post('/user/signin', formik.values);
 			return await res.data;
 		},
 		cacheTime: Infinity,
@@ -40,7 +41,6 @@ export default function SignInForms() {
 				id: userSignIn.id,
 				name: userSignIn.name,
 				email: userSignIn.email,
-				password: formik.values.password,
 				accessToken: userSignIn.accessToken,
 				refreshToken: userSignIn.refreshToken,
 				redirect: true,

@@ -3,7 +3,7 @@ import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import axios from 'axios';
 import { JWT } from 'next-auth/jwt';
-import { BASE_URL, ENDPOINT, GoogleClientID, GoogleClientSecret } from '@/src/appConfig';
+import { ENDPOINT, GoogleClientID, GoogleClientSecret } from '@/src/appConfig';
 import { signOut } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 
@@ -29,20 +29,20 @@ export const NextAuthOptions: AuthOptions = {
 		CredentialsProvider({
 			name: 'Sign in',
 			credentials: {
-				email: { label: 'Email', type: 'email' },
-				password: { label: 'Password', type: 'password' },
+				id: { label: 'id', type: 'id' },
+				name: { label: 'name', type: 'name' },
+				email: { label: 'email', type: 'email' },
+				accessToken: { label: 'accessToken', type: 'accessToken' },
+				refreshToken: { label: 'refreshToken', type: 'refreshToken' },
 			},
 			async authorize(credentials) {
-				if (!credentials?.email || !credentials?.password) return null;
-				const res = await axios.post(`${BASE_URL}/api/signin`, { email: credentials.email, password: credentials.password });
-				const userLogged = await res.data;
-				if (!userLogged) return null;
+				if (!credentials) return null;
 				return {
-					id: userLogged.id,
-					name: userLogged.name,
-					email: userLogged.email,
-					accessToken: userLogged.accessToken,
-					refreshToken: userLogged.refreshToken,
+					id: credentials.id,
+					name: credentials.name,
+					email: credentials.email,
+					accessToken: credentials.accessToken,
+					refreshToken: credentials.refreshToken,
 				};
 			},
 		}),
@@ -55,7 +55,7 @@ export const NextAuthOptions: AuthOptions = {
 					email: profile.email,
 					password: tokens.id_token,
 				};
-				const res = await axios.post(`${BASE_URL}/api/oauth`, credentials);
+				const res = await axios.post(`/oauth/googleOAuthProvider`, credentials);
 				const userLogged = res.data;
 				tokens = {
 					id: userLogged.id,
