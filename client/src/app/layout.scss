@@ -1,8 +1,8 @@
-@import "../style/global.css";
+@use "../style/variables.scss" as vars;
+@use "../style/mixins.scss" as mixins;
 
 html {
 	all: unset;
-	font-family: "Varela Round", sans-serif;
 	overflow: hidden;
 	font-size: 15px;
 }
@@ -10,33 +10,16 @@ body {
 	all: unset;
 }
 
-@mixin general-properties($width, $height, $backgroundColor) {
-	width: $width;
-	height: $height;
-	background-color: $backgroundColor;
-}
-@mixin font($family, $size, $color) {
-	font-family: $family;
-	font-size: $size;
-	color: $color;
-}
-@mixin image($width, $height, $objectFit) {
-	width: $width;
-	height: $height;
-	object-fit: $objectFit;
-	user-select: none;
-}
-
 .app {
-	@include general-properties(100dvw, 100dvh, rgb(255, 236, 236));
-	@include font(var(--font-varella-round), 1rem, black);
+	@include mixins.general-properties(100dvw, 100dvh, rgb(255, 236, 236));
+	@include mixins.font((vars.$fontVarellaRound), 1rem, black);
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
 }
 
 .navbar {
-	@include general-properties(100dvw, 12dvh, var(--navfooter-background));
+	@include mixins.general-properties(100dvw, 12dvh, (vars.$navfooterBackground));
 	max-height: 13dvh;
 	display: flex;
 	flex-direction: row;
@@ -46,7 +29,7 @@ body {
 	.wordle-icon {
 		max-height: 100%;
 		img {
-			@include image(5rem, auto, cover);
+			@include mixins.image(5rem, auto, cover);
 		}
 	}
 
@@ -65,28 +48,23 @@ body {
 			justify-content: space-evenly;
 			user-select: none;
 			.user-greet {
+				@include mixins.font((vars.$fontVarellaRound), 1.4rem, black);
 				max-width: 10rem;
-				font-size: 1.4rem;
 				text-overflow: clip;
 				overflow: hidden;
 				white-space: nowrap;
 				margin: 0;
-				font-family: "Varela Round", sans-serif;
 				a {
 					text-decoration: underline;
 					font-weight: 600;
-					color: var(--color);
+					color: (vars.$color);
 				}
 			}
 			.signout-button {
-				height: 1.8rem;
-				width: 7rem;
-				font-family: "Varela Round", sans-serif;
-				font-size: 1rem;
-				background-color: #f87a7a;
+				@include mixins.font((vars.$fontVarellaRound), 1rem, white);
+				@include mixins.general-properties(7rem, 1.8rem, #f87a7a);
 				border-radius: 3%;
 				border: 1px solid #f87a7a;
-				color: white;
 				align-self: center;
 				cursor: pointer;
 
@@ -108,7 +86,7 @@ body {
 			cursor: pointer;
 
 			.menu-img {
-				@include image(3rem, auto, cover);
+				@include mixins.image(3rem, auto, cover);
 				border-radius: 50%;
 				box-shadow: 0px 0px 10px 0px rgb(255, 255, 138);
 				transition: 1s;
@@ -130,7 +108,7 @@ body {
 }
 
 .menu-container {
-	@include general-properties(0dvhw, 80dvh, var(--menu-background));
+	@include mixins.general-properties(0dvhw, 80dvh, (vars.$menuBackground));
 	position: absolute;
 	z-index: 1;
 	top: 12dvh;
@@ -142,7 +120,7 @@ body {
 	transition: 0.7s;
 
 	.menu-title {
-		@include font(var(--font-varella-round), 4rem, white);
+		@include mixins.font((vars.$fontVarellaRound), 4rem, white);
 		margin: 1rem;
 		user-select: none;
 	}
@@ -153,11 +131,9 @@ body {
 		padding: 0;
 
 		li {
-			@include font(var(--font-varella-round), 1.5rem, white);
+			@include mixins.font((vars.$fontVarellaRound), 1.5rem, white);
 			list-style-type: none;
-			margin-left: 2rem;
-			margin-right: 2rem;
-			margin-bottom: 1rem;
+			margin: 0 2rem 1rem 2rem;
 			user-select: none;
 			&:hover {
 				background-color: #9fff9d86;
@@ -181,7 +157,7 @@ body {
 }
 
 .main-container {
-	@include general-properties(100dvhw, 80dvh, var(--main-background));
+	@include mixins.general-properties(100dvhw, 80dvh, (vars.$mainBackground));
 	transition: 1s;
 	display: flex;
 	justify-content: center;
@@ -189,7 +165,7 @@ body {
 }
 
 .footer {
-	@include general-properties(100dvw, 8dvh, var(--navfooter-background));
+	@include mixins.general-properties(100dvw, 8dvh, (vars.$navfooterBackground));
 	display: grid;
 	grid-template-columns: min-content auto min-content;
 	align-items: center;
@@ -205,8 +181,7 @@ body {
 		button {
 			border: 0;
 			border-radius: 50%;
-			margin-left: 1rem;
-			margin-right: 1rem;
+			margin: 0 1rem 0 1rem;
 			background-color: transparent;
 			display: flex;
 			align-items: center;
@@ -214,13 +189,13 @@ body {
 			cursor: pointer;
 			user-select: none;
 			img {
-				@include image(2rem, 2rem, contain);
+				@include mixins.image(2rem, 2rem, contain);
 			}
 		}
 	}
 
 	p {
-		@include font(var(--font-varella-round), 1rem, black);
+		@include mixins.font((vars.$fontVarellaRound), 1rem, black);
 		margin: 0;
 	}
 }

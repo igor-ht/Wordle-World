@@ -1,0 +1,16 @@
+@mixin general-properties($width, $height, $backgroundColor) {
+	width: $width;
+	height: $height;
+	background-color: $backgroundColor;
+}
+@mixin font($family, $size, $color) {
+	font-family: $family;
+	font-size: $size;
+	color: $color;
+}
+@mixin image($width, $height, $objectFit) {
+	width: $width;
+	height: $height;
+	object-fit: $objectFit;
+	user-select: none;
+}
