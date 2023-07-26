@@ -6,27 +6,37 @@ html {
 	overflow: hidden;
 	font-size: 15px;
 }
-
 body {
 	all: unset;
 }
 
+@mixin general-properties($width, $height, $backgroundColor) {
+	width: $width;
+	height: $height;
+	background-color: $backgroundColor;
+}
+@mixin font($family, $size, $color) {
+	font-family: $family;
+	font-size: $size;
+	color: $color;
+}
+@mixin image($width, $height, $objectFit) {
+	width: $width;
+	height: $height;
+	object-fit: $objectFit;
+	user-select: none;
+}
+
 .app {
-	height: 100dvh;
-	width: 100dvw;
-	font-family: "Varela Round", sans-serif;
-	background-color: rgb(255, 255, 255);
+	@include general-properties(100dvw, 100dvh, rgb(255, 236, 236));
+	@include font(var(--font-varella-round), 1rem, black);
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
 }
 
 .navbar {
-	background-color: var(--navbar-background);
-	color: var(--color);
-	transition: 1s;
-	width: 100dvw;
-	height: 12dvh;
+	@include general-properties(100dvw, 12dvh, var(--navfooter-background));
 	max-height: 13dvh;
 	display: flex;
 	flex-direction: row;
@@ -36,10 +46,7 @@ body {
 	.wordle-icon {
 		max-height: 100%;
 		img {
-			width: 5rem;
-			height: auto;
-			object-fit: cover;
-			user-select: none;
+			@include image(5rem, auto, cover);
 		}
 	}
 
@@ -101,8 +108,10 @@ body {
 			cursor: pointer;
 
 			.menu-img {
+				@include image(3rem, auto, cover);
+				border-radius: 50%;
 				box-shadow: 0px 0px 10px 0px rgb(255, 255, 138);
-				user-select: none;
+				transition: 1s;
 			}
 
 			&:hover {
@@ -113,45 +122,29 @@ body {
 			}
 			&:active {
 				.menu-img {
-					box-shadow: 0px 0px 12px 3px #010101;
+					box-shadow: 0px 0px 12px 3px #36643f;
 				}
 			}
-		}
-
-		.menu-img {
-			width: 3rem;
-			height: auto;
-			object-fit: cover;
-			border-radius: 50%;
-			transition: 1s;
 		}
 	}
 }
 
 .menu-container {
+	@include general-properties(0dvhw, 80dvh, var(--menu-background));
 	position: absolute;
 	z-index: 1;
-	width: 0dvw;
-	height: 80dvh;
 	top: 12dvh;
 	display: flex;
 	flex-direction: column;
-	background-color: var(--menu-background);
 	box-shadow: 1px 0px 20px 0px black;
 	border-radius: 0% 1% 1% 0%;
 	overflow: hidden;
 	transition: 0.7s;
-	font-family: "Varela Round", sans-serif;
 
 	.menu-title {
+		@include font(var(--font-varella-round), 4rem, white);
 		margin: 1rem;
-		color: white;
-		font-size: 4rem;
-		pointer-events: none;
-		-moz-user-select: none;
-		-webkit-user-select: none;
 		user-select: none;
-		font-family: "Varela Round", sans-serif;
 	}
 
 	ul {
@@ -160,14 +153,11 @@ body {
 		padding: 0;
 
 		li {
+			@include font(var(--font-varella-round), 1.5rem, white);
 			list-style-type: none;
 			margin-left: 2rem;
 			margin-right: 2rem;
 			margin-bottom: 1rem;
-			font-size: 1.5rem;
-			font-family: "Varela Round", sans-serif;
-			-moz-user-select: none;
-			-webkit-user-select: none;
 			user-select: none;
 			&:hover {
 				background-color: #9fff9d86;
@@ -179,7 +169,6 @@ body {
 
 		a {
 			text-decoration: none;
-			color: white;
 
 			&:hover {
 				text-shadow: 0px 0px 2px white;
@@ -192,9 +181,7 @@ body {
 }
 
 .main-container {
-	width: 100dvw;
-	height: 80dvh;
-	background-color: var(--main-background);
+	@include general-properties(100dvhw, 80dvh, var(--main-background));
 	transition: 1s;
 	display: flex;
 	justify-content: center;
@@ -202,15 +189,10 @@ body {
 }
 
 .footer {
-	width: 100dvw;
-	height: 8dvh;
-	background-color: var(--footer-background);
-	color: var(--color);
-	transition: 1s;
+	@include general-properties(100dvw, 8dvh, var(--navfooter-background));
 	display: grid;
 	grid-template-columns: min-content auto min-content;
 	align-items: center;
-	user-select: none;
 	text-align: center;
 
 	section {
@@ -232,18 +214,14 @@ body {
 			cursor: pointer;
 			user-select: none;
 			img {
-				height: 30px;
-				width: 30px;
-				object-fit: contain;
-				cursor: pointer;
+				@include image(2rem, 2rem, contain);
 			}
 		}
 	}
 
 	p {
+		@include font(var(--font-varella-round), 1rem, black);
 		margin: 0;
-		font-family: "Varela Round", sans-serif;
-		font-size: medium;
 	}
 }
 
