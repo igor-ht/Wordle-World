@@ -29,20 +29,19 @@ export const NextAuthOptions: AuthOptions = {
 		CredentialsProvider({
 			name: 'Sign in',
 			credentials: {
-				id: { label: 'id', type: 'id' },
-				name: { label: 'name', type: 'name' },
 				email: { label: 'email', type: 'email' },
-				accessToken: { label: 'accessToken', type: 'accessToken' },
-				refreshToken: { label: 'refreshToken', type: 'refreshToken' },
+				password: { label: 'password', type: 'password' },
 			},
 			async authorize(credentials) {
-				if (!credentials) return null;
+				if (!credentials?.email || !credentials.password) return null;
+				const res = await axios.post(`${ENDPOINT}/user/signin`, credentials);
+				if (!res.data) return null;
 				return {
-					id: credentials.id,
-					name: credentials.name,
-					email: credentials.email,
-					accessToken: credentials.accessToken,
-					refreshToken: credentials.refreshToken,
+					id: res.data.id,
+					name: res.data.name,
+					email: res.data.email,
+					accessToken: res.data.accessToken,
+					refreshToken: res.data.refreshToken,
 				};
 			},
 		}),
@@ -55,7 +54,7 @@ export const NextAuthOptions: AuthOptions = {
 					email: profile.email,
 					password: tokens.id_token,
 				};
-				const res = await axios.post(`/oauth/googleOAuthProvider`, credentials);
+				const res = await axios.post(`${ENDPOINT}/oauth/googleOAuthProvider`, credentials);
 				const userLogged = res.data;
 				tokens = {
 					id: userLogged.id,

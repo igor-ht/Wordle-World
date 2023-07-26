@@ -5,8 +5,7 @@ import { useFormik } from 'formik';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import LoadingSkeleton from '../components/LoadingSkeleton/LoadingSkeleton';
-import { useMutation } from '@tanstack/react-query';
-import useAxiosAuth from '@/src/utils/hooks/useAxiosAuth';
+import { useRouter } from 'next/navigation';
 
 export interface userLogin {
 	email: string;
@@ -14,7 +13,6 @@ export interface userLogin {
 }
 
 export default function SignInForms() {
-	const axiosAuth = useAxiosAuth();
 	const [userLogged, setUserLogged] = useState(false);
 	const formik = useFormik<userLogin>({
 		initialValues: {
@@ -23,29 +21,18 @@ export default function SignInForms() {
 		},
 		onSubmit: async () => await handleLogin(),
 	});
-
-	const handleLoginMutation = useMutation({
-		mutationKey: ['login'],
-		mutationFn: async () => {
-			const res = await axiosAuth.post('/user/signin', formik.values);
-			return await res.data;
-		},
-		cacheTime: Infinity,
-	});
+	const router = useRouter();
 
 	const handleLogin = async () => {
 		try {
 			setUserLogged(true);
-			const userSignIn = await handleLoginMutation.mutateAsync();
-			await signIn('credentials', {
-				id: userSignIn.id,
-				name: userSignIn.name,
-				email: userSignIn.email,
-				accessToken: userSignIn.accessToken,
-				refreshToken: userSignIn.refreshToken,
-				redirect: true,
-				callbackUrl: '/dashboard',
+			const userLogged = await signIn('credentials', {
+				email: formik.values.email,
+				password: formik.values.password,
+				redirect: false,
 			});
+			if (!userLogged || userLogged.error) throw new Error('Credentials not valid.');
+			router.push('/dashboard');
 		} catch {
 			setUserLogged(false);
 			formik.setErrors({ email: `One or more fields are not valid.`, password: 'One or more fields are not valid.' });
@@ -55,10 +42,9 @@ export default function SignInForms() {
 	const handleGoogleLogin = async () => {
 		try {
 			setUserLogged(true);
-			await signIn('google', {
-				redirect: true,
-				callbackUrl: '/dashboard',
-			});
+			const userLogged = await signIn('google', { redirect: false });
+			if (!userLogged || userLogged.error) throw new Error('Could not authenticate with Google.');
+			router.push('/dashboard');
 		} catch {
 			setUserLogged(false);
 			formik.setErrors({ email: `We had a problem with the login proccess.`, password: 'We had a problem with the login proccess.' });

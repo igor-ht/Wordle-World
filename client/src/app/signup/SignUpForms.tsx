@@ -1,4 +1,4 @@
-// The Sign Up method depends on handleing the password hashing at route level ('api/signup')
+// The Sign Up method depends on handleing the password hashing at route ('api/signup')
 
 'use client';
 
@@ -11,6 +11,7 @@ import { useState } from 'react';
 import LoadingSkeleton from '../components/LoadingSkeleton/LoadingSkeleton';
 import { useMutation } from '@tanstack/react-query';
 import { BASE_URL } from '@/src/appConfig';
+import { useRouter } from 'next/navigation';
 
 export interface userSignUp {
 	name: string;
@@ -31,6 +32,7 @@ export default function SignUpForms() {
 		validationSchema: SignupSchema,
 		onSubmit: async () => await handleSignUp(),
 	});
+	const router = useRouter();
 
 	const handleSignUpMutation = useMutation({
 		mutationKey: ['SignUp'],
@@ -50,16 +52,15 @@ export default function SignUpForms() {
 	const handleSignUp = async () => {
 		try {
 			setUserLogged(true);
-			const userLogged = await handleSignUpMutation.mutateAsync();
-			await signIn('credentials', {
-				id: userLogged.id,
-				name: userLogged.name,
-				email: userLogged.email,
-				accessToken: userLogged.accessToken,
-				refreshToken: userLogged.refreshToken,
-				redirect: true,
-				callbackUrl: '/dashboard',
+			const userRegistrated = await handleSignUpMutation.mutateAsync();
+			if (!userRegistrated || userRegistrated.error) throw new Error('Credentials not valid.');
+			const userLogged = await signIn('credentials', {
+				email: formik.values.email,
+				password: formik.values.password,
+				redirect: false,
 			});
+			if (!userLogged || userLogged.error) throw new Error('Credentials not valid.');
+			router.push('/dashboard');
 		} catch {
 			setUserLogged(false);
 		}
@@ -68,10 +69,9 @@ export default function SignUpForms() {
 	const handleGoogleSignUp = async () => {
 		try {
 			setUserLogged(true);
-			await signIn('google', {
-				redirect: true,
-				callbackUrl: '/dashboard',
-			});
+			const userLogged = await signIn('google', { redirect: false });
+			if (!userLogged || userLogged.error) throw new Error('Could not authenticate with Google.');
+			router.push('/dashboard');
 		} catch {
 			setUserLogged(false);
 			formik.setErrors({
