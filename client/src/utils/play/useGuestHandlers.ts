@@ -1,4 +1,3 @@
-import useLocalStorage from '../hooks/useLocalStorage';
 import { useState } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import useAxiosAuth from '../hooks/useAxiosAuth';
@@ -9,16 +8,11 @@ interface IGuest {
 	gamesCount: number;
 }
 
+let currentGuest: IGuest | null;
+
 export default function useGuestHandlers() {
 	const [guestLimitGames, setGuestLimitGames] = useState(false);
 	const axiosAuth = useAxiosAuth();
-	const [storedValue, setValue, removeValue] = useLocalStorage<IGuest>('guest', {
-		ip: '',
-		lastPlayed: Math.floor(Date.now() / 1000),
-		gamesCount: 0,
-	});
-	let currentGuest: IGuest | null =
-		typeof window !== 'undefined' && window?.localStorage?.getItem('guest') ? JSON.parse(localStorage?.getItem('guest') || '') : null;
 
 	const searchGuestInDB = async () => {
 		const res = await axiosAuth.get('/guest/handleSearchGuest');
@@ -34,7 +28,7 @@ export default function useGuestHandlers() {
 	};
 	const checkGuestTimeSession = () => {
 		// if guest played last time less than 24h, return false
-		if (storedValue.lastPlayed + 86_400 > Math.floor(Date.now() / 1000)) return false;
+		if (currentGuest && currentGuest.lastPlayed + 86_400 > Math.floor(Date.now() / 1000)) return false;
 		return true;
 	};
 
@@ -76,19 +70,16 @@ export default function useGuestHandlers() {
 	});
 
 	const handleGuestUser = async () => {
-		if (typeof window !== 'undefined')
-			currentGuest = window?.localStorage?.getItem('guest') ? JSON.parse(localStorage.getItem('guest')!) : null;
 		if (!currentGuest) currentGuest = await (await searchGuestInDBQuery.refetch()).data;
 		if (!currentGuest) currentGuest = await (await createNewGuestQuery.refetch()).data;
 		if (currentGuest) {
 			if (currentGuest.gamesCount >= 3) {
-				if (!checkGuestTimeSession()) return setGuestLimitGames(true), setValue(currentGuest);
+				if (!checkGuestTimeSession()) return setGuestLimitGames(true);
 				currentGuest = await (await handleGuestNewSessionQuery.refetch()).data;
-				currentGuest && setValue(currentGuest);
 				return setGuestLimitGames(false);
 			}
-			currentGuest = await handleGuestNewGameMutation.mutateAsync();
-			currentGuest && setValue(currentGuest);
+			const guestUpdated = await handleGuestNewGameMutation.mutateAsync();
+			currentGuest = guestUpdated;
 		}
 	};
 
