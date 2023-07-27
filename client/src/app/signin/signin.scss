@@ -1,3 +1,5 @@
+@use "../../style/main.scss" as *;
+
 .signin-container {
 	height: inherit;
 	display: flex;
@@ -7,8 +9,7 @@
 }
 
 .signin-box {
-	width: 530px;
-	background-color: rgb(245, 245, 99);
+	@include general-properties(530px, auto, var(--navfooterBackground));
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -17,13 +18,9 @@
 	box-shadow: 0px 0px 5px 0px white;
 
 	img {
+		@include image(14rem, auto, cover);
 		margin-top: 10px;
-		width: 12em;
-		height: auto;
-		object-fit: cover;
 		pointer-events: none;
-		-moz-user-select: none;
-		-webkit-user-select: none;
 		user-select: none;
 	}
 
@@ -34,33 +31,28 @@
 		gap: 10px;
 
 		.error {
-			color: red;
-			font-size: smaller;
+			@include font(var(--fontVarellaRound), smaller, red);
 			float: right;
-			margin-top: 4px;
+			margin-top: 0.3rem;
 		}
 
 		label {
+			@include font(var(--fontVarellaRound), 1.1rem, black);
 			float: left;
 			margin-bottom: 0;
-			font-family: "Varela Round", sans-serif;
-			font-size: 1.1rem;
 			font-weight: 400;
 			font-style: normal;
 		}
 		input {
-			height: 25px;
-			width: 300px;
+			@include font(var(--fontVarellaRound), 1rem, black);
+			@include general-properties(300px, 25px, rgb(255, 255, 255));
 			border-radius: 3%;
 			border: 1px solid white;
-			font-family: "Varela Round", sans-serif;
 			font-weight: 400;
 			font-style: normal;
 
 			&::placeholder {
-				font-size: small;
-				color: rgb(185, 185, 185);
-				font-family: "Varela Round", sans-serif;
+				@include font(var(--fontVarellaRound), small, rgb(185, 185, 185));
 			}
 
 			&:focus-visible {
@@ -68,22 +60,18 @@
 				border: 1px solid rgb(255, 255, 255);
 				box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.96);
 				background-color: rgb(239, 244, 210);
-				font-family: "Varela Round", sans-serif;
 			}
 		}
 		button {
-			background-color: rgb(103, 217, 68);
-			color: white;
-			height: 40px;
-			width: 300px;
+			@include general-properties(300px, 40px, rgb(103, 217, 68));
+			@include font(var(--fontVarellaRound), 1rem, white, center);
+			align-self: center;
 			border-radius: 5px;
 			margin-top: 10px;
 			border: 0;
-			cursor: pointer;
-			font-family: "Varela Round", sans-serif;
-			font-size: 1rem;
 			font-weight: 400;
 			font-style: normal;
+			cursor: pointer;
 			&:hover {
 				opacity: 0.9;
 			}
@@ -98,20 +86,15 @@
 		}
 	}
 	.signin-google {
-		margin: 10px;
-		margin-bottom: 15px;
-
 		button {
-			height: 40px;
-			width: 300px;
-			background-color: rgb(207, 207, 207);
+			@include general-properties(300px, 40px, rgb(207, 207, 207));
+			@include font(var(--fontVarellaRound), 1rem, white, center);
+			margin: 10px 10px 15px 10px;
 			border: 0;
 			border-radius: 5px;
 			display: flex;
 			align-items: center;
 			cursor: pointer;
-			font-family: "Varela Round", sans-serif;
-			font-size: 1rem;
 			font-weight: 400;
 			font-style: normal;
 			&:disabled {
@@ -119,9 +102,8 @@
 			}
 
 			img {
+				@include image(2rem, 2rem, cover);
 				margin: 0;
-				height: 30px;
-				width: 33px;
 			}
 			p {
 				color: white;

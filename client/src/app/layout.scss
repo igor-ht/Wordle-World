@@ -56,7 +56,7 @@ body {
 				a {
 					text-decoration: underline;
 					font-weight: 600;
-					color: var() --color;
+					color: var(--color);
 				}
 			}
 			.signout-button {
