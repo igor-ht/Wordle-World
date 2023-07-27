@@ -1,6 +1,7 @@
+@use "../../../../style/main" as *;
+
 .start-game {
-	width: 60%;
-	background-color: rgb(193, 126, 255);
+	@include general-properties(60%, auto, rgb(193, 126, 255));
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -18,18 +19,16 @@
 			margin: 20px;
 
 			p {
-				font-family: "Varela Round", sans-serif;
-				font-size: 1.3rem;
+				@include font(var(--fontVarellaRound), 1.2rem, black, justify);
 				margin: 5px;
 			}
 
 			.guess {
+				margin: 1rem;
 				input {
-					height: 40px;
-					width: 40px;
+					@include general-properties(2.5rem, 2.5rem, white);
+					@include font(var(--fontVarellaRound), 1rem, black, center);
 					margin: 5px;
-					text-align: center;
-					font-family: "Varela Round", sans-serif;
 					font-weight: 600;
 					border: 0;
 					border-radius: 10%;
@@ -55,16 +54,13 @@
 			.explain {
 				list-style: none;
 				margin: 5px;
-				margin-bottom: 3px;
 				span {
 					display: flex;
 					margin: 0px;
 					input {
-						height: 25px;
-						width: 25px;
+						@include general-properties(2rem, 2rem, white);
+						@include font(var(--fontVarellaRound), 0.9rem, black, center);
 						margin: 2px;
-						text-align: center;
-						font-family: "Varela Round", sans-serif;
 						font-weight: 600;
 						border: 0;
 						border-radius: 10%;
@@ -90,18 +86,15 @@
 		}
 
 		button {
-			background-color: rgb(36, 199, 36);
-			color: white;
-			height: 40px;
-			width: 300px;
+			@include general-properties(300px, 40px, rgb(36, 199, 36));
+			@include font(var(--fontVarellaRound), large, white, center);
 			border-radius: 5px;
 			margin: 5px;
 			border: 0;
 			cursor: pointer;
-			font-family: "Varela Round", sans-serif;
-			font-size: large;
 			font-weight: 400;
 			font-style: normal;
+
 			&:hover {
 				opacity: 0.9;
 			}
@@ -112,12 +105,10 @@
 			}
 		}
 		span {
-			margin: 10px;
-			margin-bottom: 20px;
+			margin: 10px 10px 20px 10px;
 			.link {
-				margin: 5px;
+				@include font(var(--fontVarellaRound), 1rem, black);
 				padding: 0;
-				font-family: "Varela Round", sans-serif;
 				margin: 0px;
 
 				a {
@@ -144,12 +135,10 @@
 				margin: 10px;
 
 				p {
-					margin: 2px;
-					margin-bottom: 4px;
-					font-size: 1.1rem;
+					margin: 2px 2px 4px 2px;
 				}
 				.guess {
-					margin-bottom: 4px;
+					margin: 4px;
 					input {
 						margin: 2px;
 						-webkit-text-fill-color: #000000;
@@ -157,17 +146,13 @@
 					}
 				}
 				.explain {
-					margin: 2px;
 					span {
 						width: 100%;
-						margin-bottom: 4px;
+						margin: 4px;
 						input {
-							width: 20px;
-							height: 20px;
 							-webkit-text-fill-color: #000000;
 							opacity: 1;
 						}
-
 						p {
 							font-size: 1rem;
 						}
