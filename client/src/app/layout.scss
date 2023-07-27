@@ -47,7 +47,7 @@ body {
 			justify-content: space-evenly;
 			user-select: none;
 			.user-greet {
-				@include font(var(--fontVarellaRound), 1.4rem, black);
+				@include font(var(--fontVarellaRound), 1.4rem, var(--color));
 				max-width: 10rem;
 				text-overflow: clip;
 				overflow: hidden;
@@ -189,12 +189,13 @@ body {
 			user-select: none;
 			img {
 				@include image(2rem, 2rem, contain);
+				filter: invert(var(--filter));
 			}
 		}
 	}
 
 	p {
-		@include font(var(--fontVarellaRound), 1rem, black, center);
+		@include font(var(--fontVarellaRound), 1rem, var(--color), center);
 		margin: 0;
 	}
 }
