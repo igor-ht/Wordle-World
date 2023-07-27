@@ -100,7 +100,7 @@ export default function SignInForms() {
 						src="/google.icon.svg"
 						alt=""
 						width={33}
-						height={30}
+						height={33}
 					/>
 					<p>Sign In with Google</p>
 				</button>

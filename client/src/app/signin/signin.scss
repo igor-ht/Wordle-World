@@ -9,7 +9,7 @@
 }
 
 .signin-box {
-	@include general-properties(530px, auto, var(--navfooterBackground));
+	@include general-properties(40rem, auto, var(--navfooterBackground));
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -21,7 +21,6 @@
 		@include image(14rem, auto, cover);
 		margin-top: 10px;
 		pointer-events: none;
-		user-select: none;
 	}
 
 	.signin-form {
@@ -44,8 +43,8 @@
 			font-style: normal;
 		}
 		input {
-			@include font(var(--fontVarellaRound), 1rem, black);
 			@include general-properties(300px, 25px, rgb(255, 255, 255));
+			@include font(var(--fontVarellaRound), 1rem, black);
 			border-radius: 3%;
 			border: 1px solid white;
 			font-weight: 400;

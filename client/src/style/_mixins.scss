@@ -3,7 +3,7 @@
   height: $height;
   background-color: $backgroundColor;
 }
-@mixin font($family, $size, $color, $textAlign: inherit) {
+@mixin font($family, $size, $color, $textAlign: start) {
   font-family: $family;
   font-size: $size;
   color: $color;

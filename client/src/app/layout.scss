@@ -194,7 +194,7 @@ body {
 	}
 
 	p {
-		@include font(var(--fontVarellaRound), 1rem, black);
+		@include font(var(--fontVarellaRound), 1rem, black, center);
 		margin: 0;
 	}
 }

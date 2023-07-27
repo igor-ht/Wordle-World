@@ -162,7 +162,7 @@ export default function SignUpForms() {
 						src="/google.icon.svg"
 						alt=""
 						width={33}
-						height={30}
+						height={33}
 					/>
 					<p>Sign up with Google</p>
 				</button>
