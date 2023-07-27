@@ -72,12 +72,10 @@
 		box-shadow: 0px 0px 10px 3px white;
 	}
 	.pop {
-		animation-name: SpanPop;
-		animation-duration: 400ms;
+		animation: SpanPop 400ms;
 	}
 	.short-guess {
-		animation: ShortGuess;
-		animation-duration: 50ms;
+		animation: ShortGuess 50ms;
 		animation-iteration-count: 10;
 	}
 	.notfound-guess {
@@ -125,8 +123,7 @@
 		background-color: white;
 		outline: none;
 		box-shadow: 0px 0px 10px 3px white;
-		animation-name: InputPop;
-		animation-duration: 300ms;
+		animation: InputPop 300ms;
 	}
 }
 
