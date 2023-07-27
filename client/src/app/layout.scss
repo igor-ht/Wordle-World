@@ -1,5 +1,4 @@
-@use "../style/variables.scss" as vars;
-@use "../style/mixins.scss" as mixins;
+@use "../style/main.scss" as *;
 
 html {
 	all: unset;
@@ -11,15 +10,15 @@ body {
 }
 
 .app {
-	@include mixins.general-properties(100dvw, 100dvh, rgb(255, 236, 236));
-	@include mixins.font((vars.$fontVarellaRound), 1rem, black);
+	@include general-properties(100dvw, 100dvh, rgb(255, 236, 236));
+	@include font(var(--fontVarellaRound), 1rem, black);
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
 }
 
 .navbar {
-	@include mixins.general-properties(100dvw, 12dvh, (vars.$navfooterBackground));
+	@include general-properties(100dvw, 12dvh, var(--navfooterBackground));
 	max-height: 13dvh;
 	display: flex;
 	flex-direction: row;
@@ -29,7 +28,7 @@ body {
 	.wordle-icon {
 		max-height: 100%;
 		img {
-			@include mixins.image(5rem, auto, cover);
+			@include image(5rem, auto, cover);
 		}
 	}
 
@@ -48,7 +47,7 @@ body {
 			justify-content: space-evenly;
 			user-select: none;
 			.user-greet {
-				@include mixins.font((vars.$fontVarellaRound), 1.4rem, black);
+				@include font(var(--fontVarellaRound), 1.4rem, black);
 				max-width: 10rem;
 				text-overflow: clip;
 				overflow: hidden;
@@ -57,12 +56,12 @@ body {
 				a {
 					text-decoration: underline;
 					font-weight: 600;
-					color: (vars.$color);
+					color: var() --color;
 				}
 			}
 			.signout-button {
-				@include mixins.font((vars.$fontVarellaRound), 1rem, white);
-				@include mixins.general-properties(7rem, 1.8rem, #f87a7a);
+				@include font(var(--fontVarellaRound), 1rem, white, center);
+				@include general-properties(7rem, 1.8rem, #f87a7a);
 				border-radius: 3%;
 				border: 1px solid #f87a7a;
 				align-self: center;
@@ -86,7 +85,7 @@ body {
 			cursor: pointer;
 
 			.menu-img {
-				@include mixins.image(3rem, auto, cover);
+				@include image(3rem, auto, cover);
 				border-radius: 50%;
 				box-shadow: 0px 0px 10px 0px rgb(255, 255, 138);
 				transition: 1s;
@@ -108,7 +107,7 @@ body {
 }
 
 .menu-container {
-	@include mixins.general-properties(0dvhw, 80dvh, (vars.$menuBackground));
+	@include general-properties(0dvhw, 80dvh, var(--menuBackground));
 	position: absolute;
 	z-index: 1;
 	top: 12dvh;
@@ -120,7 +119,7 @@ body {
 	transition: 0.7s;
 
 	.menu-title {
-		@include mixins.font((vars.$fontVarellaRound), 4rem, white);
+		@include font(var(--fontVarellaRound), 4rem, white);
 		margin: 1rem;
 		user-select: none;
 	}
@@ -131,7 +130,7 @@ body {
 		padding: 0;
 
 		li {
-			@include mixins.font((vars.$fontVarellaRound), 1.5rem, white);
+			@include font(var(--fontVarellaRound), 1.5rem, white);
 			list-style-type: none;
 			margin: 0 2rem 1rem 2rem;
 			user-select: none;
@@ -157,7 +156,7 @@ body {
 }
 
 .main-container {
-	@include mixins.general-properties(100dvhw, 80dvh, (vars.$mainBackground));
+	@include general-properties(100dvhw, 80dvh, var(--mainBackground));
 	transition: 1s;
 	display: flex;
 	justify-content: center;
@@ -165,7 +164,7 @@ body {
 }
 
 .footer {
-	@include mixins.general-properties(100dvw, 8dvh, (vars.$navfooterBackground));
+	@include general-properties(100dvw, 8dvh, var(--navfooterBackground));
 	display: grid;
 	grid-template-columns: min-content auto min-content;
 	align-items: center;
@@ -189,13 +188,13 @@ body {
 			cursor: pointer;
 			user-select: none;
 			img {
-				@include mixins.image(2rem, 2rem, contain);
+				@include image(2rem, 2rem, contain);
 			}
 		}
 	}
 
 	p {
-		@include mixins.font((vars.$fontVarellaRound), 1rem, black);
+		@include font(var(--fontVarellaRound), 1rem, black);
 		margin: 0;
 	}
 }

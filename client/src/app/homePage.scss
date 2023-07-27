@@ -1,10 +1,19 @@
-@use "../style/variables.scss" as vars;
-@use "../style/mixins.scss" as mixins;
+@use "../style/main.scss" as *;
 
-$welcome-info: #02d502;
-$account: #ffff30;
-$how-to-play: #d02020;
-$top-bottom: white;
+$cubeColors: (
+  welcome: #02d502,
+  info: #02d502,
+  account: #ffff30,
+  how-to-play: #d02020,
+  top: white,
+  bottom: white
+);
+
+@each $class, $backColor in $cubeColors {
+  .#{$class} {
+    @include general-properties(16rem, 16rem, #{$backColor});
+  }
+}
 
 @keyframes turn {
   from {
@@ -16,14 +25,14 @@ $top-bottom: white;
 }
 
 .home-page {
-  @include mixins.general-properties(100dvw, 100%, transparent);
+  @include general-properties(100dvw, 100%, transparent);
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow: hidden;
 
   img {
-    @include mixins.image(20rem, auto, cover);
+    @include image(20rem, auto, cover);
   }
 
   .cube-container {
@@ -33,7 +42,7 @@ $top-bottom: white;
   }
 
   .cube {
-    @include mixins.general-properties(16rem, 16rem, transparent);
+    @include general-properties(16rem, 16rem, transparent);
     position: relative;
     transform-style: preserve-3d;
     animation: turn 20s linear 1s infinite;
@@ -43,7 +52,6 @@ $top-bottom: white;
   }
 
   .face {
-    @include mixins.general-properties(16rem, 16rem, white);
     position: absolute;
     opacity: 0.95;
     display: flex;
@@ -55,7 +63,6 @@ $top-bottom: white;
     }
   }
   .welcome {
-    background-color: $welcome-info;
     transform: translateZ(8rem);
     display: flex;
     flex-direction: column;
@@ -63,18 +70,15 @@ $top-bottom: white;
     justify-content: center;
 
     h6 {
-      @include mixins.font((vars.$fontVarellaRound), 1.1rem, white);
+      @include font(var(--fontVarellaRound), 1.1rem, white, center);
       margin: 0.5rem;
-      text-align: center;
     }
     p {
-      @include mixins.font((vars.$fontVarellaRound), 1rem, white);
+      @include font(var(--fontVarellaRound), 1rem, white, justify);
       margin: 0.5rem;
-      text-align: justify;
     }
   }
   .info {
-    background-color: $welcome-info;
     transform: translateZ(-8rem) rotateY(180deg);
     flex-direction: column;
     align-items: center;
@@ -91,7 +95,6 @@ $top-bottom: white;
     }
   }
   .account {
-    background-color: $account;
     transform: translateX(-8rem) rotateY(-90deg);
     flex-direction: column;
     align-items: center;
@@ -103,8 +106,7 @@ $top-bottom: white;
       height: 100%;
     }
     p {
-      @include mixins.font((vars.$fontVarellaRound), 1rem, white);
-      text-align: center;
+      @include font(var(--fontVarellaRound), 1rem, white, center);
     }
     a {
       color: blue;
@@ -115,7 +117,6 @@ $top-bottom: white;
     }
   }
   .how-to-play {
-    background-color: $how-to-play;
     transform: translateX(8rem) rotateY(90deg);
     flex-direction: column;
     align-items: center;
@@ -123,11 +124,11 @@ $top-bottom: white;
     line-height: 1rem;
     color: white;
     p {
-      @include mixins.font((vars.$fontVarellaRound), 0.9rem, white);
+      @include font(var(--fontVarellaRound), 0.9rem, white, flex-start);
       margin: 0.5rem;
     }
     h6 {
-      @include mixins.font((vars.$fontVarellaRound), 1rem, white);
+      @include font(var(--fontVarellaRound), 1rem, white, center);
       margin: 0.5rem;
     }
     section {
@@ -140,8 +141,7 @@ $top-bottom: white;
         height: 100%;
         margin: 0.3rem;
         p {
-          @include mixins.font((vars.$fontVarellaRound), 0.75rem, white);
-          text-align: justify;
+          @include font(var(--fontVarellaRound), 0.75rem, white, justify);
           margin: 0;
           align-self: flex-end;
         }
@@ -167,11 +167,9 @@ $top-bottom: white;
     }
   }
   .top {
-    background-color: $top-bottom;
     transform: translateY(-8rem) rotateX(90deg);
   }
   .bottom {
-    background-color: $top-bottom;
     transform: translateY(8rem) rotateX(-90deg);
   }
 }

@@ -1,16 +1,17 @@
 @mixin general-properties($width, $height, $backgroundColor) {
-	width: $width;
-	height: $height;
-	background-color: $backgroundColor;
+  width: $width;
+  height: $height;
+  background-color: $backgroundColor;
 }
-@mixin font($family, $size, $color) {
-	font-family: $family;
-	font-size: $size;
-	color: $color;
+@mixin font($family, $size, $color, $textAlign: inherit) {
+  font-family: $family;
+  font-size: $size;
+  color: $color;
+  text-align: $textAlign;
 }
 @mixin image($width, $height, $objectFit) {
-	width: $width;
-	height: $height;
-	object-fit: $objectFit;
-	user-select: none;
+  width: $width;
+  height: $height;
+  object-fit: $objectFit;
+  user-select: none;
 }
