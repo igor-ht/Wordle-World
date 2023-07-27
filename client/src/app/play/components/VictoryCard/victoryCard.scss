@@ -1,3 +1,5 @@
+@use "../../../../style/main" as *;
+
 $particles: 50;
 $width: 500;
 $height: 500;
@@ -67,23 +69,19 @@ $box-shadow2: ();
 }
 
 .victory-background {
+	@include general-properties(100dvw, 100dvh, rgba(10, 6, 55, 0.76));
 	position: absolute;
-	background-color: rgba(10, 6, 55, 0.76);
 	top: 0;
-	height: 100dvh;
-	width: 100dvw;
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
 
 	.victory-card {
+		@include general-properties(60dvw, 80dvh, rgba(255, 255, 255, 0.849));
 		position: absolute;
 		z-index: 1;
 		left: 20%;
 		top: 12dvh;
-		height: 80dvh;
-		width: 60dvw;
-		background-color: rgba(255, 255, 255, 0.849);
 		border: 0;
 		border-radius: 1%;
 		display: flex;
@@ -93,16 +91,11 @@ $box-shadow2: ();
 		text-align: center;
 
 		img {
-			width: 25em;
-			height: auto;
+			@include image(25rem, auto, cover);
 			margin: 0;
-			pointer-events: none;
-
-			user-select: none;
 		}
 		p {
-			font-family: "Varela Round", sans-serif;
-			font-size: 1.2rem;
+			@include font(var(--fontVarellaRound), 1.2rem, black, center);
 			margin: 20px;
 		}
 		div {
@@ -110,18 +103,15 @@ $box-shadow2: ();
 			flex-direction: column;
 			align-items: center;
 			button {
-				height: 40px;
-				width: 200px;
+				@include general-properties(200px, 40px, rgb(154, 254, 4));
+				@include font(var(--fontVarellaRound), 1.1rem, white, center);
 				margin: 15px;
-				border-radius: 5%;
+				border-radius: 4px;
 				border: 0;
-				background-color: rgb(154, 254, 4);
 				box-shadow: 0px 0px 5px 1px green;
-				cursor: pointer;
-				font-family: "Varela Round", sans-serif;
-				font-size: 1.1rem;
-				color: white;
 				text-shadow: 0px 0px 8px black;
+				cursor: pointer;
+
 				&:nth-child(2) {
 					background-color: rgb(234, 234, 0);
 					box-shadow: 0px 0px 6px 1px rgb(177, 177, 0);
@@ -144,9 +134,7 @@ $box-shadow2: ();
 				}
 			}
 			p {
-				font-size: small;
-				justify-self: end;
-				font-family: "Varela Round", sans-serif;
+				@include font(var(--fontVarellaRound), 1rem, black);
 			}
 		}
 	}
