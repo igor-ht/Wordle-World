@@ -60,8 +60,8 @@ body {
 				}
 			}
 			.signout-button {
-				@include font(var(--fontVarellaRound), 1rem, white, center);
 				@include general-properties(7rem, 1.8rem, #f87a7a);
+				@include font(var(--fontVarellaRound), 1rem, white, center);
 				border-radius: 3%;
 				border: 1px solid #f87a7a;
 				align-self: center;
