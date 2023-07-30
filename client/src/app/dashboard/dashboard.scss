@@ -1,5 +1,7 @@
+@use "../../style/main" as *;
+
 .dashboard-container {
-  @include general-properties(100%w, 100%);
+  @include general-properties(100%, 100%);
   @include display-flex();
   align-items: center;
   justify-content: space-evenly;
