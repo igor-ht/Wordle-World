@@ -11,17 +11,15 @@ body {
 
 .app {
 	@include general-properties(100dvw, 100dvh, rgb(255, 236, 236));
+	@include display-flex(column);
 	@include font(var(--fontVarellaRound), 1rem, black);
-	display: flex;
-	flex-direction: column;
 	overflow: hidden;
 }
 
 .navbar {
 	@include general-properties(100dvw, 12dvh, var(--navfooterBackground));
+	@include display-flex(row);
 	max-height: 13dvh;
-	display: flex;
-	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
 
@@ -33,34 +31,32 @@ body {
 	}
 
 	section {
+		@include display-flex(row);
 		height: 100%;
-		display: flex;
-		flex-direction: row;
 		align-items: center;
 		gap: 15px;
 		margin-right: 0.5rem;
 
 		.user-logged {
+			@include display-flex(column);
 			height: 100%;
-			display: flex;
-			flex-direction: column;
 			justify-content: space-evenly;
 			user-select: none;
 			.user-greet {
-				@include font(var(--fontVarellaRound), 1.4rem, var(--color));
-				max-width: 10rem;
+				@include font(var(--fontVarellaRound), clamp(1.3rem, 4dvw, 1.4rem), var(--color));
 				text-overflow: clip;
 				overflow: hidden;
 				white-space: nowrap;
 				margin: 0;
 				a {
+					max-width: 6rem;
 					text-decoration: underline;
 					font-weight: 600;
 					color: var(--color);
 				}
 			}
 			.signout-button {
-				@include general-properties(7rem, 1.8rem, #f87a7a);
+				@include general-properties(6.5rem, 1.8rem, #f87a7a);
 				@include font(var(--fontVarellaRound), 1rem, white, center);
 				border-radius: 3%;
 				border: 1px solid #f87a7a;
@@ -108,11 +104,10 @@ body {
 
 .menu-container {
 	@include general-properties(0dvhw, 80dvh, var(--menuBackground));
+	@include display-flex(column);
 	position: absolute;
 	z-index: 1;
 	top: 12dvh;
-	display: flex;
-	flex-direction: column;
 	box-shadow: 1px 0px 20px 0px black;
 	border-radius: 0% 1% 1% 0%;
 	overflow: hidden;
@@ -157,8 +152,8 @@ body {
 
 .main-container {
 	@include general-properties(100dvhw, 80dvh, var(--mainBackground));
+	@include display-flex();
 	transition: 1s;
-	display: flex;
 	justify-content: center;
 	align-items: center;
 }
@@ -171,18 +166,17 @@ body {
 	text-align: center;
 
 	section {
+		@include display-flex();
 		height: 100%;
 		align-self: flex-start;
-		display: flex;
-		flex-direction: row;
 		align-items: center;
 		justify-content: center;
 		button {
+			@include display-flex();
 			border: 0;
 			border-radius: 50%;
 			margin: 0 1rem 0 1rem;
 			background-color: transparent;
-			display: flex;
 			align-items: center;
 			justify-content: center;
 			cursor: pointer;

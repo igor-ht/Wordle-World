@@ -1,8 +1,14 @@
-@mixin general-properties($width, $height, $backgroundColor) {
+@mixin general-properties($width, $height: auto, $backgroundColor: transparent) {
   width: $width;
   height: $height;
   background-color: $backgroundColor;
 }
+
+@mixin display-flex($direction: row) {
+  display: flex;
+  flex-direction: $direction;
+}
+
 @mixin font($family, $size, $color, $textAlign: start) {
   font-family: $family;
   font-size: $size;
