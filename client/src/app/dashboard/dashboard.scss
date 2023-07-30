@@ -7,10 +7,26 @@
   justify-content: space-evenly;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 780px) {
   .dashboard-container {
     flex-wrap: wrap;
     overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      width: 0.6rem;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #ffe4e4;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #694d4d;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: #3e2828;
+    }
   }
 }
 

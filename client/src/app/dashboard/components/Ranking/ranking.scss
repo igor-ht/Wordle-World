@@ -85,7 +85,7 @@
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 780px) {
   .ranking-container {
     @include general-properties(90dvw, 95%, rgb(255, 233, 110));
     margin: 0 1rem 1rem 1rem;
