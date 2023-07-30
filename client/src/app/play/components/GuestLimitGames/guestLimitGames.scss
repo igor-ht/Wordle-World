@@ -15,16 +15,15 @@
 
 .guess-limit-games {
   @include general-properties(40rem, auto, rgba(248, 90, 90, 0.982));
+  @include display-flex();
   border: 1px solid rgba(248, 90, 90, 0.982);
   border-radius: 5px;
-  display: flex;
   animation: guessLimitFall 1s;
 }
 .guess-card {
-  margin: 10px;
-  display: flex;
-  flex-direction: column;
+  @include display-flex(column);
   align-items: center;
+  margin: 10px;
   p {
     @include font(var(--fontVarellaRound), 1.1rem, white, justify);
     margin: 10px;

@@ -26,8 +26,7 @@ $cubeColors: (
 
 .home-page {
   @include general-properties(100dvw, 100%, transparent);
-  display: flex;
-  flex-direction: column;
+  @include display-flex(column);
   align-items: center;
   overflow: hidden;
 
@@ -54,7 +53,6 @@ $cubeColors: (
   .face {
     position: absolute;
     opacity: 0.95;
-    display: flex;
     user-select: none;
     text-shadow: 0px 0px 10px black;
     border: 0;
@@ -64,8 +62,7 @@ $cubeColors: (
   }
   .welcome {
     transform: translateZ(8rem);
-    display: flex;
-    flex-direction: column;
+    @include display-flex(column);
     align-items: center;
     justify-content: center;
 
@@ -79,14 +76,13 @@ $cubeColors: (
     }
   }
   .info {
+    @include display-flex(column);
     transform: translateZ(-8rem) rotateY(180deg);
-    flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
     color: white;
     div {
-      display: flex;
-      flex-direction: column;
+      @include display-flex(column);
       align-items: center;
       a {
         color: blue;
@@ -95,12 +91,11 @@ $cubeColors: (
     }
   }
   .account {
+    @include display-flex(column);
     transform: translateX(-8rem) rotateY(-90deg);
-    flex-direction: column;
     align-items: center;
     span {
-      display: flex;
-      flex-direction: column;
+      @include display-flex(column);
       align-items: center;
       justify-content: center;
       height: 100%;
@@ -117,8 +112,8 @@ $cubeColors: (
     }
   }
   .how-to-play {
+    @include display-flex(column);
     transform: translateX(8rem) rotateY(90deg);
-    flex-direction: column;
     align-items: center;
     text-align: justify;
     line-height: 1rem;
@@ -132,12 +127,10 @@ $cubeColors: (
       margin: 0.5rem;
     }
     section {
-      display: flex;
-      flex-direction: column;
+      @include display-flex(column);
       height: 100%;
       span {
-        display: flex;
-        flex-direction: row;
+        @include display-flex(row);
         height: 100%;
         margin: 0.3rem;
         p {
@@ -146,9 +139,8 @@ $cubeColors: (
           align-self: flex-end;
         }
         input {
-          width: 20px;
-          height: 20px;
-          margin: 2px;
+          @include general-properties(20px, 20px, transparent);
+          margin: 0 2px;
           text-align: center;
           color: white;
           font-weight: 400;

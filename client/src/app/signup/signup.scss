@@ -2,8 +2,7 @@
 
 .signup-box {
 	@include general-properties(auto, auto, var(--navfooterBackground));
-	display: flex;
-	flex-direction: column;
+	@include display-flex(column);
 	align-items: center;
 	border: 0;
 	border-radius: 2%;
@@ -26,15 +25,13 @@ form {
 	text-align: center;
 
 	.signup-form {
-		display: flex;
-		flex-direction: row;
+		@include display-flex(row);
 		gap: 5px;
 		margin: 5px;
 	}
 
 	.input-box {
-		display: flex;
-		flex-direction: column;
+		@include display-flex(column);
 		margin: 5px;
 
 		.error {
@@ -101,9 +98,9 @@ form {
 	button {
 		@include general-properties(300px, 40px, rgb(207, 207, 207));
 		@include font(var(--fontVarellaRound), 1rem, white, center);
+		@include display-flex();
 		border: 0;
 		border-radius: 5px;
-		display: flex;
 		align-items: center;
 		cursor: pointer;
 		font-weight: 400;
@@ -144,7 +141,7 @@ form {
 	}
 	form {
 		.signup-form {
-			flex-direction: column;
+			@include display-flex(column);
 		}
 		.input-box {
 			margin: 0;

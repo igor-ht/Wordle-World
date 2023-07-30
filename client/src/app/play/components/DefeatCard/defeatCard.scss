@@ -79,14 +79,13 @@
 
 .defeat-card {
 	@include general-properties(65dvw, 80dvh, rgba(255, 255, 255, 0.849));
+	@include display-flex(column);
 	position: absolute;
 	z-index: 1;
 	left: 17.5dvw;
 	top: 12dvh;
 	border: 0;
 	border-radius: 1%;
-	display: flex;
-	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	text-align: center;
@@ -100,8 +99,7 @@
 		margin: 20px;
 	}
 	div {
-		display: flex;
-		flex-direction: column;
+		@include display-flex(column);
 		align-items: center;
 		button {
 			@include general-properties(200px, 40px, rgb(154, 254, 4));
@@ -134,9 +132,7 @@
 			}
 		}
 		p {
-			font-size: small;
-			justify-self: end;
-			font-family: "Varela Round", sans-serif;
+			@include font(var(--fontVarellaRound), small, end);
 		}
 	}
 }

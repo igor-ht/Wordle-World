@@ -2,19 +2,16 @@
 
 .start-game {
 	@include general-properties(60%, auto, rgb(193, 126, 255));
-	display: flex;
-	flex-direction: column;
+	@include display-flex(column);
 	align-items: center;
 	border-radius: 5px;
 
 	.start-game-card {
-		display: flex;
-		flex-direction: column;
+		@include display-flex(column);
 		align-items: center;
 
 		.help {
-			display: flex;
-			flex-direction: column;
+			@include display-flex(column);
 			align-items: center;
 			margin: 20px;
 
@@ -55,7 +52,7 @@
 				list-style: none;
 				margin: 5px;
 				span {
-					display: flex;
+					@include display-flex();
 					margin: 0px;
 					input {
 						@include general-properties(2rem, 2rem, white);

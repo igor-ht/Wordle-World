@@ -2,16 +2,14 @@
 
 .user-stats-container {
   @include general-properties(45dvw, 90%, rgb(167, 254, 167));
-  display: flex;
-  flex-direction: column;
+  @include display-flex(column);
   align-items: center;
   overflow: hidden;
   border: 2px solid green;
 
   .user-points-container {
+    @include display-flex(row);
     width: 100%;
-    display: flex;
-    flex-direction: row;
     align-items: center;
     margin: 0;
 
@@ -30,9 +28,8 @@
   }
 
   .title-search-section {
+    @include display-flex();
     width: 100%;
-    display: flex;
-    flex-direction: row;
     align-items: center;
     margin-bottom: 0.5rem;
     h3 {
@@ -59,10 +56,9 @@
   }
 
   .user-discovered-words-container {
+    @include display-flex(column);
     max-height: 70%;
     width: 95%;
-    display: flex;
-    flex-direction: column;
     overflow-y: auto;
     margin-bottom: 10px;
 
@@ -108,8 +104,7 @@
 
 @media (max-width: 780px) {
   .user-stats-container {
-    width: 90vw;
-    height: 94%;
+    @include general-properties(90dvw, 94%);
     margin: 1rem;
   }
 }

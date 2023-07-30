@@ -62,8 +62,7 @@
 }
 
 .input-container {
-	display: flex;
-	flex-direction: column;
+	@include display-flex(column);
 	align-items: center;
 	margin-top: 5px;
 

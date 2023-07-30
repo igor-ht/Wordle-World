@@ -1,17 +1,14 @@
 @use "../../style/main.scss" as *;
 
 .signin-container {
-	height: inherit;
-	display: flex;
-	flex-direction: column;
+	@include display-flex(column);
 	align-items: center;
 	justify-content: center;
 }
 
 .signin-box {
 	@include general-properties(40rem, auto, var(--navfooterBackground));
-	display: flex;
-	flex-direction: column;
+	@include display-flex(column);
 	align-items: center;
 	border: 0;
 	border-radius: 2%;
@@ -24,8 +21,7 @@
 	}
 
 	.signin-form {
-		display: flex;
-		flex-direction: column;
+		@include display-flex(column);
 		justify-content: center;
 		gap: 10px;
 
@@ -87,15 +83,15 @@
 	.signin-google {
 		button {
 			@include general-properties(300px, 40px, rgb(207, 207, 207));
+			@include display-flex();
 			@include font(var(--fontVarellaRound), 1rem, white, center);
 			margin: 10px 10px 15px 10px;
 			border: 0;
 			border-radius: 5px;
-			display: flex;
 			align-items: center;
-			cursor: pointer;
 			font-weight: 400;
 			font-style: normal;
+			cursor: pointer;
 			&:disabled {
 				opacity: 0.8;
 			}

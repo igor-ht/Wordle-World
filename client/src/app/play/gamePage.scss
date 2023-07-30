@@ -1,7 +1,8 @@
+@use "../../style/main" as *;
+
 .game-container {
+	@include display-flex(column);
 	height: 100%;
-	display: flex;
-	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 }
