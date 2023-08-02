@@ -1,8 +1,9 @@
 'use client';
 
-import { AppSounds, GameSounds, setAudioHowls } from '@/src/utils/sounds/appSounds';
+import './Footer.scss';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
+import { AppSounds, GameSounds, setAudioHowls } from '@/src/utils/sounds/appSounds';
 
 export default function Footer() {
 	const [sound, setSound] = useState(false);
@@ -18,6 +19,7 @@ export default function Footer() {
 				return setSound(true);
 			}
 		};
+
 		const soundButton = document.getElementById('sound');
 		soundButton?.addEventListener('click', handleClickEvent);
 		return () => soundButton?.removeEventListener('click', handleClickEvent);
@@ -30,7 +32,7 @@ export default function Footer() {
 		appElement?.setAttribute('data-theme', currentTheme);
 	}, []);
 
-	const handleTheme = () => {
+	const handleTheme = (event: MouseEvent<HTMLButtonElement>) => {
 		const appElement = document.querySelector('.app');
 		const currentTheme = appElement?.getAttribute('data-theme');
 		if (currentTheme && currentTheme !== 'light') {
@@ -46,10 +48,12 @@ export default function Footer() {
 		<footer className="footer">
 			<section>
 				<button
+					className="btn-image"
 					type="button"
 					onFocus={(event) => event.target.blur()}
 					onClick={handleTheme}>
 					<Image
+						className="footer-icon"
 						src={'./dark-theme.svg'}
 						alt="Light/Dark Mode"
 						data-theme-confirmation
@@ -65,9 +69,11 @@ export default function Footer() {
 				<button
 					type="button"
 					id="sound"
+					className="btn-image"
 					onFocus={(event) => event.target.blur()}>
 					{sound ? (
 						<Image
+							className="footer-icon"
 							src={'/sound.svg'}
 							alt="sound"
 							height={50}
@@ -77,6 +83,7 @@ export default function Footer() {
 						/>
 					) : (
 						<Image
+							className="footer-icon"
 							src={'/mute.svg'}
 							alt="mute"
 							height={50}

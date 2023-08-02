@@ -1,7 +1,7 @@
 'use client';
 
-import { AppSounds } from '@/src/utils/sounds/appSounds';
 import Image from 'next/image';
+import { AppSounds } from '@/src/utils/sounds/appSounds';
 
 export default function MenuButton({ ...menu }) {
 	const { displayMenu, setDisplayMenu } = menu;
@@ -18,11 +18,11 @@ export default function MenuButton({ ...menu }) {
 
 	return (
 		<button
-			className="menu-icon"
+			className="btn-image"
 			id="menu-icon"
 			onClick={handleDisplayMenu}>
 			<Image
-				className="menu-img"
+				className="menu-icon"
 				src="/menu.svg"
 				alt="Menu"
 				width={100}

@@ -1,0 +1,11 @@
+@use "./colors" as *;
+@use "./fonts" as *;
+
+// background colors
+$bg-nav: $bg-yellow;
+$bg-menu: $bg-green;
+$bg-main: $bg-pink;
+$bg-footer: $bg-yellow;
+
+$filter: var(--filter);
+$color: var(--color);

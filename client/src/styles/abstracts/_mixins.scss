@@ -1,0 +1,51 @@
+// general mixins
+@mixin general-properties($width, $height: auto, $backgroundColor: transparent) {
+  width: $width;
+  height: $height;
+  background-color: $backgroundColor;
+}
+@mixin display-flex($direction: row) {
+  display: flex;
+  flex-direction: $direction;
+}
+
+// image mixins
+@mixin image($width, $height, $objectFit) {
+  width: $width;
+  height: $height;
+  object-fit: $objectFit;
+  user-select: none;
+}
+
+// font mixins
+@mixin font($family, $size, $color, $textAlign: start) {
+  font-family: $family;
+  font-size: $size;
+  color: $color;
+  text-align: $textAlign;
+}
+@mixin font-varella-round($size, $color: black, $textAlign: start) {
+  font-family: $fontVarellaRound;
+  font-size: $size;
+  color: $color;
+  text-align: $textAlign;
+}
+@mixin font-roboto($size, $color: black, $textAlign: start) {
+  font-family: $fontRoboto;
+  font-size: $size;
+  color: $color;
+  text-align: $textAlign;
+}
+@mixin font-game-input {
+  font-family: $fontGame;
+  font-size: clamp(large, 5dvw, x-large);
+  font-weight: 600;
+  color: var(--color);
+  text-align: center;
+  caret-color: transparent;
+  text-transform: uppercase;
+  user-select: none;
+  pointer-events: none;
+  border: 1px solid white;
+  border-radius: 5px;
+}

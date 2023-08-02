@@ -1,0 +1,28 @@
+@use "../../../styles/abstracts/index" as *;
+@import "../../../styles/components/buttons";
+
+.footer {
+  @include general-properties(100dvw, 8dvh, $bg-footer);
+  display: grid;
+  grid-template-columns: min-content auto min-content;
+  align-items: center;
+  text-align: center;
+
+  section {
+    @include display-flex();
+    height: 100%;
+    align-self: flex-start;
+    align-items: center;
+    justify-content: center;
+
+    .btn-image {
+      @include general-properties(2.7rem, 2.7rem);
+      margin: 0.2rem 0 0.2rem 0;
+    }
+  }
+
+  p {
+    @include font($fontVarellaRound, 1rem, $color, center);
+    margin: 0;
+  }
+}

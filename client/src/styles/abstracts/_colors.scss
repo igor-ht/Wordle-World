@@ -1,0 +1,11 @@
+// @import "../globals.scss";
+
+$bg-yellow: var(--navfooterBackground);
+$bg-green: var(--menuBackground);
+$bg-pink: var(--mainBackground);
+
+$gameColors: (
+  cow: rgb(238, 238, 16),
+  bull: rgb(36, 199, 36),
+  wrong: rgb(128, 128, 128)
+);

@@ -1,5 +1,6 @@
 'use client';
 
+import './Navbar.scss';
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
