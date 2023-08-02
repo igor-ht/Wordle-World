@@ -1,4 +1,4 @@
-@use "../styles/abstracts/index" as *;
+@use "../../../styles/main" as *;
 
 $cubeColors: (
   welcome: #02d502,
@@ -67,11 +67,11 @@ $cubeColors: (
     justify-content: center;
 
     h6 {
-      @include font(var(--fontVarellaRound), 1.1rem, white, center);
+      @include font($fontVarellaRound, 1.1rem, white, center);
       margin: 0.5rem;
     }
     p {
-      @include font(var(--fontVarellaRound), 1rem, white, justify);
+      @include font($fontVarellaRound, 1rem, white, justify);
       margin: 0.5rem;
     }
   }
@@ -101,7 +101,7 @@ $cubeColors: (
       height: 100%;
     }
     p {
-      @include font(var(--fontVarellaRound), 1rem, white, center);
+      @include font($fontVarellaRound, 1rem, white, center);
     }
     a {
       color: blue;
@@ -119,11 +119,11 @@ $cubeColors: (
     line-height: 1rem;
     color: white;
     p {
-      @include font(var(--fontVarellaRound), 0.9rem, white, flex-start);
+      @include font($fontVarellaRound, 0.9rem, white, flex-start);
       margin: 0.5rem;
     }
     h6 {
-      @include font(var(--fontVarellaRound), 1rem, white, center);
+      @include font($fontVarellaRound, 1rem, white, center);
       margin: 0.5rem;
     }
     section {
@@ -134,7 +134,7 @@ $cubeColors: (
         height: 100%;
         margin: 0.3rem;
         p {
-          @include font(var(--fontVarellaRound), 0.75rem, white, justify);
+          @include font($fontVarellaRound, 0.75rem, white, justify);
           margin: 0;
           align-self: flex-end;
         }

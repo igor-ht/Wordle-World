@@ -56,7 +56,6 @@ export default function Footer() {
 						className="footer-icon"
 						src={'./dark-theme.svg'}
 						alt="Light/Dark Mode"
-						data-theme-confirmation
 						height={50}
 						width={50}
 						priority

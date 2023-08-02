@@ -1,0 +1,16 @@
+@use "../../../styles/main" as *;
+
+.main-container {
+  @include general-properties(100dvhw, 80dvh, $bg-main);
+  @include display-flex();
+  transition: 1s;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 700px) {
+  .main-container {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}

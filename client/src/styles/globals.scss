@@ -1,22 +1,15 @@
-
 :root {
-   --navfooterBackground: rgb(255, 255, 138);
-   --menuBackground: rgb(156, 233, 156);
-   --mainBackground: rgb(255, 194, 194);
-   --color: black;
-   --filter: 0;
- }
+  --navfooterBackground: rgb(255, 255, 138);
+  --menuBackground: rgb(156, 233, 156);
+  --mainBackground: rgb(255, 194, 194);
+  --color: black;
+  --filter: 0;
+}
 
- [data-theme="dark"] {
-   --navfooterBackground: rgb(60 48 48);
-   --menuBackground: rgb(37 60 37);
-   --mainBackground: rgb(61 61 64);
-   --color: white;
-   --filter: 1;
-
-   [data-theme-confirmation] {
-     box-shadow: 0px 0px 7px 0px rgb(0, 0, 0);
-     border-radius: 50%;
-     transition: box-shadow 1s;
-   }
- }
+[data-theme="dark"] {
+  --navfooterBackground: rgb(60 48 48);
+  --menuBackground: rgb(37 60 37);
+  --mainBackground: rgb(61 61 64);
+  --color: white;
+  --filter: 1;
+}
