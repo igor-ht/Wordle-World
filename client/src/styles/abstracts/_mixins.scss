@@ -21,7 +21,7 @@
   color: $color;
   text-align: $textAlign;
 }
-@mixin font-game-input {
+@mixin font-game-input($fontGame) {
   font-family: $fontGame;
   font-size: clamp(large, 5dvw, x-large);
   font-weight: 600;

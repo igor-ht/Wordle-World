@@ -1,7 +1,7 @@
-@use "../../../../style/main" as *;
+@use "../../../../styles/main" as *;
 
 .start-game {
-	@include general-properties(60%, auto, rgb(193, 126, 255));
+	@include general-properties(60%, 85%, rgb(193, 126, 255));
 	@include display-flex(column);
 	align-items: center;
 	border-radius: 5px;
@@ -9,22 +9,23 @@
 	.start-game-card {
 		@include display-flex(column);
 		align-items: center;
+		margin: auto;
 
 		.help {
 			@include display-flex(column);
 			align-items: center;
-			margin: 20px;
+			margin: 0.5rem;
 
 			p {
-				@include font(var(--fontVarellaRound), 1.2rem, black, justify);
+				@include font($fontVarellaRound, 1.15rem, black, justify);
 				margin: 5px;
 			}
 
 			.guess {
-				margin: 1rem;
+				margin: 0.5rem;
 				input {
-					@include general-properties(2.5rem, 2.5rem, white);
-					@include font(var(--fontVarellaRound), 1rem, black, center);
+					@include general-properties(2.2rem, 2.2rem, white);
+					@include font($fontVarellaRound, 1rem, black, center);
 					margin: 5px;
 					font-weight: 600;
 					border: 0;
@@ -56,7 +57,7 @@
 					margin: 0px;
 					input {
 						@include general-properties(2rem, 2rem, white);
-						@include font(var(--fontVarellaRound), 0.9rem, black, center);
+						@include font($fontVarellaRound, 0.9rem, black, center);
 						margin: 2px;
 						font-weight: 600;
 						border: 0;
@@ -84,7 +85,7 @@
 
 		button {
 			@include general-properties(300px, 40px, rgb(36, 199, 36));
-			@include font(var(--fontVarellaRound), large, white, center);
+			@include font($fontVarellaRound, large, white, center);
 			border-radius: 5px;
 			margin: 5px;
 			border: 0;
@@ -102,9 +103,9 @@
 			}
 		}
 		span {
-			margin: 10px 10px 20px 10px;
+			margin: 0.5rem;
 			.link {
-				@include font(var(--fontVarellaRound), 1rem, black);
+				@include font($fontVarellaRound, 1rem, black);
 				padding: 0;
 				margin: 0px;
 

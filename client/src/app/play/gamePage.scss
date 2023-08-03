@@ -1,4 +1,4 @@
-@use "../../style/main" as *;
+@use "../../styles/main" as *;
 
 .game-container {
 	@include display-flex(column);
