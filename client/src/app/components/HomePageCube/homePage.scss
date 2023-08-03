@@ -1,29 +1,5 @@
 @use "../../../styles/main" as *;
 
-$cubeColors: (
-  welcome: #02d502,
-  info: #02d502,
-  account: #ffff30,
-  how-to-play: #d02020,
-  top: white,
-  bottom: white
-);
-
-@each $class, $backColor in $cubeColors {
-  .#{$class} {
-    @include general-properties(16rem, 16rem, #{$backColor});
-  }
-}
-
-@keyframes turn {
-  from {
-    transform: rotateY(0deg);
-  }
-  to {
-    transform: rotateY(360deg);
-  }
-}
-
 .home-page {
   @include general-properties(100dvw, 100%, transparent);
   @include display-flex(column);
@@ -31,154 +7,15 @@ $cubeColors: (
   overflow: hidden;
 
   img {
-    @include image(20rem, auto, cover);
-  }
-
-  .cube-container {
-    position: relative;
-    perspective: 550px;
-    margin: 3rem;
-  }
-
-  .cube {
-    @include general-properties(16rem, 16rem, transparent);
-    position: relative;
-    transform-style: preserve-3d;
-    animation: turn 20s linear 1s infinite;
-    &:hover {
-      animation-play-state: paused;
-    }
-  }
-
-  .face {
-    position: absolute;
-    opacity: 0.95;
-    user-select: none;
-    text-shadow: 0px 0px 10px black;
-    border: 0;
-    &:hover {
-      opacity: 1;
-    }
-  }
-  .welcome {
-    transform: translateZ(8rem);
-    @include display-flex(column);
-    align-items: center;
-    justify-content: center;
-
-    h6 {
-      @include font($fontVarellaRound, 1.1rem, white, center);
-      margin: 0.5rem;
-    }
-    p {
-      @include font($fontVarellaRound, 1rem, white, justify);
-      margin: 0.5rem;
-    }
-  }
-  .info {
-    @include display-flex(column);
-    transform: translateZ(-8rem) rotateY(180deg);
-    align-items: center;
-    justify-content: space-evenly;
-    color: white;
-    div {
-      @include display-flex(column);
-      align-items: center;
-      a {
-        color: blue;
-        align-self: center;
-      }
-    }
-  }
-  .account {
-    @include display-flex(column);
-    transform: translateX(-8rem) rotateY(-90deg);
-    align-items: center;
-    span {
-      @include display-flex(column);
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-    }
-    p {
-      @include font($fontVarellaRound, 1rem, white, center);
-    }
-    a {
-      color: blue;
-      font-weight: 400;
-      &:visited {
-        color: blue;
-      }
-    }
-  }
-  .how-to-play {
-    @include display-flex(column);
-    transform: translateX(8rem) rotateY(90deg);
-    align-items: center;
-    text-align: justify;
-    line-height: 1rem;
-    color: white;
-    p {
-      @include font($fontVarellaRound, 0.9rem, white, flex-start);
-      margin: 0.5rem;
-    }
-    h6 {
-      @include font($fontVarellaRound, 1rem, white, center);
-      margin: 0.5rem;
-    }
-    section {
-      @include display-flex(column);
-      height: 100%;
-      span {
-        @include display-flex(row);
-        height: 100%;
-        margin: 0.3rem;
-        p {
-          @include font($fontVarellaRound, 0.75rem, white, justify);
-          margin: 0;
-          align-self: flex-end;
-        }
-        input {
-          @include general-properties(20px, 20px, transparent);
-          margin: 0 2px;
-          text-align: center;
-          color: white;
-          font-weight: 400;
-          text-shadow: 0px 0px 1px black;
-        }
-        .wrong {
-          background-color: gray;
-        }
-        .bull {
-          background-color: green;
-        }
-        .cow {
-          background-color: rgb(226, 226, 23);
-        }
-      }
-    }
-  }
-  .top {
-    transform: translateY(-8rem) rotateX(90deg);
-  }
-  .bottom {
-    transform: translateY(8rem) rotateX(-90deg);
+    @include image(19rem, 8rem, cover);
+    margin: 0.2rem 0 0.2rem 0;
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 780px) {
   .home-page {
-    .welcome {
-      h6 {
-        margin: 0.3rem;
-      }
-      p {
-        margin: 0.3rem;
-      }
-    }
-    input {
-      -webkit-text-fill-color: white;
-      opacity: 1;
+    img {
+      margin: 1rem;
     }
   }
 }

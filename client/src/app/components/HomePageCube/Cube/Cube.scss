@@ -1,0 +1,184 @@
+@use "../../../../styles/main" as *;
+
+@keyframes turn {
+  0% {
+    transform: rotateY(0deg);
+  }
+  25% {
+    transform: rotateY(90deg);
+  }
+  50% {
+    transform: rotateY(180deg);
+  }
+  75% {
+    transform: rotateY(270deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+.cube-container {
+  position: relative;
+  perspective: 550px;
+  margin: 2.2rem;
+}
+
+.cube {
+  @include general-properties(16rem, 16rem, transparent);
+  position: relative;
+  transform-style: preserve-3d;
+  animation: turn 29s ease-in-out 0s infinite;
+
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+
+.face {
+  position: absolute;
+  opacity: 0.95;
+  user-select: none;
+  border: 0;
+  text-shadow: 0px 0px 5px black;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+$cubeColors: (
+  welcome: #02d502,
+  info: #02d502,
+  account: #ffff30,
+  how-to-play: #d02020,
+  top: white,
+  bottom: white
+);
+
+// creating each side of the cube with common properties and its own bg-color
+@each $class, $backColor in $cubeColors {
+  .#{$class} {
+    @include general-properties(15.5rem, 15.5rem, #{$backColor});
+    @include display-flex(column);
+    align-items: center;
+    color: white;
+  }
+}
+
+.welcome {
+  transform: translateZ(7.75rem);
+  justify-content: center;
+  h6 {
+    @include font($fontVarellaRound, 1.1rem, white, center);
+    margin: 0.4rem;
+  }
+  p {
+    @include font($fontVarellaRound, 0.9rem, white, justify);
+    margin: 0.3rem 0.5rem;
+  }
+}
+.account {
+  transform: translateX(-7.75rem) rotateY(-90deg);
+  span {
+    height: 32%;
+    @include display-flex(column);
+    align-items: center;
+    justify-content: center;
+  }
+  p {
+    @include font($fontVarellaRound, 0.95rem, white, center);
+    text-shadow: 0px 0px 5px #848420;
+  }
+  a {
+    @include font($fontRoboto, 0.95rem, blue, center);
+    text-shadow: 0px 0px 5px #d7d730;
+    font-weight: 600;
+    &:visited {
+      color: blue;
+    }
+  }
+}
+.info {
+  transform: translateZ(-7.75rem) rotateY(180deg);
+  justify-content: space-evenly;
+  div {
+    @include display-flex(column);
+    align-items: center;
+    p {
+      @include font($fontVarellaRound, 1rem, white, center);
+      text-shadow: 0px 0px 10px rgb(36, 134, 36);
+    }
+    a {
+      @include font($fontRoboto, 1.1rem, blue, center);
+      text-shadow: 0px 0px 10px rgb(36, 134, 36);
+      font-weight: 600;
+    }
+  }
+}
+.how-to-play {
+  transform: translateX(7.75rem) rotateY(90deg);
+  text-align: justify;
+  line-height: 1rem;
+  h6 {
+    @include font($fontVarellaRound, 1rem, white, center);
+    margin: 0.4rem;
+  }
+  p {
+    @include font($fontVarellaRound, 0.9rem, white, flex-start);
+    margin: 0 0.3rem 0.3rem 0.3rem;
+  }
+
+  .guess-example {
+    @include display-flex(column);
+    height: 100%;
+    span {
+      @include display-flex(row);
+      height: 100%;
+      margin: 0.3rem;
+      p {
+        @include font($fontVarellaRound, 0.75rem, white, justify);
+        margin: 0 0 0.2rem 0;
+        align-self: flex-end;
+      }
+      input {
+        @include general-properties(1.5rem, 1.5rem);
+        @include font($fontGame, 1.1rem, white, center);
+        margin: 0 0.3rem 0 0;
+        text-shadow: 0px 0px 20px black;
+      }
+      .wrong {
+        background-color: gray;
+      }
+      .bull {
+        background-color: green;
+      }
+      .cow {
+        background-color: rgb(226, 226, 23);
+      }
+    }
+  }
+}
+.top {
+  transform: translateY(-7.75rem) rotateX(90deg);
+}
+.bottom {
+  transform: translateY(7.7rem) rotateX(-90deg);
+}
+
+@media (max-width: 780px) {
+  .cube-container {
+    margin: 3rem;
+  }
+  .welcome {
+    h6 {
+      margin: 0.3rem;
+    }
+    p {
+      margin: 0.3rem;
+    }
+  }
+  input {
+    -webkit-text-fill-color: white;
+    opacity: 1;
+  }
+}

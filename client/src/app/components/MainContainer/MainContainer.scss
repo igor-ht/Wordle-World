@@ -1,7 +1,7 @@
 @use "../../../styles/main" as *;
 
 .main-container {
-  @include general-properties(100dvhw, 80dvh, $bg-main);
+  @include general-properties(100dvw, 80dvh, $bg-main);
   @include display-flex();
   transition: 1s;
   justify-content: center;
