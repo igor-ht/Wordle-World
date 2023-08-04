@@ -6,10 +6,8 @@
   transition: 1s;
   justify-content: center;
   align-items: center;
-}
 
-@media (max-width: 700px) {
-  .main-container {
+  @include media-query($media-md) {
     overflow-y: auto;
     overflow-x: hidden;
   }

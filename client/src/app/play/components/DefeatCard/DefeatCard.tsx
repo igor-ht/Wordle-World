@@ -40,6 +40,7 @@ export default function DefeatCard({ handleResetGame }: { handleResetGame: () =>
 					width={200}
 					height={200}
 					priority
+					quality={1}
 				/>
 				<section>
 					<p>

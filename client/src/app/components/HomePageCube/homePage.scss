@@ -9,12 +9,8 @@
   img {
     @include image(19rem, 8rem, cover);
     margin: 0.2rem 0 0.2rem 0;
-  }
-}
 
-@media (max-width: 780px) {
-  .home-page {
-    img {
+    @include media-query($media-md) {
       margin: 1rem;
     }
   }

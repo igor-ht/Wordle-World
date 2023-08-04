@@ -1,4 +1,4 @@
-@use "../../style/main" as *;
+@use "../../styles/main" as *;
 
 .dashboard-container {
   @include general-properties(100%, 100%);

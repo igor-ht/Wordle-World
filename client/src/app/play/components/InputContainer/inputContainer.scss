@@ -22,34 +22,25 @@
 		box-shadow: 0px 0px 10px 3px white;
 	}
 }
-@keyframes ShortGuess {
-	0% {
-		margin-left: 15px;
-		margin-right: 0;
-	}
-	50% {
-		margin-left: 0;
-		margin-right: 0;
-	}
-	100% {
-		margin-left: 0;
-		margin-right: 15px;
-	}
-}
-@keyframes NotFoundGuess {
-	0% {
-		margin-left: 15px;
-		margin-right: 0;
-	}
-	50% {
-		margin-left: 0;
-		margin-right: 0;
-	}
-	100% {
-		margin-left: 0;
-		margin-right: 15px;
+@mixin generateBadGuessKeyframes($name) {
+	@keyframes #{$name} {
+		0% {
+			margin-left: 1rem;
+			margin-right: 0;
+		}
+		50% {
+			margin-left: 0;
+			margin-right: 0;
+		}
+		100% {
+			margin-left: 0;
+			margin-right: 1rem;
+		}
 	}
 }
+@include generateBadGuessKeyframes(ShortGuess);
+@include generateBadGuessKeyframes(NotFoundGuess);
+
 @keyframes InputUpdate {
 	from {
 		opacity: 0.3;
@@ -64,7 +55,7 @@
 .input-container {
 	@include display-flex(column);
 	align-items: center;
-	margin-top: 5px;
+	margin-top: 0.3rem;
 
 	.span-complete {
 		background-color: rgba(255, 255, 255, 0.626);
@@ -84,7 +75,12 @@
 	input {
 		@include general-properties(2.5rem, 2.5rem, rgba(228, 228, 228, 0.3));
 		@include font-game-input;
-		margin: 2px;
+		margin: 0.15rem;
+
+		@include media-query($media-md) {
+			-webkit-text-fill-color: var(--color);
+			opacity: 1;
+		}
 
 		$inputs: (
 			bull: rgb(36, 199, 36),
@@ -114,14 +110,5 @@
 		outline: none;
 		box-shadow: 0px 0px 10px 3px white;
 		animation: InputPop 300ms;
-	}
-}
-
-@media (max-width: 700px) {
-	.input-container {
-		input {
-			-webkit-text-fill-color: var(--color);
-			opacity: 1;
-		}
 	}
 }

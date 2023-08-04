@@ -17,7 +17,7 @@
 	gap: 0.3rem;
 	margin: 0.3rem;
 
-	@include media-query(780px) {
+	@include media-query($media-md) {
 		@include general-properties(98dvw, 33%, inherit);
 		margin: 0.5rem;
 	}
@@ -26,20 +26,20 @@
 		flex: 1 1 auto;
 		@include display-flex(row);
 		gap: 0.3rem;
-	}
-}
 
-@media (max-width: 780px) {
-	.keyboard-container {
-		// @include general-properties(98dvw, 33%, inherit);
-		// margin: 0.5rem;
-
-		.container-row {
+		@include media-query($media-md) {
 			gap: 0.2rem;
-			button {
-				font-size: x-small;
-				font-weight: 700;
-				border-radius: 3px;
+		}
+
+		.btn-digital-keyboard {
+			// properties defined at components/_buttons
+			&:hover {
+				box-shadow: 0px 0px 6px 2px white;
+				opacity: 0.8;
+			}
+			&:active {
+				box-shadow: 0px 0px 10px 6px white;
+				opacity: 0.6;
 			}
 		}
 	}

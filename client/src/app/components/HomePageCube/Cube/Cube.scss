@@ -22,6 +22,10 @@
   position: relative;
   perspective: 550px;
   margin: 2.2rem;
+
+  @include media-query($media-md) {
+    margin: 3rem;
+  }
 }
 
 .cube {
@@ -75,6 +79,14 @@ $cubeColors: (
   p {
     @include font($fontVarellaRound, 0.9rem, white, justify);
     margin: 0.3rem 0.5rem;
+  }
+  @include media-query($media-md) {
+    h6 {
+      margin: 0.3rem;
+    }
+    p {
+      margin: 0.3rem;
+    }
   }
 }
 .account {
@@ -145,6 +157,11 @@ $cubeColors: (
         @include font($fontGame, 1.1rem, white, center);
         margin: 0 0.3rem 0 0;
         text-shadow: 0px 0px 20px black;
+
+        @include media-query($media-md) {
+          -webkit-text-fill-color: white;
+          opacity: 1;
+        }
       }
       .wrong {
         background-color: gray;
@@ -163,22 +180,4 @@ $cubeColors: (
 }
 .bottom {
   transform: translateY(7.7rem) rotateX(-90deg);
-}
-
-@media (max-width: 780px) {
-  .cube-container {
-    margin: 3rem;
-  }
-  .welcome {
-    h6 {
-      margin: 0.3rem;
-    }
-    p {
-      margin: 0.3rem;
-    }
-  }
-  input {
-    -webkit-text-fill-color: white;
-    opacity: 1;
-  }
 }

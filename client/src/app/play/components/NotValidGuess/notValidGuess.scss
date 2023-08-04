@@ -1,38 +1,28 @@
 @use "../../../../styles/main" as *;
 
-@keyframes ShortGuessTooltip {
-	0% {
-		transform: rotate(10deg);
-	}
-	20% {
-		transform: rotate(-10deg);
-	}
-	50% {
-		transform: rotate(-10deg);
-	}
-	100% {
-		transform: rotate(10deg);
+@mixin generateToolTipKeyframes($name) {
+	@keyframes #{$name} {
+		0% {
+			transform: rotate(10deg);
+		}
+		20% {
+			transform: rotate(-10deg);
+		}
+		50% {
+			transform: rotate(-10deg);
+		}
+		100% {
+			transform: rotate(10deg);
+		}
 	}
 }
 
-@keyframes NotFoundGuessTooltip {
-	0% {
-		transform: rotate(10deg);
-	}
-	20% {
-		transform: rotate(-10deg);
-	}
-	50% {
-		transform: rotate(-10deg);
-	}
-	100% {
-		transform: rotate(10deg);
-	}
-}
+@include generateToolTipKeyframes(ShortGuessTooltip);
+@include generateToolTipKeyframes(NotFoundGuessTooltip);
 
 .short-guess-tooltip {
 	@include general-properties(10rem, 3.5rem, rgb(0 0 0 / 73%));
-	@include font(var(--fontVarellaRound), 1rem, white, center);
+	@include font($fontVarellaRound, 1rem, white, center);
 	@include display-flex();
 	position: absolute;
 	bottom: 58%;

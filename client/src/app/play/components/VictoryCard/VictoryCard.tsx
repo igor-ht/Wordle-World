@@ -30,11 +30,11 @@ export default function VictoryCard({ gameState, handleResetGame }: { gameState:
 					width={200}
 					height={200}
 					priority
+					quality={1}
 				/>
 				<section>
 					<p>
 						Nice work! The word was &apos;<u>{gameState.currentGuess.toLowerCase()}</u>&apos; and you got it right!
-						<br />
 						<br />
 						Keep playing and improving yourself and your vocabulary!
 					</p>

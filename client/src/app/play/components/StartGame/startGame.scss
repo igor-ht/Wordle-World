@@ -6,6 +6,11 @@
 	align-items: center;
 	border-radius: 5px;
 
+	@include media-query($media-md) {
+		margin: 0.3rem;
+		width: 90%;
+	}
+
 	.start-game-card {
 		@include display-flex(column);
 		align-items: center;
@@ -18,7 +23,7 @@
 
 			p {
 				@include font($fontVarellaRound, 1.15rem, black, justify);
-				margin: 5px;
+				margin: 0.3rem;
 			}
 
 			.guess {
@@ -26,10 +31,15 @@
 				input {
 					@include general-properties(2.2rem, 2.2rem, white);
 					@include font($fontVarellaRound, 1rem, black, center);
-					margin: 5px;
+					margin: 0.3rem;
 					font-weight: 600;
 					border: 0;
 					border-radius: 10%;
+
+					@include media-query($media-md) {
+						-webkit-text-fill-color: #000000;
+						opacity: 1;
+					}
 
 					&:nth-child(1) {
 						background-color: rgb(128, 128, 128);
@@ -51,17 +61,27 @@
 
 			.explain {
 				list-style: none;
-				margin: 5px;
+				margin: 0.3rem;
 				span {
 					@include display-flex();
-					margin: 0px;
+					margin: 0;
+
+					@include media-query($media-md) {
+						width: 100%;
+						margin: 0.2rem;
+					}
 					input {
 						@include general-properties(2rem, 2rem, white);
 						@include font($fontVarellaRound, 0.9rem, black, center);
-						margin: 2px;
+						margin: 0.2rem;
 						font-weight: 600;
 						border: 0;
 						border-radius: 10%;
+
+						@include media-query($media-md) {
+							-webkit-text-fill-color: #000000;
+							opacity: 1;
+						}
 					}
 
 					&:nth-child(1) {
@@ -79,20 +99,19 @@
 							background-color: rgb(36, 199, 36);
 						}
 					}
+
+					@include media-query($media-md) {
+						p {
+							font-size: 1rem;
+						}
+					}
 				}
 			}
 		}
 
 		button {
-			@include general-properties(300px, 40px, rgb(36, 199, 36));
-			@include font($fontVarellaRound, large, white, center);
-			border-radius: 5px;
-			margin: 5px;
-			border: 0;
-			cursor: pointer;
-			font-weight: 400;
-			font-style: normal;
-
+			@extend .btn-auth;
+			font-size: 1.1rem;
 			&:hover {
 				opacity: 0.9;
 			}
@@ -107,7 +126,7 @@
 			.link {
 				@include font($fontVarellaRound, 1rem, black);
 				padding: 0;
-				margin: 0px;
+				margin: 0;
 
 				a {
 					color: blue;
@@ -117,43 +136,6 @@
 					}
 					&:visited {
 						color: blue;
-					}
-				}
-			}
-		}
-	}
-}
-@media (max-width: 700px) {
-	.start-game {
-		margin: 5px;
-		width: 90%;
-
-		.start-game-card {
-			.help {
-				margin: 10px;
-
-				p {
-					margin: 2px 2px 4px 2px;
-				}
-				.guess {
-					margin: 4px;
-					input {
-						margin: 2px;
-						-webkit-text-fill-color: #000000;
-						opacity: 1;
-					}
-				}
-				.explain {
-					span {
-						width: 100%;
-						margin: 4px;
-						input {
-							-webkit-text-fill-color: #000000;
-							opacity: 1;
-						}
-						p {
-							font-size: 1rem;
-						}
 					}
 				}
 			}

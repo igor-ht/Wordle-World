@@ -1,68 +1,91 @@
 @use "../../styles/main" as *;
 
-.signin-container {
+.signin-card {
+	@include general-properties(40rem, 90%, $bg-nav);
 	@include display-flex(column);
 	align-items: center;
 	justify-content: center;
-}
-
-.signin-box {
-	@include general-properties(40rem, auto, var(--navfooterBackground));
-	@include display-flex(column);
-	align-items: center;
 	border: 0;
-	border-radius: 2%;
-	box-shadow: 0px 0px 5px 0px white;
+	border-radius: 4px;
+	box-shadow: 0 0 0.3rem 0 white;
 
 	img {
 		@include image(14rem, auto, cover);
-		margin-top: 10px;
+		margin-top: 0.6rem;
 		pointer-events: none;
 	}
 
-	.signin-form {
-		@include display-flex(column);
-		justify-content: center;
-		gap: 10px;
+	@include media-query($media-md) {
+		@include general-properties(90dvw, auto, $bg-nav);
+		img {
+			width: 13rem;
+		}
+	}
 
-		.error {
-			@include font(var(--fontVarellaRound), smaller, red);
-			float: right;
-			margin-top: 0.3rem;
+	.form {
+		margin: 0.3rem;
+		text-align: center;
+		@include media-query($media-md) {
+			margin: 0;
 		}
 
-		label {
-			@include font(var(--fontVarellaRound), 1.1rem, black);
-			float: left;
-			margin-bottom: 0;
-			font-weight: 400;
-			font-style: normal;
-		}
-		input {
-			@include general-properties(300px, 25px, rgb(255, 255, 255));
-			@include font(var(--fontVarellaRound), 1rem, black);
-			border-radius: 3%;
-			border: 1px solid white;
-			font-weight: 400;
-			font-style: normal;
+		.container {
+			@include display-flex(column);
+			gap: 0;
+			margin: 0.3rem;
+			&:has(:nth-child(4)) {
+				@include display-flex(row);
+				@include media-query($media-md) {
+					@include display-flex(column);
 
-			&::placeholder {
-				@include font(var(--fontVarellaRound), small, rgb(185, 185, 185));
+					.input-box {
+						margin: 0;
+					}
+				}
 			}
+			.input-box {
+				@include display-flex(column);
+				margin: 0.3rem;
+				label {
+					@include font($fontVarellaRound, 1.1rem, black);
+					float: left;
+					margin: 0.2rem 0 0.2rem 0;
+					font-weight: 400;
+					font-style: normal;
+				}
+				input {
+					@include general-properties(18.75rem, 1.7rem, rgb(255, 255, 255));
+					@include font($fontVarellaRound, 1rem, black);
+					border-radius: 3%;
+					border: 1px solid white;
+					font-weight: 400;
+					font-style: normal;
 
-			&:focus-visible {
-				outline: none;
-				border: 1px solid rgb(255, 255, 255);
-				box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.96);
-				background-color: rgb(239, 244, 210);
+					&::placeholder {
+						@include font($fontVarellaRound, small, rgb(185, 185, 185));
+					}
+
+					&:focus-visible {
+						outline: none;
+						border: 1px solid rgb(255, 255, 255);
+						box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.96);
+						background-color: rgb(239, 244, 210);
+					}
+				}
+				.error {
+					@include font($fontVarellaRound, smaller, red);
+					float: right;
+					margin-top: 0.3rem;
+				}
 			}
 		}
+
 		button {
-			@include general-properties(300px, 40px, rgb(103, 217, 68));
-			@include font(var(--fontVarellaRound), 1rem, white, center);
+			@include general-properties(18.75rem, 2.5rem, rgb(103, 217, 68));
+			@include font($fontVarellaRound, 1rem, white, center);
 			align-self: center;
 			border-radius: 5px;
-			margin-top: 10px;
+			margin-top: 0.6rem;
 			border: 0;
 			font-weight: 400;
 			font-style: normal;
@@ -80,12 +103,12 @@
 			}
 		}
 	}
-	.signin-google {
+	.oauth-google {
 		button {
-			@include general-properties(300px, 40px, rgb(207, 207, 207));
+			@include general-properties(18.75rem, 2.5rem, rgb(207, 207, 207));
 			@include display-flex();
-			@include font(var(--fontVarellaRound), 1rem, white, center);
-			margin: 10px 10px 15px 10px;
+			@include font($fontVarellaRound, 1rem, white, center);
+			margin: 0.6rem 0.6rem 0.9rem 0.6rem;
 			border: 0;
 			border-radius: 5px;
 			align-items: center;
@@ -113,10 +136,5 @@
 				box-shadow: 0px 0px 5px 0px black;
 			}
 		}
-	}
-}
-@media (max-width: 700px) {
-	.signin-box {
-		width: 90vw;
 	}
 }

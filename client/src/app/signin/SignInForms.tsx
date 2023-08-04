@@ -56,42 +56,49 @@ export default function SignInForms() {
 			{userLogged && <LoadingSkeleton />}
 			<form
 				method="POST"
-				className={'signin-form'}
+				className={'form'}
 				onSubmit={formik.handleSubmit}>
-				<span>
-					<label htmlFor="email">Email</label>
-					<span className="error">{formik.touched.email && formik.errors.email}</span>
-				</span>
-				<input
-					type="email"
-					id="email"
-					name="email"
-					placeholder="your_email@example.com"
-					required
-					onChange={formik.handleChange}
-					autoComplete="email"
-					value={formik.values.email}
-				/>
-				<span>
-					<label htmlFor="password">Password</label>
-					<span className="error">{formik.touched.password && formik.errors.password}</span>
-				</span>
-				<input
-					type="password"
-					id="password"
-					name="password"
-					placeholder="your password"
-					required
-					onChange={formik.handleChange}
-					value={formik.values.password}
-				/>
+				<div className="container">
+					<div className="input-box">
+						<span>
+							<label htmlFor="email">Email</label>
+							<span className="error">{formik.touched.email && formik.errors.email}</span>
+						</span>
+						<input
+							type="email"
+							id="email"
+							name="email"
+							placeholder="your_email@example.com"
+							required
+							onChange={formik.handleChange}
+							autoComplete="email"
+							value={formik.values.email}
+						/>
+					</div>
+					<div className="input-box">
+						<span>
+							<label htmlFor="password">Password</label>
+							<span className="error">{formik.touched.password && formik.errors.password}</span>
+						</span>
+						<input
+							type="password"
+							id="password"
+							name="password"
+							placeholder="your password"
+							required
+							onChange={formik.handleChange}
+							value={formik.values.password}
+						/>
+					</div>
+				</div>
+
 				<button
 					type="submit"
 					disabled={userLogged}>
 					Sign In
 				</button>
 			</form>
-			<div className="signin-google">
+			<div className="oauth-google">
 				<button
 					type="button"
 					disabled={userLogged}

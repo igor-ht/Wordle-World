@@ -86,8 +86,11 @@ export default function SignUpForms() {
 	return (
 		<>
 			{userLogged && <LoadingSkeleton />}
-			<form onSubmit={formik.handleSubmit}>
-				<div className="signup-form">
+			<form
+				method="POST"
+				className="form"
+				onSubmit={formik.handleSubmit}>
+				<div className="container">
 					<div className="input-box">
 						<span>
 							<label htmlFor="email">Name</label>
@@ -153,7 +156,7 @@ export default function SignUpForms() {
 					Sign up
 				</button>
 			</form>
-			<div className="signup-google">
+			<div className="oauth-google">
 				<button
 					type="button"
 					disabled={userLogged}
