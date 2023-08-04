@@ -1,6 +1,7 @@
 @use "./fonts" as *;
 @use "./variables" as *;
 
+// element general properties
 @mixin general-properties($width, $height: auto, $backgroundColor: transparent) {
   width: $width;
   height: $height;
@@ -11,6 +12,7 @@
   flex-direction: $direction;
 }
 
+// image
 @mixin image($width, $height, $objectFit) {
   width: $width;
   height: $height;
@@ -18,6 +20,7 @@
   user-select: none;
 }
 
+// fonts
 @mixin font($family, $size, $color, $textAlign: start) {
   font-family: $family;
   font-size: $size;
@@ -36,4 +39,11 @@
   pointer-events: none;
   border: 1px solid white;
   border-radius: 5px;
+}
+
+// media query
+@mixin media-query($size) {
+  @media (max-width: $size) {
+    @content;
+  }
 }

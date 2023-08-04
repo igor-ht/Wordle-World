@@ -14,23 +14,28 @@
 .keyboard-container {
 	@include general-properties(65dvw, 100%, inherit);
 	@include display-flex(column);
-	gap: 5px;
-	margin: 5px;
+	gap: 0.3rem;
+	margin: 0.3rem;
+
+	@include media-query(780px) {
+		@include general-properties(98dvw, 33%, inherit);
+		margin: 0.5rem;
+	}
 
 	.container-row {
 		flex: 1 1 auto;
 		@include display-flex(row);
-		gap: 5px;
+		gap: 0.3rem;
 	}
 }
 
-@media (max-width: 700px) {
+@media (max-width: 780px) {
 	.keyboard-container {
-		@include general-properties(98dvw, 33%, inherit);
-		margin: 10px;
+		// @include general-properties(98dvw, 33%, inherit);
+		// margin: 0.5rem;
 
 		.container-row {
-			gap: 2px;
+			gap: 0.2rem;
 			button {
 				font-size: x-small;
 				font-weight: 700;
