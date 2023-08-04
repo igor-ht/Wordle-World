@@ -1,3 +1,6 @@
+@use "./fonts" as *;
+@use "./variables" as *;
+
 @mixin general-properties($width, $height: auto, $backgroundColor: transparent) {
   width: $width;
   height: $height;
@@ -21,11 +24,11 @@
   color: $color;
   text-align: $textAlign;
 }
-@mixin font-game-input($fontGame) {
+@mixin font-game-input {
   font-family: $fontGame;
-  font-size: clamp(large, 5dvw, x-large);
+  font-size: 1.3rem;
   font-weight: 600;
-  color: var(--color);
+  color: $color;
   text-align: center;
   caret-color: transparent;
   text-transform: uppercase;

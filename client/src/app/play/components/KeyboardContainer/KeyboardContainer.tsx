@@ -19,39 +19,21 @@ export default function KeyboardContainer({ handleKeyPressedFromDigitalKeyboard,
 		<div
 			ref={keyboardContainerElement}
 			className="keyboard-container">
-			<div className="container-row">
-				{KEYBOARD[0].map((letter, index) => (
-					<button
-						key={index}
-						name={letter}
-						onClick={handleKeyPressedFromDigitalKeyboard}>
-						{letter}
-					</button>
-				))}
-			</div>
-
-			<div className="container-row">
-				{KEYBOARD[1].map((letter, index) => (
-					<button
-						key={index}
-						name={letter}
-						onClick={handleKeyPressedFromDigitalKeyboard}>
-						{letter}
-					</button>
-				))}
-			</div>
-
-			<div className="container-row">
-				{KEYBOARD[2].map((letter, index) => (
-					<button
-						key={index}
-						name={letter}
-						className={letter === 'Enter' ? 'enter' : letter === '⌫' ? 'backspace' : ''}
-						onClick={handleKeyPressedFromDigitalKeyboard}>
-						{letter}
-					</button>
-				))}
-			</div>
+			{KEYBOARD.map((row, index) => (
+				<div
+					className="container-row"
+					key={index}>
+					{row.map((letter, index) => (
+						<button
+							key={index}
+							name={letter}
+							className={`btn-digital-keyboard ${(letter === 'Enter' || letter === '⌫') && 'enter-backspace'}`}
+							onClick={handleKeyPressedFromDigitalKeyboard}>
+							{letter}
+						</button>
+					))}
+				</div>
+			))}
 		</div>
 	);
 }

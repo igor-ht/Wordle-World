@@ -83,7 +83,7 @@
 	}
 	input {
 		@include general-properties(2.5rem, 2.5rem, rgba(228, 228, 228, 0.3));
-		@include font-game-input($fontGame);
+		@include font-game-input;
 		margin: 2px;
 
 		$inputs: (
