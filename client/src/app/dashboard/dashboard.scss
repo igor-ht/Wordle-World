@@ -21,7 +21,7 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      background: #694d4d;
+      background: hsl(0, 15%, 36%);
     }
 
     &::-webkit-scrollbar-thumb:hover {
@@ -32,10 +32,10 @@
 
 @keyframes points-skeleton-loading {
   0% {
-    background-color: hsla(120, 71%, 73%, 0.878);
+    background-color: rgba(137, 235, 137, 0.878);
   }
   100% {
-    background-color: hsla(120, 56%, 65%, 0.898);
+    background-color: rgba(116, 216, 116, 0.898);
   }
 }
 

@@ -4,12 +4,17 @@
   @include general-properties(45dvw, 90%, rgb(255, 233, 110));
   @include display-flex(column);
   align-items: center;
-  border: 2px solid gold;
+  border: 2px solid rgb(255, 215, 0);
   overflow: hidden;
 
+  @include media-query($media-md) {
+    @include general-properties(90dvw, 95%, rgb(255, 233, 110));
+    margin: 0 1rem 1rem 1rem;
+  }
+
   h1 {
-    @include font(var(--fontVarellaRound), 1.8rem, black, center);
-    margin: 5px 0 5px 0;
+    @include font($fontVarellaRound, 1.8rem, black, center);
+    margin: 0.3rem 0 0.3rem 0;
     text-decoration: underline;
   }
 
@@ -24,7 +29,7 @@
         height: 2.8rem;
         th {
           @include general-properties(100%, auto, rgb(255, 172, 172));
-          @include font(var(--fontVarellaRound), 1.3rem, black, center);
+          @include font($fontVarellaRound, 1.3rem, black, center);
           @include display-flex();
           align-items: center;
           justify-content: center;
@@ -41,7 +46,7 @@
 
         td {
           width: 33%;
-          @include font(var(--fontVarellaRound), 1.1rem, black, center);
+          @include font($fontVarellaRound, 1.1rem, black, center);
         }
         &:nth-child(odd) {
           background-color: rgb(214, 214, 214);
@@ -80,12 +85,5 @@
         background: #555;
       }
     }
-  }
-}
-
-@media (max-width: 780px) {
-  .ranking-container {
-    @include general-properties(90dvw, 95%, rgb(255, 233, 110));
-    margin: 0 1rem 1rem 1rem;
   }
 }

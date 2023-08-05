@@ -7,13 +7,11 @@ export default function UserStatsLoadingSkeleton() {
 				<h2>Total Points:</h2>
 				<span
 					style={{
-						width: '60%',
+						width: '100%',
 						height: '60px',
 						opacity: '0.7',
 						animation: 'points-skeleton-loading 1s linear infinite alternate',
-						margin: 'auto',
-						marginTop: '0.5rem',
-						marginBottom: '0.5rem',
+						margin: '0.5rem',
 						borderRadius: '5px',
 					}}></span>
 			</div>
