@@ -30,6 +30,7 @@
 
       .user-greet {
         @include font($fontVarellaRound, clamp(1.3rem, 4dvw, 1.4rem), $color);
+        max-width: 35dvw;
         text-overflow: clip;
         overflow: hidden;
         white-space: nowrap;

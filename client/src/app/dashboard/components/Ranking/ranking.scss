@@ -22,11 +22,11 @@
     @include general-properties(98%, 100%, transparent);
     border-collapse: collapse;
     box-shadow: 0px 0px 20px 0px white;
-    margin: 0.5rem;
+
     thead {
       tr {
         @include display-flex();
-        height: 2.8rem;
+        height: 2.6rem;
         th {
           @include general-properties(100%, auto, rgb(255, 172, 172));
           @include font($fontVarellaRound, 1.3rem, black, center);
@@ -43,10 +43,16 @@
         justify-content: space-evenly;
         align-items: center;
         text-align: center;
+        text-overflow: clip;
 
         td {
-          width: 33%;
           @include font($fontVarellaRound, 1.1rem, black, center);
+          flex: 1;
+          max-width: 33%;
+          max-height: 100%;
+          overflow: hidden;
+          text-wrap: nowrap;
+          text-overflow: clip;
         }
         &:nth-child(odd) {
           background-color: rgb(214, 214, 214);
@@ -59,13 +65,15 @@
   }
 
   .user-rank {
-    height: auto;
-    margin-bottom: 0;
+    @include display-flex(column);
+    flex: 1;
+    margin: 0;
   }
   .ranking {
     @include display-flex(column);
     overflow-y: auto;
-    margin-top: 0;
+    margin: 0;
+    margin-bottom: 0.2rem;
     tbody {
       overflow-y: scroll;
 

@@ -5,12 +5,10 @@
   @include display-flex();
   align-items: center;
   justify-content: space-evenly;
-}
 
-@media (max-width: 780px) {
-  .dashboard-container {
+  @include media-query($media-md) {
     flex-wrap: wrap;
-    overflow-y: scroll;
+    overflow-y: auto;
 
     &::-webkit-scrollbar {
       width: 0.6rem;
@@ -35,7 +33,7 @@
     background-color: rgba(137, 235, 137, 0.878);
   }
   100% {
-    background-color: rgba(116, 216, 116, 0.898);
+    background-color: rgba(103, 202, 103, 0.898);
   }
 }
 
@@ -44,6 +42,6 @@
     filter: brightness(1);
   }
   100% {
-    filter: brightness(0.9);
+    filter: brightness(0.85);
   }
 }

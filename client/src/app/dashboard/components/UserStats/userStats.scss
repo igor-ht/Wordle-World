@@ -25,10 +25,23 @@
 
     .points {
       @include font($fontRoboto, 2.8rem, black, center);
+      max-width: 100%;
       margin: 0.5rem;
       letter-spacing: 2px;
       text-shadow: -2px 2px 0 green;
       flex: 1;
+    }
+
+    @include media-query($media-sm) {
+      flex-direction: column;
+      margin-bottom: 0.4rem;
+      h2 {
+        margin: 0.2rem;
+      }
+      .points {
+        margin: 0;
+        line-height: 2.8rem;
+      }
     }
   }
 
@@ -58,6 +71,16 @@
         border: 1px solid green;
       }
     }
+    @include media-query($media-sm) {
+      flex-direction: column;
+      h3 {
+        margin: 0.2rem 0.2rem 0 0.2rem;
+      }
+      input {
+        width: 80%;
+        margin: 0 0.2rem 0.2rem 0.2rem;
+      }
+    }
   }
 
   .user-discovered-words-container {
@@ -71,7 +94,7 @@
       tbody {
         .tr-grid {
           display: grid;
-          grid-template-columns: repeat(5, 1fr);
+          grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
           border-collapse: collapse;
           justify-items: center;
 
