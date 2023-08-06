@@ -150,7 +150,7 @@ $cubeColors: (
       }
       input {
         @include general-properties(1.5rem, 1.5rem);
-        @include font($fontGame, 1.1rem, white, center);
+        @include font($fontGame, 1rem, white, center);
         margin: 0 0.3rem 0 0;
         text-shadow: 0px 0px 20px black;
 

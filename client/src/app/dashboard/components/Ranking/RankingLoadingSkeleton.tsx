@@ -27,51 +27,17 @@ export default function RankingLoadingSkeleton() {
 					</tr>
 				</thead>
 				<tbody style={{ overflow: 'hidden' }}>
-					<tr style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
+					{new Array(15).fill(null).map((cell, index) => {
+						return (
+							<tr
+								key={index}
+								style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						);
+					})}
 				</tbody>
 			</table>
 		</div>

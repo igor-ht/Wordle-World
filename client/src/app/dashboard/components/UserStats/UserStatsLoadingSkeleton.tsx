@@ -7,7 +7,7 @@ export default function UserStatsLoadingSkeleton() {
 				<h2>Total Points:</h2>
 				<span
 					style={{
-						width: '100%',
+						width: '95%',
 						height: '60px',
 						opacity: '0.7',
 						animation: 'points-skeleton-loading 1s linear infinite alternate',
@@ -30,84 +30,15 @@ export default function UserStatsLoadingSkeleton() {
 				<table>
 					<tbody>
 						<tr className="tr-grid">
-							<td style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-								<p style={{ height: '30px' }}></p>
-							</td>
-							<td style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-								<p style={{ height: '30px' }}></p>
-							</td>
-							<td style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-								<p style={{ height: '30px' }}></p>
-							</td>
-							<td style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-								<p style={{ height: '30px' }}></p>
-							</td>
-							<td style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-								<p style={{ height: '30px' }}></p>
-							</td>
-							<td style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-								<p style={{ height: '30px' }}></p>
-							</td>
-							<td style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-								<p style={{ height: '30px' }}></p>
-							</td>
-							<td style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-								<p style={{ height: '30px' }}></p>
-							</td>
-							<td style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-								<p style={{ height: '30px' }}></p>
-							</td>
-							<td style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-								<p style={{ height: '30px' }}></p>
-							</td>
-							<td style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-								<p style={{ height: '30px' }}></p>
-							</td>
-							<td style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-								<p style={{ height: '30px' }}></p>
-							</td>
-							<td style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-								<p style={{ height: '30px' }}></p>
-							</td>
-							<td style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-								<p style={{ height: '30px' }}></p>
-							</td>
-							<td style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-								<p style={{ height: '30px' }}></p>
-							</td>
-							<td style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-								<p style={{ height: '30px' }}></p>
-							</td>
-							<td style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-								<p style={{ height: '30px' }}></p>
-							</td>
-							<td style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-								<p style={{ height: '30px' }}></p>
-							</td>
-							<td style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-								<p style={{ height: '30px' }}></p>
-							</td>
-							<td style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-								<p style={{ height: '30px' }}></p>
-							</td>
-							<td style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-								<p style={{ height: '30px' }}></p>
-							</td>
-							<td style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-								<p style={{ height: '30px' }}></p>
-							</td>
-							<td style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-								<p style={{ height: '30px' }}></p>
-							</td>
-							<td style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-								<p style={{ height: '30px' }}></p>
-							</td>
-							<td style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-								<p style={{ height: '30px' }}></p>
-							</td>
-							<td style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
-								<p style={{ height: '30px' }}></p>
-							</td>
+							{new Array(100).fill(null).map((cell, index) => {
+								return (
+									<td
+										key={index}
+										style={{ animation: 'ranking-skeleton-loading 1s linear infinite alternate' }}>
+										<p style={{ height: '30px' }}></p>
+									</td>
+								);
+							})}
 						</tr>
 					</tbody>
 				</table>

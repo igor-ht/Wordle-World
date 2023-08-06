@@ -4,8 +4,7 @@ import Footer from './components/Footer/Footer';
 import MainContainer from './components/MainContainer/MainContainer';
 import Navbar from './components/Navbar&Menu/Navbar';
 import { Session } from 'next-auth';
-import { Suspense } from 'react';
-import LoadingSkeleton from './components/LoadingSkeleton/LoadingSkeleton';
+import { varelaRound, roboto } from '../utils/fonts';
 
 export const metadata = {
 	title: 'Wordle World',
@@ -18,15 +17,15 @@ export const metadata = {
 export default function RootLayout({ children, session }: { children: React.ReactNode; session: Session }) {
 	return (
 		<>
-			<html lang="en">
+			<html
+				lang="en"
+				className={`${varelaRound.variable} ${roboto.variable}`}>
 				<body
 					className="app"
 					data-theme="light">
 					<AuthProvider session={session}>
 						<Navbar />
-						<MainContainer>
-							<Suspense fallback={<LoadingSkeleton />}>{children}</Suspense>
-						</MainContainer>
+						<MainContainer>{children}</MainContainer>
 						<Footer />
 					</AuthProvider>
 				</body>

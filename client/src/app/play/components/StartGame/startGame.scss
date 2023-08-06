@@ -1,10 +1,12 @@
 @use "../../../../styles/main" as *;
 
 .start-game {
-	@include general-properties(60%, 85%, rgb(193, 126, 255));
+	@include general-properties(60%, auto, rgb(193, 126, 255));
 	@include display-flex(column);
+	max-height: 98%;
 	align-items: center;
 	border-radius: 5px;
+	overflow-y: auto;
 
 	@include media-query($media-md) {
 		margin: 0.3rem;

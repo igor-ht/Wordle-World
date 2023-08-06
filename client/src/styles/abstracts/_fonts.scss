@@ -1,5 +1,5 @@
-$fontVarellaRound: "Varela Round", sans-serif;
-$fontRoboto: "Roboto", sans-serif;
+$fontVarellaRound: var(--fontVarelaRound);
+$fontRoboto: var(--fontRoboto);
 $fontGame:
   system-ui,
   -apple-system,

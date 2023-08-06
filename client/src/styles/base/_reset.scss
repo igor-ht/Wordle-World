@@ -1,76 +1,92 @@
-// reset got from here -> https://andy-bell.co.uk/a-modern-css-reset/
-
-/* Box sizing rules */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-/* Remove default margin */
-body,
-h1,
-h2,
-h3,
-h4,
-p,
-figure,
-blockquote,
-dl,
-dd {
-  margin: 0;
-}
-
-/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
-ul[role='list'],
-ol[role='list'] {
-  list-style: none;
-}
-
-/* Set core root defaults */
-html:focus-within {
-  scroll-behavior: smooth;
-}
-
-/* Set core body defaults */
-body {
-  min-height: 100vh;
-  text-rendering: optimizeSpeed;
-  line-height: 1.5;
-}
-
-/* A elements that don't have a class get default styles */
-a:not([class]) {
-  text-decoration-skip-ink: auto;
-}
-
-/* Make images easier to work with */
-img,
-picture {
-  max-width: 100%;
-  display: block;
-}
-
-/* Inherit fonts for inputs and buttons */
+// input elements reset
+// All of our custom controls should be what we expect them to be
 input,
-button,
-textarea,
-select {
-  font: inherit;
+textarea {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
 }
 
-/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
-@media (prefers-reduced-motion: reduce) {
-  html:focus-within {
-   scroll-behavior: auto;
+// Show overflow in Edge
+// Source: https://github.com/twbs/bootstrap/blob/v4-dev/scss/_reboot.scss
+button,
+input {
+  overflow: visible;
+}
+
+// Remove inner border and padding from Firefox
+// Source: https://github.com/twbs/bootstrap/blob/v4-dev/scss/_reboot.scss
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  padding: 0;
+  border-style: none;
+}
+
+// Overrides extra rounded corners on search inputs in iOS
+// Source: https://github.com/twbs/bootstrap/blob/v4-dev/scss/_reboot.scss
+[type="search"] {
+  outline-offset: -2px;
+  -webkit-appearance: textfield;
+  -webkit-box-sizing: content-box;
+}
+
+// Remove inner padding and cancel buttons in Chrome and Safari on macOS
+// Source: https://github.com/twbs/bootstrap/blob/v4-dev/scss/_reboot.scss
+[type="search"]::-webkit-search-cancel-button,
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+// Correct inability to style clickable types in iOS and Safari
+// Change font properties to `inherit` in Safari
+// Source: https://github.com/twbs/bootstrap/blob/v4-dev/scss/_reboot.scss
+::-webkit-file-upload-button {
+  font: inherit; // 2
+  -webkit-appearance: button; // 1
+}
+
+// Remove IE/ Edge clear "X" & eye icons
+input::-ms-clear,
+input::-ms-reveal {
+  display: none;
+}
+
+// Remove Safari contacts icon
+input::-webkit-contacts-auto-fill-button {
+  display: none;
+}
+
+// Remove Safari password & caps lock icons
+input[type="password"]::-webkit-credentials-auto-fill-button,
+input[type="password"]::-webkit-caps-lock-indicator {
+  display: none;
+}
+
+// Disable WebKit's banana-yellow input fields
+// Combination of techniques from:
+// https://stackoverflow.com/questions/2781549/removing-input-background-colour-for-chrome-autocomplete
+@-webkit-keyframes autofill {
+  to {
+    background: transparent;
   }
-  
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:active,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus,
+select:-webkit-autofill:active {
+  -webkit-animation-name: autofill;
+  -webkit-animation-fill-mode: both;
+  -webkit-transition-delay: 9999s;
+  -webkit-transition-property: background-color, color;
 }

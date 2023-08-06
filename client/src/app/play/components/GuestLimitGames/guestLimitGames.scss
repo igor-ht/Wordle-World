@@ -35,8 +35,7 @@
   a {
     text-decoration: none;
 
-    button {
-      @extend .btn-auth;
+    .btn {
       background-color: rgb(75, 210, 255);
       box-shadow: 0px 0px 20px 0px rgb(12, 77, 255);
       text-shadow: 0px 0px 20px black;

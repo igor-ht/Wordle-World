@@ -14,7 +14,11 @@ export default function GuestLimitGames() {
 					And of course it&apos;s everything free! What are you waiting for?
 				</p>
 				<Link href={'/signup'}>
-					<button type="button">Registrate now</button>
+					<button
+						className="btn"
+						type="button">
+						Registrate now
+					</button>
 				</Link>
 			</div>
 		</div>

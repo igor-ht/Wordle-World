@@ -88,7 +88,8 @@
     max-height: 70%;
     width: 95%;
     overflow-y: auto;
-    margin-bottom: 0.6rem;
+    overflow-x: hidden;
+    margin-bottom: 0.5rem;
 
     table {
       tbody {
@@ -96,11 +97,13 @@
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
           border-collapse: collapse;
-          justify-items: center;
 
           td {
-            @include general-properties(100%, 100%, none);
+            @include general-properties(100%, 2rem);
+            @include display-flex();
             @include font($fontVarellaRound, 1.1rem, black, center);
+            align-items: center;
+            justify-content: center;
 
             &:nth-child(odd) {
               background-color: rgba(255, 255, 255, 0.237);
