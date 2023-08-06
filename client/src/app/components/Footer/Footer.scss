@@ -2,8 +2,7 @@
 
 .footer {
   @include general-properties(100dvw, 8dvh, $bg-footer);
-  display: grid;
-  grid-template-columns: min-content auto min-content;
+  @include display-flex();
   align-items: center;
   text-align: center;
 
@@ -15,13 +14,13 @@
     justify-content: center;
 
     .btn-image {
-      @include general-properties(2.7rem, 2.7rem);
       margin: 0.2rem 0 0.2rem 0;
     }
   }
 
   p {
     @include font($fontVarellaRound, 1rem, $color, center);
+    flex: 1;
     margin: 0;
   }
 }

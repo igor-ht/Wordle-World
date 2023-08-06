@@ -21,11 +21,7 @@
 .cube-container {
   position: relative;
   perspective: 550px;
-  margin: 2.2rem;
-
-  @include media-query($media-md) {
-    margin: 3rem;
-  }
+  margin: 3rem;
 }
 
 .cube {
@@ -136,7 +132,7 @@ $cubeColors: (
     margin: 0.4rem;
   }
   p {
-    @include font($fontVarellaRound, 0.9rem, white, flex-start);
+    @include font($fontVarellaRound, 0.9rem, white, start);
     margin: 0 0.3rem 0.3rem 0.3rem;
   }
 
