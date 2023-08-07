@@ -18,6 +18,7 @@ export default function MenuButton({ ...menu }) {
 
 	return (
 		<button
+			type="button"
 			className="btn-image"
 			id="menu-icon"
 			onClick={handleDisplayMenu}>

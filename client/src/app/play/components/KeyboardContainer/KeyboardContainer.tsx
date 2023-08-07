@@ -28,6 +28,8 @@ export default function KeyboardContainer({ handleKeyPressedFromDigitalKeyboard,
 							key={index}
 							name={letter}
 							className={`btn-digital-keyboard ${(letter === 'Enter' || letter === '⌫') && 'enter-backspace'}`}
+							autoFocus={false}
+							onFocus={(event) => event.currentTarget.blur()}
 							onClick={handleKeyPressedFromDigitalKeyboard}>
 							{letter}
 						</button>

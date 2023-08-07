@@ -152,6 +152,7 @@ export default function SignUpForms() {
 				</div>
 				<button
 					type="submit"
+					className="btn-auth"
 					disabled={userLogged}>
 					Sign up
 				</button>
@@ -159,11 +160,13 @@ export default function SignUpForms() {
 			<div className="oauth-google">
 				<button
 					type="button"
+					className="btn-oauth-google"
 					disabled={userLogged}
 					onClick={handleGoogleSignUp}>
 					<Image
 						src="/google.icon.svg"
-						alt=""
+						className="google-icon"
+						alt="google"
 						width={33}
 						height={33}
 					/>

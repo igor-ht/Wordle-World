@@ -6,9 +6,9 @@ export default function UserStats(userStats: userStatsType) {
 	const tableRef = useRef<HTMLTableRowElement | null>(null);
 
 	const filterDiscoveredWords = (event: ChangeEvent<HTMLInputElement>) => {
+		let searchWord = /^[A-Za-z]+$/.test(event.target.value) ? event.target.value.toLowerCase() : event.target.value;
 		const filteredArray = userStats.discoveredWords.filter((word) => {
-			if (word.match(event.target.value)) return true;
-			return false;
+			return word.includes(searchWord);
 		});
 		tableRef.current!.innerHTML = filteredArray
 			.map((word) => {

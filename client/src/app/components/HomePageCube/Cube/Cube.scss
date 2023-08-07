@@ -39,7 +39,6 @@
   position: absolute;
   opacity: 0.95;
   user-select: none;
-  border: 0;
   text-shadow: 0px 0px 5px black;
   &:hover {
     opacity: 1;
@@ -126,7 +125,6 @@ $cubeColors: (
 .how-to-play {
   transform: translateX(7.75rem) rotateY(90deg);
   text-align: justify;
-  line-height: 1rem;
   h6 {
     @include font($fontVarellaRound, 1rem, white, center);
     margin: 0.4rem;
@@ -147,17 +145,14 @@ $cubeColors: (
         @include font($fontVarellaRound, 0.75rem, white, justify);
         margin: 0 0 0.2rem 0;
         align-self: flex-end;
+        line-height: 1;
       }
       input {
         @include general-properties(1.5rem, 1.5rem);
         @include font($fontGame, 1rem, white, center);
+        -webkit-text-fill-color: white;
         margin: 0 0.3rem 0 0;
         text-shadow: 0px 0px 20px black;
-
-        @include media-query($media-md) {
-          -webkit-text-fill-color: white;
-          opacity: 1;
-        }
       }
       .wrong {
         background-color: gray;
@@ -172,7 +167,7 @@ $cubeColors: (
   }
 }
 .top {
-  transform: translateY(-7.75rem) rotateX(90deg);
+  transform: translateY(-7.7rem) rotateX(90deg);
 }
 .bottom {
   transform: translateY(7.7rem) rotateX(-90deg);

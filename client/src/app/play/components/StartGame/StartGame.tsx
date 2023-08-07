@@ -109,15 +109,16 @@ export default function StartGame({ startNewGame }: IStartGame) {
 
 				<button
 					type="button"
+					className="btn"
 					onClick={() => startNewGame()}>
 					Play
 				</button>
 				<span>
 					<p className="link">
-						Has an account already? <Link href={'/signin'}>Sign In here</Link>.
+						Has an account already? <Link href={'/signin'}>Sign In here</Link>
 					</p>
 					<p className="link">
-						Create a free account. <Link href={'/signup'}>Sign Up here</Link>.
+						Create a free account. <Link href={'/signup'}>Sign Up here</Link>
 					</p>
 				</span>
 			</div>

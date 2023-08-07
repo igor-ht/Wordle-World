@@ -9,6 +9,7 @@ export default function SignUp() {
 				src="/sign-up.svg"
 				alt="Sign Up"
 				unselectable="on"
+				className="image-title"
 				width={300}
 				height={300}
 				priority

@@ -1,3 +1,73 @@
+@use "../abstracts/index" as *;
+
+// input elements
+input[type="text"],
+input[type="search"],
+input[type="email"],
+input[type="password"] {
+  color: $color;
+  margin: 0;
+  padding: 0;
+  border-radius: 2px;
+  font-style: normal;
+  background-color: white;
+  outline: none;
+  font-weight: 400;
+  opacity: 1;
+  -webkit-text-fill-color: $color;
+  appearance: none;
+  -webkit-appearance: none;
+
+  &::placeholder {
+    -webkit-text-fill-color: gray;
+    @include font($fontVarellaRound, 0.9rem, gray);
+  }
+
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    border: 0;
+    background-color: white;
+  }
+}
+
+// button element
+button {
+  border-radius: 5px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-weight: 400;
+  font-style: normal;
+  user-select: none;
+  cursor: pointer;
+}
+
+// image element
+img {
+  margin: 0;
+  user-select: none;
+  pointer-events: none;
+}
+
+// label
+label {
+  font-style: normal;
+  font-weight: 400;
+}
+
+// anchor tag
+a {
+  background: transparent;
+  text-decoration: none;
+  &:focus,
+  &:hover,
+  &:active {
+    outline: none;
+    text-decoration: none;
+  }
+}
+
 // Set the default font family here so you don't have to override it later
 $normalized_font_family: "Varela Round" !default;
 
@@ -66,28 +136,6 @@ textarea {
 
 body {
   margin: 0;
-}
-
-// =============================================================================
-// Links
-// =============================================================================
-
-// 1. Remove the gray background color from active links in IE 10.
-// 2. Addresses outline displayed oddly in Chrome
-// 3. Improves readability when focused and also mouse hovered in all browsers
-//    people.opera.com/patrickl/experiments/keyboard/test
-
-a {
-  background: transparent;
-  color: $normalize_color;
-  text-decoration: none;
-  &:focus,
-  &:hover,
-  &:active {
-    outline: none;
-    color: $normalize_color;
-    text-decoration: none;
-  }
 }
 
 // =============================================================================

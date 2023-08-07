@@ -18,8 +18,11 @@
 	margin: 0.3rem;
 
 	@include media-query($media-md) {
-		@include general-properties(98dvw, 33%, inherit);
+		@include general-properties(85dvw, 30%, inherit);
 		margin: 0.5rem;
+	}
+	@include media-query($media-sm) {
+		@include general-properties(95dvw, 30%, inherit);
 	}
 
 	.container-row {

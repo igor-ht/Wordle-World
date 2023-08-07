@@ -9,6 +9,9 @@
 
   .wordle-icon {
     max-height: 100%;
+    a {
+      display: block;
+    }
     img {
       @include image(4.5rem, auto, cover);
     }

@@ -2,8 +2,8 @@
 
 import './victoryCard.scss';
 import Image from 'next/image';
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 import { gameStateType } from '@/src/utils/play/reducers';
 import { useRouter } from 'next/navigation';
 
@@ -42,12 +42,14 @@ export default function VictoryCard({ gameState, handleResetGame }: { gameState:
 				<div>
 					<button
 						type="button"
+						className="btn"
 						onClick={handleResetGame}>
 						Play Again
 					</button>
 					{!!session && status === 'authenticated' ? (
 						<button
 							type="button"
+							className="btn"
 							onClick={handleNavigateToDashboard}>
 							Dashboard
 						</button>

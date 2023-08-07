@@ -8,6 +8,7 @@ export default function SignIn() {
 			<Image
 				src="/log-in.svg"
 				alt="Log In"
+				className="image-title"
 				unselectable="on"
 				width={300}
 				height={300}

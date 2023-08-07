@@ -72,15 +72,12 @@
 		@extend .short-guess;
 		animation-name: NotFoundGuess;
 	}
-	input {
+
+	input[type="text"] {
 		@include general-properties(2.5rem, 2.5rem, rgba(228, 228, 228, 0.3));
 		@include font-game-input;
 		margin: 0.15rem;
-
-		@include media-query($media-md) {
-			-webkit-text-fill-color: var(--color);
-			opacity: 1;
-		}
+		user-select: none;
 
 		$inputs: (
 			bull: rgb(36, 199, 36),
@@ -92,6 +89,7 @@
 				background-color: #{$backColor};
 				border: 1px solid #{$backColor};
 				color: white;
+				-webkit-text-fill-color: white;
 				animation: InputUpdate 1s;
 			}
 		}
@@ -106,8 +104,7 @@
 		}
 	}
 	.current-input {
-		background-color: white;
-		outline: none;
+		background-color: white !important;
 		box-shadow: 0px 0px 10px 3px white;
 		animation: InputPop 300ms;
 	}

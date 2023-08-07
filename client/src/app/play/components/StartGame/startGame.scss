@@ -1,7 +1,7 @@
 @use "../../../../styles/main" as *;
 
 .start-game {
-	@include general-properties(60%, auto, rgb(193, 126, 255));
+	@include general-properties(65dvw, auto, rgb(151, 132, 255));
 	@include display-flex(column);
 	max-height: 98%;
 	align-items: center;
@@ -30,18 +30,13 @@
 
 			.guess {
 				margin: 0.5rem;
-				input {
+				input[type="text"] {
+					--color: black;
 					@include general-properties(2.2rem, 2.2rem, white);
-					@include font($fontVarellaRound, 1rem, black, center);
+					@include font($fontVarellaRound, 1rem, --color, center);
 					margin: 0.3rem;
 					font-weight: 600;
-					border: 0;
-					border-radius: 10%;
-
-					@include media-query($media-md) {
-						-webkit-text-fill-color: #000000;
-						opacity: 1;
-					}
+					border-radius: 5px;
 
 					&:nth-child(1) {
 						background-color: rgb(128, 128, 128);
@@ -62,42 +57,34 @@
 			}
 
 			.explain {
-				list-style: none;
 				margin: 0.3rem;
 				span {
 					@include display-flex();
-					margin: 0;
 
 					@include media-query($media-md) {
 						width: 100%;
 						margin: 0.2rem;
 					}
-					input {
+					input[type="text"] {
 						@include general-properties(2rem, 2rem, white);
 						@include font($fontVarellaRound, 0.9rem, black, center);
 						margin: 0.2rem;
 						font-weight: 600;
-						border: 0;
-						border-radius: 10%;
-
-						@include media-query($media-md) {
-							-webkit-text-fill-color: #000000;
-							opacity: 1;
-						}
+						border-radius: 7px;
 					}
 
 					&:nth-child(1) {
-						input {
+						input[type="text"] {
 							background-color: rgb(128, 128, 128);
 						}
 					}
 					&:nth-child(2) {
-						input {
+						input[type="text"] {
 							background-color: rgb(238, 238, 16);
 						}
 					}
 					&:nth-child(3) {
-						input {
+						input[type="text"] {
 							background-color: rgb(36, 199, 36);
 						}
 					}
@@ -111,15 +98,15 @@
 			}
 		}
 
-		button {
-			@extend .btn-auth;
+		.btn {
+			background-color: #028ea0;
 			font-size: 1.1rem;
 			&:hover {
 				opacity: 0.9;
 			}
 			&:active {
 				opacity: 1;
-				background-color: rgb(91, 200, 58);
+				background-color: #005d69;
 				box-shadow: 0px 0px 5px 0px gray;
 			}
 		}
@@ -127,9 +114,7 @@
 			margin: 0.5rem;
 			.link {
 				@include font($fontVarellaRound, 1rem, black);
-				padding: 0;
-				margin: 0;
-
+				margin: 0.2rem;
 				a {
 					color: blue;
 
