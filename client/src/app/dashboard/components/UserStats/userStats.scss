@@ -54,12 +54,13 @@
       @include font($fontVarellaRound, 1.2rem, black, center);
       margin: 0.5rem;
     }
-    input[type="search"] {
+    input[type="text"] {
       @include general-properties(100%, 2rem, rgb(237, 255, 237));
       @include font($fontVarellaRound, 1rem, black);
       border: 1px solid green;
       margin: 0.5rem;
       flex: 1;
+      border-radius: 3px;
 
       &:hover {
         border: 1px solid green;
@@ -75,7 +76,7 @@
       h3 {
         margin: 0.2rem 0.2rem 0 0.2rem;
       }
-      input {
+      input[type="text"] {
         width: 80%;
         margin: 0 0.2rem 0.2rem 0.2rem;
       }
