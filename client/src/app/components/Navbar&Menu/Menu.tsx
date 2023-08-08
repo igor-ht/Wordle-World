@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import { useRef } from 'react';
 import { useSession } from 'next-auth/react';
-import { useClickOutsideMenu } from '@/src/utils/hooks/useClickOutsideMenu';
-import { AppSounds } from '@/src/utils/sounds/appSounds';
+import { useClickOutsideMenu } from '@/utils/hooks/useClickOutsideMenu';
+import { AppSounds } from '@/utils/sounds/appSounds';
 
 export default function Menu({ ...menu }) {
 	const { displayMenu, setDisplayMenu } = menu;

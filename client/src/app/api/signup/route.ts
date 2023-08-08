@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { handleHashing } from '@/src/utils/forms/hashing';
-import { userSignUp } from '../../signup/SignUpForms';
+import { handleHashing } from '@/utils/forms/hashing';
+import { userSignUp } from '@/app/signup/SignUpForms';
 import axios, { AxiosError } from 'axios';
-import { ENDPOINT } from '@/src/appConfig';
+import { ENDPOINT } from '@/appConfig';
 
 const axiosUser = axios.create({
 	baseURL: `${ENDPOINT}/user`,

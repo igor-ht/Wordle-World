@@ -1,6 +1,6 @@
 import './userStats.scss';
 import { ChangeEvent, useRef } from 'react';
-import { userStatsType } from '@/src/utils/dashboard/type';
+import { userStatsType } from '@/utils/dashboard/type';
 
 export default function UserStats(userStats: userStatsType) {
 	const tableRef = useRef<HTMLTableRowElement | null>(null);

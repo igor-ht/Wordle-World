@@ -1,10 +1,10 @@
 import './layout.scss';
-import AuthProvider from './components/AuthProvider/AuthProvider';
-import Footer from './components/Footer/Footer';
-import MainContainer from './components/MainContainer/MainContainer';
-import Navbar from './components/Navbar&Menu/Navbar';
+import AuthProvider from '@/components/AuthProvider/AuthProvider';
+import Footer from '@/components/Footer/Footer';
+import MainContainer from '@/components/MainContainer/MainContainer';
+import Navbar from '@/components/Navbar&Menu/Navbar';
+import { varelaRound, roboto } from '@/utils/fonts';
 import { Session } from 'next-auth';
-import { varelaRound, roboto } from '../utils/fonts';
 
 export const metadata = {
 	title: 'Wordle World',

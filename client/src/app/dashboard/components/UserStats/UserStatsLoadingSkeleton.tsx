@@ -22,6 +22,7 @@ export default function UserStatsLoadingSkeleton() {
 					name="search"
 					id="search-discovered-word"
 					placeholder="search for a discovered word"
+					disabled
 				/>
 			</div>
 			<div

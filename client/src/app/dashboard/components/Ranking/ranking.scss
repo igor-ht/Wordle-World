@@ -1,4 +1,4 @@
-@use "../../../../styles/main" as *;
+@use "@/styles/main" as *;
 
 .ranking-container {
   @include general-properties(45dvw, 90%, rgb(255, 233, 110));

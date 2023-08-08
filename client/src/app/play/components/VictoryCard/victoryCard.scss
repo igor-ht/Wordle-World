@@ -1,4 +1,4 @@
-@use "../../../../styles/main" as *;
+@use "@/styles/main" as *;
 
 .victory-background {
 	@include general-properties(100dvw, 100dvh, rgba(10, 6, 55, 0.76));

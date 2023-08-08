@@ -1,10 +1,10 @@
 'use client';
 
+import LoadingSkeleton from '@/components/LoadingSkeleton/LoadingSkeleton';
 import Image from 'next/image';
 import { useFormik } from 'formik';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
-import LoadingSkeleton from '../components/LoadingSkeleton/LoadingSkeleton';
 import { useRouter } from 'next/navigation';
 
 export interface userLogin {

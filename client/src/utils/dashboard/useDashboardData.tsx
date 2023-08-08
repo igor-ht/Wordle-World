@@ -1,5 +1,5 @@
-import { signOut, useSession } from 'next-auth/react';
 import useAxiosAuth from '../hooks/useAxiosAuth';
+import { signOut, useSession } from 'next-auth/react';
 import { useQuery } from '@tanstack/react-query';
 import { redirect } from 'next/navigation';
 

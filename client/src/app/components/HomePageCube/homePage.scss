@@ -1,4 +1,4 @@
-@use "../../../styles/main" as *;
+@use "@/styles/main" as *;
 
 .home-page {
   @include general-properties(100dvw, 100%, transparent);

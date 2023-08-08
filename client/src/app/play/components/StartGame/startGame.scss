@@ -1,4 +1,4 @@
-@use "../../../../styles/main" as *;
+@use "@/styles/main" as *;
 
 .start-game {
 	@include general-properties(65dvw, auto, rgb(151, 132, 255));

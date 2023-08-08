@@ -4,7 +4,7 @@ import './inputContainer.scss';
 import { useState, AnimationEvent, MutableRefObject } from 'react';
 import ShortGuessTooltip from '../NotValidGuess/ShortGuessTooltip';
 import GuessNotFoundTooltip from '../NotValidGuess/GuessNotFoundTooltip';
-import { gameSettingsType } from '@/src/utils/play/reducers';
+import { gameSettingsType } from '@/utils/play/reducers';
 
 export interface InputContainerInterface {
 	gameSettings: gameSettingsType;

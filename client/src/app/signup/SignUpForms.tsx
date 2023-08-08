@@ -5,12 +5,12 @@
 import Image from 'next/image';
 import axios, { AxiosError } from 'axios';
 import { useFormik } from 'formik';
-import { SignupSchema } from '@/src/utils/forms/validating';
+import { SignupSchema } from '@/utils/forms/validating';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import LoadingSkeleton from '../components/LoadingSkeleton/LoadingSkeleton';
 import { useMutation } from '@tanstack/react-query';
-import { BASE_URL } from '@/src/appConfig';
+import { BASE_URL } from '@/appConfig';
 import { useRouter } from 'next/navigation';
 
 export interface userSignUp {

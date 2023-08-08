@@ -19,8 +19,13 @@
 				"name": "next"
 			}
 		],
+		"baseUrl": "./src",
 		"paths": {
-			"@/*": ["./*"]
+			"@/*": ["./*"],
+			"@/components/*": ["./app/components/*"],
+			"@/utils/*": ["./utils/*"],
+			"@/appConfig": ["./appConfig.ts"],
+			"@/styles/main": ["./styles/_main.scss"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/play/api"],

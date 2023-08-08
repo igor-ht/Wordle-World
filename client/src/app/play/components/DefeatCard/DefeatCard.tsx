@@ -52,12 +52,14 @@ export default function DefeatCard({ handleResetGame }: { handleResetGame: () =>
 				<div>
 					<button
 						type="button"
+						className="btn"
 						onClick={handleResetGame}>
 						Play again
 					</button>
 					{!!session && status === 'authenticated' ? (
 						<button
 							type="button"
+							className="btn"
 							onClick={handleNavigateToDashboard}>
 							Dashboard
 						</button>
