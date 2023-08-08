@@ -18,7 +18,7 @@ export default function UserStatsLoadingSkeleton() {
 			<div className="title-search-section">
 				<h3>Discovered Words:</h3>
 				<input
-					type="search"
+					type="text"
 					name="search"
 					id="search-discovered-word"
 					placeholder="search for a discovered word"
