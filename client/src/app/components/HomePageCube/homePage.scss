@@ -1,7 +1,6 @@
 @use "@/styles/main" as *;
 
 .home-page {
-  @include general-properties(100dvw, 100%, transparent);
   @include display-flex(column);
   align-items: center;
   overflow: hidden;
