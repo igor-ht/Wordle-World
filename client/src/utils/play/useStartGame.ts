@@ -15,7 +15,7 @@ import {
 	playStateReducer,
 	playStateType,
 } from './reducers';
-import { GameSounds } from '../sounds/appSounds';
+import { GameSounds } from '@/utils/sounds';
 
 export interface IGameApi {
 	playState: playStateType;

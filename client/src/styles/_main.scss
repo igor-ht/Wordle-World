@@ -2,8 +2,8 @@
 
 @forward "./global.scss";
 
-@forward "./abstracts/index";
-
 @forward "./base/index";
+
+@forward "./abstracts/index";
 
 @forward "./components/index";
