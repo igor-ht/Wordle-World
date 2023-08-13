@@ -49,10 +49,10 @@ export async function handleGuestNewSession(req: Request, res: Response) {
 	const { ip } = req.body;
 	const currentGuest = (await GuestController().read(ip)) as Guests;
 	const foward = req.headers['x-forwarded-for'] as string;
-	const newIp = foward ? foward.split(/, /)[0] : (req.socket.remoteAddress as string);
+	const newIp = foward ? foward.split(/, /)[0] : req.socket.remoteAddress;
 	const guestNewSession = {
-		ip: newIp,
-		gamesCount: 1,
+		ip: newIp ? newIp : ip,
+		gamesCount: 0,
 		lastPlayed: Math.floor(Date.now() / 1000),
 	};
 	const updatedGuest = await GuestController().updateGeneralInfo(currentGuest.id, guestNewSession);

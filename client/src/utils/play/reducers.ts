@@ -1,45 +1,34 @@
-export type playStateType = {
-	play: boolean;
-	victory: boolean;
-	defeat: boolean;
-};
-export type stateActionType = {
-	type: 'setPlay' | 'setVictory' | 'setDefeat';
-	payload: boolean;
-};
-export const playStateInitialState: playStateType = {
-	play: false,
-	victory: false,
-	defeat: false,
-};
+// game state
+export type playStateType = 'start' | 'play' | 'victory' | 'defeat' | 'guestLimit';
+export type stateActionType = { type: 'setStart' | 'setPlay' | 'setVictory' | 'setDefeat' | 'setGuestLimit' };
 export const playStateReducer = (state: playStateType, action: stateActionType) => {
 	switch (action.type) {
 		case 'setPlay':
-			return { ...state, play: action.payload };
+			return 'play';
 		case 'setVictory':
-			return { ...state, victory: action.payload };
+			return 'victory';
 		case 'setDefeat':
-			return { ...state, defeat: action.payload };
+			return 'defeat';
+		case 'setGuestLimit':
+			return 'guestLimit';
+		case 'setStart':
+			return 'start';
 		default:
-			throw new Error();
+			return state;
 	}
 };
 
+// game settings
+type LanguagesType = 'en' | 'es' | 'pt' | 'he';
 export type gameSettingsType = {
-	language: string;
+	language: LanguagesType;
 	wordLength: number;
 	totalChances: number;
 };
-type setLanguageType = { type: 'setLanguage'; payload: 'eng' | 'spa' };
+type setLanguageType = { type: 'setLanguage'; payload: LanguagesType };
 type setWordLengthType = { type: 'setWordLength'; payload: number };
 type setTotalChancesType = { type: 'setTotalChances'; payload: number };
-type resetStateType = { type: 'resetState' };
-export type gameSettingsActionType = setLanguageType | setWordLengthType | setTotalChancesType | resetStateType;
-export const gameSettingsInitialState: gameSettingsType = {
-	language: 'eng',
-	wordLength: 5,
-	totalChances: 6,
-};
+export type gameSettingsActionType = setLanguageType | setWordLengthType | setTotalChancesType;
 export const gameSettingsReducer = (state: gameSettingsType, action: gameSettingsActionType) => {
 	switch (action.type) {
 		case 'setLanguage':
@@ -48,13 +37,12 @@ export const gameSettingsReducer = (state: gameSettingsType, action: gameSetting
 			return { ...state, wordLength: action.payload };
 		case 'setTotalChances':
 			return { ...state, totalChances: action.payload };
-		case 'resetState':
-			return { language: 'eng', wordLength: 5, totalChances: 6 };
 		default:
 			throw new Error();
 	}
 };
 
+// current match
 export type gameStateType = {
 	word: string;
 	currentLetter: string;
@@ -72,12 +60,6 @@ export type gameStateActionType =
 	| setCurrentGuessActionType
 	| setGuessNumberActionType
 	| resetStateActionType;
-export const gameStateInitialState: gameStateType = {
-	word: '',
-	currentLetter: '',
-	currentGuess: '',
-	guessNumber: 1,
-};
 export const gameStateReducer = (state: gameStateType, action: gameStateActionType) => {
 	switch (action.type) {
 		case 'setRandomWord':

@@ -19,13 +19,12 @@ export default function GamePage() {
 		handleKeyPressedFromDigitalKeyboard,
 		keyboardContainerElement,
 		handleResetGame,
-		guestLimitGames,
 	} = useStartGame();
 
 	return (
 		<div className="game-container">
-			{!guestLimitGames && !playState.play && <StartGame startNewGame={startNewGame} />}
-			{!guestLimitGames && playState.play && (
+			{playState === 'start' && <StartGame startNewGame={startNewGame} />}
+			{playState === 'play' && (
 				<>
 					<InputContainer
 						gameSettings={gameSettings}
@@ -37,14 +36,14 @@ export default function GamePage() {
 					/>
 				</>
 			)}
-			{playState?.victory && !playState?.defeat && (
+			{playState === 'victory' && (
 				<VictoryCard
 					gameState={gameState}
 					handleResetGame={handleResetGame}
 				/>
 			)}
-			{playState?.defeat && !playState?.victory && <DefeatCard handleResetGame={handleResetGame} />}
-			{guestLimitGames && <GuestLimitGames />}
+			{playState === 'defeat' && <DefeatCard handleResetGame={handleResetGame} />}
+			{playState === 'guestLimit' && <GuestLimitGames />}
 		</div>
 	);
 }

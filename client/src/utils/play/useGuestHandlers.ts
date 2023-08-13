@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import useAxiosAuth from '../hooks/useAxiosAuth';
 
 interface IGuest {
@@ -8,80 +7,88 @@ interface IGuest {
 	gamesCount: number;
 }
 
-let currentGuest: IGuest | null;
-
 export default function useGuestHandlers() {
-	const [guestLimitGames, setGuestLimitGames] = useState(false);
 	const axiosAuth = useAxiosAuth();
+	const queryClient = useQueryClient();
 
-	const searchGuestInDB = async () => {
-		const res = await axiosAuth.get('/guest/handleSearchGuest');
-		const guest = res.data;
-		if (!guest) return null;
-		return guest;
-	};
-
-	const createNewGuest = async () => {
-		const res = await axiosAuth.get('/guest/handleCreateNewGuest');
-		const guestSigned = res.data;
-		return guestSigned;
-	};
 	const checkGuestTimeSession = () => {
 		// if guest played last time less than 24h, return false
+		const currentGuest = queryClient.getQueryData(['currentGuest']) as IGuest | undefined;
 		if (currentGuest && currentGuest.lastPlayed + 86_400 > Math.floor(Date.now() / 1000)) return false;
 		return true;
 	};
 
-	const handleGuestNewGame = async () => {
+	const searchGuestInDBQuery = async () => {
+		const res = await axiosAuth.get('/guest/handleSearchGuest');
+		const guest = res.data;
+		if (!guest) return null;
+		return guest as IGuest;
+	};
+	const createNewGuestQuery = async () => {
+		const res = await axiosAuth.get('/guest/handleCreateNewGuest');
+		const guestSigned = res.data;
+		if (!guestSigned) return null;
+		return guestSigned as IGuest;
+	};
+	const handleGuestNewGameMutation = async () => {
+		const currentGuest = queryClient.getQueryData(['currentGuest']);
 		const res = await axiosAuth.post('/guest/handleGuestNewGame', currentGuest);
 		const guestUpdated = await res.data;
-		return guestUpdated;
+		if (!guestUpdated) return null;
+		return guestUpdated as IGuest;
 	};
-
-	const handleGuestNewSession = async () => {
-		const guest = await (await searchGuestInDBQuery.refetch()).data;
+	const handleGuestNewSessionMutation = async () => {
+		const guest = queryClient.getQueryData(['currentGuest']);
 		const res = await axiosAuth.post('/guest/handleGuestNewSession', guest);
 		const guestSigned = await res.data;
-		return guestSigned;
+		if (!guestSigned) return null;
+		return guestSigned as IGuest;
 	};
-
-	const searchGuestInDBQuery = useQuery({
-		queryKey: ['searchGuestInDB'],
-		queryFn: searchGuestInDB,
-		staleTime: Infinity,
+	const searchGuestInDB = useQuery({
+		queryKey: ['currentGuest'],
+		queryFn: searchGuestInDBQuery,
 		enabled: false,
+		staleTime: 1000 * 60 * 60 * 24,
+		cacheTime: 1000 * 60 * 60 * 24,
+		retry: 2,
 	});
-	const createNewGuestQuery = useQuery({
-		queryKey: ['createNewGuest'],
-		queryFn: createNewGuest,
-		staleTime: Infinity,
+	const createNewGuest = useQuery({
+		queryKey: ['currentGuest'],
+		queryFn: createNewGuestQuery,
 		enabled: false,
+		staleTime: 1000 * 60 * 60 * 24,
+		cacheTime: 1000 * 60 * 60 * 24,
+		retry: 2,
 	});
-	const handleGuestNewGameMutation = useMutation({
-		mutationKey: ['guestNewGame'],
-		mutationFn: handleGuestNewGame,
-		cacheTime: Infinity,
+	const handleGuestNewGame = useMutation({
+		mutationFn: handleGuestNewGameMutation,
+		cacheTime: 1000 * 60 * 60 * 24,
+		retry: 2,
+		onSuccess: (data) => {
+			queryClient.setQueryData(['currentGuest'], data);
+		},
 	});
-	const handleGuestNewSessionQuery = useQuery({
-		queryKey: ['guestNewSession'],
-		queryFn: handleGuestNewSession,
-		staleTime: Infinity,
-		enabled: false,
+	const handleGuestNewSession = useMutation({
+		mutationFn: handleGuestNewSessionMutation,
+		cacheTime: 1000 * 60 * 60 * 24,
+		retry: 2,
+		onSuccess: (data) => {
+			queryClient.setQueryData(['currentGuest'], data);
+		},
 	});
 
 	const handleGuestUser = async () => {
-		if (!currentGuest) currentGuest = await (await searchGuestInDBQuery.refetch()).data;
-		if (!currentGuest) currentGuest = await (await createNewGuestQuery.refetch()).data;
+		let currentGuest: IGuest | undefined | null = await queryClient.getQueryData(['currentGuest']);
+		if (!currentGuest) currentGuest = (await searchGuestInDB.refetch()).data;
+		if (!currentGuest) currentGuest = (await createNewGuest.refetch()).data;
 		if (currentGuest) {
 			if (currentGuest.gamesCount >= 3) {
-				if (!checkGuestTimeSession()) return setGuestLimitGames(true);
-				currentGuest = await (await handleGuestNewSessionQuery.refetch()).data;
-				return setGuestLimitGames(false);
+				if (!checkGuestTimeSession()) throw 'Guest has already played 3 games in the last 24h.';
+				handleGuestNewSession.mutate();
 			}
-			const guestUpdated = await handleGuestNewGameMutation.mutateAsync();
-			currentGuest = guestUpdated;
+			handleGuestNewGame.mutate();
 		}
 	};
 
-	return { handleGuestUser, guestLimitGames };
+	return handleGuestUser;
 }
