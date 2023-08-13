@@ -11,8 +11,8 @@ export default function WordController() {
 }
 
 export async function getRandomWord(req: Request, res: Response) {
-	const { email } = req.body;
-	const randomWord = await WordController().getRandomWord(email);
+	const id = req.headers.idx as string | undefined;
+	const randomWord = await WordController().getRandomWord(id);
 	console.log(randomWord);
 	if (!randomWord) return res.status(400).send('Server couldn`t get a random word');
 	const cypherWord = encryption(randomWord, encryptionKey);

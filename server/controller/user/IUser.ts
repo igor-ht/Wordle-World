@@ -2,7 +2,7 @@ import { Users } from '@prisma/client';
 import { ICrudDao } from '../ICrudDao';
 
 export interface IUserDao extends ICrudDao<IUserSignUp, IUpdateUser, IDisplayUser> {
-	readonly exclude: <U extends Users, K extends keyof U>(user: U, keys: K[]) => IDisplayUser;
+	readonly exclude: <U extends Users, K extends keyof U>(user: U, keys: K[]) => IDisplayUser | null;
 	create: (data: IUserSignUp) => Promise<IDisplayUser | null>;
 	read: (identifier: string) => Promise<Users | null>;
 	handleUserInfoSignUp: (user: IUserSignUp) => Promise<void>;

@@ -4,7 +4,7 @@ import { prisma } from '../../../model/clientDB';
 import { Guests } from '@prisma/client';
 
 let GuestService: GuestDao;
-function GuestController() {
+export function GuestController() {
 	if (!GuestService) GuestService = new GuestDao(prisma);
 	return GuestService;
 }
@@ -33,6 +33,7 @@ export async function handleCreateNewGuest(req: Request, res: Response) {
 export async function handleGuestNewGame(req: Request, res: Response) {
 	const { ip, gamesCount } = req.body;
 	const currentGuest = (await GuestController().read(ip)) as Guests;
+	if (!currentGuest) return await handleCreateNewGuest(req, res);
 	const foward = req.headers['x-forwarded-for'] as string;
 	const newIp = foward ? foward.split(/, /)[0] : req.socket.remoteAddress ? req.socket.remoteAddress : ip;
 	const guest = {
@@ -48,6 +49,7 @@ export async function handleGuestNewGame(req: Request, res: Response) {
 export async function handleGuestNewSession(req: Request, res: Response) {
 	const { ip } = req.body;
 	const currentGuest = (await GuestController().read(ip)) as Guests;
+	if (!currentGuest) return await handleCreateNewGuest(req, res);
 	const foward = req.headers['x-forwarded-for'] as string;
 	const newIp = foward ? foward.split(/, /)[0] : req.socket.remoteAddress;
 	const guestNewSession = {

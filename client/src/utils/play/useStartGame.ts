@@ -1,11 +1,11 @@
 import { MouseEventHandler, MutableRefObject, useEffect, useReducer, useRef } from 'react';
 import { redirect } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { gameSettingsReducer, gameSettingsType, gameStateReducer, gameStateType, playStateReducer, playStateType } from './reducers';
+import { GameSounds } from '@/utils/sounds';
 import useWordHandlers from './useWordHandlers';
 import useGuestHandlers from './useGuestHandlers';
 import useUserHandlers from './useUserHandlers';
-import { gameSettingsReducer, gameSettingsType, gameStateReducer, gameStateType, playStateReducer, playStateType } from './reducers';
-import { GameSounds } from '@/utils/sounds';
 
 export interface IGameApi {
 	playState: playStateType;
@@ -41,6 +41,7 @@ const useStartGame: () => IGameApi = () => {
 			if (playState !== 'play') playStateDispatch({ type: 'setPlay' });
 		} catch (error) {
 			if (error !== 'Guest exceed daily games limit.') playStateDispatch({ type: 'setStart' });
+			await Promise.resolve(error);
 		}
 	};
 
@@ -234,7 +235,7 @@ const useStartGame: () => IGameApi = () => {
 			await resetGameComponents();
 			await setRandomWord();
 		} catch (error) {
-			return Promise.reject(error);
+			await Promise.resolve(error);
 		}
 	};
 

@@ -9,7 +9,7 @@ export class UserDao implements IUserDao {
 		this.displayUser = null;
 	}
 
-	exclude<User extends Users, Keys extends keyof User>(user: User, keys: Keys[]): IDisplayUser {
+	exclude<User extends Users, Keys extends keyof User>(user: User, keys: Keys[]): IDisplayUser | null {
 		for (let key of keys) {
 			delete user[key];
 		}

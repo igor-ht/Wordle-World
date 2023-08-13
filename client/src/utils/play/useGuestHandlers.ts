@@ -1,5 +1,5 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import useAxiosAuth from '../hooks/useAxiosAuth';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 interface IGuest {
 	ip: string;
@@ -48,21 +48,21 @@ export default function useGuestHandlers() {
 		queryKey: ['currentGuest'],
 		queryFn: searchGuestInDBQuery,
 		enabled: false,
-		staleTime: 1000 * 60 * 60 * 24,
-		cacheTime: 1000 * 60 * 60 * 24,
+		staleTime: 1000 * 60 * 60,
+		cacheTime: 1000 * 60 * 60,
 		retry: 2,
 	});
 	const createNewGuest = useQuery({
 		queryKey: ['currentGuest'],
 		queryFn: createNewGuestQuery,
 		enabled: false,
-		staleTime: 1000 * 60 * 60 * 24,
-		cacheTime: 1000 * 60 * 60 * 24,
+		staleTime: 1000 * 60 * 60,
+		cacheTime: 1000 * 60 * 60,
 		retry: 2,
 	});
 	const handleGuestNewGame = useMutation({
 		mutationFn: handleGuestNewGameMutation,
-		cacheTime: 1000 * 60 * 60 * 24,
+		cacheTime: 1000 * 60 * 60,
 		retry: 2,
 		onSuccess: (data) => {
 			queryClient.setQueryData(['currentGuest'], data);
@@ -70,7 +70,7 @@ export default function useGuestHandlers() {
 	});
 	const handleGuestNewSession = useMutation({
 		mutationFn: handleGuestNewSessionMutation,
-		cacheTime: 1000 * 60 * 60 * 24,
+		cacheTime: 1000 * 60 * 60,
 		retry: 2,
 		onSuccess: (data) => {
 			queryClient.setQueryData(['currentGuest'], data);

@@ -66,4 +66,9 @@ export class GuestDao implements IGuestDao {
 		if (!deletedGuest) return false;
 		return true;
 	}
+	public async truncateTable() {
+		const deletedGuests = await this.prisma.guests.deleteMany();
+		if (!deletedGuests) return null;
+		return deletedGuests.count;
+	}
 }
