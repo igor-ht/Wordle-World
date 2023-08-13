@@ -36,11 +36,11 @@ const useStartGame: () => IGameApi = () => {
 
 	const startNewGame = async () => {
 		try {
-			if (!session && status === 'unauthenticated') return await handleGuestFinishGame();
+			if (!session && status === 'unauthenticated') await handleGuestFinishGame();
 			await setRandomWord();
 			if (playState !== 'play') playStateDispatch({ type: 'setPlay' });
-		} catch {
-			playStateDispatch({ type: 'setStart' });
+		} catch (error) {
+			if (error !== 'Guest exceed daily games limit.') playStateDispatch({ type: 'setStart' });
 		}
 	};
 
@@ -227,11 +227,15 @@ const useStartGame: () => IGameApi = () => {
 	};
 
 	const handleResetGame = async () => {
-		playStateDispatch({ type: 'setPlay' });
-		gameStateDispatch({ type: 'resetState' });
-		await resetGameComponents();
-		await setRandomWord();
-		if (!session && status === 'unauthenticated') return await handleGuestFinishGame();
+		try {
+			if (!session && status === 'unauthenticated') await handleGuestFinishGame();
+			playStateDispatch({ type: 'setPlay' });
+			gameStateDispatch({ type: 'resetState' });
+			await resetGameComponents();
+			await setRandomWord();
+		} catch (error) {
+			return Promise.reject(error);
+		}
 	};
 
 	const resetGameComponents = async () => {
@@ -281,10 +285,10 @@ const useStartGame: () => IGameApi = () => {
 	const handleGuestFinishGame = async () => {
 		try {
 			await guestHandler();
-			await setRandomWord();
 			if (playState !== 'play') playStateDispatch({ type: 'setPlay' });
 		} catch {
 			playStateDispatch({ type: 'setGuestLimit' });
+			throw 'Guest exceed daily games limit.';
 		}
 	};
 
