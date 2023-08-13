@@ -1,9 +1,10 @@
 @use "@/styles/main" as *;
 
 .home-page {
+  @include general-properties(100%, 100%);
   @include display-flex(column);
   align-items: center;
-  overflow: hidden;
+  justify-content: center;
 
   img {
     @include image(19rem, 8rem, cover);
