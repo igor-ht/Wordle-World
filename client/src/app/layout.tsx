@@ -13,6 +13,7 @@ export const metadata = {
 	icons: {
 		icon: '/wordle.icon.svg',
 	},
+	'google-site-verification': 'p1kZTRj_nmjo6kW7s9gBlfhd-siCNinlJh4hkhrpCio',
 };
 
 export default function RootLayout({ children, session }: { children: React.ReactNode; session: Session }) {
