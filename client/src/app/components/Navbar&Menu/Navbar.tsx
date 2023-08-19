@@ -19,7 +19,7 @@ export default function Navbar() {
 						href={'/'}
 						onFocus={(event) => event.target.blur()}>
 						<Image
-							src="/wordle.logo.svg"
+							src="/wordle-logo.svg"
 							alt="WordleGame"
 							width={300}
 							height={300}

@@ -1,10 +1,9 @@
-import './signup.scss';
 import Image from 'next/image';
 import SignUpForms from './SignUpForms';
 
 export default function SignUp() {
 	return (
-		<div className="signup-card">
+		<>
 			<Image
 				src="/sign-up.svg"
 				alt="Sign Up"
@@ -16,6 +15,6 @@ export default function SignUp() {
 				quality={1}
 			/>
 			<SignUpForms />
-		</div>
+		</>
 	);
 }

@@ -1,7 +1,7 @@
-import { AuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import axios from 'axios';
+import { AuthOptions } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 import { ENDPOINT, GoogleClientID, GoogleClientSecret } from '@/appConfig';
 import { signOut } from 'next-auth/react';
@@ -34,7 +34,7 @@ export const NextAuthOptions: AuthOptions = {
 			},
 			async authorize(credentials) {
 				if (!credentials?.email || !credentials.password) return null;
-				const res = await axios.post(`${ENDPOINT}/user/signin`, credentials);
+				const res = await axios.post('/user/signin', { email: credentials.email, password: credentials.password }, { baseURL: ENDPOINT });
 				if (!res.data) return null;
 				return {
 					id: res.data.id,
@@ -54,7 +54,7 @@ export const NextAuthOptions: AuthOptions = {
 					email: profile.email,
 					password: tokens.id_token,
 				};
-				const res = await axios.post(`${ENDPOINT}/oauth/googleOAuthProvider`, credentials);
+				const res = await axios.post('/oauth/googleOAuthProvider', credentials, { baseURL: ENDPOINT });
 				const userLogged = res.data;
 				tokens = {
 					id: userLogged.id,

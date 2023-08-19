@@ -1,10 +1,9 @@
-import './signin.scss';
 import Image from 'next/image';
 import SignInForm from './SignInForms';
 
 export default function SignIn() {
 	return (
-		<div className="signin-card">
+		<>
 			<Image
 				src="/log-in.svg"
 				alt="Log In"
@@ -16,6 +15,6 @@ export default function SignIn() {
 				quality={1}
 			/>
 			<SignInForm />
-		</div>
+		</>
 	);
 }

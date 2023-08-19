@@ -6,12 +6,15 @@ import Navbar from '@/components/Navbar&Menu/Navbar';
 import { varelaRound, roboto } from '@/utils/fonts';
 import { Session } from 'next-auth';
 import { Analytics } from '@vercel/analytics/react';
+import { Metadata } from 'next';
 
-export const metadata = {
+export const metadata: Metadata = {
 	title: 'Wordle World',
-	description: 'Play Wordle game in english for free',
+	description: 'Play Wordle for free, collect points and keep track of your discovered words!',
+	keywords: ['Wordle', 'Wordle Game', 'Wordle Game Free', 'Wordle World', 'Wordle-World', 'WordleWorld'],
+	category: 'game',
 	icons: {
-		icon: '/wordle.icon.svg',
+		icon: '/wordle-icon.svg',
 	},
 	robots: {
 		index: true,
