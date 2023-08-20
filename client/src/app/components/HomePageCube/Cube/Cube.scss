@@ -28,8 +28,8 @@
   @include general-properties(17rem, 17rem, transparent);
   position: relative;
   transform-style: preserve-3d;
-  transform: rotateY(0deg);
-  // animation: turn 29s ease-in-out 0s infinite;
+  // transform: rotateY(0deg);
+  animation: turn 29s ease-in-out 0s infinite;
 
   &:hover {
     animation-play-state: paused;

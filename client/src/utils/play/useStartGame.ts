@@ -51,9 +51,9 @@ const useStartGame: () => IGameApi = () => {
 		GameSounds?.insertLetter?.play();
 		currentInputElement.current!.value = event.key.toUpperCase();
 		setGameCurrentGuess(gameState.currentGuess + event.key.toUpperCase());
-		console.log(currentInputElement.current);
+
 		currentInputElement.current = handleInputCellChange(currentInputElement.current, gameSettings.wordLength);
-		console.log(currentInputElement.current);
+
 		ASYNC_RUN = false;
 	};
 
@@ -67,9 +67,9 @@ const useStartGame: () => IGameApi = () => {
 		GameSounds?.insertLetter?.play();
 		currentInputElement.current!.value = event.currentTarget.id;
 		setGameCurrentGuess(gameState.currentGuess + event.currentTarget.id);
-		console.log(currentInputElement.current);
+
 		currentInputElement.current = handleInputCellChange(currentInputElement.current, gameSettings.wordLength);
-		console.log(currentInputElement.current);
+
 		ASYNC_RUN = false;
 	};
 
@@ -103,9 +103,8 @@ const useStartGame: () => IGameApi = () => {
 				GameSounds?.guessSent?.play();
 				if (!(await handleUserGuessResponse(ans))) {
 					setNewGuess();
-					console.log(currentInputElement.current);
+
 					currentInputElement.current = await handleRowChange();
-					console.log(currentInputElement.current);
 				}
 			} else {
 				currentInputElement.current?.parentElement?.classList.add('notfound-guess');

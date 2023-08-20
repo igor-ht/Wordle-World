@@ -13,8 +13,7 @@ export default function useWordHandlers(gameState: GameStateType) {
 			const cypherWord = await res.data;
 			return cypherWord;
 		} catch (error) {
-			if (session) return await update();
-			return Promise.reject(error);
+			if (session) await update();
 		}
 	};
 

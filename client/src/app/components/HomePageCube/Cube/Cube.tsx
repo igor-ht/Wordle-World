@@ -7,6 +7,7 @@ export default function Cube() {
 			<div className="cube">
 				<div className="face welcome">
 					<h1>Welcome to Wordle World!</h1>
+					<p>I am excited to have you here and hope you enjoy playing around.</p>
 					<p>Here you can play Wordle in english for free and keep track of the words you discovered and points you made!</p>
 					<p>Enjoy and good luck!</p>
 				</div>
