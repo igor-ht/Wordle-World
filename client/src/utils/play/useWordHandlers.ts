@@ -1,9 +1,9 @@
 import useAxiosAuth from '../hooks/useAxiosAuth';
 import { useSession } from 'next-auth/react';
-import { gameStateType } from './reducers';
+import { GameStateType } from './reducers';
 import { useQuery } from '@tanstack/react-query';
 
-export default function useWordHandlers(gameState: gameStateType) {
+export default function useWordHandlers(gameState: GameStateType) {
 	const axiosAuth = useAxiosAuth();
 	const { data: session, update } = useSession();
 

@@ -3,7 +3,7 @@
 import { useFormik } from 'formik';
 import { SignupSchema } from '@/utils/forms/validating';
 import { useState } from 'react';
-import { useSignUp } from '@/utils/forms/api';
+import { useSignUp } from '@/utils/forms/useForms';
 import Input from '../components/Input';
 import Form from '../components/Form';
 

@@ -84,6 +84,16 @@
 }
 
 // buttons for the digital keyboard
+@keyframes KeyUpdate {
+  from {
+    transform: scale(0.8);
+    opacity: 0.2;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
 .btn-digital-keyboard {
   @include general-properties(auto, auto, white);
   @include font($fontGame, 1.2rem, black, center);
@@ -109,7 +119,7 @@
       background-color: #{$bg-color};
       border: 1px solid #{$bg-color};
       color: white;
-      animation: KeyUpdate 1.5s;
+      animation: KeyUpdate 1s;
     }
   }
 }

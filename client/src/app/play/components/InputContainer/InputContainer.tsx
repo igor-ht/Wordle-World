@@ -2,12 +2,12 @@
 
 import './inputContainer.scss';
 import { MutableRefObject } from 'react';
-import { gameSettingsType } from '@/utils/play/reducers';
+import { GameSettingsType } from '@/utils/play/reducers';
 import { useBadGuess } from '@/utils/play/useBadGuess';
 import NotValidGuess from '../NotValidGuess/NotValidGuess';
 
 export interface InputContainerInterface {
-	gameSettings: gameSettingsType;
+	gameSettings: GameSettingsType;
 	currentInputElement: MutableRefObject<HTMLInputElement | null>;
 }
 
@@ -18,19 +18,20 @@ export default function InputContainer({ gameSettings, currentInputElement }: In
 		<div className="input-container">
 			{badGuess === 'short' && <NotValidGuess text="Guess is too short" />}
 			{badGuess === 'notfound' && <NotValidGuess text="Guess not found" />}
-			{Array.from(Array(gameSettings.totalChances).keys(), (x) => x + 1).map((elA, indexA) => {
+			{new Array(gameSettings.totalChances).fill(null).map((_, indexA) => {
 				return (
 					<span
-						key={elA}
-						id={'' + elA}
+						key={indexA}
+						id={indexA + ''}
 						onAnimationStart={(event) => handleAnimation(event)}>
-						{Array.from(Array(gameSettings.wordLength).keys(), (x) => x + 1).map((num: number, indexB: number) => {
+						{new Array(gameSettings.wordLength).fill(null).map((_, indexB) => {
 							return (
 								<input
 									type="text"
 									ref={indexA === 0 && indexB === 0 ? currentInputElement : null}
-									key={num + 5 * indexA + ''}
-									id={num + 5 * indexA + ''}
+									key={5 * indexA + indexB}
+									// id starts from 1 to gameSettings.totalChances * gameSettings.wordLength
+									id={5 * indexA + indexB + 1 + ''}
 									className={indexA === 0 && indexB === 0 ? 'current-input' : ''}
 									minLength={1}
 									maxLength={1}

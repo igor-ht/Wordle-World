@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { Dispatch, SetStateAction } from 'react';
 import { FormikValues, useFormik } from 'formik';
 import { AllFormTypes } from './Form';
-import { useGoogleOAuth } from '@/utils/forms/api';
+import { useGoogleOAuth } from '@/utils/forms/useForms';
 
 type GoogleOAuthProps<T extends FormikValues> = {
 	userLogged: boolean;

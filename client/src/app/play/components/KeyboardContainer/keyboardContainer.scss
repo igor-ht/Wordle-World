@@ -1,16 +1,5 @@
 @use "@/styles/main" as *;
 
-@keyframes KeyUpdate {
-	from {
-		transform: scale(0.8);
-		opacity: 0.2;
-	}
-	to {
-		transform: scale(1);
-		opacity: 1;
-	}
-}
-
 .keyboard-container {
 	@include general-properties(65dvw, 100%, inherit);
 	@include display-flex(column);

@@ -1,7 +1,7 @@
 // game state
-export type playStateType = 'start' | 'play' | 'victory' | 'defeat' | 'guestLimit';
-export type stateActionType = { type: 'setStart' | 'setPlay' | 'setVictory' | 'setDefeat' | 'setGuestLimit' };
-export const playStateReducer = (state: playStateType, action: stateActionType) => {
+export type PlayStateType = 'start' | 'play' | 'victory' | 'defeat' | 'guestLimit';
+export type StateActionType = { type: 'setStart' | 'setPlay' | 'setVictory' | 'setDefeat' | 'setGuestLimit' };
+export const playStateReducer = (state: PlayStateType, action: StateActionType) => {
 	switch (action.type) {
 		case 'setPlay':
 			return 'play';
@@ -20,16 +20,16 @@ export const playStateReducer = (state: playStateType, action: stateActionType) 
 
 // game settings
 type LanguagesType = 'en' | 'es' | 'pt' | 'he';
-export type gameSettingsType = {
+export type GameSettingsType = {
 	language: LanguagesType;
 	wordLength: number;
 	totalChances: number;
 };
-type setLanguageType = { type: 'setLanguage'; payload: LanguagesType };
-type setWordLengthType = { type: 'setWordLength'; payload: number };
-type setTotalChancesType = { type: 'setTotalChances'; payload: number };
-export type gameSettingsActionType = setLanguageType | setWordLengthType | setTotalChancesType;
-export const gameSettingsReducer = (state: gameSettingsType, action: gameSettingsActionType) => {
+type SetLanguageType = { type: 'setLanguage'; payload: LanguagesType };
+type SetWordLengthType = { type: 'setWordLength'; payload: number };
+type SetTotalChancesType = { type: 'setTotalChances'; payload: number };
+export type GameSettingsActionType = SetLanguageType | SetWordLengthType | SetTotalChancesType;
+export const gameSettingsReducer = (state: GameSettingsType, action: GameSettingsActionType) => {
 	switch (action.type) {
 		case 'setLanguage':
 			return { ...state, language: action.payload };
@@ -43,24 +43,24 @@ export const gameSettingsReducer = (state: gameSettingsType, action: gameSetting
 };
 
 // current match
-export type gameStateType = {
+export type GameStateType = {
 	word: string;
 	currentLetter: string;
 	currentGuess: string;
 	guessNumber: number;
 };
-type setRandomWordType = { type: 'setRandomWord'; payload: string };
-type setCurrentLetterActionType = { type: 'setCurrentLetter'; payload: string };
-type setCurrentGuessActionType = { type: 'setCurrentGuess'; payload: string };
-type setGuessNumberActionType = { type: 'setGuessNumber'; payload: number };
-type resetStateActionType = { type: 'resetState' };
+type SetRandomWordType = { type: 'setRandomWord'; payload: string };
+type SetCurrentLetterActionType = { type: 'setCurrentLetter'; payload: string };
+type SetCurrentGuessActionType = { type: 'setCurrentGuess'; payload: string };
+type SetGuessNumberActionType = { type: 'setGuessNumber'; payload: number };
+type ResetStateActionType = { type: 'resetState' };
 export type gameStateActionType =
-	| setRandomWordType
-	| setCurrentLetterActionType
-	| setCurrentGuessActionType
-	| setGuessNumberActionType
-	| resetStateActionType;
-export const gameStateReducer = (state: gameStateType, action: gameStateActionType) => {
+	| SetRandomWordType
+	| SetCurrentLetterActionType
+	| SetCurrentGuessActionType
+	| SetGuessNumberActionType
+	| ResetStateActionType;
+export const gameStateReducer = (state: GameStateType, action: gameStateActionType) => {
 	switch (action.type) {
 		case 'setRandomWord':
 			return { ...state, word: action.payload };
