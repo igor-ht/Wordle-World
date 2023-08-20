@@ -1,5 +1,5 @@
 import { AnimationEvent, useState } from 'react';
-import { awaitFunction } from '../general/await';
+import { awaitFunction } from '../../general/await';
 
 export const useBadGuess = () => {
 	const [badGuess, setBadGuess] = useState<'short' | 'notfound' | null>(null);

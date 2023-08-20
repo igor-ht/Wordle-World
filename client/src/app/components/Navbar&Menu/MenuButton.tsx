@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { AppSounds } from '@/utils/sounds';
+import { AppSounds } from '@/utils/general/sounds';
 
 export default function MenuButton({ ...menu }) {
 	const { displayMenu, setDisplayMenu } = menu;

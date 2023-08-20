@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRef } from 'react';
 import { useSession } from 'next-auth/react';
 import { useClickOutsideMenu } from '@/utils/hooks/useClickOutsideMenu';
-import { AppSounds } from '@/utils/sounds';
+import { AppSounds } from '@/utils/general/sounds';
 
 export default function Menu({ ...menu }) {
 	const { displayMenu, setDisplayMenu } = menu;

@@ -2,8 +2,8 @@
 
 import './inputContainer.scss';
 import { MutableRefObject } from 'react';
-import { GameSettingsType } from '@/utils/play/reducers';
-import { useBadGuess } from '@/utils/play/useBadGuess';
+import { GameSettingsType } from '@/utils/play/state/reducers';
+import { useBadGuess } from '@/utils/play/state/useBadGuess';
 import NotValidGuess from '../NotValidGuess/NotValidGuess';
 
 export interface InputContainerInterface {
@@ -15,7 +15,9 @@ export default function InputContainer({ gameSettings, currentInputElement }: In
 	const { badGuess, handleAnimation } = useBadGuess();
 
 	return (
-		<div className="input-container">
+		<div
+			id="input-container"
+			className="input-container">
 			{badGuess === 'short' && <NotValidGuess text="Guess is too short" />}
 			{badGuess === 'notfound' && <NotValidGuess text="Guess not found" />}
 			{new Array(gameSettings.totalChances).fill(null).map((_, indexA) => {

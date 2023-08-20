@@ -1,5 +1,5 @@
 import { signOut, useSession } from 'next-auth/react';
-import useAxiosAuth from '../hooks/useAxiosAuth';
+import useAxiosAuth from '../../hooks/useAxiosAuth';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const useUserHandlers = () => {

@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
-export default function DefeatCard({ handleResetGame }: { handleResetGame: () => Promise<void> }) {
+export default function DefeatCard({ startNewGame }: { startNewGame: () => Promise<void> }) {
 	const { data: session, status } = useSession();
 	const router = useRouter();
 
@@ -53,7 +53,7 @@ export default function DefeatCard({ handleResetGame }: { handleResetGame: () =>
 					<button
 						type="button"
 						className="btn"
-						onClick={handleResetGame}>
+						onClick={startNewGame}>
 						Play again
 					</button>
 					{!!session && status === 'authenticated' ? (

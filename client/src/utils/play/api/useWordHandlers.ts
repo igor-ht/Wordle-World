@@ -1,6 +1,6 @@
-import useAxiosAuth from '../hooks/useAxiosAuth';
+import useAxiosAuth from '../../hooks/useAxiosAuth';
 import { useSession } from 'next-auth/react';
-import { GameStateType } from './reducers';
+import { GameStateType } from '../state/reducers';
 import { useQuery } from '@tanstack/react-query';
 
 export default function useWordHandlers(gameState: GameStateType) {

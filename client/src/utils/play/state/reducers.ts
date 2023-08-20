@@ -1,18 +1,10 @@
 // game state
 export type PlayStateType = 'start' | 'play' | 'victory' | 'defeat' | 'guestLimit';
-export type StateActionType = { type: 'setStart' | 'setPlay' | 'setVictory' | 'setDefeat' | 'setGuestLimit' };
+export type StateActionType = { type: 'setState'; payload: PlayStateType };
 export const playStateReducer = (state: PlayStateType, action: StateActionType) => {
 	switch (action.type) {
-		case 'setPlay':
-			return 'play';
-		case 'setVictory':
-			return 'victory';
-		case 'setDefeat':
-			return 'defeat';
-		case 'setGuestLimit':
-			return 'guestLimit';
-		case 'setStart':
-			return 'start';
+		case 'setState':
+			return action.payload;
 		default:
 			return state;
 	}
@@ -38,41 +30,33 @@ export const gameSettingsReducer = (state: GameSettingsType, action: GameSetting
 		case 'setTotalChances':
 			return { ...state, totalChances: action.payload };
 		default:
-			throw new Error();
+			return state;
 	}
 };
 
 // current match
 export type GameStateType = {
 	word: string;
-	currentLetter: string;
 	currentGuess: string;
 	guessNumber: number;
 };
 type SetRandomWordType = { type: 'setRandomWord'; payload: string };
-type SetCurrentLetterActionType = { type: 'setCurrentLetter'; payload: string };
 type SetCurrentGuessActionType = { type: 'setCurrentGuess'; payload: string };
 type SetGuessNumberActionType = { type: 'setGuessNumber'; payload: number };
 type ResetStateActionType = { type: 'resetState' };
-export type gameStateActionType =
-	| SetRandomWordType
-	| SetCurrentLetterActionType
-	| SetCurrentGuessActionType
-	| SetGuessNumberActionType
-	| ResetStateActionType;
+export type gameStateActionType = SetRandomWordType | SetCurrentGuessActionType | SetGuessNumberActionType | ResetStateActionType;
+
 export const gameStateReducer = (state: GameStateType, action: gameStateActionType) => {
 	switch (action.type) {
 		case 'setRandomWord':
 			return { ...state, word: action.payload };
-		case 'setCurrentLetter':
-			return { ...state, currentLetter: action.payload };
 		case 'setCurrentGuess':
 			return { ...state, currentGuess: action.payload };
 		case 'setGuessNumber':
 			return { ...state, guessNumber: action.payload };
 		case 'resetState':
-			return { word: '', currentLetter: '', currentGuess: '', guessNumber: 1 };
+			return { word: '', currentGuess: '', guessNumber: 1 };
 		default:
-			throw new Error();
+			return state;
 	}
 };

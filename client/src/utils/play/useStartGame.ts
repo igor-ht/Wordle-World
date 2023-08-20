@@ -1,13 +1,14 @@
-import { MouseEventHandler, MutableRefObject, useEffect, useReducer, useRef } from 'react';
-import { gameSettingsReducer, GameSettingsType, gameStateReducer, GameStateType, playStateReducer, PlayStateType } from './reducers';
-import { handleInputCellChange, handleInputCellsUpdate, handleKeyboardUpdate, handleRowChange, resetGameComponents } from './domHandlers';
+import { MouseEventHandler, MutableRefObject, useEffect, useRef } from 'react';
+import { GameSettingsType, GameStateType, PlayStateType } from './state/reducers';
+import { handleInputCellChange, handleInputCellsUpdate, handleKeyboardUpdate, handleRowChange } from './dom/domHandlers';
 import { redirect } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { GameSounds } from '@/utils/sounds';
-import useWordHandlers from './useWordHandlers';
-import useGuestHandlers from './useGuestHandlers';
-import useUserHandlers from './useUserHandlers';
+import { GameSounds } from '@/utils/general/sounds';
+import useWordHandlers from './api/useWordHandlers';
+import useGuestHandlers from './api/useGuestHandlers';
+import useUserHandlers from './api/useUserHandlers';
 import { awaitFunction } from '../general/await';
+import { handleStates } from './state/handleStates';
 
 export interface IGameApi {
 	playState: PlayStateType;
@@ -16,43 +17,28 @@ export interface IGameApi {
 	gameState: GameStateType;
 	currentInputElement: MutableRefObject<HTMLInputElement | null>;
 	handleKeyPressedFromDigitalKeyboard: MouseEventHandler<HTMLButtonElement>;
-	keyboardContainerElement: MutableRefObject<HTMLDivElement | null>;
-	handleResetGame: () => Promise<void>;
 }
 
 let ASYNC_RUN = false;
 
 const useStartGame: () => IGameApi = () => {
-	const [playState, playStateDispatch] = useReducer(playStateReducer, 'start');
-	const [gameSettings, gameSettingsDispatch] = useReducer(gameSettingsReducer, { language: 'en', wordLength: 5, totalChances: 6 });
-	const [gameState, gameStateDispatch] = useReducer(gameStateReducer, { word: '', currentLetter: '', currentGuess: '', guessNumber: 1 });
-
+	const { gameSettings, playState, gameState, setGameState, setNewGame, setGameCurrentGuess, setNewGuess } = handleStates();
 	const currentInputElement = useRef<HTMLInputElement | null>(null);
-	const keyboardContainerElement = useRef<HTMLDivElement | null>(null);
-
-	const { data: session, status } = useSession();
 
 	const wordHandlers = useWordHandlers(gameState);
 	const userHandlers = useUserHandlers();
 	const guestHandler = useGuestHandlers();
 
+	const { data: session, status } = useSession();
+
 	const startNewGame = async () => {
 		try {
 			if (!session && status === 'unauthenticated') await handleGuestNewGame();
-			await setRandomWord();
-			if (playState !== 'play') playStateDispatch({ type: 'setPlay' });
+			const word = (await wordHandlers.getRandomWord()).data;
+			setNewGame(word);
 		} catch (error) {
-			if (error === 'Guest exceed daily games limit.') playStateDispatch({ type: 'setGuestLimit' });
-			else playStateDispatch({ type: 'setStart' });
-		}
-	};
-
-	const setRandomWord = async () => {
-		try {
-			const randomWord = (await wordHandlers.getRandomWord()).data;
-			gameStateDispatch({ type: 'setRandomWord', payload: randomWord });
-		} catch {
-			throw 'Could not set secret word from server.';
+			if (error === 'Guest exceed daily games limit.') setGameState('guestLimit');
+			else setGameState('start');
 		}
 	};
 
@@ -63,11 +49,11 @@ const useStartGame: () => IGameApi = () => {
 		if (event.key === 'Backspace') return handleBackSpace();
 		if (!/^[a-zA-Z]$/.test(event.key) || currentInputElement.current!.value.length > 0) return (ASYNC_RUN = false);
 		GameSounds?.insertLetter?.play();
-		handleGameStateUpdate(event.key.toUpperCase());
-
+		currentInputElement.current!.value = event.key.toUpperCase();
+		setGameCurrentGuess(gameState.currentGuess + event.key.toUpperCase());
+		console.log(currentInputElement.current);
 		currentInputElement.current = handleInputCellChange(currentInputElement.current, gameSettings.wordLength);
-
-		gameStateDispatch({ type: 'setCurrentLetter', payload: '' });
+		console.log(currentInputElement.current);
 		ASYNC_RUN = false;
 	};
 
@@ -79,21 +65,20 @@ const useStartGame: () => IGameApi = () => {
 		if (event.currentTarget.id === '⌫') return handleBackSpace();
 		if (currentInputElement.current!.value.length > 0) return (ASYNC_RUN = false);
 		GameSounds?.insertLetter?.play();
-		handleGameStateUpdate(event.currentTarget.id);
+		currentInputElement.current!.value = event.currentTarget.id;
+		setGameCurrentGuess(gameState.currentGuess + event.currentTarget.id);
+		console.log(currentInputElement.current);
 		currentInputElement.current = handleInputCellChange(currentInputElement.current, gameSettings.wordLength);
-		gameStateDispatch({ type: 'setCurrentLetter', payload: '' });
+		console.log(currentInputElement.current);
 		ASYNC_RUN = false;
 	};
 
 	const handleBackSpace = () => {
 		const currentInput = currentInputElement.current! as HTMLInputElement;
 		if ((+currentInput.id - 1) % gameSettings.wordLength === 0) return (ASYNC_RUN = false);
-		GameSounds?.insertLetter?.play();
 		// check if input is the last in the row and is not empty
 		if (+currentInput.id % gameSettings.wordLength === 0 && currentInput.value.length > 0) {
 			currentInput.value = '';
-			gameStateDispatch({ type: 'setCurrentGuess', payload: gameState.currentGuess.slice(0, -1) });
-			gameStateDispatch({ type: 'setCurrentLetter', payload: '' });
 			currentInput.classList.add('current-input');
 			currentInputElement.current?.parentElement?.classList.remove('span-complete');
 			currentInputElement.current?.parentElement?.classList.remove('pop');
@@ -103,25 +88,24 @@ const useStartGame: () => IGameApi = () => {
 			previousInputElement.value = '';
 			previousInputElement.classList.add('current-input');
 			currentInputElement.current = previousInputElement;
-			gameStateDispatch({ type: 'setCurrentGuess', payload: gameState.currentGuess.slice(0, -1) });
-			gameStateDispatch({ type: 'setCurrentLetter', payload: '' });
 		}
+		GameSounds?.insertLetter?.play();
+		setGameCurrentGuess(gameState.currentGuess.slice(0, -1));
 		ASYNC_RUN = false;
 	};
 
 	const handleEnter = async () => {
-		gameStateDispatch({ type: 'setCurrentLetter', payload: '' });
 		if (gameState.currentGuess.length === gameSettings.wordLength) {
 			const ans = (await wordHandlers.sendUserGuessToServer()).data;
 			if (ans) {
-				await handleInputCellsUpdate(ans, currentInputElement.current);
-				await handleKeyboardUpdate(ans, keyboardContainerElement.current, gameState.currentGuess);
+				await handleInputCellsUpdate(ans);
+				await handleKeyboardUpdate(ans, gameState.currentGuess);
 				GameSounds?.guessSent?.play();
 				if (!(await handleUserGuessResponse(ans))) {
-					gameStateDispatch({ type: 'setGuessNumber', payload: gameState.guessNumber + 1 });
-					gameStateDispatch({ type: 'setCurrentGuess', payload: '' });
-					gameStateDispatch({ type: 'setCurrentLetter', payload: '' });
-					currentInputElement.current = await handleRowChange(currentInputElement.current);
+					setNewGuess();
+					console.log(currentInputElement.current);
+					currentInputElement.current = await handleRowChange();
+					console.log(currentInputElement.current);
 				}
 			} else {
 				currentInputElement.current?.parentElement?.classList.add('notfound-guess');
@@ -134,53 +118,25 @@ const useStartGame: () => IGameApi = () => {
 		ASYNC_RUN = false;
 	};
 
-	const handleGameStateUpdate = (char: string) => {
-		if (currentInputElement.current) currentInputElement.current.value = char;
-		gameStateDispatch({ type: 'setCurrentLetter', payload: char });
-		gameStateDispatch({ type: 'setCurrentGuess', payload: gameState.currentGuess + char });
-	};
-
 	const handleUserGuessResponse = async (guess: [string]) => {
 		let checker = true;
 		for (let ans of guess) {
 			if (ans !== 'bull') checker = false;
 		}
-		if (checker) await handleVictory();
+		if (checker) await handleEndGame('victory');
 		else if (!checker && gameState.guessNumber === gameSettings.totalChances) {
-			await handleDefeat();
+			await handleEndGame('defeat');
 			checker = true;
 		}
 		return checker;
 	};
 
-	const handleVictory = async () => {
-		awaitFunction(700, async () => {
-			GameSounds?.victory?.play();
-			playStateDispatch({ type: 'setVictory' });
+	const handleEndGame = async (result: 'victory' | 'defeat') => {
+		awaitFunction(500, async () => {
+			result === 'victory' ? GameSounds?.victory?.play() : GameSounds?.defeat?.play();
+			setGameState(result);
 			if (session && status === 'authenticated') await handleUserFinishGame(true);
 		});
-	};
-
-	const handleDefeat = async () => {
-		awaitFunction(700, async () => {
-			GameSounds?.defeat?.play();
-			playStateDispatch({ type: 'setDefeat' });
-			if (session && status === 'authenticated') await handleUserFinishGame(false);
-		});
-	};
-
-	const handleResetGame = async () => {
-		try {
-			if (!session && status === 'unauthenticated') await handleGuestNewGame();
-			playStateDispatch({ type: 'setPlay' });
-			gameStateDispatch({ type: 'resetState' });
-			currentInputElement.current = await resetGameComponents(keyboardContainerElement.current, currentInputElement.current);
-			await setRandomWord();
-		} catch (error) {
-			console.log(error);
-			if (error === 'Guest exceed daily games limit.') playStateDispatch({ type: 'setGuestLimit' });
-			else playStateDispatch({ type: 'setStart' });
-		}
 	};
 
 	const handleUserFinishGame = async (state: boolean) => {
@@ -218,8 +174,6 @@ const useStartGame: () => IGameApi = () => {
 		gameState,
 		currentInputElement,
 		handleKeyPressedFromDigitalKeyboard,
-		keyboardContainerElement,
-		handleResetGame,
 	};
 };
 

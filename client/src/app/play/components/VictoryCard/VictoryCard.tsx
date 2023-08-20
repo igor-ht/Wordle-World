@@ -4,10 +4,10 @@ import './victoryCard.scss';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import { GameStateType } from '@/utils/play/reducers';
+import { GameStateType } from '@/utils/play/state/reducers';
 import { useRouter } from 'next/navigation';
 
-export default function VictoryCard({ gameState, handleResetGame }: { gameState: GameStateType; handleResetGame: () => Promise<void> }) {
+export default function VictoryCard({ gameState, startNewGame }: { gameState: GameStateType; startNewGame: () => Promise<void> }) {
 	const { data: session, status } = useSession();
 
 	const router = useRouter();
@@ -43,7 +43,7 @@ export default function VictoryCard({ gameState, handleResetGame }: { gameState:
 					<button
 						type="button"
 						className="btn"
-						onClick={handleResetGame}>
+						onClick={startNewGame}>
 						Play Again
 					</button>
 					{!!session && status === 'authenticated' ? (

@@ -3,7 +3,7 @@
 import './Footer.scss';
 import Image from 'next/image';
 import { MouseEvent, useEffect, useState } from 'react';
-import { AppSounds, GameSounds, setAudioHowls } from '@/utils/sounds';
+import { AppSounds, GameSounds, setAudioHowls } from '@/utils/general/sounds';
 
 export default function Footer() {
 	const [sound, setSound] = useState(false);

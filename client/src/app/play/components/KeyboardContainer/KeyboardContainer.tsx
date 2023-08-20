@@ -1,7 +1,7 @@
 'use client';
 
 import './keyboardContainer.scss';
-import { MouseEventHandler, MutableRefObject } from 'react';
+import { MouseEventHandler } from 'react';
 
 const KEYBOARD = [
 	['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
@@ -11,13 +11,12 @@ const KEYBOARD = [
 
 export interface KeyboardContainerInterface {
 	handleKeyPressedFromDigitalKeyboard: MouseEventHandler<HTMLButtonElement>;
-	keyboardContainerElement: MutableRefObject<HTMLDivElement | null>;
 }
 
-export default function KeyboardContainer({ handleKeyPressedFromDigitalKeyboard, keyboardContainerElement }: KeyboardContainerInterface) {
+export default function KeyboardContainer({ handleKeyPressedFromDigitalKeyboard }: KeyboardContainerInterface) {
 	return (
 		<div
-			ref={keyboardContainerElement}
+			id="keyboard-container"
 			className="keyboard-container">
 			{KEYBOARD.map((row, index) => (
 				<div
