@@ -16,6 +16,7 @@ export type userSignUpType = {
 
 export default function SignUpForms() {
 	const [userLogged, setUserLogged] = useState(false);
+
 	const formik = useFormik<userSignUpType>({
 		initialValues: {
 			name: '',
@@ -24,16 +25,17 @@ export default function SignUpForms() {
 			confirmPassword: '',
 		},
 		validationSchema: SignupSchema,
-		onSubmit: () => signUp.mutate(),
+		onSubmit: () => handleSignUp.mutate(),
 	});
-	const signUp = useSignUp(formik, setUserLogged);
+
+	const handleSignUp = useSignUp(formik, setUserLogged);
 
 	return (
 		<Form
 			userLogged={userLogged}
 			setUserLogged={setUserLogged}
 			handleSubmit={formik.handleSubmit}
-			buttonText="Sign Up"
+			buttonText={'Sign Up'}
 			formik={formik}>
 			<div className="input-box">
 				<Input

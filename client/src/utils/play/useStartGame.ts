@@ -6,7 +6,7 @@ import { GameSounds } from '@/utils/sounds';
 import useWordHandlers from './useWordHandlers';
 import useGuestHandlers from './useGuestHandlers';
 import useUserHandlers from './useUserHandlers';
-
+import { awaitFunction } from '../general/await';
 export interface IGameApi {
 	playState: playStateType;
 	startNewGame: () => Promise<void>;
@@ -132,7 +132,8 @@ const useStartGame: () => IGameApi = () => {
 		if (gameState.currentGuess.length === gameSettings.wordLength) {
 			const ans = (await wordHandlers.sendUserGuessToServer()).data;
 			if (ans) {
-				await Promise.all([handleInputCellsUpdate(ans), handleKeyboardUpdate(ans)]);
+				await handleInputCellsUpdate(ans);
+				await handleKeyboardUpdate(ans);
 				GameSounds?.guessSent?.play();
 				if (!(await handleUserGuessResponse(ans))) await handleInputRowChange();
 			} else {
@@ -140,8 +141,7 @@ const useStartGame: () => IGameApi = () => {
 				GameSounds?.badGuess?.play();
 			}
 		} else {
-			const currentRow = currentInputElement.current?.parentElement as HTMLSpanElement;
-			currentRow?.classList.add('short-guess');
+			currentInputElement.current?.parentElement?.classList.add('short-guess');
 			GameSounds?.badGuess?.play();
 		}
 		ASYNC_RUN = false;
@@ -212,19 +212,19 @@ const useStartGame: () => IGameApi = () => {
 	};
 
 	const handleVictory = async () => {
-		setTimeout(async () => {
+		awaitFunction(700, async () => {
 			GameSounds?.victory?.play();
 			playStateDispatch({ type: 'setVictory' });
 			if (session && status === 'authenticated') return await handleUserFinishGame(true);
-		}, 700);
+		});
 	};
 
 	const handleDefeat = async () => {
-		setTimeout(async () => {
+		awaitFunction(700, async () => {
 			GameSounds?.defeat?.play();
 			playStateDispatch({ type: 'setDefeat' });
 			if (session && status === 'authenticated') return await handleUserFinishGame(false);
-		}, 700);
+		});
 	};
 
 	const handleResetGame = async () => {

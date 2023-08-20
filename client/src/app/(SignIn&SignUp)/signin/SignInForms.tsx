@@ -3,7 +3,7 @@
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import Input from '../components/Input';
-import DynamicForm from '../components/Form';
+import Form from '../components/Form';
 import { useSignIn } from '@/utils/forms/api';
 
 export type userSignInType = {
@@ -13,22 +13,23 @@ export type userSignInType = {
 
 export default function SignInForms() {
 	const [userLogged, setUserLogged] = useState(false);
+
 	const formik = useFormik<userSignInType>({
 		initialValues: {
 			email: '',
 			password: '',
 		},
-		onSubmit: () => handleLogin.mutate(),
+		onSubmit: () => handleSignIn.mutate(),
 	});
 
-	const handleLogin = useSignIn(formik, setUserLogged);
+	const handleSignIn = useSignIn(formik, setUserLogged);
 
 	return (
-		<DynamicForm
+		<Form
 			userLogged={userLogged}
 			setUserLogged={setUserLogged}
 			handleSubmit={formik.handleSubmit}
-			buttonText="Sign In"
+			buttonText={'Sign In'}
 			formik={formik}>
 			<div className="input-box">
 				<Input
@@ -54,6 +55,6 @@ export default function SignInForms() {
 					error={formik.errors.password}
 				/>
 			</div>
-		</DynamicForm>
+		</Form>
 	);
 }

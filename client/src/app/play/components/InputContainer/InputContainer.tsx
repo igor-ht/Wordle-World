@@ -1,10 +1,10 @@
 'use client';
 
 import './inputContainer.scss';
-import { useState, AnimationEvent, MutableRefObject } from 'react';
-import ShortGuessTooltip from '../NotValidGuess/ShortGuessTooltip';
-import GuessNotFoundTooltip from '../NotValidGuess/GuessNotFoundTooltip';
+import { MutableRefObject } from 'react';
 import { gameSettingsType } from '@/utils/play/reducers';
+import { useBadGuess } from '@/utils/play/useBadGuess';
+import NotValidGuess from '../NotValidGuess/NotValidGuess';
 
 export interface InputContainerInterface {
 	gameSettings: gameSettingsType;
@@ -12,39 +12,18 @@ export interface InputContainerInterface {
 }
 
 export default function InputContainer({ gameSettings, currentInputElement }: InputContainerInterface) {
-	const [shortGuess, setShortGuess] = useState(false);
-	const [GuessNotfound, setGuessNotfound] = useState(false);
-
-	const handleAnimation = async (event: AnimationEvent<HTMLSpanElement>) => {
-		switch (event.animationName) {
-			case 'ShortGuess':
-				setShortGuess(true);
-				setTimeout(() => {
-					setShortGuess(false);
-					currentInputElement.current!.parentElement!.classList.remove('short-guess');
-				}, 1200);
-				break;
-			case 'NotFoundGuess':
-				setGuessNotfound(true);
-				setTimeout(() => {
-					setGuessNotfound(false);
-					currentInputElement.current!.parentElement!.classList.remove('notfound-guess');
-					currentInputElement.current!.parentElement!.classList.remove('pop');
-				}, 1200);
-				break;
-		}
-	};
+	const { badGuess, handleAnimation } = useBadGuess();
 
 	return (
 		<div className="input-container">
-			{shortGuess ? <ShortGuessTooltip /> : <></>}
-			{GuessNotfound ? <GuessNotFoundTooltip /> : <></>}
+			{badGuess === 'short' && <NotValidGuess text="Guess is too short" />}
+			{badGuess === 'notfound' && <NotValidGuess text="Guess not found" />}
 			{Array.from(Array(gameSettings.totalChances).keys(), (x) => x + 1).map((elA, indexA) => {
 				return (
 					<span
 						key={elA}
 						id={'' + elA}
-						onAnimationStart={(event: AnimationEvent<HTMLSpanElement>) => handleAnimation(event)}>
+						onAnimationStart={(event) => handleAnimation(event)}>
 						{Array.from(Array(gameSettings.wordLength).keys(), (x) => x + 1).map((num: number, indexB: number) => {
 							return (
 								<input

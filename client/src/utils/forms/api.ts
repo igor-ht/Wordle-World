@@ -31,8 +31,9 @@ export const useSignUp = (formik: ReturnType<typeof useFormik<userSignUpType>>, 
 			} catch (error) {
 				setUserLogged(false);
 				if (error instanceof AxiosError) {
-					if (error.response?.data === 'Email already registered.') formik.setFieldError('email', 'Email already registered');
 					if (error.response?.data === 'Name already registered.') formik.setFieldError('name', 'Name already registered');
+					else if (error.response?.data === 'Email already registered.') formik.setFieldError('email', 'Email already registered');
+					else setFormikError(formik);
 				}
 			}
 		},
@@ -78,26 +79,26 @@ export const useGoogleOAuth = <T extends AllFormTypes>(
 				router.push('/dashboard');
 			} catch {
 				setUserLogged(false);
-				setFormikError(formik.initialValues);
+				setFormikError(formik);
 			}
 		},
 	});
 
-	const setFormikError = (initialValues: AllFormTypes) => {
-		if ('name' in initialValues) {
-			formik.setErrors({
-				name: `We had a problem with the login proccess.`,
-				email: `We had a problem with the login proccess.`,
-				password: `We had a problem with the login proccess.`,
-				confirmPassword: `We had a problem with the login proccess.`,
-			} as FormikErrors<T>);
-		} else {
-			formik.setErrors({
-				email: `We had a problem with the login proccess.`,
-				password: `We had a problem with the login proccess.`,
-			} as FormikErrors<T>);
-		}
-	};
-
 	return handleGoogleOAuth;
+};
+
+const setFormikError = <T extends AllFormTypes>(formik: ReturnType<typeof useFormik<T>>) => {
+	if ('name' in formik.initialValues) {
+		formik.setErrors({
+			name: `We had a problem in the proccess.`,
+			email: `We had a problem in the proccess.`,
+			password: `We had a problem in the proccess.`,
+			confirmPassword: `We had a problem in the proccess.`,
+		} as FormikErrors<T>);
+	} else {
+		formik.setErrors({
+			email: `We had a problem with the login proccess.`,
+			password: `We had a problem with the login proccess.`,
+		} as FormikErrors<T>);
+	}
 };

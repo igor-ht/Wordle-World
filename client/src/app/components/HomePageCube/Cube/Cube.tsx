@@ -6,8 +6,7 @@ export default function Cube() {
 		<div className="cube-container">
 			<div className="cube">
 				<div className="face welcome">
-					<h6>Welcome to Wordle World!</h6>
-					<p>I am excited to have you here and hope you enjoy playing around.</p>
+					<h1>Welcome to Wordle World!</h1>
 					<p>Here you can play Wordle in english for free and keep track of the words you discovered and points you made!</p>
 					<p>Enjoy and good luck!</p>
 				</div>
@@ -47,7 +46,7 @@ export default function Cube() {
 					</div>
 				</div>
 				<div className="face how-to-play">
-					<h6>How to play:</h6>
+					<h1>How to play:</h1>
 					<p>- You have 6 chances to guess a secret random word.</p>
 					<p>- After every guess, you can get three possible answers:</p>
 					<section className="guess-example">

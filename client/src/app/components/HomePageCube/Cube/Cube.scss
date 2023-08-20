@@ -25,10 +25,11 @@
 }
 
 .cube {
-  @include general-properties(16rem, 16rem, transparent);
+  @include general-properties(17rem, 17rem, transparent);
   position: relative;
   transform-style: preserve-3d;
-  animation: turn 29s ease-in-out 0s infinite;
+  transform: rotateY(0deg);
+  // animation: turn 29s ease-in-out 0s infinite;
 
   &:hover {
     animation-play-state: paused;
@@ -57,26 +58,28 @@ $cubeColors: (
 // creating each side of the cube with common properties and its own bg-color
 @each $class, $backColor in $cubeColors {
   .#{$class} {
-    @include general-properties(15.5rem, 15.5rem, #{$backColor});
+    @include general-properties(16rem, 16rem, #{$backColor});
     @include display-flex(column);
     align-items: center;
     color: white;
   }
 }
 
+$translateX: 8rem;
+$rotateY: 90deg;
+
 .welcome {
-  transform: translateZ(7.75rem);
-  justify-content: center;
-  h6 {
-    @include font($fontVarellaRound, 1.1rem, white, center);
-    margin: 0.4rem;
+  transform: translateZ($translateX);
+  h1 {
+    @include font($fontVarellaRound, 1.15rem, white, center);
+    margin: 1rem 0.25rem 0.3rem 0.25rem;
   }
   p {
     @include font($fontVarellaRound, 0.9rem, white, justify);
     margin: 0.3rem 0.5rem;
   }
   @include media-query($media-md) {
-    h6 {
+    h1 {
       margin: 0.3rem;
     }
     p {
@@ -85,7 +88,7 @@ $cubeColors: (
   }
 }
 .account {
-  transform: translateX(-7.75rem) rotateY(-90deg);
+  transform: translateX(-$translateX) rotateY(-$rotateY);
   span {
     height: 32%;
     @include display-flex(column);
@@ -106,7 +109,7 @@ $cubeColors: (
   }
 }
 .info {
-  transform: translateZ(-7.75rem) rotateY(180deg);
+  transform: translateZ(-$translateX) rotateY(calc($rotateY * 2));
   justify-content: space-evenly;
   div {
     @include display-flex(column);
@@ -123,9 +126,9 @@ $cubeColors: (
   }
 }
 .how-to-play {
-  transform: translateX(7.75rem) rotateY(90deg);
+  transform: translateX($translateX) rotateY($rotateY);
   text-align: justify;
-  h6 {
+  h1 {
     @include font($fontVarellaRound, 1rem, white, center);
     margin: 0.4rem;
   }
@@ -167,8 +170,8 @@ $cubeColors: (
   }
 }
 .top {
-  transform: translateY(-7.7rem) rotateX(90deg);
+  transform: translateY(-$translateX) rotateX($rotateY);
 }
 .bottom {
-  transform: translateY(7.7rem) rotateX(-90deg);
+  transform: translateY($translateX) rotateX(-$rotateY);
 }
