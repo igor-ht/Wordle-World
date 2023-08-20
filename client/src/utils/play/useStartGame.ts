@@ -8,7 +8,7 @@ import useWordHandlers from './api/useWordHandlers';
 import useGuestHandlers from './api/useGuestHandlers';
 import useUserHandlers from './api/useUserHandlers';
 import { awaitFunction } from '../general/await';
-import { handleStates } from './state/handleStates';
+import { useGameStates } from './state/useStates';
 
 export interface IGameApi {
 	playState: PlayStateType;
@@ -22,7 +22,7 @@ export interface IGameApi {
 let ASYNC_RUN = false;
 
 const useStartGame: () => IGameApi = () => {
-	const { gameSettings, playState, gameState, setGameState, setNewGame, setGameCurrentGuess, setNewGuess } = handleStates();
+	const { gameSettings, playState, gameState, setGameState, setNewGame, setGameCurrentGuess, setNewGuess } = useGameStates();
 	const currentInputElement = useRef<HTMLInputElement | null>(null);
 
 	const wordHandlers = useWordHandlers(gameState);

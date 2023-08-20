@@ -1,7 +1,7 @@
 import { useReducer } from 'react';
 import { playStateReducer, gameStateReducer, gameSettingsReducer, PlayStateType } from './reducers';
 
-export const handleStates = () => {
+export const useGameStates = () => {
 	const [gameSettings, gameSettingsDispatch] = useReducer(gameSettingsReducer, { language: 'en', wordLength: 5, totalChances: 6 });
 	const [playState, playStateDispatch] = useReducer(playStateReducer, 'start');
 	const [gameState, gameStateDispatch] = useReducer(gameStateReducer, { word: '', currentGuess: '', guessNumber: 1 });
