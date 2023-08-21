@@ -28,8 +28,8 @@
   @include general-properties(16rem, 16rem, transparent);
   position: relative;
   transform-style: preserve-3d;
-  // transform: rotateY(0deg);
   animation: turn 29s ease-in-out 0s infinite;
+  // transform: rotateY(0deg);
 
   &:hover {
     animation-play-state: paused;
@@ -38,7 +38,7 @@
 
 .face {
   position: absolute;
-  opacity: 0.95;
+  opacity: 0.8;
   user-select: none;
   text-shadow: 0px 0px 5px black;
   &:hover {
@@ -58,116 +58,25 @@ $cubeColors: (
 // creating each side of the cube with common properties and its own bg-color
 @each $class, $backColor in $cubeColors {
   .#{$class} {
-    @include general-properties(15.5rem, 15.5rem, #{$backColor});
+    @include general-properties(15rem, 15rem, #{$backColor});
     @include display-flex(column);
-    align-items: center;
-    color: white;
   }
 }
 
-$translateX: 7.75rem;
+$translateX: 7.5rem;
 $rotateY: 90deg;
 
 .welcome {
   transform: translateZ($translateX);
-  h1 {
-    @include font($fontVarellaRound, 1.15rem, white, center);
-    margin: 1rem 0.25rem 0.3rem 0.25rem;
-  }
-  p {
-    @include font($fontVarellaRound, 0.9rem, white, justify);
-    margin: 0.3rem 0.5rem;
-  }
-  @include media-query($media-md) {
-    h1 {
-      margin: 0.3rem;
-    }
-    p {
-      margin: 0.3rem;
-    }
-  }
 }
 .account {
   transform: translateX(-$translateX) rotateY(-$rotateY);
-  span {
-    height: 32%;
-    @include display-flex(column);
-    align-items: center;
-    justify-content: center;
-  }
-  p {
-    @include font($fontVarellaRound, 0.95rem, white, center);
-    text-shadow: 0px 0px 5px #848420;
-  }
-  a {
-    @include font($fontRoboto, 0.95rem, blue, center);
-    text-shadow: 0px 0px 5px #d7d730;
-    font-weight: 600;
-    &:visited {
-      color: blue;
-    }
-  }
 }
 .info {
   transform: translateZ(-$translateX) rotateY(calc($rotateY * 2));
-  justify-content: space-evenly;
-  div {
-    @include display-flex(column);
-    align-items: center;
-    p {
-      @include font($fontVarellaRound, 1rem, white, center);
-      text-shadow: 0px 0px 10px rgb(36, 134, 36);
-    }
-    a {
-      @include font($fontRoboto, 1.1rem, blue, center);
-      text-shadow: 0px 0px 10px rgb(36, 134, 36);
-      font-weight: 600;
-    }
-  }
 }
 .how-to-play {
   transform: translateX($translateX) rotateY($rotateY);
-  text-align: justify;
-  h1 {
-    @include font($fontVarellaRound, 1rem, white, center);
-    margin: 0.4rem;
-  }
-  p {
-    @include font($fontVarellaRound, 0.9rem, white, start);
-    margin: 0 0.3rem 0.3rem 0.3rem;
-  }
-
-  .guess-example {
-    @include display-flex(column);
-    height: 100%;
-    span {
-      @include display-flex(row);
-      height: 100%;
-      margin: 0.3rem;
-      p {
-        @include font($fontVarellaRound, 0.75rem, white, justify);
-        margin: 0 0 0.2rem 0;
-        align-self: flex-end;
-        line-height: 1;
-      }
-      input {
-        @include general-properties(1.5rem, 1.5rem);
-        @include font($fontGame, 1rem, white, center);
-        -webkit-text-fill-color: white;
-        margin: 0 0.3rem 0 0;
-        text-shadow: 0px 0px 20px black;
-      }
-      .wrong {
-        background-color: gray;
-      }
-      .bull {
-        background-color: green;
-      }
-      .cow {
-        background-color: rgb(226, 226, 23);
-      }
-    }
-  }
 }
 .top {
   transform: translateY(-$translateX) rotateX($rotateY);
