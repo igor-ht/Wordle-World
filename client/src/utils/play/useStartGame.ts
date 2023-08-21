@@ -1,14 +1,14 @@
-import { MouseEventHandler, MutableRefObject, useEffect, useRef } from 'react';
+import { MouseEventHandler, MutableRefObject, useEffect } from 'react';
 import { GameSettingsType, GameStateType, PlayStateType } from './state/reducers';
-import { handleInputCellChange, handleInputCellsUpdate, handleKeyboardUpdate, handleRowChange } from './dom/domHandlers';
 import { redirect } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { GameSounds } from '@/utils/general/sounds';
+import useDomHandlers from './dom/useDomHandlers';
 import useWordHandlers from './api/useWordHandlers';
 import useGuestHandlers from './api/useGuestHandlers';
 import useUserHandlers from './api/useUserHandlers';
 import { awaitFunction } from '../general/await';
-import { useGameStates } from './state/useStates';
+import { useGameStates } from './state/useGameStates';
 
 export interface IGameApi {
 	playState: PlayStateType;
@@ -16,14 +16,23 @@ export interface IGameApi {
 	gameSettings: GameSettingsType;
 	gameState: GameStateType;
 	currentInputElement: MutableRefObject<HTMLInputElement | null>;
+	keyboardContainerElement: MutableRefObject<HTMLDivElement | null>;
 	handleKeyPressedFromDigitalKeyboard: MouseEventHandler<HTMLButtonElement>;
 }
 
 let ASYNC_RUN = false;
 
 const useStartGame: () => IGameApi = () => {
-	const { gameSettings, playState, gameState, setGameState, setNewGame, setGameCurrentGuess, setNewGuess } = useGameStates();
-	const currentInputElement = useRef<HTMLInputElement | null>(null);
+	const { gameSettings, playState, gameState, sePlayState, setNewGame, setGameCurrentGuess, setNewGuess } = useGameStates();
+
+	const {
+		currentInputElement,
+		keyboardContainerElement,
+		handleInputCellChange,
+		handleRowChange,
+		handleInputCellsUpdate,
+		handleKeyboardUpdate,
+	} = useDomHandlers();
 
 	const wordHandlers = useWordHandlers(gameState);
 	const userHandlers = useUserHandlers();
@@ -37,8 +46,8 @@ const useStartGame: () => IGameApi = () => {
 			const word = (await wordHandlers.getRandomWord()).data;
 			setNewGame(word);
 		} catch (error) {
-			if (error === 'Guest exceed daily games limit.') setGameState('guestLimit');
-			else setGameState('start');
+			if (error === 'Guest exceed daily games limit.') sePlayState('guestLimit');
+			else sePlayState('start');
 		}
 	};
 
@@ -51,9 +60,7 @@ const useStartGame: () => IGameApi = () => {
 		GameSounds?.insertLetter?.play();
 		currentInputElement.current!.value = event.key.toUpperCase();
 		setGameCurrentGuess(gameState.currentGuess + event.key.toUpperCase());
-
-		currentInputElement.current = handleInputCellChange(currentInputElement.current, gameSettings.wordLength);
-
+		handleInputCellChange(gameSettings.wordLength);
 		ASYNC_RUN = false;
 	};
 
@@ -67,8 +74,7 @@ const useStartGame: () => IGameApi = () => {
 		GameSounds?.insertLetter?.play();
 		currentInputElement.current!.value = event.currentTarget.id;
 		setGameCurrentGuess(gameState.currentGuess + event.currentTarget.id);
-
-		currentInputElement.current = handleInputCellChange(currentInputElement.current, gameSettings.wordLength);
+		handleInputCellChange(gameSettings.wordLength);
 
 		ASYNC_RUN = false;
 	};
@@ -103,8 +109,7 @@ const useStartGame: () => IGameApi = () => {
 				GameSounds?.guessSent?.play();
 				if (!(await handleUserGuessResponse(ans))) {
 					setNewGuess();
-
-					currentInputElement.current = await handleRowChange();
+					await handleRowChange();
 				}
 			} else {
 				currentInputElement.current?.parentElement?.classList.add('notfound-guess');
@@ -133,7 +138,7 @@ const useStartGame: () => IGameApi = () => {
 	const handleEndGame = async (result: 'victory' | 'defeat') => {
 		awaitFunction(500, async () => {
 			result === 'victory' ? GameSounds?.victory?.play() : GameSounds?.defeat?.play();
-			setGameState(result);
+			sePlayState(result);
 			if (session && status === 'authenticated') await handleUserFinishGame(true);
 		});
 	};
@@ -172,6 +177,7 @@ const useStartGame: () => IGameApi = () => {
 		gameSettings,
 		gameState,
 		currentInputElement,
+		keyboardContainerElement,
 		handleKeyPressedFromDigitalKeyboard,
 	};
 };

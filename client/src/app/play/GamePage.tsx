@@ -10,7 +10,15 @@ import DefeatCard from './components/DefeatCard/DefeatCard';
 import GuestLimitGames from './components/GuestLimitGames/GuestLimitGames';
 
 export default function GamePage() {
-	const { playState, startNewGame, gameSettings, gameState, currentInputElement, handleKeyPressedFromDigitalKeyboard } = useStartGame();
+	const {
+		playState,
+		startNewGame,
+		gameSettings,
+		gameState,
+		currentInputElement,
+		keyboardContainerElement,
+		handleKeyPressedFromDigitalKeyboard,
+	} = useStartGame();
 
 	return (
 		<div className="game-container">
@@ -21,7 +29,10 @@ export default function GamePage() {
 						gameSettings={gameSettings}
 						currentInputElement={currentInputElement}
 					/>
-					<KeyboardContainer handleKeyPressedFromDigitalKeyboard={handleKeyPressedFromDigitalKeyboard} />
+					<KeyboardContainer
+						keyboardContainerElement={keyboardContainerElement}
+						handleKeyPressedFromDigitalKeyboard={handleKeyPressedFromDigitalKeyboard}
+					/>
 				</>
 			)}
 			{playState === 'victory' && (

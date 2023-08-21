@@ -14,6 +14,7 @@ export default function useWordHandlers(gameState: GameStateType) {
 			return cypherWord;
 		} catch (error) {
 			if (session) await update();
+			throw 'Could not fetch random word.';
 		}
 	};
 

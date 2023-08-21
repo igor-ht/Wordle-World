@@ -25,7 +25,7 @@
 }
 
 .cube {
-  @include general-properties(17rem, 17rem, transparent);
+  @include general-properties(16rem, 16rem, transparent);
   position: relative;
   transform-style: preserve-3d;
   // transform: rotateY(0deg);
@@ -58,14 +58,14 @@ $cubeColors: (
 // creating each side of the cube with common properties and its own bg-color
 @each $class, $backColor in $cubeColors {
   .#{$class} {
-    @include general-properties(16rem, 16rem, #{$backColor});
+    @include general-properties(15.5rem, 15.5rem, #{$backColor});
     @include display-flex(column);
     align-items: center;
     color: white;
   }
 }
 
-$translateX: 8rem;
+$translateX: 7.75rem;
 $rotateY: 90deg;
 
 .welcome {

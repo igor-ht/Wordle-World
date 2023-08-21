@@ -6,14 +6,14 @@ export const useGameStates = () => {
 	const [playState, playStateDispatch] = useReducer(playStateReducer, 'start');
 	const [gameState, gameStateDispatch] = useReducer(gameStateReducer, { word: '', currentGuess: '', guessNumber: 1 });
 
-	const setGameState = (state: PlayStateType) => {
+	const sePlayState = (state: PlayStateType) => {
 		playStateDispatch({ type: 'setState', payload: state });
 	};
 
 	const setNewGame = (word: string) => {
 		gameStateDispatch({ type: 'resetState' });
 		gameStateDispatch({ type: 'setRandomWord', payload: word });
-		setGameState('play');
+		sePlayState('play');
 	};
 
 	const setGameCurrentGuess = (str: string) => {
@@ -25,5 +25,5 @@ export const useGameStates = () => {
 		gameStateDispatch({ type: 'setCurrentGuess', payload: '' });
 	};
 
-	return { gameSettings, playState, gameState, setGameState, setNewGame, setGameCurrentGuess, setNewGuess };
+	return { gameSettings, playState, gameState, sePlayState, setNewGame, setGameCurrentGuess, setNewGuess };
 };
