@@ -31,7 +31,7 @@ You can try the live app [here](https://wordle-world.vercel.app/).
 
 You have the option to sign up by registering a new account or using your Google account.
 
-> Alternatively, you can use the following test account:
+Alternatively, you can use the following test account:
 > `email: test@wordleworld.com`\
 > `password: test123 `
 
