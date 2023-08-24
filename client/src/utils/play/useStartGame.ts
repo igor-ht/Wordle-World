@@ -3,17 +3,17 @@ import { GameSettingsType, GameStateType, PlayStateType } from './state/reducers
 import { redirect } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { GameSounds } from '@/utils/general/sounds';
+import { awaitFunction } from '../general/await';
+import { useGameStates } from './state/useGameStates';
 import useDomHandlers from './dom/useDomHandlers';
 import useWordHandlers from './api/useWordHandlers';
 import useGuestHandlers from './api/useGuestHandlers';
 import useUserHandlers from './api/useUserHandlers';
-import { awaitFunction } from '../general/await';
-import { useGameStates } from './state/useGameStates';
 
 export interface IGameApi {
 	playState: PlayStateType;
 	startNewGame: () => Promise<void>;
-	gameSettings: GameSettingsType;
+	gameSettings: MutableRefObject<GameSettingsType>;
 	gameState: GameStateType;
 	currentInputElement: MutableRefObject<HTMLInputElement | null>;
 	keyboardContainerElement: MutableRefObject<HTMLDivElement | null>;
@@ -34,7 +34,7 @@ const useStartGame: () => IGameApi = () => {
 		handleKeyboardUpdate,
 	} = useDomHandlers();
 
-	const wordHandlers = useWordHandlers(gameState);
+	const wordHandlers = useWordHandlers(gameState, gameSettings.current);
 	const userHandlers = useUserHandlers();
 	const guestHandler = useGuestHandlers();
 
@@ -60,7 +60,7 @@ const useStartGame: () => IGameApi = () => {
 		GameSounds?.insertLetter?.play();
 		currentInputElement.current!.value = event.key.toUpperCase();
 		setGameCurrentGuess(gameState.currentGuess + event.key.toUpperCase());
-		handleInputCellChange(gameSettings.wordLength);
+		handleInputCellChange(gameSettings.current.wordLength);
 		ASYNC_RUN = false;
 	};
 
@@ -74,16 +74,16 @@ const useStartGame: () => IGameApi = () => {
 		GameSounds?.insertLetter?.play();
 		currentInputElement.current!.value = event.currentTarget.id;
 		setGameCurrentGuess(gameState.currentGuess + event.currentTarget.id);
-		handleInputCellChange(gameSettings.wordLength);
+		handleInputCellChange(gameSettings.current.wordLength);
 
 		ASYNC_RUN = false;
 	};
 
 	const handleBackSpace = () => {
 		const currentInput = currentInputElement.current! as HTMLInputElement;
-		if ((+currentInput.id - 1) % gameSettings.wordLength === 0) return (ASYNC_RUN = false);
+		if ((+currentInput.id - 1) % gameSettings.current.wordLength === 0) return (ASYNC_RUN = false);
 		// check if input is the last in the row and is not empty
-		if (+currentInput.id % gameSettings.wordLength === 0 && currentInput.value.length > 0) {
+		if (+currentInput.id % gameSettings.current.wordLength === 0 && currentInput.value.length > 0) {
 			currentInput.value = '';
 			currentInput.classList.add('current-input');
 			currentInputElement.current?.parentElement?.classList.remove('span-complete');
@@ -101,7 +101,7 @@ const useStartGame: () => IGameApi = () => {
 	};
 
 	const handleEnter = async () => {
-		if (gameState.currentGuess.length === gameSettings.wordLength) {
+		if (gameState.currentGuess.length === gameSettings.current.wordLength) {
 			const ans = (await wordHandlers.sendUserGuessToServer()).data;
 			if (ans) {
 				await handleInputCellsUpdate(ans);
@@ -128,7 +128,7 @@ const useStartGame: () => IGameApi = () => {
 			if (ans !== 'bull') checker = false;
 		}
 		if (checker) await handleEndGame('victory');
-		else if (!checker && gameState.guessNumber === gameSettings.totalChances) {
+		else if (!checker && gameState.guessNumber === gameSettings.current.totalChances) {
 			await handleEndGame('defeat');
 			checker = true;
 		}

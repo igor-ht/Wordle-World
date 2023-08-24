@@ -1,4 +1,4 @@
-import { BASE_URL, ENDPOINT } from '@/appConfig';
+import { BASE_URL, ENDPOINT } from '@/utils/appConfig';
 import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { FormikErrors, useFormik } from 'formik';

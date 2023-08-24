@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ENDPOINT } from '@/appConfig';
+import { ENDPOINT } from '@/utils/appConfig';
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 

@@ -1,6 +1,6 @@
 import './HomePage.scss';
 import Cube from './Cube/Cube';
-import Title from '../Title/Title';
+import Title from '../common/Title/Title';
 
 export default function HomePage() {
 	return (

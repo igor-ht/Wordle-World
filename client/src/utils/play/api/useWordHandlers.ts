@@ -1,15 +1,20 @@
 import useAxiosAuth from '../../hooks/useAxiosAuth';
 import { useSession } from 'next-auth/react';
-import { GameStateType } from '../state/reducers';
+import { GameSettingsType, GameStateType } from '../state/reducers';
 import { useQuery } from '@tanstack/react-query';
 
-export default function useWordHandlers(gameState: GameStateType) {
+export default function useWordHandlers(gameState: GameStateType, gameSettings: GameSettingsType) {
 	const axiosAuth = useAxiosAuth();
 	const { data: session, update } = useSession();
 
 	const getRandomWordQuery = async () => {
 		try {
-			const res = await axiosAuth.get(`/word/randWord`);
+			const res = await axiosAuth.get(`/word/randWord`, {
+				params: {
+					language: gameSettings.language,
+					wordLength: gameSettings.wordLength,
+				},
+			});
 			const cypherWord = await res.data;
 			return cypherWord;
 		} catch (error) {
@@ -21,7 +26,7 @@ export default function useWordHandlers(gameState: GameStateType) {
 	const sendUserGuessToServerQuery = async () => {
 		const res = await axiosAuth.get(`/word/checkGuess`, {
 			headers: { cyphertext: gameState.word },
-			params: { guess: gameState.currentGuess.toLowerCase() },
+			params: { guess: gameState.currentGuess.toLowerCase(), language: gameSettings.language, wordLength: gameSettings.wordLength },
 		});
 		if (!res.data) return null;
 		return res.data;

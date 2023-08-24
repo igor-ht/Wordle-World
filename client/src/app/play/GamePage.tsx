@@ -2,13 +2,11 @@
 
 import './gamePage.scss';
 import useStartGame from '@/utils/play/useStartGame';
-import Temp_StartGame from './_components/StartGame/Temp_StartGame';
-import InputContainer from './_components/InputContainer/InputContainer';
-import KeyboardContainer from './_components/KeyboardContainer/KeyboardContainer';
 import VictoryCard from './_components/VictoryCard/VictoryCard';
 import DefeatCard from './_components/DefeatCard/DefeatCard';
 import GuestLimitGames from './_components/GuestLimitGames/GuestLimitGames';
 import StartGame from './_components/StartGame/StartGame';
+import GameBoard from './_components/GameBoard/GameBoard';
 
 export default function GamePage() {
 	const {
@@ -30,16 +28,12 @@ export default function GamePage() {
 				/>
 			)}
 			{playState === 'play' && (
-				<>
-					<InputContainer
-						gameSettings={gameSettings}
-						currentInputElement={currentInputElement}
-					/>
-					<KeyboardContainer
-						keyboardContainerElement={keyboardContainerElement}
-						handleKeyPressedFromDigitalKeyboard={handleKeyPressedFromDigitalKeyboard}
-					/>
-				</>
+				<GameBoard
+					gameSettings={gameSettings}
+					currentInputElement={currentInputElement}
+					keyboardContainerElement={keyboardContainerElement}
+					handleKeyPressedFromDigitalKeyboard={handleKeyPressedFromDigitalKeyboard}
+				/>
 			)}
 			{playState === 'victory' && (
 				<VictoryCard

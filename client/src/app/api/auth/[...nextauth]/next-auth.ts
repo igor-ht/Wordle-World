@@ -3,7 +3,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import axios from 'axios';
 import { AuthOptions } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
-import { ENDPOINT, GoogleClientID, GoogleClientSecret } from '@/appConfig';
+import { ENDPOINT, GoogleClientID, GoogleClientSecret } from '@/utils/appConfig';
 import { signOut } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 

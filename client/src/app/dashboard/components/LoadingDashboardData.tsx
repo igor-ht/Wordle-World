@@ -1,5 +1,5 @@
 import '../dashboard.scss';
-import LoadingSkeleton from '@/app/_components/LoadingSkeleton/LoadingSkeleton';
+import LoadingSkeleton from '@/app/_components/common/LoadingSkeleton/LoadingSkeleton';
 import RankingLoadingSkeleton from './Ranking/RankingLoadingSkeleton';
 import UserStatsLoadingSkeleton from './UserStats/UserStatsLoadingSkeleton';
 

@@ -1,4 +1,4 @@
-@use "../../../styles/main" as *;
+@use "@/styles/main" as *;
 
 .navbar {
   @include general-properties(100dvw, 12dvh, $bg-nav);

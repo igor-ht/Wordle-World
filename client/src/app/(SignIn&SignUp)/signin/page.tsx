@@ -1,5 +1,5 @@
 import SignInForm from './SignInForms';
-import Title from '@/app/_components/Title/Title';
+import Title from '@/app/_components/common/Title/Title';
 
 export default function SignIn() {
 	return (

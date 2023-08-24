@@ -1,8 +1,8 @@
-import { useReducer } from 'react';
-import { playStateReducer, gameStateReducer, gameSettingsReducer, PlayStateType } from './reducers';
+import { useReducer, useRef } from 'react';
+import { playStateReducer, gameStateReducer, PlayStateType, GameSettingsType } from './reducers';
 
 export const useGameStates = () => {
-	const [gameSettings, gameSettingsDispatch] = useReducer(gameSettingsReducer, { language: 'en', wordLength: 5, totalChances: 6 });
+	const gameSettings = useRef<GameSettingsType>({ language: 'en', wordLength: 5, totalChances: 6 });
 	const [playState, playStateDispatch] = useReducer(playStateReducer, 'start');
 	const [gameState, gameStateDispatch] = useReducer(gameStateReducer, { word: '', currentGuess: '', guessNumber: 1 });
 

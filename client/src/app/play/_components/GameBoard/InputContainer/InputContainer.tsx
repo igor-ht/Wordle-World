@@ -7,7 +7,7 @@ import { useBadGuess } from '@/utils/play/state/useBadGuess';
 import NotValidGuess from '../NotValidGuess/NotValidGuess';
 
 export interface InputContainerInterface {
-	gameSettings: GameSettingsType;
+	gameSettings: MutableRefObject<GameSettingsType>;
 	currentInputElement: MutableRefObject<HTMLInputElement | null>;
 }
 
@@ -20,20 +20,20 @@ export default function InputContainer({ gameSettings, currentInputElement }: In
 			className="input-container">
 			{badGuess === 'short' && <NotValidGuess text="Guess is too short" />}
 			{badGuess === 'notfound' && <NotValidGuess text="Guess not found" />}
-			{new Array(gameSettings.totalChances).fill(null).map((_, indexA) => {
+			{new Array(gameSettings.current.totalChances).fill(null).map((_, indexA) => {
 				return (
 					<span
 						key={indexA}
 						id={indexA + ''}
 						onAnimationStart={(event) => handleAnimation(event)}>
-						{new Array(gameSettings.wordLength).fill(null).map((_, indexB) => {
+						{new Array(gameSettings.current.wordLength).fill(null).map((_, indexB) => {
 							return (
 								<input
 									type="text"
 									ref={indexA === 0 && indexB === 0 ? currentInputElement : null}
-									key={5 * indexA + indexB}
-									// id starts from 1 to gameSettings.totalChances * gameSettings.wordLength
-									id={5 * indexA + indexB + 1 + ''}
+									key={gameSettings.current.wordLength * indexA + indexB}
+									// id starts from 1 to gameSettings.current.totalChances * gameSettings.wordLength
+									id={gameSettings.current.wordLength * indexA + indexB + 1 + ''}
 									className={indexA === 0 && indexB === 0 ? 'current-input' : ''}
 									minLength={1}
 									maxLength={1}

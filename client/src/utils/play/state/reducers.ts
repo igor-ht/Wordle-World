@@ -17,22 +17,6 @@ export type GameSettingsType = {
 	wordLength: number;
 	totalChances: number;
 };
-type SetLanguageType = { type: 'setLanguage'; payload: LanguagesType };
-type SetWordLengthType = { type: 'setWordLength'; payload: number };
-type SetTotalChancesType = { type: 'setTotalChances'; payload: number };
-export type GameSettingsActionType = SetLanguageType | SetWordLengthType | SetTotalChancesType;
-export const gameSettingsReducer = (state: GameSettingsType, action: GameSettingsActionType) => {
-	switch (action.type) {
-		case 'setLanguage':
-			return { ...state, language: action.payload };
-		case 'setWordLength':
-			return { ...state, wordLength: action.payload };
-		case 'setTotalChances':
-			return { ...state, totalChances: action.payload };
-		default:
-			return state;
-	}
-};
 
 // current match
 export type GameStateType = {

@@ -3,10 +3,10 @@ import { varelaRound, roboto } from '@/utils/general/fonts';
 import { Session } from 'next-auth';
 import { Analytics } from '@vercel/analytics/react';
 import { Metadata } from 'next';
-import Navbar from './_components/Navbar&Menu/Navbar';
+import Navbar from './_components/layout/Navbar&Menu/Navbar';
 import AuthProvider from './_components/AuthProvider/AuthProvider';
-import Footer from './_components/Footer/Footer';
-import MainContainer from './_components/MainContainer/MainContainer';
+import Footer from './_components/layout/Footer/Footer';
+import MainContainer from './_components/layout/MainContainer/MainContainer';
 
 export const metadata: Metadata = {
 	title: 'Wordle World',

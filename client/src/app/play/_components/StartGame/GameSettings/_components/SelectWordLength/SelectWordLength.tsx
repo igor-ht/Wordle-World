@@ -8,7 +8,7 @@ export default function SelectWordLength({ handleChange }: { handleChange: (e: C
 			<span className="input-radio-wrapper">
 				<input
 					type="radio"
-					name="wordlength"
+					name="wordLength"
 					value={4}
 					id="wordlength4"
 					onChange={handleChange}
@@ -20,10 +20,11 @@ export default function SelectWordLength({ handleChange }: { handleChange: (e: C
 			<span className="input-radio-wrapper">
 				<input
 					type="radio"
-					name="wordlength"
+					name="wordLength"
 					value={5}
 					id="wordlength5"
-					defaultChecked
+					onChange={handleChange}
+					checked
 					required
 				/>
 				<label htmlFor="wordlength5">5</label>
@@ -31,9 +32,10 @@ export default function SelectWordLength({ handleChange }: { handleChange: (e: C
 			<span className="input-radio-wrapper">
 				<input
 					type="radio"
-					name="wordlength"
+					name="wordLength"
 					value={6}
 					id="wordlength6"
+					onChange={handleChange}
 					required
 					disabled
 				/>

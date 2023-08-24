@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { GameStateType } from '@/utils/play/state/reducers';
 import { useRouter } from 'next/navigation';
-import LinksSignInSignUp from '@/app/_components/LinksSignInSignUp/LinksSignInSignUp';
+import LinksSignInSignUp from '@/app/_components/common/LinksSignInSignUp/LinksSignInSignUp';
 
 export default function VictoryCard({ gameState, startNewGame }: { gameState: GameStateType; startNewGame: () => Promise<void> }) {
 	const { status } = useSession();
