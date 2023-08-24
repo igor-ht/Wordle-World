@@ -1,0 +1,117 @@
+@use "@/styles/main" as *;
+
+@keyframes OpenDialog {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+.how-to-play-card[open] {
+  @include general-properties(100%, 100%, rgb(150 123 155));
+  @include display-flex(column);
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  border: 0;
+  animation: OpenDialog 0.5s linear;
+
+  .close-dialog {
+    @include general-properties(1.5rem, 1.5rem, rgb(156, 156, 156));
+    @include font($fontVarellaRound, 1rem, $color, center);
+    border: 1px solid rgb(108, 108, 108);
+    border-radius: 3px;
+    position: absolute;
+    top: 2.5%;
+    left: 93%;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+    &:active {
+      background-color: rgb(118, 118, 118);
+    }
+  }
+
+  .how-to-play {
+    @include display-flex(column);
+    align-items: center;
+    margin: 0.5rem;
+
+    p {
+      @include font($fontVarellaRound, 1.2rem, black, justify);
+      margin: 0.3rem;
+    }
+
+    .guess {
+      margin: 0.5rem;
+      input[type="text"] {
+        --color: black;
+        @include general-properties(2.2rem, 2.2rem, white);
+        @include font($fontVarellaRound, 1rem, --color, center);
+        margin: 0.3rem;
+        font-weight: 600;
+        border-radius: 5px;
+
+        &:nth-child(1) {
+          background-color: rgb(128, 128, 128);
+        }
+        &:nth-child(2) {
+          background-color: rgb(36, 199, 36);
+        }
+        &:nth-child(3) {
+          background-color: rgb(238, 238, 16);
+        }
+        &:nth-child(4) {
+          background-color: rgb(128, 128, 128);
+        }
+        &:nth-child(5) {
+          background-color: rgb(238, 238, 16);
+        }
+      }
+    }
+
+    .explain {
+      margin: 0.3rem;
+      span {
+        @include display-flex();
+
+        @include media-query($media-md) {
+          width: 100%;
+          margin: 0.2rem;
+        }
+        input[type="text"] {
+          @include general-properties(2rem, 2rem, white);
+          @include font($fontVarellaRound, 0.9rem, black, center);
+          margin: 0.2rem;
+          font-weight: 600;
+          border-radius: 7px;
+        }
+
+        &:nth-child(1) {
+          input[type="text"] {
+            background-color: rgb(128, 128, 128);
+          }
+        }
+        &:nth-child(2) {
+          input[type="text"] {
+            background-color: rgb(238, 238, 16);
+          }
+        }
+        &:nth-child(3) {
+          input[type="text"] {
+            background-color: rgb(36, 199, 36);
+          }
+        }
+
+        @include media-query($media-md) {
+          p {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+  }
+}

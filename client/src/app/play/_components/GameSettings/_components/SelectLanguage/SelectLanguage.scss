@@ -1,0 +1,38 @@
+@use "@/styles/main" as *;
+
+.select-container {
+  .custom-select {
+    @include general-properties(15rem, 2.5rem);
+    @include font($fontVarellaRound, 1rem, white);
+    background-color: #4a33d1ed;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: #604cd1ed;
+    }
+    &:focus,
+    &:focus-visible,
+    &:focus-within {
+      background-color: #4224eced;
+      box-shadow: 0px 0px 5px 1px white;
+      border: 0;
+      outline: none;
+    }
+
+    option {
+      background-color: #c5bbffed;
+
+      &:checked,
+      &:hover,
+      &:focus,
+      &:focus-visible,
+      &:focus-within {
+        background-color: #23a3feed;
+      }
+    }
+
+    @include media-query($media-md) {
+      width: 10rem;
+    }
+  }
+}

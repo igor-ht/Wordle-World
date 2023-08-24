@@ -1,0 +1,19 @@
+@use "@/styles/main" as *;
+
+.links-signin-signup {
+  margin: 0.5rem;
+  .link {
+    @include font($fontVarellaRound, 1rem, black);
+    margin: 0.2rem;
+    a {
+      color: blue;
+
+      &:hover {
+        color: rgb(25, 25, 130);
+      }
+      &:visited {
+        color: blue;
+      }
+    }
+  }
+}

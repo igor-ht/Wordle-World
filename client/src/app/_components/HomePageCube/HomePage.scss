@@ -1,0 +1,8 @@
+@use "@/styles/main" as *;
+
+.home-page {
+  @include general-properties(100%, 100%);
+  @include display-flex(column);
+  align-items: center;
+  justify-content: space-evenly;
+}

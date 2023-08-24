@@ -1,0 +1,39 @@
+@use "@/styles/main" as *;
+
+.page-title {
+  @include font($fontGame, 5rem, $color, center);
+  font-weight: 800;
+  margin: 0 1.5rem 0 1.5rem;
+  cursor: default;
+  user-select: none;
+  @include media-query($media-md) {
+    font-size: 3.8rem;
+  }
+
+  .letter-wrapper {
+    margin: 0.25rem;
+    @include media-query($media-md) {
+      margin: 0.15rem;
+    }
+    &:hover {
+      text-shadow: none;
+    }
+  }
+  .letter-wrapper:nth-child(3n + 1) {
+    $baseColor: rgb(29, 211, 29);
+    color: ($baseColor);
+    @include generate-title-text-shadow($baseColor);
+  }
+
+  .letter-wrapper:nth-child(3n + 2) {
+    $baseColor: rgb(227, 12, 12);
+    color: ($baseColor);
+    @include generate-title-text-shadow($baseColor);
+  }
+
+  .letter-wrapper:nth-child(3n) {
+    $baseColor: rgb(222, 222, 3);
+    color: ($baseColor);
+    @include generate-title-text-shadow($baseColor);
+  }
+}

@@ -22,6 +22,15 @@
   position: relative;
   perspective: 500px;
   margin: 3rem;
+  img {
+    @include image(12rem, 5rem, cover);
+    position: absolute;
+    top: 30%;
+    left: 12.5%;
+    z-index: 1;
+    opacity: 0.65;
+    margin: 0.2rem 0 0.2rem 0;
+  }
 }
 
 .cube {
@@ -41,9 +50,6 @@
   opacity: 0.8;
   user-select: none;
   text-shadow: 0px 0px 5px black;
-  &:hover {
-    opacity: 1;
-  }
 }
 
 $cubeColors: (

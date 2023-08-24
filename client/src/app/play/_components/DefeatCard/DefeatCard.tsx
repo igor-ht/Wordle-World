@@ -2,12 +2,12 @@
 
 import './defeatCard.scss';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import LinksSignInSignUp from '@/app/_components/LinksSignInSignUp/LinksSignInSignUp';
 
 export default function DefeatCard({ startNewGame }: { startNewGame: () => Promise<void> }) {
-	const { data: session, status } = useSession();
+	const { status } = useSession();
 	const router = useRouter();
 
 	const handleNavigateToDashboard = async () => {
@@ -56,19 +56,15 @@ export default function DefeatCard({ startNewGame }: { startNewGame: () => Promi
 						onClick={startNewGame}>
 						Play again
 					</button>
-					{!!session && status === 'authenticated' ? (
+					{status !== 'authenticated' ? (
+						<LinksSignInSignUp />
+					) : (
 						<button
 							type="button"
 							className="btn"
 							onClick={handleNavigateToDashboard}>
 							Dashboard
 						</button>
-					) : (
-						<>
-							<p>
-								Doesn&apos;t have an account yet? <Link href="/signup">Sign up here</Link> and enjoy more!
-							</p>
-						</>
 					)}
 				</div>
 			</div>

@@ -59,12 +59,6 @@
 				}
 			}
 		}
-		p {
-			@include font($fontVarellaRound, 1rem, black);
-			a {
-				text-decoration: underline;
-			}
-		}
 	}
 
 	@include media-query($media-md) {

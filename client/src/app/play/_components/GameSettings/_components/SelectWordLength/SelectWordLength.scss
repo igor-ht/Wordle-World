@@ -1,0 +1,33 @@
+@use "@/styles/main" as *;
+
+.radio-container {
+  .input-radio-wrapper {
+    @include display-flex(row);
+    @include font($fontVarellaRound, 1rem, $color, center);
+    font-weight: 600;
+    align-items: center;
+    gap: 0.2rem;
+    margin: 0.3rem;
+
+    input[type="radio"] {
+      @include general-properties(1.2rem, 1.2rem, rgb(252, 237, 237));
+      appearance: none;
+      -webkit-appearance: none;
+      border-radius: 50%;
+      border: 0;
+
+      &:disabled {
+        background-color: rgb(189, 189, 189);
+      }
+
+      &:hover:not(::disabled),
+      &:hover:not(::checked) {
+        background-color: #ebe8ffed;
+      }
+      &:checked {
+        background-color: #4a33d1ed;
+        box-shadow: 0px 0px 1px 3px white inset;
+      }
+    }
+  }
+}

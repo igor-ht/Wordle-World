@@ -1,5 +1,6 @@
 @use "./fonts" as *;
 @use "./variables" as *;
+@use "./functions" as *;
 
 // element general properties
 @mixin general-properties($width, $height: auto, $backgroundColor: transparent) {
@@ -45,5 +46,32 @@
 @mixin media-query($size) {
   @media (max-width: $size) {
     @content;
+  }
+}
+
+// pages title
+@mixin generate-title-text-shadow($baseColor) {
+  text-shadow:
+    1px 1px 0 lighten-color($baseColor, 20%),
+    2px 2px 0 lighten-color($baseColor, 15%),
+    2.5px 2.5px 0 lighten-color($baseColor, 10%),
+    3px 3px 0 darken-color($baseColor, 10%),
+    4px 4px 0 darken-color($baseColor, 20%),
+    4.5px 4.5px 0 darken-color($baseColor, 30%),
+    5px 5px 0 darken-color($baseColor, 40%),
+    5.5px 5.5px 0 darken-color($baseColor, 50%),
+    6px 6px 0 darken-color($baseColor, 55%),
+    0 20px 30px rgba(0, 0, 0, 0.5);
+
+  &:hover {
+    text-shadow:
+      1px 1px 0 lighten-color($baseColor, 15%),
+      2px 2px 0 lighten-color($baseColor, 10%),
+      2.5px 2.5px 0 lighten-color($baseColor, 5%),
+      3px 3px 0 darken-color($baseColor, 10%),
+      4px 4px 0 darken-color($baseColor, 30%),
+      4.5px 4.5px 0 darken-color($baseColor, 50%),
+      5px 5px 0 darken-color($baseColor, 70%),
+      0 20px 30px rgba(0, 0, 0, 0.5);
   }
 }

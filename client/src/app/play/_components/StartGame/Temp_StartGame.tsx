@@ -7,7 +7,7 @@ interface IStartGame {
 	startNewGame: () => Promise<void>;
 }
 
-export default function StartGame({ startNewGame }: IStartGame) {
+export default function Temp_StartGame({ startNewGame }: IStartGame) {
 	return (
 		<div className="start-game">
 			<div className="start-game-card">

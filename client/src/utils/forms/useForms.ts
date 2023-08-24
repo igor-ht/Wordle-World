@@ -7,7 +7,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction } from 'react';
 import { userSignInType } from '@/app/(SignIn&SignUp)/signin/SignInForms';
-import { AllFormTypes } from '@/app/(SignIn&SignUp)/components/Form';
+import { AllFormTypes } from '@/app/(SignIn&SignUp)/_components/Form';
 
 export const useSignUp = (formik: ReturnType<typeof useFormik<userSignUpType>>, setUserLogged: Dispatch<SetStateAction<boolean>>) => {
 	const router = useRouter();

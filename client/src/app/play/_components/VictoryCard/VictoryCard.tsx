@@ -2,13 +2,13 @@
 
 import './victoryCard.scss';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { GameStateType } from '@/utils/play/state/reducers';
 import { useRouter } from 'next/navigation';
+import LinksSignInSignUp from '@/app/_components/LinksSignInSignUp/LinksSignInSignUp';
 
 export default function VictoryCard({ gameState, startNewGame }: { gameState: GameStateType; startNewGame: () => Promise<void> }) {
-	const { data: session, status } = useSession();
+	const { status } = useSession();
 
 	const router = useRouter();
 
@@ -46,19 +46,15 @@ export default function VictoryCard({ gameState, startNewGame }: { gameState: Ga
 						onClick={startNewGame}>
 						Play Again
 					</button>
-					{!!session && status === 'authenticated' ? (
+					{status !== 'authenticated' ? (
+						<LinksSignInSignUp />
+					) : (
 						<button
 							type="button"
 							className="btn"
 							onClick={handleNavigateToDashboard}>
 							Dashboard
 						</button>
-					) : (
-						<>
-							<p>
-								Doesn&apos;t have an account yet? <Link href="/signup">Sign up here</Link> and enjoy more!
-							</p>
-						</>
 					)}
 				</div>
 			</div>

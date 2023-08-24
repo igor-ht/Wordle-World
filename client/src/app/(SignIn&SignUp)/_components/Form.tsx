@@ -1,4 +1,4 @@
-import LoadingSkeleton from '@/app/components/LoadingSkeleton/LoadingSkeleton';
+import LoadingSkeleton from '@/app/_components/LoadingSkeleton/LoadingSkeleton';
 import SubmitButton from './SubmitButton';
 import GoogleOAuth from './GoogleOAuth';
 import { Dispatch, FormEvent, ReactNode, SetStateAction } from 'react';

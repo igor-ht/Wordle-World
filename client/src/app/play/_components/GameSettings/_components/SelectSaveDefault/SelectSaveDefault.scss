@@ -1,0 +1,7 @@
+@use "@/styles/main" as *;
+
+.checkbox-container {
+  .save-default {
+    @include general-properties(1.2rem, 1.2rem);
+  }
+}

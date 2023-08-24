@@ -1,0 +1,35 @@
+@use "@/styles/main" as *;
+
+.game-settings {
+  @include display-flex(column);
+  margin: 0.5rem;
+
+  @include media-query($media-md) {
+    max-width: 95dvw;
+    margin: 0.2rem;
+  }
+
+  .game-settings-form {
+    @include display-flex(column);
+    accent-color: #4a33d1ed;
+    user-select: none;
+
+    .field-section {
+      @include display-flex(row);
+      align-items: center;
+      margin: 0.5rem;
+      .label-field-section {
+        @include font($fontVarellaRound, 1.1rem, $color, center);
+        min-width: 10rem;
+        margin: 0.5rem;
+      }
+      @include media-query($media-md) {
+        margin: 0.2rem;
+        .label-field-section {
+          font-size: 1rem;
+          margin: 0.2rem;
+        }
+      }
+    }
+  }
+}

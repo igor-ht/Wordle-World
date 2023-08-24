@@ -2,12 +2,13 @@
 
 import './gamePage.scss';
 import useStartGame from '@/utils/play/useStartGame';
-import StartGame from './components/StartGame/StartGame';
-import InputContainer from './components/InputContainer/InputContainer';
-import KeyboardContainer from './components/KeyboardContainer/KeyboardContainer';
-import VictoryCard from './components/VictoryCard/VictoryCard';
-import DefeatCard from './components/DefeatCard/DefeatCard';
-import GuestLimitGames from './components/GuestLimitGames/GuestLimitGames';
+import Temp_StartGame from './_components/StartGame/Temp_StartGame';
+import InputContainer from './_components/InputContainer/InputContainer';
+import KeyboardContainer from './_components/KeyboardContainer/KeyboardContainer';
+import VictoryCard from './_components/VictoryCard/VictoryCard';
+import DefeatCard from './_components/DefeatCard/DefeatCard';
+import GuestLimitGames from './_components/GuestLimitGames/GuestLimitGames';
+import StartGame from './_components/StartGame/StartGame';
 
 export default function GamePage() {
 	const {
@@ -22,7 +23,12 @@ export default function GamePage() {
 
 	return (
 		<div className="game-container">
-			{playState === 'start' && <StartGame startNewGame={startNewGame} />}
+			{playState === 'start' && (
+				<StartGame
+					gameSettings={gameSettings}
+					startNewGame={startNewGame}
+				/>
+			)}
 			{playState === 'play' && (
 				<>
 					<InputContainer
