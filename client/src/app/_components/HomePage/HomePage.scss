@@ -4,5 +4,14 @@
   @include general-properties(100%, 100%);
   @include display-flex(column);
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
+
+  .title-wrapper {
+    @include display-flex(column);
+
+    .page-title {
+      font-size: 4rem;
+      max-height: 4rem;
+    }
+  }
 }

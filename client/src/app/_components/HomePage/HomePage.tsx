@@ -5,7 +5,10 @@ import Title from '../common/Title/Title';
 export default function HomePage() {
 	return (
 		<div className="home-page">
-			<Title text={'WELCOME'} />
+			<div className="title-wrapper">
+				<Title text="WORDLE" />
+				<Title text="WORLD" />
+			</div>
 			<Cube />
 		</div>
 	);

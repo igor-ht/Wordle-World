@@ -22,15 +22,6 @@
   position: relative;
   perspective: 500px;
   margin: 3rem;
-  img {
-    @include image(12rem, 5rem, cover);
-    position: absolute;
-    top: 30%;
-    left: 12.5%;
-    z-index: 1;
-    opacity: 0.65;
-    margin: 0.2rem 0 0.2rem 0;
-  }
 }
 
 .cube {
@@ -53,10 +44,10 @@
 }
 
 $cubeColors: (
-  welcome: #02d502,
-  info: #02d502,
-  account: #ffff30,
-  how-to-play: #d02020,
+  front: #02d502,
+  right: #02d502,
+  left: #ffff30,
+  back: #d02020,
   top: white,
   bottom: white
 );
@@ -72,16 +63,16 @@ $cubeColors: (
 $translateX: 7.5rem;
 $rotateY: 90deg;
 
-.welcome {
+.front {
   transform: translateZ($translateX);
 }
-.account {
+.left {
   transform: translateX(-$translateX) rotateY(-$rotateY);
 }
-.info {
-  transform: translateZ(-$translateX) rotateY(calc($rotateY * 2));
+.right {
+  transform: translateZ(-$translateX) rotateY($rotateY * 2);
 }
-.how-to-play {
+.back {
   transform: translateX($translateX) rotateY($rotateY);
 }
 .top {
