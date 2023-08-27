@@ -11,8 +11,6 @@ export interface IUserDao extends ICrudDao<IUserSignUp, IUpdateUser, IDisplayUse
 	getUserStats: (id: string) => Promise<getUserStats>;
 	getRanking: () => Promise<{ name: string; points: number }[] | null>;
 	getUserRank: (id: string) => Promise<{ place: number; name: string; points: number } | null>;
-	addUserFriend: (id: string, friendId: string) => Promise<IDisplayUser | null>;
-	removeUserFriend: (id: string, friendId: string) => Promise<IDisplayUser | null>;
 	delete: (id: string) => Promise<boolean>;
 }
 export interface IUserSignUp {
@@ -35,16 +33,11 @@ export interface IDisplayUser {
 	refreshToken: string;
 	points: number;
 	discoveredWords?: any;
-	friends?: any;
 }
 
 type getUserStats = {
 	points: number;
 	discoveredWords: {
 		word: string;
-	}[];
-	following: {
-		name: string;
-		points: number;
 	}[];
 } | null;

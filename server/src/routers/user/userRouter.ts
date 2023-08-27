@@ -16,8 +16,4 @@ userRouter.post('/updateUserRanking', authMiddleware, updateUserRanking);
 
 userRouter.post('/getDashboardData', authMiddleware, getDashboardData);
 
-// userRouter.post('/addFriend', authMiddleware, addFriend);
-
-// userRouter.post('/removeFriend', authMiddleware, removeFriend);
-
 export default userRouter;

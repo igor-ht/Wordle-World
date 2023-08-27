@@ -9,13 +9,13 @@ export default function Buttons({ setShowDialog }: { setShowDialog: Dispatch<Set
 				className="btn play">
 				Play
 			</button>
-			<button
+			{/* <button
 				type="button"
 				className="btn-how-to-play"
 				title="how to play"
 				onClick={() => setShowDialog(true)}>
 				❔
-			</button>
+			</button> */}
 		</div>
 	);
 }

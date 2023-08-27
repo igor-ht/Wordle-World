@@ -1,13 +1,16 @@
 import { signOut, useSession } from 'next-auth/react';
 import useAxiosAuth from '../../hooks/useAxiosAuth';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { GameSettingsType } from '../state/reducers';
+
+type GameStatsType = { state: boolean; chances: number; word: string; gameSettings: GameSettingsType };
 
 const useUserHandlers = () => {
 	const axiosAuth = useAxiosAuth();
 	const { data: session, update } = useSession();
 	const queryClient = useQueryClient();
 
-	const handleUserEndGameMutation = async (gameStats: { state: boolean; chances: number; word: string }) => {
+	const handleUserEndGameMutation = async (gameStats: GameStatsType) => {
 		try {
 			await axiosAuth.post(`/user/updateUserRanking`, {
 				email: session?.email,

@@ -18,6 +18,7 @@
       @include display-flex(row);
       align-items: center;
       margin: 0.5rem;
+
       .label-field-section {
         @include font($fontVarellaRound, 1.1rem, $color, center);
         min-width: 10rem;

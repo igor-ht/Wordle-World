@@ -8,105 +8,22 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model WordsEN4 {
+model Words {
   id           Int     @id @default(autoincrement())
   word         String  @unique
-  discoveredBy Users[] @relation(name: "DiscoveredWordsEN4")
-}
-
-model WordsEN5 {
-  id           Int     @id @default(autoincrement())
-  word         String  @unique
-  discoveredBy Users[] @relation(name: "DiscoveredWordsEN5")
-}
-
-model WordsEN6 {
-  id           Int     @id @default(autoincrement())
-  word         String  @unique
-  discoveredBy Users[] @relation(name: "DiscoveredWordsEN6")
-}
-
-model WordsES4 {
-  id           Int     @id @default(autoincrement())
-  word         String  @unique
-  discoveredBy Users[] @relation(name: "DiscoveredWordsES4")
-}
-
-model WordsES5 {
-  id           Int     @id @default(autoincrement())
-  word         String  @unique
-  discoveredBy Users[] @relation(name: "DiscoveredWordsES5")
-}
-
-model WordsES6 {
-  id           Int     @id @default(autoincrement())
-  word         String  @unique
-  discoveredBy Users[] @relation(name: "DiscoveredWordsES6")
-}
-
-model WordsPT4 {
-  id           Int     @id @default(autoincrement())
-  word         String  @unique
-  discoveredBy Users[] @relation(name: "DiscoveredWordsPT4")
-}
-
-model WordsPT5 {
-  id           Int     @id @default(autoincrement())
-  word         String  @unique
-  discoveredBy Users[] @relation(name: "DiscoveredWordsPT5")
-}
-
-model WordsPT6 {
-  id           Int     @id @default(autoincrement())
-  word         String  @unique
-  discoveredBy Users[] @relation(name: "DiscoveredWordsPT6")
-}
-
-model WordsHE4 {
-  id           Int     @id @default(autoincrement())
-  word         String  @unique
-  discoveredBy Users[] @relation(name: "DiscoveredWordsHE4")
-}
-
-model WordsHE5 {
-  id           Int     @id @default(autoincrement())
-  word         String  @unique
-  discoveredBy Users[] @relation(name: "DiscoveredWordsHE5")
-}
-
-model WordsHE6 {
-  id           Int     @id @default(autoincrement())
-  word         String  @unique
-  discoveredBy Users[] @relation(name: "DiscoveredWordsHE6")
+  discoveredBy Users[] @relation(name: "DiscoveredWords")
 }
 
 model Users {
-  id                 String     @id @default(uuid())
-  name               String     @unique
-  email              String     @unique
-  password           String
-  accessToken        String
-  refreshToken       String
-  registeredAt       DateTime   @default(now())
-  pointsEN           Int
-  pointsES           Int
-  pointsPT           Int
-  pointsHE           Int
-  DiscoveredWordsEN4 WordsEN4[] @relation("DiscoveredWordsEN4")
-  DiscoveredWordsEN5 WordsEN5[] @relation("DiscoveredWordsEN5")
-  DiscoveredWordsEN6 WordsEN6[] @relation("DiscoveredWordsEN6")
-
-  DiscoveredWordsES4 WordsES4[] @relation("DiscoveredWordsES4")
-  DiscoveredWordsES5 WordsES5[] @relation("DiscoveredWordsES5")
-  DiscoveredWordsES6 WordsES6[] @relation("DiscoveredWordsES6")
-
-  DiscoveredWordsPT4 WordsPT4[] @relation("DiscoveredWordsPT4")
-  DiscoveredWordsPT5 WordsPT5[] @relation("DiscoveredWordsPT5")
-  DiscoveredWordsPT6 WordsPT6[] @relation("DiscoveredWordsPT6")
-
-  DiscoveredWordsHE4 WordsHE4[] @relation("DiscoveredWordsHE4")
-  DiscoveredWordsHE5 WordsHE5[] @relation("DiscoveredWordsHE5")
-  DiscoveredWordsHE6 WordsHE6[] @relation("DiscoveredWordsHE6")
+  id              String   @id @default(uuid())
+  name            String   @unique
+  email           String   @unique
+  password        String
+  accessToken     String
+  refreshToken    String
+  registeredAt    DateTime @default(now())
+  points          Int
+  discoveredWords Words[]  @relation("DiscoveredWords")
 
   @@unique([name, email])
 }

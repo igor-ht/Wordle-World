@@ -156,11 +156,3 @@ export async function getDashboardData(req: Request, res: Response) {
 	};
 	res.status(200).send(dashboardData);
 }
-
-// export async function addFriend(req: Request, res: Response) {
-// 	res.status(200);
-// }
-
-// export async function removeFriend(req: Request, res: Response) {
-// 	res.status(200);
-// }

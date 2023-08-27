@@ -14,21 +14,21 @@ export default function SelectLanguage({ handleChange }: { handleChange: (e: Cha
 				className="custom-select"
 				id="language-select"
 				onChange={handleChange}
+				defaultValue="EN"
 				required>
-				<option value="">--Choose an option--</option>
-				<option value="en">English</option>
+				<option value="EN">English</option>
 				<option
-					value="es"
+					value="ES"
 					disabled>
 					Spanish
 				</option>
 				<option
-					value="pt"
+					value="PT"
 					disabled>
 					Portuguese
 				</option>
 				<option
-					value="he"
+					value="HE"
 					disabled>
 					Hebrew
 				</option>

@@ -132,12 +132,6 @@ export class UserDao implements IUserDao {
 						word: true,
 					},
 				},
-				following: {
-					select: {
-						name: true,
-						points: true,
-					},
-				},
 			},
 		});
 		if (!user) return null;
@@ -175,52 +169,6 @@ export class UserDao implements IUserDao {
 			select: { id: true },
 		});
 		return { ...userRank, place: userRanking.length + 1 };
-	}
-
-	public async addUserFriend(id: string, friendId: string): Promise<IDisplayUser | null> {
-		const newFriend = await this.prisma.users.findUnique({
-			where: {
-				id: friendId,
-			},
-		});
-		const updatedUser = await this.prisma.users.update({
-			data: {
-				following: {
-					connect: {
-						id: newFriend?.id,
-					},
-				},
-			},
-			where: {
-				id: id,
-			},
-		});
-		if (!updatedUser) return null;
-		const userWithoutPassword = this.exclude(updatedUser, ['password']);
-		return userWithoutPassword;
-	}
-
-	public async removeUserFriend(id: string, friendId: string): Promise<IDisplayUser | null> {
-		const currentFriend = await this.prisma.users.findUnique({
-			where: {
-				id: friendId,
-			},
-		});
-		const updatedUser = await this.prisma.users.update({
-			data: {
-				following: {
-					disconnect: {
-						id: currentFriend?.id,
-					},
-				},
-			},
-			where: {
-				id: id,
-			},
-		});
-		if (!updatedUser) return null;
-		const userWithoutPassword = this.exclude(updatedUser, ['password']);
-		return userWithoutPassword;
 	}
 
 	public async delete(id: string): Promise<boolean> {

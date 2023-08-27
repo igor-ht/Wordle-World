@@ -12,8 +12,8 @@ export default function SelectWordLength({ handleChange }: { handleChange: (e: C
 					value={4}
 					id="wordlength4"
 					onChange={handleChange}
-					required
 					disabled
+					required
 				/>
 				<label htmlFor="wordlength4">4</label>
 			</span>

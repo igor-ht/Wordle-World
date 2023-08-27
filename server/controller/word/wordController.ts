@@ -1,13 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 
-export type GameSettingsType = {
-	language: 'EN' | 'ES' | 'PT' | 'HE';
-	wordLength: 4 | 5 | 6;
-};
-
 interface IWordDB {
-	getRandomWord: (gameSettings: GameSettingsType, id?: string) => Promise<string | null>;
-	searchGuess: (gameSettings: GameSettingsType, guess: string) => Promise<boolean>;
+	getRandomWord: (id?: string) => Promise<string | null>;
+	searchGuess: (guess: string) => Promise<boolean>;
 }
 
 export class WordDB implements IWordDB {
@@ -15,35 +10,29 @@ export class WordDB implements IWordDB {
 		this.prisma = prisma;
 	}
 
-	public async getRandomWord(gameSettings: GameSettingsType, id?: string): Promise<string | null> {
-		if (!id) return await this.getGuestRandomWord(gameSettings);
-		return await this.getUserRandomWord(gameSettings, id);
+	public async getRandomWord(id?: string): Promise<string | null> {
+		if (!id) return await this.getGuestRandomWord();
+		return await this.getUserRandomWord(id);
 	}
 
-	private async getGuestRandomWord(gameSettings: GameSettingsType): Promise<string | null> {
+	private async getGuestRandomWord(): Promise<string | null> {
 		const randomNum = Math.floor(Math.random() * 5757);
-		this.prisma.wordsEN4;
-		const wordTable = this.prisma[`words${gameSettings.language}${gameSettings.wordLength}`] as any;
-		if (wordTable) {
-			const res = await wordTable.findFirst({
-				where: {
-					id: {
-						gt: randomNum,
-						lt: 5758,
-					},
+		const res = await this.prisma.words.findFirst({
+			where: {
+				id: {
+					gt: randomNum,
+					lt: 5758,
 				},
-			});
-			const word = res?.word;
-			if (!word) return null;
-			return word;
-		}
-		return null;
+			},
+		});
+		const word = res?.word;
+		if (!word) return null;
+		return word;
 	}
 
-	private async getUserRandomWord(gameSettings: GameSettingsType, id: string): Promise<string | null> {
+	private async getUserRandomWord(id: string): Promise<string | null> {
 		const randomNum = Math.floor(Math.random() * 5756) + 1;
-		const wordTable = this.prisma[`words${gameSettings.language}${gameSettings.wordLength}`] as any;
-		const res = await wordTable.findMany({
+		const res = await this.prisma.words.findMany({
 			take: Math.floor(Math.random() * (5757 - randomNum)) + 1,
 			where: {
 				discoveredBy: {
@@ -58,9 +47,8 @@ export class WordDB implements IWordDB {
 		return word;
 	}
 
-	public async searchGuess(gameSettings: GameSettingsType, guess: string) {
-		const wordTable = this.prisma[`words${gameSettings.language}${gameSettings.wordLength}`] as any;
-		const res = await wordTable.findFirst({
+	public async searchGuess(guess: string) {
+		const res = await this.prisma.words.findFirst({
 			where: {
 				word: guess,
 			},

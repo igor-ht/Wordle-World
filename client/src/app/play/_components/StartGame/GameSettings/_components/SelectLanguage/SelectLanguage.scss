@@ -6,6 +6,7 @@
     @include font($fontVarellaRound, 1rem, white);
     background-color: #4a33d1ed;
     border-radius: 5px;
+    -webkit-text-fill-color: white;
 
     &:hover {
       background-color: #604cd1ed;

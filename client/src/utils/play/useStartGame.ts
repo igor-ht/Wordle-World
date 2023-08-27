@@ -149,6 +149,7 @@ const useStartGame: () => IGameApi = () => {
 				state: state,
 				chances: gameState.guessNumber,
 				word: gameState.word,
+				gameSettings: gameSettings.current,
 			};
 			userHandlers.handleUserEndGame(gameStats);
 		} catch {

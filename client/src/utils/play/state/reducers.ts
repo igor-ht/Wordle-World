@@ -11,7 +11,7 @@ export const playStateReducer = (state: PlayStateType, action: StateActionType) 
 };
 
 // game settings
-type LanguagesType = 'en' | 'es' | 'pt' | 'he';
+type LanguagesType = 'EN' | 'ES' | 'PT' | 'HE';
 export type GameSettingsType = {
 	language: LanguagesType;
 	wordLength: number;
