@@ -11,6 +11,14 @@
   overflow: hidden;
   transition: 0.7s;
 
+  &.open {
+    width: 40dvw;
+
+    @include media-query($media-md) {
+      width: 100dvw;
+    }
+  }
+
   .menu-title {
     @include font($fontVarellaRound, 4rem, white);
     margin: 1rem;

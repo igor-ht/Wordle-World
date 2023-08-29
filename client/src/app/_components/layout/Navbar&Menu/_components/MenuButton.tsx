@@ -11,14 +11,11 @@ type MenuPropsType = {
 };
 
 export default function MenuButton({ menuRef, displayMenu, setDisplayMenu }: MenuPropsType) {
-	const handleDisplayMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
+	const handleDisplayMenu = () => {
 		const menuContainer = menuRef.current as HTMLDivElement;
-		event.currentTarget.blur();
 		AppSounds?.toggleMenu?.play();
-		const isMobile = /iPhone|iPad|iPod|webOS|Windows Phone|BlackBerry|Android/i.test(navigator.userAgent);
-		if (isMobile) menuContainer.style.width = '100dvw';
-		else menuContainer.style.width = '40vw';
-		if (displayMenu) menuContainer.style.width = '0';
+		if (displayMenu) menuContainer.classList.remove('open');
+		else menuContainer.classList.add('open');
 		setDisplayMenu((prev) => !prev);
 	};
 
@@ -27,6 +24,7 @@ export default function MenuButton({ menuRef, displayMenu, setDisplayMenu }: Men
 			type="button"
 			className="btn-image"
 			id="menu-icon"
+			onFocus={(e) => e.currentTarget.blur()}
 			onClick={handleDisplayMenu}>
 			<Image
 				className="menu-icon"

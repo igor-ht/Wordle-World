@@ -20,7 +20,7 @@ export default function Menu({ menuRef, displayMenu, setDisplayMenu }: MenuProps
 		// if menu is not open, do nothing
 		if (!displayMenu) return;
 		AppSounds?.toggleMenu?.play();
-		menuRef.current!.style.width = '0';
+		menuRef.current!.classList.remove('open');
 		setDisplayMenu(false);
 	});
 
