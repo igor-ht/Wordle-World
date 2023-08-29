@@ -139,14 +139,14 @@ const useStartGame: () => IGameApi = () => {
 		awaitFunction(500, async () => {
 			result === 'victory' ? GameSounds?.victory?.play() : GameSounds?.defeat?.play();
 			sePlayState(result);
-			if (session && status === 'authenticated') await handleUserFinishGame(true);
+			if (session && status === 'authenticated') await handleUserFinishGame(result);
 		});
 	};
 
-	const handleUserFinishGame = async (state: boolean) => {
+	const handleUserFinishGame = async (result: 'victory' | 'defeat') => {
 		try {
 			const gameStats = {
-				state: state,
+				state: result === 'victory' ? true : false,
 				chances: gameState.guessNumber,
 				word: gameState.word,
 				gameSettings: gameSettings.current,

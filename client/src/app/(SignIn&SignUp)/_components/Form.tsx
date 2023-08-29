@@ -19,6 +19,7 @@ export type AllFormTypes = userSignInType | userSignUpType;
 
 export default function Form<T extends AllFormTypes>({ ...props }: FormType<T>) {
 	const { userLogged, setUserLogged, handleSubmit, children, buttonText, formik } = { ...props };
+
 	return (
 		<>
 			{userLogged && <LoadingSkeleton />}
@@ -36,6 +37,7 @@ export default function Form<T extends AllFormTypes>({ ...props }: FormType<T>) 
 				userLogged={userLogged}
 				setUserLogged={setUserLogged}
 				formik={formik}
+				buttonText={'name' in formik.initialValues ? 'Sign up' : 'Sign in'}
 			/>
 		</>
 	);

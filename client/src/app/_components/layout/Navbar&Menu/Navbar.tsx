@@ -1,23 +1,22 @@
 'use client';
 
 import './Navbar.scss';
-import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Menu from './Menu';
-import UserLogged from './UserLogged';
-import MenuButton from './MenuButton';
+import Menu from '../Menu/Menu';
+import UserLogged from './_components/UserLogged';
+import MenuButton from './_components/MenuButton';
+import { useState, useRef } from 'react';
 
 export default function Navbar() {
 	const [displayMenu, setDisplayMenu] = useState(false);
+	const menuRef = useRef<HTMLDivElement | null>(null);
 
 	return (
 		<>
 			<nav className="navbar">
 				<div className="wordle-icon">
-					<Link
-						href={'/'}
-						onFocus={(event) => event.target.blur()}>
+					<Link href={'/'}>
 						<Image
 							src="/wordle-logo.svg"
 							alt="WordleGame"
@@ -30,10 +29,18 @@ export default function Navbar() {
 				</div>
 				<section>
 					<UserLogged />
-					<MenuButton {...{ displayMenu, setDisplayMenu }} />
+					<MenuButton
+						menuRef={menuRef}
+						displayMenu={displayMenu}
+						setDisplayMenu={setDisplayMenu}
+					/>
 				</section>
 			</nav>
-			<Menu {...{ displayMenu, setDisplayMenu }} />
+			<Menu
+				menuRef={menuRef}
+				displayMenu={displayMenu}
+				setDisplayMenu={setDisplayMenu}
+			/>
 		</>
 	);
 }

@@ -1,36 +1,33 @@
 'use client';
 
+import './Menu.scss';
 import Link from 'next/link';
-import { useRef } from 'react';
 import { useSession } from 'next-auth/react';
 import { useClickOutsideMenu } from '@/utils/hooks/useClickOutsideMenu';
 import { AppSounds } from '@/utils/general/sounds';
+import { Dispatch, MutableRefObject, SetStateAction } from 'react';
 
-export default function Menu({ ...menu }) {
-	const { displayMenu, setDisplayMenu } = menu;
+type MenuPropsType = {
+	menuRef: MutableRefObject<HTMLDivElement | null>;
+	displayMenu: boolean;
+	setDisplayMenu: Dispatch<SetStateAction<boolean>>;
+};
 
-	const menuRef = useRef<HTMLDivElement | null>(null);
-
-	const { data: session } = useSession();
+export default function Menu({ menuRef, displayMenu, setDisplayMenu }: MenuPropsType) {
+	const { status } = useSession();
 
 	useClickOutsideMenu(menuRef, () => {
-		if (displayMenu) AppSounds?.toggleMenu?.play(), setDisplayMenu(false);
+		// if menu is not open, do nothing
+		if (!displayMenu) return;
+		AppSounds?.toggleMenu?.play();
+		menuRef.current!.style.width = '0';
+		setDisplayMenu(false);
 	});
-
-	const handleDivWidth = () => {
-		if (displayMenu) {
-			const isMobile = /iPhone|iPad|iPod|webOS|Windows Phone|BlackBerry|Android/i.test(navigator.userAgent);
-			if (isMobile) return '100vw';
-			return '40vw';
-		}
-		return '0';
-	};
 
 	return (
 		<div
 			ref={menuRef}
-			className="menu-container"
-			style={{ width: `${handleDivWidth()}` }}>
+			className="menu-container">
 			<h1 className="menu-title">Menu</h1>
 			<ul>
 				<Link href={'/'}>
@@ -39,7 +36,7 @@ export default function Menu({ ...menu }) {
 				<Link href={'/play'}>
 					<li>Play</li>
 				</Link>
-				{!session ? (
+				{status !== 'authenticated' ? (
 					<>
 						<Link href={'/signin'}>
 							<li>Sign In</li>

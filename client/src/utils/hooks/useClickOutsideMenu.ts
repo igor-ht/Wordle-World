@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-export function useClickOutsideMenu(ref: React.RefObject<HTMLElement>, callback: () => void) {
+export function useClickOutsideMenu(ref: React.RefObject<HTMLElement | null>, callback: () => void) {
 	useEffect(() => {
 		const handleClick = (e: MouseEvent) => {
 			if (ref.current && !ref.current.contains(e.target as Node)) callback();

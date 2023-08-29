@@ -8,10 +8,11 @@ type GoogleOAuthProps<T extends FormikValues> = {
 	userLogged: boolean;
 	setUserLogged: Dispatch<SetStateAction<boolean>>;
 	formik: ReturnType<typeof useFormik<T>>;
+	buttonText: string;
 };
 
 export default function GoogleOAuth<T extends AllFormTypes>({ ...props }: GoogleOAuthProps<T>) {
-	const { formik, userLogged, setUserLogged } = { ...props };
+	const { formik, userLogged, setUserLogged, buttonText } = { ...props };
 
 	const googleOAuth = useGoogleOAuth(formik, setUserLogged);
 
@@ -33,7 +34,7 @@ export default function GoogleOAuth<T extends AllFormTypes>({ ...props }: Google
 					width={33}
 					height={33}
 				/>
-				<p>Sign In with Google</p>
+				<p>{buttonText} with Google</p>
 			</button>
 		</div>
 	);
