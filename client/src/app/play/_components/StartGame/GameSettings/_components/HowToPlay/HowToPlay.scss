@@ -20,6 +20,7 @@
   justify-content: center;
   top: 0;
   border: 0;
+  padding: 0;
   animation: OpenDialog 0.5s linear;
 
   .close-dialog {
@@ -31,6 +32,10 @@
     position: absolute;
     top: 2.5%;
     left: 93%;
+
+    @include media-query($media-md) {
+      left: 91%;
+    }
 
     &:hover {
       transform: scale(1.1);
@@ -48,6 +53,14 @@
     p {
       @include font($fontVarellaRound, 1.2rem, black, justify);
       margin: 0.3rem;
+      max-width: 95%;
+    }
+    @include media-query($media-md) {
+      margin: 0;
+      P {
+        font-size: 1rem;
+        margin: 0;
+      }
     }
 
     .guess {
@@ -56,7 +69,7 @@
         @include general-properties(2.2rem, 2.2rem, white);
         @include font($fontVarellaRound, 1.1rem, $color, center);
         margin: 0.3rem;
-        font-weight: 600;
+        font-weight: bold;
         border-radius: 5px;
         border: 0;
 
@@ -72,6 +85,15 @@
           background-color: rgb(238, 238, 16);
         }
       }
+      @include media-query($media-md) {
+        margin: 0.3rem;
+        input[type="text"] {
+          height: 2rem;
+          width: 2rem;
+          margin: 0.2rem;
+          font-size: 1rem;
+        }
+      }
     }
 
     .explain {
@@ -79,10 +101,6 @@
       span {
         @include display-flex();
 
-        @include media-query($media-md) {
-          width: 100%;
-          margin: 0.2rem;
-        }
         input[type="text"] {
           @include general-properties(2rem, 2rem, white);
           @include font($fontVarellaRound, 0.9rem, black, center);
@@ -109,8 +127,15 @@
         }
 
         @include media-query($media-md) {
+          width: 100%;
+          margin: 0.2rem;
+          align-items: center;
+          input[type="text"] {
+            width: 1.8rem;
+            height: 1.8rem;
+          }
           p {
-            font-size: 1rem;
+            font-size: 0.85rem;
           }
         }
       }
