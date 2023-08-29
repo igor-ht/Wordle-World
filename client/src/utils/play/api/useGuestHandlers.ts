@@ -1,4 +1,4 @@
-import useAxiosAuth from '../../hooks/useAxiosAuth';
+import useAxiosAuth from '@/utils/hooks/useAxiosAuth';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 interface IGuest {

@@ -1,4 +1,4 @@
-import useAxiosAuth from '../hooks/useAxiosAuth';
+import useAxiosAuth from '@/utils/hooks/useAxiosAuth';
 import { signOut, useSession } from 'next-auth/react';
 import { useQuery } from '@tanstack/react-query';
 import { redirect } from 'next/navigation';
@@ -28,7 +28,7 @@ export default function useDashboardData() {
 		enabled: session ? true : false,
 		onError: async () => {
 			if (session) return await signOut();
-			else return redirect('/signin');
+			return redirect('/signin');
 		},
 	});
 

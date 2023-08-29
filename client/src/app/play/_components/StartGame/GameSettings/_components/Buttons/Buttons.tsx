@@ -1,7 +1,7 @@
 import './Buttons.scss';
 import { Dispatch, SetStateAction } from 'react';
 
-export default function Buttons({ setShowDialog }: { setShowDialog: Dispatch<SetStateAction<boolean>> }) {
+export default function Buttons({ setShowHowToPlay }: { setShowHowToPlay: Dispatch<SetStateAction<boolean>> }) {
 	return (
 		<div className="helper-buttons-container">
 			<button
@@ -9,13 +9,13 @@ export default function Buttons({ setShowDialog }: { setShowDialog: Dispatch<Set
 				className="btn play">
 				Play
 			</button>
-			{/* <button
+			<button
 				type="button"
 				className="btn-how-to-play"
 				title="how to play"
-				onClick={() => setShowDialog(true)}>
+				onClick={() => setShowHowToPlay(true)}>
 				❔
-			</button> */}
+			</button>
 		</div>
 	);
 }

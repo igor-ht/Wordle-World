@@ -1,5 +1,3 @@
-'use client';
-
 import './victoryCard.scss';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
@@ -46,7 +44,7 @@ export default function VictoryCard({ gameState, startNewGame }: { gameState: Ga
 						onClick={startNewGame}>
 						Play Again
 					</button>
-					{status !== 'authenticated' ? (
+					{status === 'unauthenticated' ? (
 						<LinksSignInSignUp />
 					) : (
 						<button

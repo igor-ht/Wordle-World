@@ -1,5 +1,3 @@
-'use client';
-
 import './keyboardContainer.scss';
 
 import { MouseEventHandler, MutableRefObject } from 'react';

@@ -1,21 +1,31 @@
 import './HowToPlay.scss';
-import { Dispatch, SetStateAction } from 'react';
+import { awaitFunction } from '@/utils/general/await';
+import { Dispatch, SetStateAction, useRef } from 'react';
 
 export default function HowToPlay({
-	showDialog,
-	setShowDialog,
+	showHowToPlay,
+	setShowHowToPlay,
 }: {
-	showDialog: boolean;
-	setShowDialog: Dispatch<SetStateAction<boolean>>;
+	showHowToPlay: boolean;
+	setShowHowToPlay: Dispatch<SetStateAction<boolean>>;
 }) {
+	const dialogRef = useRef<HTMLDialogElement | null>(null);
+	const handleCloseDialog = () => {
+		dialogRef.current!.style.animation = 'CloseDialog 0.5s linear reverse';
+		awaitFunction(470, () => {
+			dialogRef.current!.style.animation = 'OpenDialog 0.5s linear';
+			setShowHowToPlay(false);
+		});
+	};
 	return (
 		<dialog
+			ref={dialogRef}
 			className="how-to-play-card"
-			open={showDialog}>
+			open={showHowToPlay}>
 			<button
 				type="button"
 				className="close-dialog"
-				onClick={() => setShowDialog(false)}>
+				onClick={handleCloseDialog}>
 				X
 			</button>
 			<div className="how-to-play">
@@ -75,7 +85,7 @@ export default function HowToPlay({
 							value="E"
 							disabled
 						/>
-						<p> - Not valid.</p>
+						<p> - Does not contain the letter.</p>
 					</span>
 					<span>
 						<input
@@ -92,7 +102,7 @@ export default function HowToPlay({
 							value="R"
 							disabled
 						/>
-						<p> - Valid but at the wrong place.</p>
+						<p> - Contain the letter but at another place.</p>
 					</span>
 					<span>
 						<input
@@ -100,7 +110,7 @@ export default function HowToPlay({
 							id="10"
 							name="10"
 							disabled
-							style={{ backgroundColor: 'rgba(255, 255, 255, 0)', border: '0' }}
+							style={{ backgroundColor: 'transparent', border: '0' }}
 						/>
 						<input
 							type="text"
@@ -109,7 +119,7 @@ export default function HowToPlay({
 							value="A"
 							disabled
 						/>
-						<p> - Valid and at the right place.</p>
+						<p> - Contain the letter at exactly place.</p>
 					</span>
 				</section>
 			</div>

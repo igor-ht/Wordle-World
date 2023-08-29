@@ -1,4 +1,4 @@
-import useAxiosAuth from '../../hooks/useAxiosAuth';
+import useAxiosAuth from '@/utils/hooks/useAxiosAuth';
 import { useSession } from 'next-auth/react';
 import { GameSettingsType, GameStateType } from '../state/reducers';
 import { useQuery } from '@tanstack/react-query';

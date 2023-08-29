@@ -14,7 +14,7 @@ type GameSettingsPropsT = {
 };
 
 export default function GameSettings({ gameSettings, startNewGame }: GameSettingsPropsT) {
-	const [showDialog, setShowDialog] = useState(false);
+	const [showHowToPlay, setShowHowToPlay] = useState(false);
 	const formik = useFormik<GameSettingsType>({
 		initialValues: gameSettings.current,
 		onSubmit: (values) => {
@@ -35,11 +35,11 @@ export default function GameSettings({ gameSettings, startNewGame }: GameSetting
 				<SelectLanguage handleChange={formik.handleChange} />
 				<SelectWordLength handleChange={formik.handleChange} />
 				<SelectSaveDefault />
-				<Buttons setShowDialog={setShowDialog} />
+				<Buttons setShowHowToPlay={setShowHowToPlay} />
 			</form>
 			<HowToPlay
-				showDialog={showDialog}
-				setShowDialog={setShowDialog}
+				showHowToPlay={showHowToPlay}
+				setShowHowToPlay={setShowHowToPlay}
 			/>
 		</div>
 	);

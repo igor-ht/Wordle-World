@@ -1,16 +1,20 @@
 @use "@/styles/main" as *;
 
-@keyframes OpenDialog {
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: translateY(0%);
+@mixin GenerateDialogKeyframes($keyframeName) {
+  @keyframes #{$keyframeName} {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0%);
+    }
   }
 }
+@include GenerateDialogKeyframes(OpenDialog);
+@include GenerateDialogKeyframes(CloseDialog);
 
 .how-to-play-card[open] {
-  @include general-properties(100%, 100%, rgb(150 123 155));
+  @include general-properties(100%, 100%, rgb(193, 151, 200));
   @include display-flex(column);
   align-items: center;
   justify-content: center;
@@ -19,8 +23,9 @@
   animation: OpenDialog 0.5s linear;
 
   .close-dialog {
-    @include general-properties(1.5rem, 1.5rem, rgb(156, 156, 156));
+    @include general-properties(1.5rem, 1.5rem, rgb(168, 168, 168));
     @include font($fontVarellaRound, 1rem, $color, center);
+    font-weight: bold;
     border: 1px solid rgb(108, 108, 108);
     border-radius: 3px;
     position: absolute;
@@ -48,25 +53,21 @@
     .guess {
       margin: 0.5rem;
       input[type="text"] {
-        --color: black;
         @include general-properties(2.2rem, 2.2rem, white);
-        @include font($fontVarellaRound, 1rem, --color, center);
+        @include font($fontVarellaRound, 1.1rem, $color, center);
         margin: 0.3rem;
         font-weight: 600;
         border-radius: 5px;
+        border: 0;
 
-        &:nth-child(1) {
+        &:nth-child(1),
+        &:nth-child(4) {
           background-color: rgb(128, 128, 128);
         }
         &:nth-child(2) {
           background-color: rgb(36, 199, 36);
         }
-        &:nth-child(3) {
-          background-color: rgb(238, 238, 16);
-        }
-        &:nth-child(4) {
-          background-color: rgb(128, 128, 128);
-        }
+        &:nth-child(3),
         &:nth-child(5) {
           background-color: rgb(238, 238, 16);
         }
@@ -88,6 +89,7 @@
           margin: 0.2rem;
           font-weight: 600;
           border-radius: 7px;
+          border: 0;
         }
 
         &:nth-child(1) {

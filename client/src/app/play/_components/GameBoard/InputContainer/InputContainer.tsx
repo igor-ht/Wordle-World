@@ -1,5 +1,3 @@
-'use client';
-
 import './inputContainer.scss';
 import { MutableRefObject } from 'react';
 import { GameSettingsType } from '@/utils/play/state/reducers';

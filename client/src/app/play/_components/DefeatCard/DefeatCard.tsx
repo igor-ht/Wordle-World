@@ -1,5 +1,3 @@
-'use client';
-
 import './defeatCard.scss';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
@@ -56,7 +54,7 @@ export default function DefeatCard({ startNewGame }: { startNewGame: () => Promi
 						onClick={startNewGame}>
 						Play again
 					</button>
-					{status !== 'authenticated' ? (
+					{status === 'unauthenticated' ? (
 						<LinksSignInSignUp />
 					) : (
 						<button

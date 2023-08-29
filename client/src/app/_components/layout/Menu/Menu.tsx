@@ -1,5 +1,3 @@
-'use client';
-
 import './Menu.scss';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
@@ -36,7 +34,7 @@ export default function Menu({ menuRef, displayMenu, setDisplayMenu }: MenuProps
 				<Link href={'/play'}>
 					<li>Play</li>
 				</Link>
-				{status !== 'authenticated' ? (
+				{status === 'unauthenticated' ? (
 					<>
 						<Link href={'/signin'}>
 							<li>Sign In</li>
