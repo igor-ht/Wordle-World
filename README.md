@@ -9,8 +9,7 @@ Wordle World is an interactive word-guessing game built in a three-tier architec
 **Next.js** is a framework that works on top of **React.js** and offers _SSG_ _(Static Site Generation)_ - which contributes to _SEO_ _(Search Engine Optimization)_, performance, and _UX_ _(User Experience)_ -, and many other tools that optimize the development experience. \
 **React-Query** is a comprehensive library that goes beyond data fetching. It efficiently handles diverse tasks, including _fetching, caching, synchronizing, and updating server state_. This multifaceted approach forms the core of smooth interactions and data-driven components. \
 **Next-Auth** ensures a great authentication implementation. The integration, in combination with **JSON Web Tokens (JWT)**, secures _data exchange_ and precise _session control_ mechanisms, ensuring that the user interactions transpire within a controlled environment, contributing to a seamless and secure user experience. \
-For styling, I worked with **SCSS** and a _"7-1"_ personalized architecture that consists of only three folders: _\_base, \_abstracts, and \_components_, which is called by myself _'ABC' Architecture_. (This pattern might have different names but refers to the same thing: a _7-1ish SCSS architecture for smaller projects_.) \
-Next.js, Auth.js, React-Query, Express.js, Prisma
+For styling, I worked with **SCSS** and a _"7-1"_ personalized architecture that consists of only three folders: _\_abstracts, \_base, and \_components_, which is called by myself _'ABC' Architecture_. (This pattern might have different names but refers to the same thing: a _7-1ish SCSS architecture for smaller projects_.) \
 
 ## Development Goals
 
@@ -32,6 +31,7 @@ You can try the live app [here](https://wordle-world.vercel.app/).
 You have the option to sign up by registering a new account or using your Google account.
 
 Alternatively, you can use the following test account:
+
 > `email: test@wordleworld.com`\
 > `password: test123 `
 
