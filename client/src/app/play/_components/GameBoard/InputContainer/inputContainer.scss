@@ -49,10 +49,12 @@
 @keyframes InputUpdate {
 	from {
 		opacity: 0.3;
+		perspective: 1000px;
 		transform: rotateY(0deg) scale(0.4);
 	}
 	to {
 		opacity: 1;
+		perspective: 1000px;
 		transform: rotateY(360deg) scale(1.1);
 	}
 }

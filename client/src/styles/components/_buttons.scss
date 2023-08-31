@@ -107,10 +107,13 @@
   }
 
   &.enter-backspace {
-    flex: 2 1 1;
+    flex: 2 1;
     border-radius: 5px;
     font-weight: 600;
     font-size: large;
+    @include media-query($media-md) {
+      flex: 2.5 1;
+    }
   }
 
   // creating classes [cow, bull, wrong] and respective properties
