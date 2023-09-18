@@ -6,7 +6,9 @@ export default function Footer() {
 	return (
 		<footer className="footer">
 			<ThemeButton />
-			<p>Wordle World 2023©</p>
+
+			<p>Wordle World {new Date().getFullYear()}©</p>
+
 			<SoundButton />
 		</footer>
 	);
