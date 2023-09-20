@@ -1,39 +1,46 @@
 import { BASE_URL, ENDPOINT } from '@/utils/appConfig';
 import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
-import { FormikErrors, useFormik } from 'formik';
-import { userSignUpType } from '@/app/(SignIn&SignUp)/signup/SignUpForms';
+import { UserSignUpType } from '@/app/(SignIn&SignUp)/signup/SignUpForms';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction } from 'react';
-import { userSignInType } from '@/app/(SignIn&SignUp)/signin/SignInForms';
-import { AllFormTypes } from '@/app/(SignIn&SignUp)/_components/Form';
+import { UserSignInType } from '@/app/(SignIn&SignUp)/signin/SignInForms';
+import { UseFormSetError } from 'react-hook-form';
 
-export const useSignUp = (formik: ReturnType<typeof useFormik<userSignUpType>>, setUserLogged: Dispatch<SetStateAction<boolean>>) => {
+export const useSignUp = ({
+	setUserLogged,
+	setError,
+}: {
+	setUserLogged: Dispatch<SetStateAction<boolean>>;
+	setError: UseFormSetError<UserSignUpType>;
+}) => {
 	const router = useRouter();
 	const handleSignUp = useMutation({
-		mutationFn: async () => {
+		mutationFn: async (data: UserSignUpType) => {
 			try {
 				setUserLogged(true);
-				const hashedPassword = (await axios.post('/api/hash', formik.values.password, { baseURL: BASE_URL })).data;
-				const newUser = {
-					name: formik.values.name,
-					email: formik.values.email,
-					password: hashedPassword,
-				};
-				await axios.post(`/user/signup`, newUser, { baseURL: ENDPOINT });
+				const hashedPassword = (await axios.post('/api/hash', data.password, { baseURL: BASE_URL })).data;
+				await axios.post(
+					`/user/signup`,
+					{
+						name: data.name,
+						email: data.email,
+						password: hashedPassword,
+					},
+					{ baseURL: ENDPOINT }
+				);
 				await signIn('credentials', {
-					email: formik.values.email,
-					password: formik.values.password,
+					email: data.email,
+					password: data.password,
 					redirect: false,
 				});
 				router.push('/dashboard');
 			} catch (error) {
 				setUserLogged(false);
 				if (error instanceof AxiosError) {
-					if (error.response?.data === 'Name already registered.') formik.setFieldError('name', 'Name already registered');
-					else if (error.response?.data === 'Email already registered.') formik.setFieldError('email', 'Email already registered');
-					else setFormikError(formik);
+					if (error.response?.data === 'Name already registered.') setError('name', { message: 'Name already registered' });
+					else if (error.response?.data === 'Email already registered.') setError('email', { message: 'Email already registered' });
 				}
 			}
 		},
@@ -41,22 +48,29 @@ export const useSignUp = (formik: ReturnType<typeof useFormik<userSignUpType>>, 
 	return handleSignUp;
 };
 
-export const useSignIn = (formik: ReturnType<typeof useFormik<userSignInType>>, setUserLogged: Dispatch<SetStateAction<boolean>>) => {
+export const useSignIn = ({
+	setUserLogged,
+	setError,
+}: {
+	setUserLogged: Dispatch<SetStateAction<boolean>>;
+	setError: UseFormSetError<UserSignInType>;
+}) => {
 	const router = useRouter();
 	const handleSignIn = useMutation({
-		mutationFn: async () => {
+		mutationFn: async (data: UserSignInType) => {
 			try {
 				setUserLogged(true);
 				const userLogged = await signIn('credentials', {
-					email: formik.values.email,
-					password: formik.values.password,
+					email: data.email,
+					password: data.password,
 					redirect: false,
 				});
 				if (!userLogged || userLogged.error) throw new Error('Credentials not valid.');
 				router.push('/dashboard');
 			} catch {
 				setUserLogged(false);
-				formik.setErrors({ email: `One or more fields are not valid.`, password: 'One or more fields are not valid.' });
+				setError('email', { message: `One or more fields are not valid.` });
+				setError('password', { message: `One or more fields are not valid.` });
 			}
 		},
 	});
@@ -64,41 +78,27 @@ export const useSignIn = (formik: ReturnType<typeof useFormik<userSignInType>>, 
 	return handleSignIn;
 };
 
-export const useGoogleOAuth = <T extends AllFormTypes>(
-	formik: ReturnType<typeof useFormik<T>>,
-	setUserLogged: Dispatch<SetStateAction<boolean>>
+export const useGoogleOAuth = (
+	setUserLogged: Dispatch<SetStateAction<boolean>>,
+	setError: UseFormSetError<UserSignInType | UserSignUpType>
 ) => {
 	const router = useRouter();
-
 	const handleGoogleOAuth = useMutation({
 		mutationFn: async () => {
 			try {
 				setUserLogged(true);
 				const userLogged = await signIn('google', { redirect: false });
-				if (!userLogged || userLogged.error) throw new Error('Could not authenticate with Google.');
+				if (!userLogged || userLogged?.error) throw new Error('Could not authenticate with Google.');
 				router.push('/dashboard');
 			} catch {
 				setUserLogged(false);
-				setFormikError(formik);
+				setError('name', { message: `We had a problem in the proccess.` });
+				setError('email', { message: `We had a problem in the proccess.` });
+				setError('password', { message: `We had a problem in the proccess.` });
+				setError('confirmPassword', { message: `We had a problem in the proccess.` });
 			}
 		},
 	});
 
 	return handleGoogleOAuth;
-};
-
-const setFormikError = <T extends AllFormTypes>(formik: ReturnType<typeof useFormik<T>>) => {
-	if ('name' in formik.initialValues) {
-		formik.setErrors({
-			name: `We had a problem in the proccess.`,
-			email: `We had a problem in the proccess.`,
-			password: `We had a problem in the proccess.`,
-			confirmPassword: `We had a problem in the proccess.`,
-		} as FormikErrors<T>);
-	} else {
-		formik.setErrors({
-			email: `We had a problem with the login proccess.`,
-			password: `We had a problem with the login proccess.`,
-		} as FormikErrors<T>);
-	}
 };

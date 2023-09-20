@@ -1,32 +1,34 @@
-import { ChangeEvent } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { UserSignInType } from '../signin/SignInForms';
+import { UserSignUpType } from '../signup/SignUpForms';
 
 type InputProps = {
 	label: string;
 	type: string;
-	name: string;
+	name: keyof UserSignInType | keyof UserSignUpType;
 	placeholder: string;
-	value: string;
-	touched: boolean | undefined;
-	error: string | undefined;
-	handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
-export default function Input({ ...props }: InputProps) {
-	const { label, name, placeholder, type, handleChange, value, touched, error } = { ...props };
+export default function Input(props: InputProps) {
+	const { label, type, name, placeholder } = { ...props };
+
+	const {
+		register,
+		formState: { errors },
+	} = useFormContext();
 
 	return (
 		<>
 			<span>
 				<label htmlFor={name}>{label}</label>
-				<span className="error">{touched && error}</span>
+				<span className="error">{errors[name]?.message as string}</span>
 			</span>
 			<input
+				{...register(name)}
 				type={type}
 				id={name}
 				name={name}
 				placeholder={placeholder}
-				onChange={handleChange}
-				value={value}
 				required
 				autoComplete="given-name"
 			/>

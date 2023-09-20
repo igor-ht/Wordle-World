@@ -1,20 +1,20 @@
 import Image from 'next/image';
 import { Dispatch, SetStateAction } from 'react';
-import { FormikValues, useFormik } from 'formik';
-import { AllFormTypes } from './Form';
 import { useGoogleOAuth } from '@/utils/forms/useForms';
+import { useFormContext } from 'react-hook-form';
 
-type GoogleOAuthProps<T extends FormikValues> = {
+type GoogleOAuthProps = {
 	userLogged: boolean;
 	setUserLogged: Dispatch<SetStateAction<boolean>>;
-	formik: ReturnType<typeof useFormik<T>>;
 	buttonText: string;
 };
 
-export default function GoogleOAuth<T extends AllFormTypes>({ ...props }: GoogleOAuthProps<T>) {
-	const { formik, userLogged, setUserLogged, buttonText } = { ...props };
+export default function GoogleOAuth({ ...props }: GoogleOAuthProps) {
+	const { userLogged, setUserLogged, buttonText } = { ...props };
 
-	const googleOAuth = useGoogleOAuth(formik, setUserLogged);
+	const { setError } = useFormContext();
+
+	const googleOAuth = useGoogleOAuth(setUserLogged, setError);
 
 	const handleGoogleOAuth = async () => {
 		googleOAuth.mutate();

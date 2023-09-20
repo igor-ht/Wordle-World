@@ -1,24 +1,25 @@
 import LoadingSkeleton from '@/app/_components/common/LoadingSkeleton/LoadingSkeleton';
 import SubmitButton from './SubmitButton';
 import GoogleOAuth from './GoogleOAuth';
-import { Dispatch, FormEvent, ReactNode, SetStateAction } from 'react';
-import { FormikValues, useFormik } from 'formik';
-import { userSignInType } from '../signin/SignInForms';
-import { userSignUpType } from '../signup/SignUpForms';
+import { Dispatch, ReactNode, SetStateAction } from 'react';
+import { UserSignInType } from '../signin/SignInForms';
+import { UserSignUpType } from '../signup/SignUpForms';
+import { FieldValues, SubmitHandler, useFormContext } from 'react-hook-form';
 
-type FormType<T extends FormikValues> = {
+export type AllFormTypes = UserSignInType | UserSignUpType;
+
+type FormType<T extends FieldValues> = {
 	userLogged: boolean;
 	setUserLogged: Dispatch<SetStateAction<boolean>>;
-	handleSubmit: (e?: FormEvent<HTMLFormElement> | undefined) => void;
-	children: ReactNode;
+	onSubmit: SubmitHandler<any>;
 	buttonText: string;
-	formik: ReturnType<typeof useFormik<T>>;
+	children: ReactNode;
 };
 
-export type AllFormTypes = userSignInType | userSignUpType;
+export default function Form({ ...props }: FormType<AllFormTypes>) {
+	const { userLogged, setUserLogged, onSubmit, children, buttonText } = { ...props };
 
-export default function Form<T extends AllFormTypes>({ ...props }: FormType<T>) {
-	const { userLogged, setUserLogged, handleSubmit, children, buttonText, formik } = { ...props };
+	const { handleSubmit } = useFormContext();
 
 	return (
 		<>
@@ -26,7 +27,7 @@ export default function Form<T extends AllFormTypes>({ ...props }: FormType<T>) 
 			<form
 				method="post"
 				className="form"
-				onSubmit={handleSubmit}>
+				onSubmit={handleSubmit(onSubmit)}>
 				<div className="container">{children}</div>
 				<SubmitButton
 					userLogged={userLogged}
@@ -36,8 +37,7 @@ export default function Form<T extends AllFormTypes>({ ...props }: FormType<T>) 
 			<GoogleOAuth
 				userLogged={userLogged}
 				setUserLogged={setUserLogged}
-				formik={formik}
-				buttonText={'name' in formik.initialValues ? 'Sign up' : 'Sign in'}
+				buttonText={buttonText}
 			/>
 		</>
 	);
