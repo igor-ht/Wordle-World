@@ -2,12 +2,11 @@ import { BASE_URL, ENDPOINT } from '@/appConfig';
 import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { UserSignUpType } from '@/app/(SignIn&SignUp)/signup/SignUpForms';
-import { signIn, useSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction } from 'react';
 import { UserSignInType } from '@/app/(SignIn&SignUp)/signin/SignInForms';
 import { UseFormSetError } from 'react-hook-form';
-import { awaitFunction } from '../general/await';
 
 export const useSignUp = ({
 	setUserLogged,
@@ -34,9 +33,9 @@ export const useSignUp = ({
 				await signIn('credentials', {
 					email: data.email,
 					password: data.password,
-					redirect: false,
+					redirect: true,
+					callbackUrl: `${BASE_URL}/dashboard`,
 				});
-				router.push('/dashboard');
 			} catch (error) {
 				setUserLogged(false);
 				if (error instanceof AxiosError) {
@@ -66,7 +65,7 @@ export const useSignIn = ({
 					password: data.password,
 					redirect: false,
 				});
-				if (!userLogged || userLogged.error) throw new Error('Credentials not valid.');
+				if (userLogged?.error) throw new Error('Credentials not valid.');
 				router.push('/dashboard');
 			} catch {
 				setUserLogged(false);
@@ -83,14 +82,11 @@ export const useGoogleOAuth = (
 	setUserLogged: Dispatch<SetStateAction<boolean>>,
 	setError: UseFormSetError<UserSignInType | UserSignUpType>
 ) => {
-	const router = useRouter();
-
 	const handleGoogleOAuth = useMutation({
 		mutationFn: async () => {
 			try {
 				setUserLogged(true);
-				await signIn('google');
-				awaitFunction(1000, () => router.push('/dashboard'));
+				const userLogged = await signIn('google', { redirect: false });
 			} catch {
 				setUserLogged(false);
 				setError('name', { message: `We had a problem in the proccess.` });

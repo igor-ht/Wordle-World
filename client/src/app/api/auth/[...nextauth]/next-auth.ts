@@ -98,5 +98,6 @@ export const NextAuthOptions: AuthOptions = {
 	pages: {
 		signIn: '/signin',
 		newUser: '/signup',
+		error: '/',
 	},
 };
