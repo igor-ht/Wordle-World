@@ -1,17 +1,18 @@
 import './SelectWordLength.scss';
-import { ChangeEvent } from 'react';
+import { GameSettingsType } from '@/utils/play/state/reducers';
+import { UseFormRegister } from 'react-hook-form';
 
-export default function SelectWordLength({ handleChange }: { handleChange: (e: ChangeEvent<HTMLElement>) => void }) {
+export default function SelectWordLength({ register }: { register: UseFormRegister<GameSettingsType> }) {
 	return (
 		<section className="field-section radio-container">
 			<label className="label-field-section">Choose a word length:</label>
 			<span className="input-radio-wrapper">
 				<input
+					{...register('wordLength')}
 					type="radio"
 					name="wordLength"
 					value={4}
 					id="wordlength4"
-					onChange={handleChange}
 					disabled
 					required
 				/>
@@ -19,11 +20,11 @@ export default function SelectWordLength({ handleChange }: { handleChange: (e: C
 			</span>
 			<span className="input-radio-wrapper">
 				<input
+				{...register('wordLength')}
 					type="radio"
 					name="wordLength"
 					value={5}
 					id="wordlength5"
-					onChange={handleChange}
 					checked
 					required
 				/>
@@ -31,11 +32,11 @@ export default function SelectWordLength({ handleChange }: { handleChange: (e: C
 			</span>
 			<span className="input-radio-wrapper">
 				<input
+				{...register('wordLength')}
 					type="radio"
 					name="wordLength"
 					value={6}
 					id="wordlength6"
-					onChange={handleChange}
 					required
 					disabled
 				/>

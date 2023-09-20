@@ -1,7 +1,8 @@
+import { GameSettingsType } from '@/utils/play/state/reducers';
+import { UseFormRegister } from 'react-hook-form';
 import './SelectLanguage.scss';
-import { ChangeEvent } from 'react';
 
-export default function SelectLanguage({ handleChange }: { handleChange: (e: ChangeEvent<HTMLElement>) => void }) {
+export default function SelectLanguage({ register }: { register: UseFormRegister<GameSettingsType> }) {
 	return (
 		<section className="field-section select-container">
 			<label
@@ -10,10 +11,10 @@ export default function SelectLanguage({ handleChange }: { handleChange: (e: Cha
 				Choose a language:
 			</label>
 			<select
+				{...register}
 				name="language"
 				className="custom-select"
 				id="language-select"
-				onChange={handleChange}
 				defaultValue="EN"
 				required>
 				<option value="EN">English</option>

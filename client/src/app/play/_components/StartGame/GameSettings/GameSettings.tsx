@@ -1,5 +1,5 @@
 import './gameSettings.scss';
-import { useFormik } from 'formik';
+import { useForm } from 'react-hook-form';
 import { MutableRefObject, useState } from 'react';
 import { GameSettingsType } from '@/utils/play/state/reducers';
 import SelectLanguage from './_components/SelectLanguage/SelectLanguage';
@@ -15,25 +15,26 @@ type GameSettingsPropsT = {
 
 export default function GameSettings({ gameSettings, startNewGame }: GameSettingsPropsT) {
 	const [showHowToPlay, setShowHowToPlay] = useState(false);
-	const formik = useFormik<GameSettingsType>({
-		initialValues: gameSettings.current,
-		onSubmit: (values) => {
-			gameSettings.current = {
-				language: values.language,
-				wordLength: +values.wordLength,
-				totalChances: +values.totalChances,
-			};
-			startNewGame();
-		},
+	const { handleSubmit, register } = useForm<GameSettingsType>({
+		defaultValues: gameSettings.current,
 	});
+
+	const onSubmit = (data: GameSettingsType) => {
+		gameSettings.current = {
+			language: data.language,
+			wordLength: +data.wordLength,
+			totalChances: +data.totalChances,
+		};
+		startNewGame();
+	};
 
 	return (
 		<div className="game-settings">
 			<form
 				className="game-settings-form"
-				onSubmit={formik.handleSubmit}>
-				<SelectLanguage handleChange={formik.handleChange} />
-				<SelectWordLength handleChange={formik.handleChange} />
+				onSubmit={handleSubmit(onSubmit)}>
+				<SelectLanguage register={register} />
+				<SelectWordLength register={register} />
 				<SelectSaveDefault />
 				<Buttons setShowHowToPlay={setShowHowToPlay} />
 			</form>
