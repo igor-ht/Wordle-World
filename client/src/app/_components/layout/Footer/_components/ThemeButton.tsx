@@ -28,7 +28,6 @@ export default function ThemeButton() {
 			<button
 				className="btn-image"
 				type="button"
-				onFocus={(event) => event.target.blur()}
 				onClick={handleTheme}>
 				<Image
 					className="footer-icon"

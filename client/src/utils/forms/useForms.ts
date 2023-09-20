@@ -1,12 +1,13 @@
-import { BASE_URL, ENDPOINT } from '@/utils/appConfig';
+import { BASE_URL, ENDPOINT } from '@/appConfig';
 import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { UserSignUpType } from '@/app/(SignIn&SignUp)/signup/SignUpForms';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction } from 'react';
 import { UserSignInType } from '@/app/(SignIn&SignUp)/signin/SignInForms';
 import { UseFormSetError } from 'react-hook-form';
+import { awaitFunction } from '../general/await';
 
 export const useSignUp = ({
 	setUserLogged,
@@ -83,13 +84,13 @@ export const useGoogleOAuth = (
 	setError: UseFormSetError<UserSignInType | UserSignUpType>
 ) => {
 	const router = useRouter();
+
 	const handleGoogleOAuth = useMutation({
 		mutationFn: async () => {
 			try {
 				setUserLogged(true);
-				const userLogged = await signIn('google', { redirect: false });
-				if (!userLogged || userLogged?.error) throw new Error('Could not authenticate with Google.');
-				router.push('/dashboard');
+				await signIn('google');
+				awaitFunction(1000, () => router.push('/dashboard'));
 			} catch {
 				setUserLogged(false);
 				setError('name', { message: `We had a problem in the proccess.` });

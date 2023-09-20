@@ -22,7 +22,6 @@ export default function MenuButton({ menuRef, displayMenu, setDisplayMenu }: Men
 			type="button"
 			className="btn-image"
 			id="menu-icon"
-			onFocus={(e) => e.currentTarget.blur()}
 			onClick={handleDisplayMenu}>
 			<Image
 				className="menu-icon"

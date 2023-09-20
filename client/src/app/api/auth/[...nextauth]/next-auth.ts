@@ -3,7 +3,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import axios from 'axios';
 import { AuthOptions } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
-import { ENDPOINT, GoogleClientID, GoogleClientSecret } from '@/utils/appConfig';
+import { ENDPOINT, GoogleClientID, GoogleClientSecret } from '@/appConfig';
 import { signOut } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 
@@ -50,7 +50,7 @@ export const NextAuthOptions: AuthOptions = {
 			clientSecret: GoogleClientSecret,
 			async profile(profile, tokens) {
 				const credentials = {
-					name: profile.name,
+					name: profile.given_name,
 					email: profile.email,
 					password: tokens.id_token,
 				};

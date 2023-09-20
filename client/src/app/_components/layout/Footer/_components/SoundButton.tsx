@@ -23,8 +23,7 @@ export default function SoundButton() {
 				type="button"
 				id="sound"
 				className="btn-image"
-				onClick={handleToggleSound}
-				onFocus={(event) => event.target.blur()}>
+				onClick={handleToggleSound}>
 				{sound ? (
 					<Image
 						className="footer-icon"

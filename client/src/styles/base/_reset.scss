@@ -11,9 +11,6 @@ span,
 h1,
 h2,
 h3,
-h4,
-h5,
-h6,
 p,
 a,
 img,
@@ -39,7 +36,11 @@ menu,
 nav,
 section,
 audio,
-video {
+video,
+button,
+input,
+select,
+textarea {
   margin: 0;
   padding: 0;
   border: 0;
@@ -47,7 +48,7 @@ video {
   font: inherit;
   vertical-align: baseline;
 }
-/* HTML5 display-role reset for older browsers */
+
 footer,
 header,
 menu,
@@ -55,20 +56,22 @@ nav,
 section {
   display: block;
 }
+
 body {
   height: 100dvh;
   line-height: 1.5;
 }
+
 ol,
 ul {
   list-style: none;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-// All of our custom controls should be what we expect them to be
 input,
 textarea {
   -webkit-box-sizing: content-box;
@@ -76,70 +79,23 @@ textarea {
   box-sizing: content-box;
 }
 
-// Show overflow in Edge
-// Source: https://github.com/twbs/bootstrap/blob/v4-dev/scss/_reboot.scss
-button,
-input {
-  overflow: visible;
-}
-
-// Remove inner border and padding from Firefox
-// Source: https://github.com/twbs/bootstrap/blob/v4-dev/scss/_reboot.scss
-button::-moz-focus-inner,
-[type="button"]::-moz-focus-inner,
-[type="reset"]::-moz-focus-inner,
-[type="submit"]::-moz-focus-inner {
-  padding: 0;
-  border-style: none;
-}
-
-// Overrides extra rounded corners on search inputs in iOS
-// Source: https://github.com/twbs/bootstrap/blob/v4-dev/scss/_reboot.scss
-[type="search"] {
-  outline-offset: -2px;
-  -webkit-appearance: textfield;
-  -webkit-box-sizing: content-box;
-}
-
-// Remove inner padding and cancel buttons in Chrome and Safari on macOS
-// Source: https://github.com/twbs/bootstrap/blob/v4-dev/scss/_reboot.scss
-[type="search"]::-webkit-search-cancel-button,
-[type="search"]::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
-
-// Correct inability to style clickable types in iOS and Safari
-// Change font properties to `inherit` in Safari
-// Source: https://github.com/twbs/bootstrap/blob/v4-dev/scss/_reboot.scss
 ::-webkit-file-upload-button {
-  font: inherit; // 2
-  -webkit-appearance: button; // 1
+  font: inherit;
+  -webkit-appearance: button;
 }
 
-// Remove IE/ Edge clear "X" & eye icons
 input::-ms-clear,
 input::-ms-reveal {
   display: none;
 }
 
-// Remove Safari contacts icon
 input::-webkit-contacts-auto-fill-button {
   display: none;
 }
 
-// Remove Safari password & caps lock icons
 input[type="password"]::-webkit-credentials-auto-fill-button,
 input[type="password"]::-webkit-caps-lock-indicator {
   display: none;
-}
-
-// Disable WebKit's banana-yellow input fields
-// Combination of techniques from:
-// https://stackoverflow.com/questions/2781549/removing-input-background-colour-for-chrome-autocomplete
-@-webkit-keyframes autofill {
-  to {
-    background: transparent;
-  }
 }
 
 input:-webkit-autofill,
