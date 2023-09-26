@@ -1,5 +1,5 @@
 import './dashboard.scss';
-import DashboardData from './components/DashboardData';
+import DashboardData from './_components/DashboardData';
 
 export default async function Page() {
 	return (
