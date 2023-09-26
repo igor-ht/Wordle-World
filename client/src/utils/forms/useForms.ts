@@ -86,7 +86,7 @@ export const useGoogleOAuth = (
 		mutationFn: async () => {
 			try {
 				setUserLogged(true);
-				const userLogged = await signIn('google', { redirect: false });
+				await signIn('google');
 			} catch {
 				setUserLogged(false);
 				setError('name', { message: `We had a problem in the proccess.` });

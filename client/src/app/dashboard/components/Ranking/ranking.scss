@@ -42,7 +42,7 @@
         justify-content: space-evenly;
         align-items: center;
         text-align: center;
-        text-overflow: clip;
+        text-overflow: ellipsis;
 
         td {
           @include font($fontVarellaRound, 1.1rem, black, center);
@@ -51,7 +51,8 @@
           max-height: 100%;
           overflow: hidden;
           text-wrap: nowrap;
-          text-overflow: clip;
+          word-break: keep-all;
+          text-overflow: ellipsis;
         }
         &:nth-child(odd) {
           background-color: rgb(214, 214, 214);
