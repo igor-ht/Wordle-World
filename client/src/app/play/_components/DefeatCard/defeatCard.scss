@@ -1,5 +1,4 @@
 @use "@/styles/main" as *;
-@use "../VictoryCard/victoryCard.scss" as *;
 
 .defeat-background {
 	@include general-properties(100dvw, 100dvh, rgba(10, 6, 55, 0.867));
@@ -7,9 +6,6 @@
 	z-index: 1;
 	top: 0;
 	overflow: hidden;
-}
-.defeat-card {
-	@extend .victory-card;
 }
 
 @keyframes animate {

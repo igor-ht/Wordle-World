@@ -1,0 +1,65 @@
+@use "@/styles/main" as *;
+
+.game-result-card {
+  @include general-properties(70dvw, 80dvh, rgba(255, 255, 255, 0.849));
+  @include display-flex(column);
+  position: absolute;
+  z-index: 1;
+  left: 15%;
+  top: 12dvh;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1rem;
+
+  img {
+    @include image(25rem, auto, cover);
+  }
+  p {
+    @include font($fontVarellaRound, 1.3rem, black, center);
+    margin: 0.6rem;
+  }
+  div {
+    @include display-flex(column);
+    align-items: center;
+    .btn {
+      margin: 0.9rem;
+      box-shadow: 0px 0px 5px 1px green;
+      text-shadow: 0px 0px 8px black;
+
+      &:nth-child(1) {
+        background-color: rgb(154, 254, 4);
+        &:hover {
+          background-color: rgb(133, 222, 0);
+          box-shadow: 0px 0px 6px 1px green;
+        }
+        &:active {
+          background-color: rgb(114, 190, 0);
+          box-shadow: 0px 0px 8px 2px green;
+        }
+      }
+
+      &:nth-child(2) {
+        background-color: rgb(234, 234, 0);
+        box-shadow: 0px 0px 6px 1px rgb(177, 177, 0);
+        &:hover {
+          background-color: rgb(224, 224, 7);
+          box-shadow: 0px 0px 6px 1px rgb(166, 166, 2);
+        }
+        &:active {
+          background-color: rgb(200, 200, 11);
+          box-shadow: 0px 0px 8px 2px rgb(140, 140, 6);
+        }
+      }
+    }
+  }
+
+  @include media-query($media-md) {
+    width: 96dvw;
+    left: 2%;
+  }
+  img {
+    width: 20rem;
+  }
+}
