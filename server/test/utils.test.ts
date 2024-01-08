@@ -49,7 +49,7 @@ describe('Utils functions tests', () => {
 			const checkAccessToken = jwt.verify(accessToken, 'test-key') as any;
 			expect(checkAccessToken.id).toStrictEqual(1);
 			expect(checkAccessToken.name).toStrictEqual('test');
-			expect(() => jwt.verify(accessToken, 'wrong-key')).toThrowError();
+			expect(() => jwt.verify(accessToken, 'wrong-key')).toThrow();
 		});
 		it('RefreshToken generator and verification', async () => {
 			const RefreshToken = await generateRefreshToken({ id: 1, name: 'test' }, 'test-key');
@@ -57,7 +57,7 @@ describe('Utils functions tests', () => {
 			const checkRefreshToken = jwt.verify(RefreshToken, 'test-key') as any;
 			expect(checkRefreshToken.id).toStrictEqual(1);
 			expect(checkRefreshToken.name).toStrictEqual('test');
-			expect(() => jwt.verify(RefreshToken, 'wrong-key')).toThrowError();
+			expect(() => jwt.verify(RefreshToken, 'wrong-key')).toThrow();
 		});
 	});
 });
