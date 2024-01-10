@@ -9,7 +9,7 @@ export class UserDao implements IUserDao {
 		this.displayUser = null;
 	}
 
-	exclude<User extends Users, Keys extends keyof User>(user: User, keys: Keys[]): IDisplayUser | null {
+	exclude<User extends IDisplayUser, Keys extends keyof User>(user: User, keys: Keys[]): IDisplayUser | null {
 		for (let key of keys) {
 			delete user[key];
 		}
@@ -135,7 +135,12 @@ export class UserDao implements IUserDao {
 			},
 		});
 		if (!user) return null;
-		return user;
+		return user as unknown as {
+			points: number;
+			discoveredWords: {
+				word: string;
+			}[];
+		};
 	}
 
 	public async getRanking() {
@@ -150,7 +155,7 @@ export class UserDao implements IUserDao {
 			take: 20,
 		});
 		if (!ranking) return null;
-		return ranking;
+		return ranking as unknown as { name: string; points: number }[];
 	}
 
 	public async getUserRank(id: string) {
@@ -165,10 +170,10 @@ export class UserDao implements IUserDao {
 		});
 		if (!userRank) return null;
 		const userRanking = await this.prisma.users.findMany({
-			where: { points: { gt: userRank.points } },
+			where: { points: { gt: userRank.points as number } },
 			select: { id: true },
 		});
-		return { ...userRank, place: userRanking.length + 1 };
+		return { ...userRank, place: userRanking.length + 1 } as unknown as { place: number; name: string; points: number };
 	}
 
 	public async delete(id: string): Promise<boolean> {

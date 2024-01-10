@@ -2,13 +2,18 @@ import { Users } from '@prisma/client';
 import { ICrudDao } from '../ICrudDao';
 
 export interface IUserDao extends ICrudDao<IUserSignUp, IUpdateUser, IDisplayUser> {
-	readonly exclude: <U extends Users, K extends keyof U>(user: U, keys: K[]) => IDisplayUser | null;
+	readonly exclude: <U extends IDisplayUser, K extends keyof U>(user: U, keys: K[]) => IDisplayUser | null;
 	create: (data: IUserSignUp) => Promise<IDisplayUser | null>;
 	read: (identifier: string) => Promise<Users | null>;
 	handleUserInfoSignUp: (user: IUserSignUp) => Promise<void>;
 	updateGeneralInfo: (id: string, data: IUpdateUser) => Promise<IDisplayUser | null>;
 	updateUserRanking: (email: string, points: number, word?: string) => Promise<IDisplayUser | null>;
-	getUserStats: (id: string) => Promise<getUserStats>;
+	getUserStats: (id: string) => Promise<{
+		points: number;
+		discoveredWords: {
+			word: string;
+		}[];
+	} | null>;
 	getRanking: () => Promise<{ name: string; points: number }[] | null>;
 	getUserRank: (id: string) => Promise<{ place: number; name: string; points: number } | null>;
 	delete: (id: string) => Promise<boolean>;
@@ -34,10 +39,3 @@ export interface IDisplayUser {
 	points: number;
 	discoveredWords?: any;
 }
-
-type getUserStats = {
-	points: number;
-	discoveredWords: {
-		word: string;
-	}[];
-} | null;

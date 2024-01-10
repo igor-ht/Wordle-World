@@ -22,7 +22,7 @@ export class GuestDao implements IGuestDao {
 			},
 		});
 		if (!newGuest) return null;
-		return newGuest;
+		return newGuest as IGuestDisplay;
 	}
 
 	public async read(ip: string): Promise<Guests | null> {
@@ -54,7 +54,7 @@ export class GuestDao implements IGuestDao {
 			},
 		});
 		if (!updatedGuest) return null;
-		return updatedGuest;
+		return updatedGuest as IGuestDisplay;
 	}
 
 	public async delete(id: string): Promise<boolean> {
