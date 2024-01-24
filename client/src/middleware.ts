@@ -8,13 +8,13 @@ export default async function middleware(req: NextRequest) {
 
 	if (currentPath.startsWith('/signin') || currentPath.startsWith('/signup')) {
 		if (isAuthenticated) return NextResponse.redirect(new URL('/dashboard', req.url));
-		return;
 	}
 
 	if (currentPath.startsWith('/dashboard')) {
 		if (!isAuthenticated) return NextResponse.redirect(new URL('/signin', req.url));
-		return;
 	}
+	
+	return NextResponse.next();
 }
 
 export const config = { matcher: ['/dashboard', '/signin', '/signup'] };
