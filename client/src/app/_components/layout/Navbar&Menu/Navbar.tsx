@@ -3,7 +3,7 @@
 import './Navbar.scss';
 import Link from 'next/link';
 import Image from 'next/image';
-import Menu from '../Menu/Menu';
+import Menu from './_components/Menu/Menu';
 import UserLogged from './_components/UserLogged';
 import MenuButton from './_components/MenuButton';
 import { useState, useRef } from 'react';

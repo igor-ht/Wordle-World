@@ -4,9 +4,10 @@ import { Session } from 'next-auth';
 import { Analytics } from '@vercel/analytics/react';
 import { Metadata } from 'next';
 import Navbar from './_components/layout/Navbar&Menu/Navbar';
-import AuthProvider from './_components/AuthProvider/AuthProvider';
+import AuthProvider from './_components/providers/AuthProvider/AuthProvider';
 import Footer from './_components/layout/Footer/Footer';
 import MainContainer from './_components/layout/MainContainer/MainContainer';
+import ReactQueryProvider from './_components/providers/ReactQueryProvider/ReactQueryProvider';
 
 export const metadata: Metadata = {
 	title: 'Wordle World',
@@ -29,21 +30,21 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children, session }: { children: React.ReactNode; session: Session }) {
 	return (
-		<>
-			<html
-				lang="en"
-				className={`${varelaRound.variable} ${roboto.variable}`}>
-				<body
-					className="app"
-					data-theme="light">
-					<AuthProvider session={session}>
-						<Navbar />
-						<MainContainer>{children}</MainContainer>
-						<Footer />
-					</AuthProvider>
-					<Analytics />
-				</body>
-			</html>
-		</>
+		<html
+			lang="en"
+			className={`${varelaRound.variable} ${roboto.variable}`}>
+			<body
+				className="app"
+				data-theme="light">
+				<AuthProvider session={session}>
+					<Navbar />
+					<MainContainer>
+						<ReactQueryProvider>{children}</ReactQueryProvider>
+					</MainContainer>
+					<Footer />
+				</AuthProvider>
+				<Analytics />
+			</body>
+		</html>
 	);
 }
