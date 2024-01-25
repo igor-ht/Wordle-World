@@ -1,19 +1,15 @@
-import { useReducer, useRef } from 'react';
-import { playStateReducer, gameStateReducer, PlayStateType, GameSettingsType } from './reducers';
+import { useReducer, useRef, useState } from 'react';
+import { gameStateReducer, GameSettingsType, PlayStateType } from './reducers';
 
 export const useGameStates = () => {
 	const gameSettings = useRef<GameSettingsType>({ language: 'EN', wordLength: 5, totalChances: 6 });
-	const [playState, playStateDispatch] = useReducer(playStateReducer, 'start');
+	const [playState, setPlayState] = useState<PlayStateType>('start');
 	const [gameState, gameStateDispatch] = useReducer(gameStateReducer, { word: '', currentGuess: '', guessNumber: 1 });
-
-	const sePlayState = (state: PlayStateType) => {
-		playStateDispatch({ type: 'setState', payload: state });
-	};
 
 	const setNewGame = (word: string) => {
 		gameStateDispatch({ type: 'resetState' });
 		gameStateDispatch({ type: 'setRandomWord', payload: word });
-		sePlayState('play');
+		setPlayState('play');
 	};
 
 	const setGameCurrentGuess = (str: string) => {
@@ -25,5 +21,5 @@ export const useGameStates = () => {
 		gameStateDispatch({ type: 'setCurrentGuess', payload: '' });
 	};
 
-	return { gameSettings, playState, gameState, sePlayState, setNewGame, setGameCurrentGuess, setNewGuess };
+	return { gameSettings, playState, gameState, setPlayState, setNewGame, setGameCurrentGuess, setNewGuess };
 };

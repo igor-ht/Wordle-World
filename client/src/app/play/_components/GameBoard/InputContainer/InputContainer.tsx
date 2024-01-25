@@ -1,15 +1,11 @@
 import './inputContainer.scss';
-import { MutableRefObject } from 'react';
-import { GameSettingsType } from '@/utils/play/state/reducers';
+import { useContext } from 'react';
 import { useBadGuess } from '@/utils/play/state/useBadGuess';
 import NotValidGuess from '../NotValidGuess/NotValidGuess';
+import GameContext, { GameApiContextType } from '@/utils/play/context/context';
 
-export interface InputContainerInterface {
-	gameSettings: MutableRefObject<GameSettingsType>;
-	currentInputElement: MutableRefObject<HTMLInputElement | null>;
-}
-
-export default function InputContainer({ gameSettings, currentInputElement }: InputContainerInterface) {
+export default function InputContainer() {
+	const { gameSettings, currentInputElement } = useContext(GameContext) as GameApiContextType;
 	const { badGuess, handleAnimation } = useBadGuess();
 
 	return (

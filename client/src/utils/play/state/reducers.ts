@@ -1,14 +1,5 @@
 // game state
 export type PlayStateType = 'start' | 'play' | 'victory' | 'defeat' | 'guestLimit';
-export type StateActionType = { type: 'setState'; payload: PlayStateType };
-export const playStateReducer = (state: PlayStateType, action: StateActionType) => {
-	switch (action.type) {
-		case 'setState':
-			return action.payload;
-		default:
-			return state;
-	}
-};
 
 // game settings
 type LanguagesType = 'EN' | 'ES' | 'PT' | 'HE';

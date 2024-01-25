@@ -1,13 +1,14 @@
 import { useRef } from 'react';
 
+// custom hook to control and abstract the logic behind input changes and colors update
 const useDomHandlers = () => {
 	const currentInputElement = useRef<HTMLInputElement | null>(null);
 	const keyboardContainerElement = useRef<HTMLDivElement | null>(null);
 
-	const handleInputCellChange = (gameSettings_wordLength: number) => {
+	const handleInputCellChange = (gameSettingsWordLength: number) => {
 		if (currentInputElement.current) {
 			// check if is the last input field in the row
-			if (+currentInputElement.current.id % gameSettings_wordLength === 0) {
+			if (+currentInputElement.current.id % gameSettingsWordLength === 0) {
 				currentInputElement.current.classList.remove('current-input');
 				currentInputElement.current.parentElement?.classList.add('span-complete');
 				currentInputElement.current.parentElement?.classList.add('pop');

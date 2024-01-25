@@ -1,6 +1,6 @@
 import './keyboardContainer.scss';
-
-import { MouseEventHandler, MutableRefObject } from 'react';
+import GameContext, { GameApiContextType } from '@/utils/play/context/context';
+import { useContext } from 'react';
 
 const KEYBOARD = [
 	['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
@@ -8,12 +8,9 @@ const KEYBOARD = [
 	['Enter', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '⌫'],
 ];
 
-export interface KeyboardContainerInterface {
-	handleKeyPressedFromDigitalKeyboard: MouseEventHandler<HTMLButtonElement>;
-	keyboardContainerElement: MutableRefObject<HTMLDivElement | null>;
-}
+export default function KeyboardContainer() {
+	const { keyboardContainerElement, handleKeyPressedFromDigitalKeyboard } = useContext(GameContext) as GameApiContextType;
 
-export default function KeyboardContainer({ handleKeyPressedFromDigitalKeyboard, keyboardContainerElement }: KeyboardContainerInterface) {
 	return (
 		<div
 			ref={keyboardContainerElement}

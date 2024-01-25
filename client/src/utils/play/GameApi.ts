@@ -1,29 +1,21 @@
-import { MouseEventHandler, MutableRefObject, useEffect } from 'react';
-import { GameSettingsType, GameStateType, PlayStateType } from './state/reducers';
-import { redirect } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { GameSounds } from '@/utils/general/sounds';
+import { redirect } from 'next/navigation';
+import { useEffect } from 'react';
 import { awaitFunction } from '../general/await';
+import { GameSounds } from '../general/sounds';
 import { useGameStates } from './state/useGameStates';
-import useDomHandlers from './dom/useDomHandlers';
-import useWordHandlers from './api/useWordHandlers';
+import { GameApiContextType } from './context/context';
 import useGuestHandlers from './api/useGuestHandlers';
 import useUserHandlers from './api/useUserHandlers';
+import useWordHandlers from './api/useWordHandlers';
+import useDomHandlers from './dom/useDomHandlers';
 
-export interface IGameApi {
-	playState: PlayStateType;
-	startNewGame: () => Promise<void>;
-	gameSettings: MutableRefObject<GameSettingsType>;
-	gameState: GameStateType;
-	currentInputElement: MutableRefObject<HTMLInputElement | null>;
-	keyboardContainerElement: MutableRefObject<HTMLDivElement | null>;
-	handleKeyPressedFromDigitalKeyboard: MouseEventHandler<HTMLButtonElement>;
-}
+type GameApiType = () => GameApiContextType;
 
 let ASYNC_RUN = false;
 
-const useStartGame: () => IGameApi = () => {
-	const { gameSettings, playState, gameState, sePlayState, setNewGame, setGameCurrentGuess, setNewGuess } = useGameStates();
+const GameApi: GameApiType = () => {
+	const { gameSettings, playState, gameState, setPlayState, setNewGame, setGameCurrentGuess, setNewGuess } = useGameStates();
 
 	const {
 		currentInputElement,
@@ -46,8 +38,8 @@ const useStartGame: () => IGameApi = () => {
 			const word = (await wordHandlers.getRandomWord()).data;
 			setNewGame(word);
 		} catch (error) {
-			if (error === 'Guest exceed daily games limit.') sePlayState('guestLimit');
-			else sePlayState('start');
+			if (error === 'Guest exceed daily games limit.') setPlayState('guestLimit');
+			else setPlayState('start');
 		}
 	};
 
@@ -138,7 +130,7 @@ const useStartGame: () => IGameApi = () => {
 	const handleEndGame = async (result: 'victory' | 'defeat') => {
 		awaitFunction(500, async () => {
 			result === 'victory' ? GameSounds?.victory?.play() : GameSounds?.defeat?.play();
-			sePlayState(result);
+			setPlayState(result);
 			if (session && status === 'authenticated') await handleUserFinishGame(result);
 		});
 	};
@@ -183,4 +175,4 @@ const useStartGame: () => IGameApi = () => {
 	};
 };
 
-export default useStartGame;
+export default GameApi;

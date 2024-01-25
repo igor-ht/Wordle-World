@@ -1,8 +1,11 @@
 import './victoryCard.scss';
 import VictoryDefeatCard from '@/app/_components/common/Victory&DefeatCard/Victory&DefeatCard';
-import { GameStateType } from '@/utils/play/state/reducers';
+import GameContext, { GameApiContextType } from '@/utils/play/context/context';
+import { useContext } from 'react';
 
-export default function VictoryCard({ gameState, startNewGame }: { gameState: GameStateType; startNewGame: () => Promise<void> }) {
+export default function VictoryCard() {
+	const { gameState, startNewGame } = useContext(GameContext) as GameApiContextType;
+
 	return (
 		<div className="victory-background">
 			<div className="pyro">
