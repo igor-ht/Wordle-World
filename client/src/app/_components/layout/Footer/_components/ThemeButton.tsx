@@ -24,7 +24,7 @@ export default function ThemeButton() {
 	};
 
 	return (
-		<section>
+		<section className="toggle-theme">
 			<button
 				className="btn-image"
 				type="button"

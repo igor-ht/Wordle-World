@@ -12,7 +12,7 @@ export default function StartGame() {
 			<div className="start-game-card">
 				<Title text={'SETTINGS'} />
 				<GameSettings />
-				{status !== 'authenticated' && <LinksSignInSignUp />}
+				{status === 'unauthenticated' && <LinksSignInSignUp />}
 			</div>
 		</div>
 	);

@@ -18,7 +18,7 @@ export default function SoundButton() {
 	};
 
 	return (
-		<section>
+		<section className="toggle-sound">
 			<button
 				type="button"
 				id="sound"
@@ -27,7 +27,7 @@ export default function SoundButton() {
 				{sound ? (
 					<Image
 						className="footer-icon"
-						src={'/sound.svg'}
+						src={'./sound.svg'}
 						alt="sound"
 						height={50}
 						width={50}
@@ -37,7 +37,7 @@ export default function SoundButton() {
 				) : (
 					<Image
 						className="footer-icon"
-						src={'/mute.svg'}
+						src={'./mute.svg'}
 						alt="mute"
 						height={50}
 						width={50}

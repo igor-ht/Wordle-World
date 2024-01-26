@@ -114,6 +114,7 @@ const GameApi: GameApiType = () => {
 		ASYNC_RUN = false;
 	};
 
+	// checks if guess is correct or if it's the last guess, if is returns true, else returns false
 	const handleUserGuessResponse = async (guess: [string]) => {
 		let checker = true;
 		for (let ans of guess) {

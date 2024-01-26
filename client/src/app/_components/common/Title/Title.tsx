@@ -1,5 +1,5 @@
-import { Fragment } from 'react';
 import './Title.scss';
+import { Fragment } from 'react';
 
 export default function Title({ text }: { text: string }) {
 	return (
