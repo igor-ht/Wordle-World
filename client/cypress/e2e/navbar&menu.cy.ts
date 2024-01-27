@@ -30,4 +30,22 @@ describe('Navbar and Menu testing', () => {
 		cy.get('.wordle-icon img').click({ force: true });
 		cy.url().should('eq', 'http://localhost:3000/');
 	});
+	it('goes to right router when clicking menu link', () => {
+		//home page
+		cy.get('.menu-container').click({ force: true });
+		cy.get('.menu-container ul a[href="/"]').click({ force: true });
+		cy.url().should('eq', 'http://localhost:3000/');
+		//play page
+		cy.get('.menu-container').click({ force: true });
+		cy.get('.menu-container ul a[href="/play"]').click({ force: true });
+		cy.url().should('eq', 'http://localhost:3000/play');
+		//signin page
+		cy.get('.menu-container').click({ force: true });
+		cy.get('.menu-container ul a[href="/signin"]').click({ force: true });
+		cy.url().should('eq', 'http://localhost:3000/signin');
+		//signup page
+		cy.get('.menu-container').click({ force: true });
+		cy.get('.menu-container ul a[href="/signup"]').click({ force: true });
+		cy.url().should('eq', 'http://localhost:3000/signup');
+	});
 });

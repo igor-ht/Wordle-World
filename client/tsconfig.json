@@ -29,5 +29,5 @@
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/play/api"],
-	"exclude": ["node_modules", "**/*.cy.ts", "**/*.cy.tsx"]
+	"exclude": ["node_modules", "cypress", "**/*.cy.ts", "**/*.cy.tsx"]
 }

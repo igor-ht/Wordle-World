@@ -16,7 +16,4 @@ describe('HomePage testing', () => {
 		cy.get('.cube').should('be.visible');
 		cy.get('.cube').should('have.css', 'animation-play-state', 'running');
 	});
-	// it('Cube animation stops on mouse hover', () => {
-	// 	cy.get('.cube').trigger('mouseover').should('have.css', 'animation-play-state', 'paused');
-	// });
 });
