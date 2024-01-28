@@ -1,6 +1,5 @@
+import { UserSignInType, UserSignUpType } from '@/utils/forms/useForms';
 import { useFormContext } from 'react-hook-form';
-import { UserSignInType } from '../signin/SignInForms';
-import { UserSignUpType } from '../signup/SignUpForms';
 
 type InputProps = {
 	label: string;

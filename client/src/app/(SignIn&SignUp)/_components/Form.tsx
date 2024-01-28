@@ -2,9 +2,8 @@ import LoadingSkeleton from '@/app/_components/common/LoadingSkeleton/LoadingSke
 import SubmitButton from './SubmitButton';
 import GoogleOAuth from './GoogleOAuth';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
-import { UserSignInType } from '../signin/SignInForms';
-import { UserSignUpType } from '../signup/SignUpForms';
 import { FieldValues, SubmitHandler, useFormContext } from 'react-hook-form';
+import { UserSignInType, UserSignUpType } from '@/utils/forms/useForms';
 
 export type AllFormTypes = UserSignInType | UserSignUpType;
 

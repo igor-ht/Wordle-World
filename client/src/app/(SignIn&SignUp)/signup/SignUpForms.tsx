@@ -1,19 +1,12 @@
 'use client';
 
-import Input from '../_components/Input';
-import Form from '../_components/Form';
 import { signUpSchema } from '@/utils/forms/validating';
 import { useState } from 'react';
-import { useSignUp } from '@/utils/forms/useForms';
+import { UserSignUpType, useSignUp } from '@/utils/forms/useForms';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, useForm } from 'react-hook-form';
-
-export type UserSignUpType = {
-	name: string;
-	email: string;
-	password: string;
-	confirmPassword: string;
-};
+import Input from '../_components/Input';
+import Form from '../_components/Form';
 
 export default function SignUpForms() {
 	const [userLogged, setUserLogged] = useState(false);

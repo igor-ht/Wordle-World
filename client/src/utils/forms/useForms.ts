@@ -1,12 +1,19 @@
 import { BASE_URL, ENDPOINT } from '@/appConfig';
 import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
-import { UserSignUpType } from '@/app/(SignIn&SignUp)/signup/SignUpForms';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction } from 'react';
-import { UserSignInType } from '@/app/(SignIn&SignUp)/signin/SignInForms';
 import { UseFormSetError } from 'react-hook-form';
+import { handleHashing } from './actions';
+
+// sign up
+export type UserSignUpType = {
+	name: string;
+	email: string;
+	password: string;
+	confirmPassword: string;
+};
 
 export const useSignUp = ({
 	setUserLogged,
@@ -15,12 +22,11 @@ export const useSignUp = ({
 	setUserLogged: Dispatch<SetStateAction<boolean>>;
 	setError: UseFormSetError<UserSignUpType>;
 }) => {
-	const router = useRouter();
 	const handleSignUp = useMutation({
 		mutationFn: async (data: UserSignUpType) => {
 			try {
 				setUserLogged(true);
-				const hashedPassword = (await axios.post('/api/hash', data.password, { baseURL: BASE_URL })).data;
+				const hashedPassword = await handleHashing(data.password);
 				await axios.post(
 					`/user/signup`,
 					{
@@ -46,6 +52,12 @@ export const useSignUp = ({
 		},
 	});
 	return handleSignUp;
+};
+
+//sign in
+export type UserSignInType = {
+	email: string;
+	password: string;
 };
 
 export const useSignIn = ({
@@ -78,6 +90,7 @@ export const useSignIn = ({
 	return handleSignIn;
 };
 
+// google oauth
 export const useGoogleOAuth = (
 	setUserLogged: Dispatch<SetStateAction<boolean>>,
 	setError: UseFormSetError<UserSignInType | UserSignUpType>

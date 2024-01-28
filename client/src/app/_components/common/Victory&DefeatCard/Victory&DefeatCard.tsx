@@ -3,6 +3,7 @@ import Image from 'next/image';
 import LinksSignInSignUp from '@/app/_components/common/LinksSignInSignUp/LinksSignInSignUp';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { ButtonHTMLAttributes, FC } from 'react';
 
 type Props = {
 	startNewGame: () => Promise<void>;
@@ -30,23 +31,28 @@ export default function VictoryDefeatCard({ startNewGame, imgUrl, imgAlt, childr
 			/>
 			<section>{children}</section>
 			<div>
-				<button
+				<Button
 					type="button"
 					className="btn"
-					onClick={startNewGame}>
-					Play again
-				</button>
-				{status === 'unauthenticated' ? (
-					<LinksSignInSignUp />
-				) : (
-					<button
+					onClick={startNewGame}
+					buttonText={'Play again'}
+				/>
+
+				{status === 'authenticated' ? (
+					<Button
 						type="button"
 						className="btn"
-						onClick={handleNavigateToDashboard}>
-						Dashboard
-					</button>
+						onClick={handleNavigateToDashboard}
+						buttonText={'Dashboard'}
+					/>
+				) : (
+					<LinksSignInSignUp />
 				)}
 			</div>
 		</div>
 	);
 }
+
+const Button: FC<{ buttonText: string } & ButtonHTMLAttributes<HTMLButtonElement>> = ({ buttonText, ...props }) => {
+	return <button {...props}>{buttonText}</button>;
+};

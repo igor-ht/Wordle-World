@@ -34,7 +34,11 @@ export default function Menu({ menuRef, displayMenu, setDisplayMenu }: MenuProps
 				<Link href={'/play'}>
 					<li>Play</li>
 				</Link>
-				{status === 'unauthenticated' ? (
+				{status === 'authenticated' ? (
+					<Link href={'/dashboard'}>
+						<li>Dashboard</li>
+					</Link>
+				) : (
 					<>
 						<Link href={'/signin'}>
 							<li>Sign In</li>
@@ -43,10 +47,6 @@ export default function Menu({ menuRef, displayMenu, setDisplayMenu }: MenuProps
 							<li>Sign Up</li>
 						</Link>
 					</>
-				) : (
-					<Link href={'/dashboard'}>
-						<li>Dashboard</li>
-					</Link>
 				)}
 			</ul>
 		</div>
