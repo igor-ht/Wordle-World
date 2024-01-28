@@ -28,24 +28,24 @@ export default function Menu({ menuRef, displayMenu, setDisplayMenu }: MenuProps
 			className="menu-container">
 			<h1 className="menu-title">Menu</h1>
 			<ul>
-				<Link href={'/'}>
-					<li>Home</li>
-				</Link>
-				<Link href={'/play'}>
-					<li>Play</li>
-				</Link>
+				<li>
+					<Link href={'/'}>Home</Link>
+				</li>
+				<li>
+					<Link href={'/play'}>Play</Link>
+				</li>
 				{status === 'authenticated' ? (
-					<Link href={'/dashboard'}>
-						<li>Dashboard</li>
-					</Link>
+					<li>
+						<Link href={'/dashboard'}>Dashboard</Link>
+					</li>
 				) : (
 					<>
-						<Link href={'/signin'}>
-							<li>Sign In</li>
-						</Link>
-						<Link href={'/signup'}>
-							<li>Sign Up</li>
-						</Link>
+						<li>
+							<Link href={'/signin'}>Sign In</Link>
+						</li>
+						<li>
+							<Link href={'/signup'}>Sign Up</Link>
+						</li>
 					</>
 				)}
 			</ul>

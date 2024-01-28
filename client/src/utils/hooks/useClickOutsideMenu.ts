@@ -4,7 +4,7 @@ export function useClickOutsideMenu(ref: React.RefObject<HTMLElement | null>, ca
 	useEffect(() => {
 		const handleClick = (e: MouseEvent) => {
 			if (ref.current && !ref.current.contains(e.target as Node)) callback();
-			if (e.target instanceof HTMLLIElement && ref.current?.contains(e.target)) callback();
+			if (e.target instanceof HTMLLIElement || (e.target instanceof HTMLAnchorElement && ref.current?.contains(e.target))) callback();
 		};
 
 		document.addEventListener('click', handleClick);

@@ -8,12 +8,14 @@ import AuthProvider from './_components/providers/AuthProvider/AuthProvider';
 import Footer from './_components/layout/Footer/Footer';
 import MainContainer from './_components/layout/MainContainer/MainContainer';
 import ReactQueryProvider from './_components/providers/ReactQueryProvider/ReactQueryProvider';
+import { BASE_URL } from '@/appConfig';
 
 export const metadata: Metadata = {
 	title: 'Wordle World',
 	description: 'Play Wordle for free, collect points and keep track of your discovered words!',
 	keywords: ['Wordle', 'Wordle Game', 'Wordle Game Free', 'Wordle World', 'Wordle-World', 'WordleWorld'],
 	category: 'game',
+	metadataBase: new URL(BASE_URL),
 	icons: {
 		icon: '/wordle-icon.svg',
 	},
