@@ -1,6 +1,6 @@
 # WordleWorld
 
-Wordle World is an interactive word-guessing game built in a three-tier architecture using **SCSS, TypeScript, React.js, Next.js, Auth.js, React-Query, Node.js, Express.js, Prisma ORM**, and more.
+Wordle World is an interactive word-guessing game built in a three-tier architecture using **SCSS, TypeScript, React.js, Next.js, Next-Auth.js, React-Query, Node.js, Express.js, Prisma ORM**, and more.
 
 [![My Skills](https://skillicons.dev/icons?i=ts,react,next,scss,nodejs,express,prisma&perline=4)](https://skillicons.dev)
 
