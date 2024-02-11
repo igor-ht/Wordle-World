@@ -5,7 +5,6 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction } from 'react';
 import { UseFormSetError } from 'react-hook-form';
-import { handleHashing } from './actions';
 
 // sign up
 export type UserSignUpType = {
@@ -26,13 +25,12 @@ export const useSignUp = ({
 		mutationFn: async (data: UserSignUpType) => {
 			try {
 				setUserLogged(true);
-				const hashedPassword = await handleHashing(data.password);
 				await axios.post(
 					`/user/signup`,
 					{
 						name: data.name,
 						email: data.email,
-						password: hashedPassword,
+						password: data.password,
 					},
 					{ baseURL: ENDPOINT }
 				);

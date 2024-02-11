@@ -5,7 +5,11 @@ import { UseFormRegister } from 'react-hook-form';
 export default function SelectWordLength({ register }: { register: UseFormRegister<GameSettingsType> }) {
 	return (
 		<section className="field-section radio-container">
-			<label className="label-field-section">Choose a word length:</label>
+			<label
+				htmlFor="wordlength5"
+				className="label-field-section">
+				Choose a word length:
+			</label>
 			<span className="input-radio-wrapper">
 				<input
 					{...register('wordLength')}
@@ -20,7 +24,7 @@ export default function SelectWordLength({ register }: { register: UseFormRegist
 			</span>
 			<span className="input-radio-wrapper">
 				<input
-				{...register('wordLength')}
+					{...register('wordLength')}
 					type="radio"
 					name="wordLength"
 					value={5}
@@ -32,7 +36,7 @@ export default function SelectWordLength({ register }: { register: UseFormRegist
 			</span>
 			<span className="input-radio-wrapper">
 				<input
-				{...register('wordLength')}
+					{...register('wordLength')}
 					type="radio"
 					name="wordLength"
 					value={6}

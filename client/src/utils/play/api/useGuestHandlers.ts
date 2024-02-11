@@ -24,12 +24,14 @@ export default function useGuestHandlers() {
 		if (!guest) return null;
 		return guest as IGuest;
 	};
+
 	const createNewGuestQuery = async () => {
 		const res = await axiosAuth.get('/guest/handleCreateNewGuest');
 		const guestSigned = res.data;
 		if (!guestSigned) return null;
 		return guestSigned as IGuest;
 	};
+
 	const handleGuestNewGameMutation = async () => {
 		const currentGuest = queryClient.getQueryData(['currentGuest']);
 		const res = await axiosAuth.post('/guest/handleGuestNewGame', currentGuest);
@@ -37,6 +39,7 @@ export default function useGuestHandlers() {
 		if (!guestUpdated) return null;
 		return guestUpdated as IGuest;
 	};
+
 	const handleGuestNewSessionMutation = async () => {
 		const guest = queryClient.getQueryData(['currentGuest']);
 		const res = await axiosAuth.post('/guest/handleGuestNewSession', guest);
@@ -44,6 +47,7 @@ export default function useGuestHandlers() {
 		if (!guestSigned) return null;
 		return guestSigned as IGuest;
 	};
+
 	const searchGuestInDB = useQuery({
 		queryKey: ['currentGuest'],
 		queryFn: searchGuestInDBQuery,
@@ -52,6 +56,7 @@ export default function useGuestHandlers() {
 		cacheTime: 1000 * 60 * 60,
 		retry: 2,
 	});
+
 	const createNewGuest = useQuery({
 		queryKey: ['currentGuest'],
 		queryFn: createNewGuestQuery,
@@ -60,19 +65,39 @@ export default function useGuestHandlers() {
 		cacheTime: 1000 * 60 * 60,
 		retry: 2,
 	});
+
 	const handleGuestNewGame = useMutation({
 		mutationFn: handleGuestNewGameMutation,
 		cacheTime: 1000 * 60 * 60,
 		retry: 2,
-		onSuccess: (data) => {
+		onMutate: () => {
+			queryClient.cancelQueries(['currentGuest']);
+			const previousData = queryClient.getQueryData(['currentGuest']);
+			return { previousData };
+		},
+		onError: (err, variables, context) => {
+			queryClient.setQueryData(['currentGuest'], context?.previousData);
+		},
+		onSettled: (data) => {
+			queryClient.invalidateQueries(['currentGuest']);
 			queryClient.setQueryData(['currentGuest'], data);
 		},
 	});
+
 	const handleGuestNewSession = useMutation({
 		mutationFn: handleGuestNewSessionMutation,
 		cacheTime: 1000 * 60 * 60,
 		retry: 2,
-		onSuccess: (data) => {
+		onMutate: () => {
+			queryClient.cancelQueries(['currentGuest']);
+			const previousData = queryClient.getQueryData(['currentGuest']);
+			return { previousData };
+		},
+		onError: (err, variables, context) => {
+			queryClient.setQueryData(['currentGuest'], context?.previousData);
+		},
+		onSettled: (data) => {
+			queryClient.invalidateQueries(['currentGuest']);
 			queryClient.setQueryData(['currentGuest'], data);
 		},
 	});

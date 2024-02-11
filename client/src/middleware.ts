@@ -13,7 +13,7 @@ export default async function middleware(req: NextRequest) {
 	if (currentPath.startsWith('/dashboard')) {
 		if (!isAuthenticated) return NextResponse.redirect(new URL('/signin', req.url));
 	}
-	
+
 	return NextResponse.next();
 }
 

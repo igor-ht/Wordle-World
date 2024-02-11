@@ -3,7 +3,7 @@ import { signOut, useSession } from 'next-auth/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { GameSettingsType } from '../state/reducers';
 
-type GameStatsType = { state: boolean; chances: number; word: string; gameSettings: GameSettingsType };
+type GameStatsType = { state: boolean; chances: number; word: string; currentGuess: string; gameSettings: GameSettingsType };
 
 const useUserHandlers = () => {
 	const axiosAuth = useAxiosAuth();
@@ -25,11 +25,16 @@ const useUserHandlers = () => {
 		mutationFn: handleUserEndGameMutation,
 		cacheTime: 1000 * 60 * 60,
 		retry: 3,
-		onSuccess: async () => {
-			await queryClient.invalidateQueries({ queryKey: ['dashboardData'] });
+		onMutate: async () => {
+			queryClient.cancelQueries(['dashboardData']);
+			const previousData = queryClient.getQueryData(['dashboardData']);
+			return { previousData };
 		},
 		onError: async () => {
 			await signOut({ callbackUrl: '/signin', redirect: true });
+		},
+		onSettled: async () => {
+			queryClient.invalidateQueries(['dashboardData']);
 		},
 	});
 

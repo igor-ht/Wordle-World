@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { comparePassword } from '../../../utils/hashing';
+import { comparePassword, handleHashing } from '../../../utils/hashing';
 import { generateAccessToken, generateRefreshToken } from '../../../utils/jwt';
 import { prisma } from '../../../model/clientDB';
 import { accessTokenSecret, encryptionKey, refreshTokenSecret } from '../../serverConfig';
@@ -20,27 +20,16 @@ export async function checkUserInDB(email: string) {
 export async function handleSignUp(req: Request, res: Response) {
 	try {
 		await UserDB().handleUserInfoSignUp(req.body);
+		const hanshedPassword = await handleHashing(req.body.password);
 		const newUser = {
 			name: req.body.name as string,
 			email: req.body.email as string,
-			password: req.body.password as string,
+			password: hanshedPassword as string,
 			points: 0,
 		};
 		const registeredUser = await UserDB().create(newUser);
 		if (!registeredUser) throw 'We had a problem with your registration. Try again later.';
-		const { id, name, email } = registeredUser;
-		const accessToken = await generateAccessToken({ id, name, email }, accessTokenSecret);
-		const refreshToken = await generateRefreshToken({ id, name, email }, refreshTokenSecret);
-		const currentUser = {
-			name: name,
-			email: email,
-			password: req.body.password as string,
-			accessToken: accessToken,
-			refreshToken: refreshToken,
-			points: registeredUser.points,
-		};
-		const updatedUser = await UserDB().updateGeneralInfo(id, currentUser);
-		res.status(200).send(updatedUser);
+		res.status(200).send('User registered successfully.');
 	} catch (error) {
 		if (error === 'Name already registered.' || error === 'Email already registered.') return res.status(401).send(error);
 		return res.status(400).send(error);

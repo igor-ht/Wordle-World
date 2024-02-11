@@ -142,6 +142,7 @@ const GameApi: GameApiType = () => {
 				state: result === 'victory' ? true : false,
 				chances: gameState.guessNumber,
 				word: gameState.word,
+				currentGuess: gameState.currentGuess,
 				gameSettings: gameSettings.current,
 			};
 			userHandlers.handleUserEndGame(gameStats);

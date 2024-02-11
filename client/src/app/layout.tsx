@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 	category: 'game',
 	metadataBase: new URL(BASE_URL),
 	icons: {
-		icon: '/wordle-icon.svg',
+		icon: '/favicon.ico',
 	},
 	robots: {
 		index: true,
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 	},
 };
 
-export default function RootLayout({ children, session }: { children: React.ReactNode; session: Session }) {
+export default function RootLayout({ children, session }: { children: React.ReactNode; session: Session | null | undefined }) {
 	return (
 		<html
 			lang="en"
