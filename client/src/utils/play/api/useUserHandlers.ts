@@ -25,9 +25,17 @@ const useUserHandlers = () => {
 		mutationFn: handleUserEndGameMutation,
 		cacheTime: 1000 * 60 * 60,
 		retry: 3,
-		onMutate: async () => {
+		onMutate: async (data) => {
 			queryClient.cancelQueries(['dashboardData']);
 			const previousData = queryClient.getQueryData(['dashboardData']);
+			if (previousData && data.state)
+				queryClient.setQueryData(['dashboardData'], (old: any) => ({
+					...old,
+					userStats: {
+						discoveredWords: [...old.userStats.discoveredWords, data.currentGuess.toLowerCase()],
+					},
+				}));
+
 			return { previousData };
 		},
 		onError: async () => {
