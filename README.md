@@ -22,7 +22,12 @@ For styling, I worked with **SCSS** and a _"7-1"_ personalized architecture that
 
 ## Features
 
-_In construction._
+- More than 10.000 words to guess.
+- Session authentication and accessToken rotation.
+- OAuth with Google.
+- User can keep track in its dashboard of the points and words they have guessed right.
+- Ranking system based on the user's points.
+- Guest can play with a limit of 3 games a day.
 
 ## Live App
 
